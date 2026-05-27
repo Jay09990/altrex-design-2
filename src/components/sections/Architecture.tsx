@@ -44,6 +44,8 @@ import {
 
 import { Badge } from "../ui/badge";
 
+import { gsap } from "gsap"
+
 /* ─── Color Tokens ───────────────────────────────────────────────────────── */
 
 const C = {
@@ -259,25 +261,33 @@ function ItemNode({ data }: NodeProps<any>) {
 
   return (
     <div
-      className="flex min-w-[180px] items-center gap-2.5 rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 px-3.5 py-2.5 transition-all duration-200"
+      className="flex min-w-[155px] items-center gap-2.5 rounded-xl bg-[#0c0c0c] px-3 py-2.5 transition-all duration-200"
       style={{
         border: `1px solid ${color}28`,
-        boxShadow: `0 2px 12px rgba(0,0,0,0.06), 0 0 0 1px ${color}08`,
+        boxShadow: `0 0 0 1px ${color}06, 0 4px 16px rgba(0,0,0,0.3), 0 0 10px ${color}10`,
       }}
     >
       <div
-        className="flex h-[34px] w-[34px] shrink-0 items-center justify-center rounded-[10px]"
+        className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-lg"
         style={{
-          background: `${color}12`,
+          background: `${color}10`,
           border: `1px solid ${color}22`,
         }}
       >
-        {Icon && <Icon size={14} color={color} strokeWidth={1.8} />}
+        {Icon && <Icon size={13} color={color} strokeWidth={1.8} />}
       </div>
 
-      <span className="text-xs font-semibold text-[var(--text-primary)]">
-        {data.label}
-      </span>
+      <div className="flex min-w-0 flex-col gap-[3px]">
+        <span className="text-xs font-semibold leading-none text-[var(--text-primary)]">
+          {data.label}
+        </span>
+        <span
+          className="font-mono text-[7px] leading-none uppercase tracking-widest"
+          style={{ color: `${color}65` }}
+        >
+          ◉ STATUS:ACTIVE
+        </span>
+      </div>
 
       <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
 
@@ -443,7 +453,7 @@ const NODES: Node[] = [
       y: 60,
     },
     data: {
-      title: "WV Platform",
+      title: "ALTREX PLATFORM",
       color: C.violet,
       items: platform,
       width: 310,
@@ -455,7 +465,7 @@ const NODES: Node[] = [
     id: `hosting-${i}`,
     type: "item" as const,
     position: {
-      x: 1370,
+      x: 1295,
       y: 160 + i * 150,
     },
     data: {
@@ -468,7 +478,7 @@ const NODES: Node[] = [
     id: "sap",
     type: "item" as const,
     position: {
-      x: 950,
+      x: 880,
       y: 595,
     },
     data: {
@@ -482,7 +492,7 @@ const NODES: Node[] = [
     id: "erp",
     type: "item" as const,
     position: {
-      x: 1070,
+      x: 1000,
       y: 595,
     },
     data: {
@@ -496,7 +506,7 @@ const NODES: Node[] = [
     id: "crm",
     type: "item" as const,
     position: {
-      x: 1190,
+      x: 1120,
       y: 595,
     },
     data: {
@@ -666,18 +676,26 @@ function LayerLabels() {
 
 function LivePulse() {
   return (
-    <div
-      className="pointer-events-none absolute bottom-5 left-5 z-10 flex items-center gap-2 rounded-full border border-emerald-400/20 bg-black/30 px-3 py-1.5 shadow-sm"
-    >
-      <span className="relative flex h-2 w-2">
-        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-
-        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-      </span>
-
-      <span className="text-[10px] font-semibold text-emerald-700">
-        Live Data Flow
-      </span>
+    <div className="pointer-events-none absolute bottom-4 left-4 z-10 flex flex-col gap-1.5 rounded-lg border border-white/[0.08] bg-[#0a0a0a]/95 px-3.5 py-2.5 shadow-lg backdrop-blur-sm">
+      <div className="flex items-center gap-2">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        </span>
+        <span className="font-mono text-[9px] uppercase tracking-widest text-emerald-400">
+          STREAM ACTIVE
+        </span>
+      </div>
+      <div className="flex flex-col gap-[3px] border-t border-white/[0.06] pt-1.5">
+        <span className="font-mono text-[8px] text-[var(--text-muted)]">
+          <span className="text-emerald-500/50">▸</span> PKT/S{" "}
+          <span className="text-white/35">4.2k</span>
+        </span>
+        <span className="font-mono text-[8px] text-[var(--text-muted)]">
+          <span className="text-emerald-500/50">▸</span> LATENCY{" "}
+          <span className="text-white/35">2ms</span>
+        </span>
+      </div>
     </div>
   );
 }
@@ -720,15 +738,42 @@ const Architecture = () => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const grid = document.querySelector('.bg-grid') as HTMLElement | null;
+        if (!grid) return;
+        if (entry.isIntersecting) {
+          gsap.to(grid, {
+            '--grid-opacity': 0.08,
+            duration: 0.8,
+            ease: 'power2.out',
+          });
+        } else {
+          gsap.to(grid, {
+            '--grid-opacity': 0.03,
+            duration: 0.6,
+            ease: 'power2.out',
+          });
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
+
+
   return (
     <section
       ref={sectionRef}
       className="relative overflow-hidden bg-transparent py-28"
     >
-      {/* Background glows */}
-      <div className="pointer-events-none absolute inset-0 -z-10">
-      </div>
-
       <div className="mx-auto max-w-[1650px] px-6">
         {/* Header */}
         <motion.div
@@ -751,10 +796,11 @@ const Architecture = () => {
             </Badge>
           </motion.div>
 
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
-            Built for Distributed{" "}
-            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
-              Global Infrastructure
+
+          <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-[var(--text-primary)] sm:text-5xl">
+            BUILT FOR DISTRIBUTED{" "}
+            <span className="bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)] bg-clip-text text-transparent">
+              GLOBAL INFRASTRUCTURE
             </span>
           </h2>
 
@@ -767,16 +813,74 @@ const Architecture = () => {
         {/* Flow canvas */}
         <div
           ref={canvasRef}
-          className="relative mt-20 overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/70"
+          className="relative mt-16 overflow-hidden rounded-xl bg-[#080808]"
           style={{
-            height: 820,
+            height: 883,
+            border: '1px solid rgba(139,92,246,0.14)',
             boxShadow:
-              "0 0 0 1px rgba(139,92,246,0.06), 0 8px 48px rgba(139,92,246,0.08), 0 2px 16px rgba(0,0,0,0.04)",
+              '0 0 0 1px rgba(34,197,94,0.04), 0 8px 60px rgba(0,0,0,0.6), 0 0 50px rgba(139,92,246,0.08)',
           }}
         >
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px bg-gradient-to-r from-transparent via-violet-400/50 to-transparent" />
+          {/* Terminal chrome bar */}
+          <div className="border-b border-white/[0.07] bg-[#0d0d0d]">
+            {/* Title row */}
+            <div className="flex items-center justify-between px-5 py-2">
+              <div className="flex items-center gap-3">
+                <div className="flex gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+                </div>
+                <div className="h-3 w-px bg-white/[0.08]" />
+                <span className="font-mono text-[10px] text-[var(--text-muted)]">
+                  altrex@arch:~${" "}
+                  <span className="text-[var(--accent-violet)]">./run_topology</span>
+                  {" "}--env=prod --realtime
+                </span>
+              </div>
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-[9px] text-[var(--text-muted)]">
+                  NODES <span className="text-[var(--accent-violet)]">14</span>
+                </span>
+                <span className="font-mono text-[9px] text-[var(--text-muted)]">
+                  EDGES <span className="text-[var(--accent-fuchsia)]">11</span>
+                </span>
+                <div className="h-3 w-px bg-white/[0.08]" />
+                <div className="flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--data-green)]" />
+                  <span className="font-mono text-[9px] tracking-widest text-[var(--data-green)] uppercase">
+                    LIVE
+                  </span>
+                </div>
+              </div>
+            </div>
+            {/* Status row */}
+            <div className="flex items-center gap-5 border-t border-white/[0.05] bg-black/40 px-5 py-[5px]">
+              <span className="font-mono text-[8px] text-[var(--text-muted)]">
+                <span className="text-[var(--accent-violet)]">▶</span> TOPOLOGY_ACTIVE
+              </span>
+              <span className="font-mono text-[8px] text-[var(--text-muted)]">
+                PROTO: <span className="text-[var(--data-green)]">MQTT · OPC-UA · REST</span>
+              </span>
+              <span className="font-mono text-[8px] text-[var(--text-muted)]">
+                SEC: <span className="text-[var(--data-green)]">TLS 1.3</span>
+              </span>
+              <span className="font-mono text-[8px] text-[var(--text-muted)]">
+                UPTIME: <span className="text-white/35">99.97%</span>
+              </span>
+            </div>
+          </div>
 
-          <LayerLabels />
+          <div className="pointer-events-none absolute inset-x-0 top-[63px] z-10 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent" />
+
+          {/* CRT scanline overlay */}
+          <div
+            className="pointer-events-none absolute inset-0 z-[5]"
+            style={{
+              background:
+                'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px)',
+            }}
+          />
 
           <LivePulse />
 
