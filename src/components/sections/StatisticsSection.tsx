@@ -80,7 +80,7 @@ const fadeUpVariants: Variants = {
 
 const StatisticsSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gray-950 py-28">
+    <section className="relative overflow-hidden bg-transparent py-28">
       <style>{`
         @keyframes gradient-sweep {
           0%   { background-position: 0% 50%; }
@@ -100,6 +100,7 @@ const StatisticsSection = () => {
           background-size: 300% 300%;
 
           animation: gradient-sweep 10s ease infinite;
+          opacity: 0.42;
         }
 
         @keyframes fade-up {
@@ -132,7 +133,6 @@ const StatisticsSection = () => {
           duration: 8,
           repeat: Infinity,
         }}
-        className="absolute left-0 top-0 -z-10 h-[500px] w-[500px] rounded-full bg-violet-900/30 blur-3xl"
       />
 
       <motion.div
@@ -144,7 +144,6 @@ const StatisticsSection = () => {
           duration: 10,
           repeat: Infinity,
         }}
-        className="absolute bottom-0 right-0 -z-10 h-[400px] w-[400px] rounded-full bg-fuchsia-900/20 blur-3xl"
       />
 
       <motion.div
@@ -168,7 +167,7 @@ const StatisticsSection = () => {
 
             <motion.h2
               variants={fadeUpVariants}
-              className="mt-6 max-w-xl text-4xl font-bold tracking-tight text-white sm:text-5xl"
+            className="mt-6 max-w-xl text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
             >
               Realtime Infrastructure{" "}
 
@@ -179,7 +178,7 @@ const StatisticsSection = () => {
 
             <motion.p
               variants={fadeUpVariants}
-              className="mt-4 max-w-lg text-lg text-gray-400"
+              className="mt-4 max-w-lg text-lg text-[var(--text-secondary)]"
             >
               High-performance infrastructure optimized for modern realtime
               messaging, IoT communication, and distributed systems.
@@ -204,11 +203,11 @@ const StatisticsSection = () => {
             </span>
 
             <div>
-              <p className="text-2xl font-bold text-white">
+              <p className="text-2xl font-bold text-[var(--text-primary)]">
                 1.2M/s
               </p>
 
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-[var(--text-muted)]">
                 Live throughput
               </p>
             </div>
@@ -249,11 +248,11 @@ const StatisticsSection = () => {
                   {item.value}
                 </p>
 
-                <p className="mt-3 text-lg font-semibold text-gray-300">
+                <p className="mt-3 text-lg font-semibold text-[var(--text-primary)]">
                   {item.label}
                 </p>
 
-                <p className="mt-2 text-sm text-gray-500">
+                <p className="mt-2 text-sm text-[var(--text-muted)]">
                   {item.description}
                 </p>
               </motion.div>
@@ -286,14 +285,14 @@ const StatisticsSection = () => {
                     scale: 1.08,
                     rotate: 4,
                   }}
-                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 text-gray-400"
+                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 text-[var(--text-muted)]"
                 >
                   <Icon className="h-4.5 w-4.5" />
                 </motion.div>
 
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="text-3xl font-bold text-white">
+                    <p className="text-3xl font-bold text-[var(--text-primary)]">
                       {item.value}
                     </p>
 
@@ -303,11 +302,11 @@ const StatisticsSection = () => {
                     </div>
                   </div>
 
-                  <p className="mt-1 text-sm font-medium text-gray-400">
+                  <p className="mt-1 text-sm font-medium text-[var(--text-muted)]">
                     {item.label}
                   </p>
 
-                  <p className="mt-1 text-xs text-gray-600">
+                  <p className="mt-1 text-xs text-[var(--text-secondary)]">
                     {item.description}
                   </p>
                 </div>
@@ -332,11 +331,11 @@ const StatisticsSection = () => {
               Live Realtime Analytics
             </div>
 
-            <h3 className="mt-6 text-3xl font-bold text-white">
+            <h3 className="mt-6 text-3xl font-bold text-[var(--text-primary)]">
               Monitor Infrastructure Performance in Realtime
             </h3>
 
-            <p className="mt-4 text-base leading-8 text-gray-400">
+            <p className="mt-4 text-base leading-8 text-[var(--text-secondary)]">
               Gain complete visibility into messaging traffic, connected
               devices, and distributed infrastructure through powerful realtime
               analytics.
@@ -364,11 +363,11 @@ const StatisticsSection = () => {
                   }}
                   className="rounded-2xl border border-white/5 bg-white/5 p-5"
                 >
-                  <p className="text-3xl font-bold text-white">
+                  <p className="text-3xl font-bold text-[var(--text-primary)]">
                     {m.value}
                   </p>
 
-                  <p className="mt-1 text-sm text-gray-400">
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">
                     {m.label}
                   </p>
                 </motion.div>
@@ -387,7 +386,7 @@ const StatisticsSection = () => {
             className="overflow-hidden rounded-2xl border border-white/5 bg-black/30 p-6"
           >
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-400">
+              <p className="text-sm font-medium text-[var(--text-muted)]">
                 Throughput Growth
               </p>
 
@@ -419,7 +418,7 @@ const StatisticsSection = () => {
             </div>
 
             <div className="mt-6 flex items-center justify-between">
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-[var(--text-muted)]">
                 Jan — Dec 2024
               </p>
 

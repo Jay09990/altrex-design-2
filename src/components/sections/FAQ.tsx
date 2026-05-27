@@ -75,20 +75,7 @@ const fadeUpVariants: Variants = {
 
 const FAQ = () => {
   return (
-    <section className="relative overflow-hidden bg-white py-28">
-      {/* Ambient glow */}
-      <motion.div
-        animate={{
-          opacity: [0.2, 0.35, 0.2],
-          scale: [1, 1.08, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-        }}
-        className="absolute left-0 top-0 -z-10 h-[350px] w-[350px] rounded-full bg-violet-100/50 blur-3xl"
-      />
-
+    <section className="relative overflow-hidden bg-transparent py-28">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -105,7 +92,7 @@ const FAQ = () => {
             <motion.div variants={fadeUpVariants}>
               <Badge
                 variant="secondary"
-                className="border border-violet-200 bg-violet-50 p-4 text-sm font-medium text-violet-700"
+              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-200"
               >
                 FAQ
               </Badge>
@@ -113,7 +100,7 @@ const FAQ = () => {
 
             <motion.h2
               variants={fadeUpVariants}
-              className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+              className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
             >
               Frequently{" "}
 
@@ -124,7 +111,7 @@ const FAQ = () => {
 
             <motion.p
               variants={fadeUpVariants}
-              className="mt-5 text-lg leading-8 text-gray-600"
+            className="mt-5 text-lg leading-8 text-[var(--text-secondary)]"
             >
               Can't find what you're looking for? Reach out to our team and
               we'll get back to you within one business day.
@@ -137,7 +124,7 @@ const FAQ = () => {
                 scale: 0.98,
               }}
               href="mailto:support@altrex.dev"
-              className="group mt-8 inline-flex items-center gap-3 rounded-2xl border border-gray-200 bg-white px-6 py-4 text-sm font-semibold text-gray-900 shadow-sm transition-all hover:border-violet-300 hover:shadow-md"
+              className="group mt-8 inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-[var(--bg-surface)]/70 px-6 py-4 text-sm font-semibold text-[var(--text-primary)] shadow-sm transition-all hover:border-violet-400/30 hover:shadow-md"
             >
               <motion.div
                 whileHover={{
@@ -150,11 +137,11 @@ const FAQ = () => {
               </motion.div>
 
               <div>
-                <span className="block text-gray-900 transition-colors group-hover:text-violet-700">
+                <span className="block text-[var(--text-primary)] transition-colors group-hover:text-violet-300">
                   Still have questions?
                 </span>
 
-                <span className="block text-xs font-normal text-gray-500">
+                <span className="block text-xs font-normal text-[var(--text-secondary)]">
                   support@altrex.dev
                 </span>
               </div>
@@ -167,7 +154,7 @@ const FAQ = () => {
                 scale: 1.05,
                 rotate: 4,
               }}
-              className="mt-12 hidden h-20 w-20 items-center justify-center rounded-3xl bg-violet-50 lg:flex"
+              className="mt-12 hidden h-20 w-20 items-center justify-center rounded-3xl bg-violet-500/10 lg:flex"
             >
               <MessageCircleQuestion className="h-10 w-10 text-violet-400" />
             </motion.div>
@@ -201,9 +188,9 @@ const FAQ = () => {
                 >
                   <AccordionItem
                     value={`item-${index}`}
-                    className="border-b border-gray-100 py-1"
+                    className="border-b border-white/10 py-1"
                   >
-                    <AccordionTrigger className="py-6 text-left text-lg font-semibold text-gray-900">
+                    <AccordionTrigger className="py-6 text-left text-lg font-semibold text-[var(--text-primary)]">
                       <div className="flex w-full items-center justify-between gap-4 pr-1">
                         <span>{faq.question}</span>
 
@@ -211,7 +198,7 @@ const FAQ = () => {
                           whileHover={{
                             scale: 1.08,
                           }}
-                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-gray-200 bg-gray-50 text-gray-500 transition-all group-data-[state=open]/accordion-trigger:border-violet-300 group-data-[state=open]/accordion-trigger:bg-violet-50 group-data-[state=open]/accordion-trigger:text-violet-600"
+                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/20 text-[var(--text-secondary)] transition-all group-data-[state=open]/accordion-trigger:border-violet-400/30 group-data-[state=open]/accordion-trigger:bg-violet-500/10 group-data-[state=open]/accordion-trigger:text-violet-300"
                         >
                           <span className="select-none text-lg font-light leading-none group-data-[state=open]/accordion-trigger:hidden">
                             +
@@ -224,7 +211,7 @@ const FAQ = () => {
                       </div>
                     </AccordionTrigger>
 
-                    <AccordionContent className="pb-6 text-base leading-8 text-gray-600">
+                    <AccordionContent className="pb-6 text-base leading-8 text-[var(--text-secondary)]">
                       <motion.div
                         initial={{
                           opacity: 0,

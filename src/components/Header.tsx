@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
+import { HOME_CHAPTERS } from "@/data/homeChapters";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
-    useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
@@ -15,18 +19,18 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "about"},
-    { name: "Products", href: "product" },
-    { name: "Solutions", href: "solutions" },
-    { name: "Pricing", href: "pricing" },
-    { name: "Company", href: "company" },
+    { name: "About", href: "/about" },
+    { name: "Products", href: "/product" },
+    { name: "Solutions", href: "/solutions" },
+    { name: "Pricing", href: "/pricing" },
+    { name: "Company", href: "/company" },
   ];
 
   return (
     <header
   className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
     isScrolled
-      ? "border-b border-black/5 bg-white/70 shadow-[0_4px_30px_rgba(0,0,0,0.03)] backdrop-blur-xl"
+      ? "border-b border-white/10 bg-[var(--bg-surface)]/80 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
       : "bg-transparent"
   }`}
 >
@@ -39,20 +43,20 @@ const Header = () => {
             <h1 className="text-md font-bold">
               Altrex
             </h1>
-            <p className="text-xs text-gray-500">Altrex Digital Platforms Pvt Ltd</p>
+            <p className="text-xs text-[var(--text-muted)]">
+              Altrex Digital Platforms Pvt Ltd
+            </p>
           </div>
         </div>
 
-        {/* Desktop Nav */}
         <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((item) => (
-            <a key={item.name} href={item.href} className="text-sm font-medium">
+            <Link key={item.name} to={item.href} className="text-sm font-medium">
               {item.name}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        {/* Desktop CTA */}
         <div className="hidden items-center gap-4 lg:flex">
           <Button size="lg" variant="ghost">
             Sign In
@@ -76,24 +80,53 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {mobileMenu && (
-        <div className="border-t border-gray-200 bg-white lg:hidden">
+        <div className="border-t border-white/10 bg-[var(--bg-surface)] lg:hidden">
           <div className="space-y-4 px-6 py-6">
-            {navLinks.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="block text-sm font-medium"
-              >
-                {item.name}
-              </a>
-            ))}
+            <div className="space-y-4">
+              {navLinks.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="block text-sm font-medium"
+                  onClick={() => setMobileMenu(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
 
-            <div className="flex flex-col gap-3 pt-4">
-              <Button variant="ghost">
-                Sign In
-              </Button>
+              {isHome && (
+                <div className="border-t border-white/10 pt-4">
+                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">
+                    Chapters
+                  </p>
 
-              <Button>Get Started</Button>
+                  <div className="space-y-3">
+                    {HOME_CHAPTERS.map((chapter) => (
+                      <button
+                        key={chapter.id}
+                        type="button"
+                        onClick={() => {
+                          const target = document.getElementById(chapter.id);
+                          target?.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                          setMobileMenu(false);
+                        }}
+                        className="block text-left text-sm font-medium"
+                      >
+                        {chapter.number} {chapter.name}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              <div className="flex flex-col gap-3 pt-4">
+                <Button variant="ghost">Sign In</Button>
+
+                <Button>Get Started</Button>
+              </div>
             </div>
           </div>
         </div>

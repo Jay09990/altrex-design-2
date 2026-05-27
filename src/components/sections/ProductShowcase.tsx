@@ -2,7 +2,6 @@ import {
   Activity,
   ArrowUpRight,
   Bell,
-  Cpu,
   Globe,
   LayoutDashboard,
   Radio,
@@ -57,13 +56,7 @@ const fadeUpVariants: Variants = {
 
 const ProductShowcase = () => {
   return (
-    <section className="relative overflow-hidden bg-white py-28">
-      {/* Background blobs */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute left-1/2 top-0 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-100/50 blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-[350px] w-[350px] rounded-full bg-fuchsia-100/40 blur-3xl" />
-      </div>
-
+    <section className="relative overflow-hidden bg-transparent py-28">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -76,7 +69,7 @@ const ProductShowcase = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-violet-200 bg-violet-50 p-4 text-sm font-medium text-violet-700"
+              className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               Product Showcase
             </Badge>
@@ -84,7 +77,7 @@ const ProductShowcase = () => {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Monitor Everything
             <span className="block bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
@@ -94,7 +87,7 @@ const ProductShowcase = () => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-6 text-lg leading-8 text-gray-600"
+            className="mt-6 text-lg leading-8 text-[var(--text-secondary)]"
           >
             Gain complete visibility into messaging infrastructure, connected
             devices, and realtime performance through a modern analytics
@@ -108,7 +101,7 @@ const ProductShowcase = () => {
           className="relative mt-20"
         >
           {/* Ambient glow */}
-          <div className="absolute -inset-4 rounded-[44px] bg-gradient-to-br from-violet-200/40 via-fuchsia-100/30 to-cyan-100/30 blur-3xl" />
+          <div className="absolute -inset-4 rounded-[44px] bg-gradient-to-br from-violet-200/40 via-fuchsia-100/30 to-cyan-100/30" />
 
           {/* Browser Chrome */}
           <motion.div
@@ -118,29 +111,29 @@ const ProductShowcase = () => {
             transition={{
               duration: 0.25,
             }}
-            className="relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.12)]"
+            className="relative overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/85 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.45)]"
           >
             {/* Browser Topbar */}
-            <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-5 py-3">
+            <div className="flex items-center justify-between border-b border-white/10 bg-black/20 px-5 py-3">
               <div className="flex items-center gap-2">
                 <div className="h-3 w-3 rounded-full bg-red-400" />
                 <div className="h-3 w-3 rounded-full bg-yellow-400" />
                 <div className="h-3 w-3 rounded-full bg-green-400" />
 
-                <div className="ml-4 flex items-center gap-2 rounded-lg bg-white border border-gray-200 px-4 py-1 text-xs text-gray-500">
-                  <span className="h-2 w-2 rounded-full bg-gray-300" />
+                <div className="ml-4 flex items-center gap-2 rounded-lg border border-white/10 bg-black/20 px-4 py-1 text-xs text-[var(--text-secondary)]">
+                  <span className="h-2 w-2 rounded-full bg-[var(--text-muted)]" />
                   dashboard.altrex.dev
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 rounded-lg border border-green-200 bg-green-50 px-3 py-1">
+              <div className="flex items-center gap-2 rounded-lg border border-emerald-400/20 bg-emerald-500/10 px-3 py-1">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
 
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
                 </span>
 
-                <span className="text-xs font-medium text-green-700">
+                <span className="text-xs font-medium text-emerald-300">
                   All Systems Operational
                 </span>
               </div>
@@ -149,7 +142,7 @@ const ProductShowcase = () => {
             {/* Dashboard Layout: Sidebar + Main */}
             <div className="flex h-[600px] overflow-hidden">
               {/* Sidebar */}
-              <div className="flex w-16 flex-shrink-0 flex-col items-center gap-6 border-r border-gray-100 bg-gray-50 py-5">
+              <div className="flex w-16 flex-shrink-0 flex-col items-center gap-6 border-r border-white/10 bg-black/20 py-5">
                 {/* Logo */}
                 <motion.div
                   whileHover={{
@@ -178,8 +171,8 @@ const ProductShowcase = () => {
                       }}
                       className={`flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 ${
                         active
-                          ? "bg-violet-100 text-violet-600 shadow-sm"
-                          : "text-gray-400 hover:text-gray-600"
+                          ? "border border-violet-400/20 bg-violet-500/15 text-violet-200 shadow-[0_0_20px_rgba(139,92,246,0.15)]"
+                          : "border border-white/10 bg-white/5 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -189,21 +182,21 @@ const ProductShowcase = () => {
               </div>
 
               {/* Main Content */}
-              <div className="flex flex-1 flex-col overflow-hidden bg-gray-50/50">
+              <div className="flex flex-1 flex-col overflow-hidden bg-black/10">
                 {/* Inner Topbar */}
-                <div className="flex flex-shrink-0 items-center justify-between border-b border-gray-100 bg-white px-6 py-3">
+                <div className="flex flex-shrink-0 items-center justify-between border-b border-white/10 bg-black/20 px-6 py-3">
                   <div>
-                    <p className="text-[11px] text-gray-400">
+                    <p className="text-[11px] text-[var(--text-muted)]">
                       Welcome back
                     </p>
 
-                    <h3 className="text-sm font-semibold text-gray-900">
+                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                       Altrex Dashboard
                     </h3>
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-500">
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-black/20 text-[var(--text-secondary)]">
                       <Bell className="h-4 w-4" />
 
                       <div className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-violet-500" />
@@ -229,8 +222,8 @@ const ProductShowcase = () => {
                           change: "+12%",
                           iconBg: "from-violet-600 to-violet-500",
                           iconShadow: "shadow-violet-200",
-                          cardBg: "bg-violet-50",
-                          border: "border-violet-100",
+                          cardBg: "bg-[var(--bg-surface)]/80",
+                          border: "border-white/10",
                           blob: "bg-violet-400",
                         },
                         {
@@ -240,8 +233,8 @@ const ProductShowcase = () => {
                           change: "+8%",
                           iconBg: "from-fuchsia-600 to-fuchsia-500",
                           iconShadow: "shadow-fuchsia-200",
-                          cardBg: "bg-fuchsia-50",
-                          border: "border-fuchsia-100",
+                          cardBg: "bg-[var(--bg-surface)]/80",
+                          border: "border-white/10",
                           blob: "bg-fuchsia-400",
                         },
                         {
@@ -251,8 +244,8 @@ const ProductShowcase = () => {
                           change: "+24%",
                           iconBg: "from-cyan-600 to-cyan-500",
                           iconShadow: "shadow-cyan-200",
-                          cardBg: "bg-cyan-50",
-                          border: "border-cyan-100",
+                          cardBg: "bg-[var(--bg-surface)]/80",
+                          border: "border-white/10",
                           blob: "bg-cyan-400",
                         },
                       ].map(
@@ -289,7 +282,7 @@ const ProductShowcase = () => {
 
                               <Badge
                                 variant="outline"
-                                className="bg-white text-green-700 font-semibold"
+                                className="border-emerald-400/20 bg-emerald-500/10 font-semibold text-emerald-300"
                               >
                                 {change}
 
@@ -297,16 +290,16 @@ const ProductShowcase = () => {
                               </Badge>
                             </div>
 
-                            <p className="mt-4 text-2xl font-bold text-gray-900">
+                            <p className="mt-4 text-2xl font-bold text-[var(--text-primary)]">
                               {value}
                             </p>
 
-                            <p className="mt-0.5 text-xs text-gray-500">
+                            <p className="mt-0.5 text-xs text-[var(--text-secondary)]">
                               {label}
                             </p>
 
                             <div
-                              className={`pointer-events-none absolute -bottom-5 -right-5 h-20 w-20 rounded-full ${blob} opacity-10 blur-2xl`}
+                              className={`pointer-events-none absolute -bottom-5 -right-5 h-20 w-20 rounded-full ${blob} opacity-10`}
                             />
                           </motion.div>
                         ),
@@ -321,27 +314,27 @@ const ProductShowcase = () => {
                       transition={{
                         duration: 0.25,
                       }}
-                      className="flex flex-1 flex-col rounded-xl border border-gray-200 bg-white p-5 shadow-sm"
+                      className="flex flex-1 flex-col rounded-xl border border-white/10 bg-black/20 p-5 shadow-sm"
                     >
                       <div className="flex items-center justify-between">
                         <div>
-                          <h4 className="text-sm font-semibold text-gray-900">
+                          <h4 className="text-sm font-semibold text-[var(--text-primary)]">
                             Message Throughput
                           </h4>
 
-                          <p className="mt-0.5 text-xs text-gray-500">
+                          <p className="mt-0.5 text-xs text-[var(--text-secondary)]">
                             Live infrastructure analytics
                           </p>
                         </div>
 
                         <div className="flex items-center gap-3">
-                          <div className="flex items-center gap-1.5 text-xs font-medium text-violet-600">
+                          <div className="flex items-center gap-1.5 text-xs font-medium text-violet-300">
                             <TrendingUp className="h-3 w-3" />
 
                             <span>+18% this week</span>
                           </div>
 
-                          <div className="rounded-lg border border-gray-200 bg-gray-50 px-3 py-1 text-xs text-gray-600">
+                          <div className="rounded-lg border border-white/10 bg-black/20 px-3 py-1 text-xs text-[var(--text-secondary)]">
                             24h
                           </div>
                         </div>
@@ -357,7 +350,7 @@ const ProductShowcase = () => {
                           {[0, 1, 2, 3].map((_, i) => (
                             <div
                               key={i}
-                              className="w-full border-t border-gray-100"
+                              className="w-full border-t border-white/5"
                             />
                           ))}
                         </div>
@@ -413,7 +406,7 @@ const ProductShowcase = () => {
                         </div>
 
                         {/* X-axis labels */}
-                        <div className="absolute bottom-0 flex w-full justify-between text-[9px] text-gray-400">
+                        <div className="absolute bottom-0 flex w-full justify-between text-[9px] text-[var(--text-muted)]">
                           {[
                             "00",
                             "02",

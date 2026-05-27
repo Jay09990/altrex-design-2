@@ -83,7 +83,7 @@ const fadeUpVariants: Variants = {
 
 const WhyChooseUs = () => {
   return (
-    <section className="relative overflow-hidden bg-gray-950 py-28">
+    <section className="relative overflow-hidden bg-transparent py-28">
       <style>{`
         @keyframes count-up {
           from { opacity: 0; transform: translateY(12px); }
@@ -116,10 +116,6 @@ const WhyChooseUs = () => {
       <div className="dot-grid absolute inset-0 -z-10" />
 
       {/* Ambient glows */}
-      <div className="absolute left-0 top-0 -z-10 h-[500px] w-[500px] rounded-full bg-violet-700/20 blur-3xl" />
-
-      <div className="absolute bottom-0 right-0 -z-10 h-[400px] w-[400px] rounded-full bg-fuchsia-700/15 blur-3xl" />
-
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -151,7 +147,7 @@ const WhyChooseUs = () => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-4 text-lg text-gray-400"
+            className="mt-4 text-lg text-[var(--text-secondary)]"
           >
             Everything you need to build scalable, secure, and enterprise-grade
             realtime applications without operational complexity.
@@ -173,15 +169,13 @@ const WhyChooseUs = () => {
             }}
             className="relative col-span-1 overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600 to-fuchsia-600 p-10 text-white shadow-2xl shadow-violet-900/40 lg:col-span-2"
           >
-            <div className="absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-
             <div className="relative z-10">
               <motion.div
                 whileHover={{
                   scale: 1.08,
                   rotate: 4,
                 }}
-                className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/10 backdrop-blur-xl"
+                className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/10"
               >
                 <Zap className="h-8 w-8 text-white" />
               </motion.div>
@@ -208,7 +202,7 @@ const WhyChooseUs = () => {
             transition={{
               duration: 0.25,
             }}
-            className="relative row-span-2 overflow-hidden rounded-3xl border border-violet-800/40 bg-gray-900/60 p-8 backdrop-blur-xl"
+            className="relative row-span-2 overflow-hidden rounded-3xl border border-violet-800/40 bg-gray-900/60 p-8"
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400">
               <span className="relative flex h-2 w-2">
@@ -266,7 +260,7 @@ const WhyChooseUs = () => {
                     {m.value}
                   </p>
 
-                  <p className="mt-1 text-sm text-gray-400">
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">
                     {m.label}
                   </p>
 
@@ -327,7 +321,7 @@ const WhyChooseUs = () => {
                   duration: 0.35,
                   delay: i * 0.08,
                 }}
-                className="group flex gap-4 rounded-2xl border border-white/5 bg-gray-900/50 p-6 backdrop-blur-sm transition-all duration-300 hover:border-violet-500/30 hover:bg-gray-900/70"
+                className="group flex gap-4 rounded-2xl border border-white/5 bg-gray-900/50 p-6 transition-all duration-300 hover:border-violet-500/30 hover:bg-gray-900/70"
               >
                 <motion.div
                   whileHover={{
@@ -344,7 +338,7 @@ const WhyChooseUs = () => {
                     {item.title}
                   </h3>
 
-                  <p className="mt-1.5 text-sm leading-6 text-gray-400">
+                  <p className="mt-1.5 text-sm leading-6 text-[var(--text-secondary)]">
                     {item.description}
                   </p>
                 </div>

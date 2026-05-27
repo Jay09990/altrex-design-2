@@ -200,7 +200,7 @@ const UseCases = () => {
   const ActiveIcon = activeCase.icon;
 
   return (
-    <section className="relative overflow-hidden bg-gray-50 py-28">
+    <section className="relative overflow-hidden bg-transparent py-28">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -221,7 +221,7 @@ const UseCases = () => {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Built for Modern{" "}
 
@@ -232,7 +232,7 @@ const UseCases = () => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-6 text-lg leading-8 text-gray-600"
+            className="mt-6 text-lg leading-8 text-[var(--text-secondary)]"
           >
             From industrial IoT to smart infrastructure, power scalable
             realtime applications across modern connected ecosystems.
@@ -260,7 +260,7 @@ const UseCases = () => {
                 className={`flex flex-shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all ${
                   active === i
                     ? "border-violet-600 bg-violet-600 text-white shadow-md"
-                    : "border-gray-200 bg-white text-gray-700 hover:border-violet-300"
+                    : "border-white/10 bg-[var(--bg-surface)]/70 text-[var(--text-secondary)] hover:border-violet-400/30"
                 }`}
               >
                 <Icon className="h-4 w-4" />
@@ -294,7 +294,7 @@ const UseCases = () => {
                   className={`flex items-center gap-3 rounded-2xl px-4 py-3.5 text-left text-sm font-medium transition-all duration-200 ${
                     active === i
                       ? "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-lg shadow-violet-200"
-                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      : "text-[var(--text-secondary)] hover:bg-white/5 hover:text-[var(--text-primary)]"
                   }`}
                 >
                   <motion.div
@@ -305,14 +305,14 @@ const UseCases = () => {
                     className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg ${
                       active === i
                         ? "bg-white/20"
-                        : "bg-gray-200"
+                        : "bg-white/10"
                     }`}
                   >
                     <Icon
                       className={`h-4 w-4 ${
                         active === i
                           ? "text-white"
-                          : "text-gray-600"
+                          : "text-[var(--text-muted)]"
                       }`}
                     />
                   </motion.div>
@@ -332,11 +332,9 @@ const UseCases = () => {
               transition={{
                 duration: 0.25,
               }}
-              className="relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-10 shadow-lg"
+                className="relative overflow-hidden rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 p-10 shadow-lg"
             >
               {/* Glow */}
-              <div className="absolute right-0 top-0 h-48 w-48 rounded-full bg-violet-100/50 blur-3xl" />
-
               <AnimatePresence mode="wait">
                 <motion.div
                   key={active}
@@ -375,11 +373,11 @@ const UseCases = () => {
                       {activeCase.metric}
                     </motion.div>
 
-                    <h3 className="mt-4 text-3xl font-bold text-gray-900">
+                    <h3 className="mt-4 text-3xl font-bold text-[var(--text-primary)]">
                       {activeCase.title}
                     </h3>
 
-                    <p className="mt-3 text-base leading-8 text-gray-600">
+                    <p className="mt-3 text-base leading-8 text-[var(--text-secondary)]">
                       {activeCase.description}
                     </p>
 
@@ -399,7 +397,7 @@ const UseCases = () => {
                           transition={{
                             delay: i * 0.08,
                           }}
-                          className="flex items-center gap-3 text-sm text-gray-700"
+                          className="flex items-center gap-3 text-sm text-[var(--text-secondary)]"
                         >
                           <div className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-100">
                             <div className="h-1.5 w-1.5 rounded-full bg-violet-600" />
@@ -431,7 +429,7 @@ const UseCases = () => {
                         whileTap={{
                           scale: 0.96,
                         }}
-                        className="rounded-xl border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 hover:border-violet-300 hover:text-violet-700 transition-colors"
+                        className="rounded-xl border border-white/10 bg-black/20 px-5 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors"
                       >
                         Book Demo
                       </motion.button>
@@ -446,7 +444,7 @@ const UseCases = () => {
         {/* Mobile Panel */}
         <motion.div
           variants={fadeUpVariants}
-          className="mt-6 rounded-3xl border border-gray-200 bg-white p-8 shadow-md lg:hidden"
+          className="mt-6 rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 p-8 shadow-md lg:hidden"
         >
           <motion.div
             whileHover={{
@@ -464,11 +462,11 @@ const UseCases = () => {
             {activeCase.metric}
           </div>
 
-          <h3 className="mt-4 text-2xl font-bold text-gray-900">
+          <h3 className="mt-4 text-2xl font-bold text-[var(--text-primary)]">
             {activeCase.title}
           </h3>
 
-          <p className="mt-3 text-sm leading-7 text-gray-600">
+          <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">
             {activeCase.description}
           </p>
 
@@ -487,7 +485,7 @@ const UseCases = () => {
                 transition={{
                   delay: i * 0.08,
                 }}
-                className="flex items-center gap-2 text-sm text-gray-700"
+                className="flex items-center gap-2 text-sm text-[var(--text-secondary)]"
               >
                 <div className="h-1.5 w-1.5 rounded-full bg-violet-600" />
 

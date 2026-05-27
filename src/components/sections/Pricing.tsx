@@ -86,7 +86,7 @@ const fadeUpVariants: Variants = {
 
 const Pricing = () => {
   return (
-    <section className="relative overflow-hidden bg-gray-50 py-28">
+    <section className="relative overflow-hidden bg-transparent py-28">
       <style>{`
         @keyframes shimmer {
           0%   { background-position: -200% center; }
@@ -97,7 +97,7 @@ const Pricing = () => {
           background: linear-gradient(
             90deg,
             rgba(109,40,217,0.08) 0%,
-            rgba(109,40,217,0.18) 40%,
+            rgba(109,40,217,0.22) 40%,
             rgba(109,40,217,0.08) 80%
           );
 
@@ -123,7 +123,6 @@ const Pricing = () => {
           duration: 8,
           repeat: Infinity,
         }}
-        className="absolute left-0 top-0 -z-10 h-[400px] w-[400px] rounded-full bg-violet-100/60 blur-3xl"
       />
 
       <motion.div
@@ -135,7 +134,6 @@ const Pricing = () => {
           duration: 10,
           repeat: Infinity,
         }}
-        className="absolute bottom-0 right-0 -z-10 h-[350px] w-[350px] rounded-full bg-fuchsia-100/40 blur-3xl"
       />
 
       <motion.div
@@ -150,7 +148,7 @@ const Pricing = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-violet-200 bg-violet-50 p-4 text-sm font-medium text-violet-700"
+              className="border border-violet-500/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-300"
             >
               Pricing
             </Badge>
@@ -158,7 +156,7 @@ const Pricing = () => {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Flexible Pricing for{" "}
 
@@ -169,19 +167,19 @@ const Pricing = () => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-4 text-lg text-gray-500"
+            className="mt-4 text-lg text-[var(--text-secondary)]"
           >
             Start free, scale as you grow. No hidden fees.
           </motion.p>
 
           {/* Monthly / Annual toggle */}
-          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-gray-200 bg-white p-1.5 shadow-sm">
-            <button className="rounded-full bg-gray-900 px-5 py-2 text-sm font-semibold text-white">
+          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-[var(--bg-surface)]/70 p-1.5 shadow-sm">
+            <button className="rounded-full bg-[var(--accent-violet)] px-5 py-2 text-sm font-semibold text-white">
               Monthly
             </button>
-            <button className="rounded-full px-5 py-2 text-sm font-medium text-gray-500 transition-colors hover:text-gray-900">
+            <button className="rounded-full px-5 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]">
               Annual
-              <span className="ml-1.5 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-bold text-green-600">
+              <span className="ml-1.5 rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-bold text-green-400">
                 –20%
               </span>
             </button>
@@ -201,10 +199,10 @@ const Pricing = () => {
               transition={{
                 duration: 0.25,
               }}
-              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-white p-8 transition-all duration-300 hover:-translate-y-1 ${
+              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-[var(--bg-surface)]/75 p-8 transition-all duration-300 hover:-translate-y-1 ${
                 plan.popular
-                  ? "border-violet-300 pro-glow-light"
-                  : "border-gray-200 hover:border-violet-200 hover:shadow-lg"
+                    ? "border-violet-400/40 pro-glow-light"
+                    : "border-white/10 hover:border-violet-400/30 hover:shadow-lg"
               }`}
             >
               {/* Popular badge */}
@@ -223,7 +221,7 @@ const Pricing = () => {
                   }}
                   className="absolute right-5 top-5"
                 >
-                  <div className="shimmer-badge rounded-full border border-violet-200 px-4 py-1.5 text-xs font-semibold text-violet-600">
+                  <div className="shimmer-badge rounded-full border border-violet-400/20 px-4 py-1.5 text-xs font-semibold text-violet-200">
                     Most Popular
                   </div>
                 </motion.div>
@@ -242,12 +240,12 @@ const Pricing = () => {
                 variants={fadeUpVariants}
                 className="mt-5 flex items-end gap-2"
               >
-                <span className="text-6xl font-bold text-gray-900">
+                <span className="text-6xl font-bold text-[var(--text-primary)]">
                   {plan.price}
                 </span>
 
                 {plan.price !== "Custom" && (
-                  <span className="mb-2 text-sm text-gray-400">
+                  <span className="mb-2 text-sm text-[var(--text-muted)]">
                     / month
                   </span>
                 )}
@@ -256,13 +254,13 @@ const Pricing = () => {
               {/* Description */}
               <motion.p
                 variants={fadeUpVariants}
-                className="mt-4 text-sm leading-7 text-gray-500"
+                className="mt-4 text-sm leading-7 text-[var(--text-secondary)]"
               >
                 {plan.description}
               </motion.p>
 
               {/* Divider */}
-              <div className="my-6 h-px bg-gray-100" />
+              <div className="my-6 h-px bg-white/5" />
 
               {/* Features */}
               <ul className="flex-1 space-y-3">
@@ -280,7 +278,7 @@ const Pricing = () => {
                     transition={{
                       delay: j * 0.05,
                     }}
-                    className="flex items-center gap-3 text-sm text-gray-700"
+                    className="flex items-center gap-3 text-sm text-[var(--text-secondary)]"
                   >
                     <motion.div
                       whileHover={{
@@ -289,15 +287,15 @@ const Pricing = () => {
                       }}
                       className={`flex h-5 w-5 items-center justify-center rounded-full ${
                         plan.popular
-                          ? "bg-violet-100"
-                          : "bg-gray-100"
+                          ? "bg-violet-500/15"
+                          : "bg-white/5"
                       }`}
                     >
                       <Check
                         className={`h-3 w-3 ${
                           plan.popular
-                            ? "text-violet-600"
-                            : "text-gray-500"
+                            ? "text-violet-300"
+                            : "text-[var(--text-muted)]"
                         }`}
                       />
                     </motion.div>
@@ -316,8 +314,8 @@ const Pricing = () => {
                   plan.popular
                     ? "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-md hover:opacity-90"
                     : plan.name === "Starter"
-                      ? "border border-gray-200 bg-white text-gray-900 hover:border-violet-300 hover:text-violet-700"
-                      : "border border-gray-200 bg-white text-gray-900 hover:border-violet-300 hover:text-violet-700"
+                      ? "border border-white/10 bg-[var(--bg-surface)]/70 text-[var(--text-primary)] hover:border-violet-400/30 hover:text-violet-200"
+                      : "border border-white/10 bg-[var(--bg-surface)]/70 text-[var(--text-primary)] hover:border-violet-400/30 hover:text-violet-200"
                 }`}
               >
                 {plan.price === "Custom"
@@ -331,7 +329,7 @@ const Pricing = () => {
         {/* Bottom note */}
         <motion.p
           variants={fadeUpVariants}
-          className="mt-8 text-center text-sm text-gray-400"
+          className="mt-8 text-center text-sm text-[var(--text-muted)]"
         >
           All plans include a 14-day free trial. No credit card required.
         </motion.p>

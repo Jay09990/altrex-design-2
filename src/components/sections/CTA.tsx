@@ -63,7 +63,7 @@ const fadeUpVariants: Variants = {
 
 const CTA = () => {
   return (
-    <section className="relative overflow-hidden bg-white py-28">
+    <section className="relative overflow-hidden bg-transparent py-32">
       <style>{`
         @keyframes cta-bg {
           0%   { background-position: 0% 50%; }
@@ -129,7 +129,6 @@ const CTA = () => {
               duration: 8,
               repeat: Infinity,
             }}
-            className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"
           />
 
           <motion.div
@@ -141,7 +140,6 @@ const CTA = () => {
               duration: 10,
               repeat: Infinity,
             }}
-            className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-fuchsia-500/20 blur-3xl"
           />
 
           <div className="relative z-10 mx-auto max-w-3xl">
@@ -214,7 +212,7 @@ const CTA = () => {
                 whileTap={{
                   scale: 0.97,
                 }}
-                className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/20"
               >
                 Book Demo
               </motion.button>
@@ -235,7 +233,7 @@ const CTA = () => {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-sm"
+                  className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-medium text-white"
                 >
                   <motion.div
                     whileHover={{

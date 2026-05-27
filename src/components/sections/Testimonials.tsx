@@ -68,9 +68,9 @@ const Testimonials = () => {
   const [featured, ...compact] = testimonials;
 
   return (
-    <section className="relative overflow-hidden bg-white py-28">
-      {/* Top violet stripe */}
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-violet-600 to-fuchsia-500" />
+    <section className="relative overflow-hidden bg-transparent py-28">
+      {/* Top accent stripe */}
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)]" />
 
       <motion.div
         variants={containerVariants}
@@ -84,7 +84,7 @@ const Testimonials = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-violet-200 bg-violet-50 p-4 text-sm font-medium text-violet-700"
+              className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               Testimonials
             </Badge>
@@ -92,11 +92,11 @@ const Testimonials = () => {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Trusted by Modern{" "}
 
-            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+            <span className="text-[var(--accent-violet)]">
               Engineering Teams
             </span>
           </motion.h2>
@@ -115,7 +115,7 @@ const Testimonials = () => {
             transition={{
               duration: 0.25,
             }}
-            className="relative flex-1 overflow-hidden rounded-3xl border border-gray-200 bg-white p-10 shadow-md lg:basis-3/5"
+            className="relative flex-1 overflow-hidden rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 p-10 shadow-md lg:basis-3/5"
           >
             {/* Giant quote mark */}
             <motion.div
@@ -149,7 +149,7 @@ const Testimonials = () => {
             {/* Review */}
             <motion.p
               variants={fadeUpVariants}
-              className="relative z-10 mt-6 text-xl leading-9 text-gray-700"
+              className="relative z-10 mt-6 text-xl leading-9 text-[var(--text-secondary)]"
             >
               &ldquo;{featured.review}&rdquo;
             </motion.p>
@@ -167,11 +167,11 @@ const Testimonials = () => {
               </motion.div>
 
               <div>
-                <h4 className="font-semibold text-gray-900">
+                <h4 className="font-semibold text-[var(--text-primary)]">
                   {featured.name}
                 </h4>
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[var(--text-muted)]">
                   {featured.role}
                 </p>
               </div>
@@ -190,7 +190,7 @@ const Testimonials = () => {
                 transition={{
                   duration: 0.25,
                 }}
-                className="group rounded-2xl border border-gray-200 bg-white p-7 shadow-sm transition-all duration-300 hover:border-violet-200 hover:shadow-md"
+                className="group rounded-2xl border border-white/10 bg-[var(--bg-surface)]/70 p-7 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-1">
@@ -218,7 +218,7 @@ const Testimonials = () => {
                   </motion.div>
                 </div>
 
-                <p className="mt-4 text-base leading-7 text-gray-600">
+                <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
                   &ldquo;{item.review}&rdquo;
                 </p>
 
@@ -234,11 +234,11 @@ const Testimonials = () => {
                   </motion.div>
 
                   <div>
-                    <h4 className="text-sm font-semibold text-gray-900">
+                    <h4 className="text-sm font-semibold text-[var(--text-primary)]">
                       {item.name}
                     </h4>
 
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-[var(--text-muted)]">
                       {item.role}
                     </p>
                   </div>
@@ -253,7 +253,7 @@ const Testimonials = () => {
           variants={fadeUpVariants}
           className="mt-16 text-center"
         >
-          <p className="text-sm font-medium text-gray-500">
+          <p className="text-sm font-medium text-[var(--text-muted)]">
             Trusted by 200+ teams worldwide
           </p>
 
@@ -277,7 +277,7 @@ const Testimonials = () => {
                   duration: 0.25,
                   delay: i * 0.06,
                 }}
-                className="rounded-xl border border-gray-200 bg-white px-6 py-2.5 text-sm font-semibold text-gray-400 shadow-sm"
+                className="rounded-xl border border-white/10 bg-black/20 px-6 py-2.5 text-sm font-semibold text-[var(--text-secondary)] shadow-sm"
               >
                 {co}
               </motion.div>

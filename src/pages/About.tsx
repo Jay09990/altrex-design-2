@@ -116,12 +116,10 @@ function HeroSection() {
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.4, 0.6, 0.4] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute left-1/2 top-20 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-violet-500/20 blur-3xl"
         />
         <motion.div
           animate={{ y: [0, -20, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute right-0 top-40 h-72 w-72 rounded-full bg-fuchsia-500/10 blur-3xl"
         />
       </div>
 
@@ -197,8 +195,6 @@ function MissionSection() {
   return (
     <section ref={ref} className="relative overflow-hidden bg-gray-50/50 py-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-violet-100/50 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-fuchsia-100/40 blur-3xl" />
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2 lg:px-8">
@@ -307,8 +303,6 @@ function TimelineSection() {
   return (
     <section ref={ref} className="relative bg-gray-50/50 py-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-violet-100/50 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-fuchsia-100/40 blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -378,8 +372,6 @@ function TeamSection() {
   return (
     <section ref={ref} className="relative overflow-hidden bg-white py-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-violet-100/50 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-fuchsia-100/40 blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -442,8 +434,6 @@ function ValuesSection() {
   return (
     <section ref={ref} className="relative bg-gray-50/50 py-24">
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-violet-100/50 blur-3xl" />
-        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-fuchsia-100/40 blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -513,10 +503,6 @@ function CTASection() {
           transition={{ duration: 0.7 }}
           className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600 to-fuchsia-600 px-8 py-20 text-center shadow-2xl lg:px-20"
         >
-          {/* Decorative depth circles */}
-          <div className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-white/10" />
-          <div className="pointer-events-none absolute -bottom-16 -left-16 h-64 w-64 rounded-full bg-white/10" />
-
           {/* ShinyText sweeps a metallic shine across the heading */}
           <h2 className="relative z-10 text-4xl font-bold tracking-tight sm:text-5xl">
             <ShinyText

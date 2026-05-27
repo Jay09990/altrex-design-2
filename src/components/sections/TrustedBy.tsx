@@ -101,7 +101,7 @@ const fadeUpVariants: Variants = {
 
 const TrustedBy = () => {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden bg-transparent py-20">
       {/* Background Glow */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
         <motion.div
@@ -113,7 +113,6 @@ const TrustedBy = () => {
             duration: 8,
             repeat: Infinity,
           }}
-          className="absolute left-1/2 top-10 h-[400px] w-[400px] -translate-x-1/2 rounded-full bg-violet-500/10 blur-3xl"
         />
       </div>
 
@@ -135,14 +134,14 @@ const TrustedBy = () => {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-4 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+            className="mt-4 text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl"
           >
             Trusted by Modern Technology Teams
           </motion.h2>
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-6 text-lg leading-8 text-gray-600"
+            className="mt-6 text-lg leading-8 text-[var(--text-secondary)]"
           >
             Powering scalable realtime applications,
             distributed systems, and next-generation
@@ -156,10 +155,10 @@ const TrustedBy = () => {
           className="relative mt-16 overflow-hidden"
         >
           {/* Left Gradient */}
-          <div className="absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-white to-transparent" />
+          <div className="absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-[var(--bg-void)] to-transparent" />
 
           {/* Right Gradient */}
-          <div className="absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-white to-transparent" />
+          <div className="absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-[var(--bg-void)] to-transparent" />
 
           <motion.div
             whileHover={{

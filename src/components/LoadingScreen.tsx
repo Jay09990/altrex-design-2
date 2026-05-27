@@ -1,0 +1,146 @@
+import { useEffect, useState } from "react";
+import { gsap } from "gsap";
+import DecryptedText from "./DecryptedText";
+
+interface LoadingScreenProps {
+  onComplete?: () => void;
+}
+
+const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
+  const [progress, setProgress] = useState(0);
+  const [currentMessage, setCurrentMessage] = useState(0);
+  const [isExiting, setIsExiting] = useState(false);
+  const [canExit, setCanExit] = useState(false);
+
+  const loadingMessages = [
+    "CONNECTING TO EDGE NETWORK...",
+    "CALIBRATING LATENCY SENSORS...",
+    "INITIALIZING NODE WEB...",
+    "MOUNTING REALTIME INTERFACE...",
+    "SYSTEMS NOMINAL.",
+  ];
+
+  useEffect(() => {
+    // Simulate loading progress
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(progressInterval);
+          return 100;
+        }
+        // Random increment between 5-15%
+        const increment = Math.random() * 10 + 5;
+        return Math.min(prev + increment, 100);
+      });
+    }, 300);
+
+    // Cycle through messages
+    const messageInterval = setInterval(() => {
+      setCurrentMessage((prev) => (prev + 1) % loadingMessages.length);
+    }, 800);
+
+    // Exit loading screen after minimum 1.8s
+    const exitTimer = setTimeout(() => {
+      setCanExit(true);
+    }, 1800);
+
+    return () => {
+      clearInterval(progressInterval);
+      clearInterval(messageInterval);
+      clearTimeout(exitTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canExit || progress < 90 || isExiting) return;
+
+    setIsExiting(true);
+    const completeTimer = setTimeout(() => {
+      onComplete?.();
+    }, 800);
+
+    return () => clearTimeout(completeTimer);
+  }, [canExit, progress, isExiting, onComplete]);
+
+  useEffect(() => {
+    // Force exit after 3.5s regardless of progress so the app cannot stall on the splash screen.
+    const forceExitTimer = setTimeout(() => {
+      if (!isExiting) {
+        setIsExiting(true);
+        setTimeout(() => {
+          onComplete?.();
+        }, 800);
+      }
+    }, 3500);
+
+    return () => clearTimeout(forceExitTimer);
+  }, [isExiting, onComplete]);
+
+  return (
+    <div
+      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--bg-void)] transition-all duration-800 ${
+        isExiting ? "pointer-events-none opacity-0" : "opacity-100"
+      }`}
+      style={{
+        transform: isExiting ? "translateY(-100vh)" : "translateY(0)",
+      }}
+    >
+      <div className="flex flex-col items-center justify-center gap-12">
+        {/* Logo Mark */}
+        <div className="animate-fade-in mb-4">
+          <div className="flex h-16 w-16 items-center justify-center rounded-lg border border-[var(--border-subtle)] bg-[var(--accent-violet)]/20">
+            <span className="text-2xl font-bold text-[var(--accent-violet)]">A</span>
+          </div>
+        </div>
+
+        {/* Wordmark */}
+        <div className="text-center">
+          <h1 className="text-6xl font-bold tracking-tighter text-[var(--text-primary)]">
+            <DecryptedText text="ALTREX" speed={50} />
+          </h1>
+          <p className="mt-4 font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
+            INITIALIZING SYSTEMS
+          </p>
+        </div>
+
+        {/* Progress Bar */}
+        <div className="w-64 space-y-3">
+          <div className="h-1 w-full overflow-hidden rounded-full bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+            <div
+              className="h-full bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)] transition-all duration-300 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <div className="text-right font-mono text-xs text-[var(--text-secondary)]">
+            {Math.floor(progress)}%
+          </div>
+        </div>
+
+        {/* Status Message */}
+        <div className="h-6 text-center">
+          <p className="animate-pulse font-mono text-xs text-[var(--text-secondary)] uppercase tracking-widest">
+            {loadingMessages[currentMessage]}
+          </p>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.6s ease-out 0.2s both;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default LoadingScreen;

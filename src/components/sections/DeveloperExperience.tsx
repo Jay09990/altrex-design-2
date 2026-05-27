@@ -75,34 +75,7 @@ const fadeUpVariants: Variants = {
 
 const DeveloperExperience = () => {
   return (
-    <section className="relative overflow-hidden py-28">
-      {/* Background Glow */}
-      <div className="absolute inset-0 -z-10">
-        <motion.div
-          animate={{
-            opacity: [0.3, 0.5, 0.3],
-            scale: [1, 1.08, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-          }}
-          className="absolute left-0 top-0 h-[400px] w-[400px] rounded-full bg-violet-100/60 blur-3xl"
-        />
-
-        <motion.div
-          animate={{
-            opacity: [0.25, 0.45, 0.25],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-          }}
-          className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-fuchsia-100/50 blur-3xl"
-        />
-      </div>
-
+    <section className="relative overflow-hidden bg-transparent py-28">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -115,7 +88,7 @@ const DeveloperExperience = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-violet-200 bg-violet-50 p-4 text-sm font-medium text-violet-700"
+              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-200"
             >
               Developer Experience
             </Badge>
@@ -123,7 +96,7 @@ const DeveloperExperience = () => {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Built for{" "}
             <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
@@ -133,7 +106,7 @@ const DeveloperExperience = () => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-6 text-lg leading-8 text-gray-600"
+            className="mt-6 text-lg leading-8 text-[var(--text-secondary)]"
           >
             Powerful APIs, modern tooling, scalable infrastructure, and seamless
             developer workflows designed for realtime applications.
@@ -153,7 +126,7 @@ const DeveloperExperience = () => {
             transition={{
               duration: 0.25,
             }}
-            className="overflow-hidden rounded-3xl bg-gray-950 shadow-2xl shadow-gray-900/40"
+            className="overflow-hidden rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 shadow-2xl shadow-black/40"
           >
             {/* Terminal topbar */}
             <div className="flex items-center gap-2 border-b border-white/5 bg-gray-900 px-5 py-3.5">
@@ -339,7 +312,7 @@ const DeveloperExperience = () => {
           <div className="flex flex-col gap-6">
             {/* Feature chips */}
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-400">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[var(--text-muted)]">
                 What's included
               </p>
 
@@ -353,18 +326,18 @@ const DeveloperExperience = () => {
                     transition={{
                       duration: 0.2,
                     }}
-                    className="flex items-center gap-2.5 rounded-full border border-gray-200 bg-white px-4 py-2.5 shadow-sm hover:border-violet-300 hover:shadow-md transition-all"
+                    className="flex items-center gap-2.5 rounded-full border border-white/10 bg-black/20 px-4 py-2.5 shadow-sm transition-all hover:border-violet-400/30 hover:shadow-md"
                   >
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-100 text-violet-700">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-500/15 text-violet-200">
                       <Icon className="h-3.5 w-3.5" />
                     </div>
 
                     <div>
-                      <p className="text-xs font-semibold text-gray-900">
+                      <p className="text-xs font-semibold text-[var(--text-primary)]">
                         {label}
                       </p>
 
-                      <p className="text-[10px] text-gray-500">
+                      <p className="text-[10px] text-[var(--text-secondary)]">
                         {sub}
                       </p>
                     </div>
@@ -385,18 +358,18 @@ const DeveloperExperience = () => {
                     transition={{
                       duration: 0.25,
                     }}
-                    className="group flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-all duration-300 hover:border-violet-300 hover:shadow-lg"
+                    className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-black/20 p-5 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-lg"
                   >
                     <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-md">
                       <Icon className="h-5 w-5" />
                     </div>
 
                     <div>
-                      <h3 className="font-semibold text-gray-900 group-hover:text-violet-700 transition-colors">
+                      <h3 className="font-semibold text-[var(--text-primary)] transition-colors group-hover:text-violet-300">
                         {title}
                       </h3>
 
-                      <p className="mt-1 text-sm leading-6 text-gray-600">
+                      <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
                         {description}
                       </p>
                     </div>
@@ -413,18 +386,18 @@ const DeveloperExperience = () => {
               transition={{
                 duration: 0.2,
               }}
-              className="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-gray-50 p-6 sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-black/20 p-6 sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-md">
                 <Rocket className="h-5 w-5" />
               </div>
 
               <div className="flex-1">
-                <h4 className="font-semibold text-gray-900">
+                <h4 className="font-semibold text-[var(--text-primary)]">
                   Production Ready Infrastructure
                 </h4>
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-[var(--text-secondary)]">
                   Deploy in minutes. Scale without limits.
                 </p>
               </div>
@@ -437,7 +410,7 @@ const DeveloperExperience = () => {
                   whileTap={{
                     scale: 0.96,
                   }}
-                  className="inline-flex items-center rounded-xl bg-gray-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-gray-800 transition-colors"
+                  className="inline-flex items-center rounded-xl bg-[var(--bg-surface)] px-4 py-2.5 text-sm font-medium text-[var(--text-primary)] transition-colors hover:bg-white/10"
                 >
                   Docs{" "}
                   <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
@@ -450,7 +423,7 @@ const DeveloperExperience = () => {
                   whileTap={{
                     scale: 0.96,
                   }}
-                  className="rounded-xl border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:border-violet-400 hover:text-violet-700 transition-colors"
+                  className="rounded-xl border border-white/10 bg-black/20 px-4 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors"
                 >
                   API Ref
                 </motion.button>
@@ -474,13 +447,13 @@ const DeveloperExperience = () => {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2.5"
+                  className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-3 py-2.5"
                 >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gray-100">
-                    <Icon className="h-4 w-4 text-gray-700" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5">
+                    <Icon className="h-4 w-4 text-[var(--text-secondary)]" />
                   </div>
 
-                  <span className="text-xs font-medium text-gray-800">
+                  <span className="text-xs font-medium text-[var(--text-primary)]">
                     {title}
                   </span>
                 </motion.div>

@@ -259,7 +259,7 @@ function ItemNode({ data }: NodeProps<any>) {
 
   return (
     <div
-      className="flex min-w-[180px] items-center gap-2.5 rounded-2xl bg-white px-3.5 py-2.5 transition-all duration-200"
+      className="flex min-w-[180px] items-center gap-2.5 rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 px-3.5 py-2.5 transition-all duration-200"
       style={{
         border: `1px solid ${color}28`,
         boxShadow: `0 2px 12px rgba(0,0,0,0.06), 0 0 0 1px ${color}08`,
@@ -275,7 +275,9 @@ function ItemNode({ data }: NodeProps<any>) {
         {Icon && <Icon size={14} color={color} strokeWidth={1.8} />}
       </div>
 
-      <span className="text-xs font-semibold text-gray-700">{data.label}</span>
+      <span className="text-xs font-semibold text-[var(--text-primary)]">
+        {data.label}
+      </span>
 
       <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
 
@@ -298,7 +300,7 @@ function BlockNode({ data }: NodeProps<any>) {
 
   return (
     <div
-      className="rounded-[20px] bg-white p-[18px]"
+      className="rounded-[20px] border border-white/10 bg-[var(--bg-surface)]/80 p-[18px]"
       style={{
         width: data.width ?? 240,
         border: `1px solid ${color}18`,
@@ -339,7 +341,7 @@ function BlockNode({ data }: NodeProps<any>) {
             return (
               <div
                 key={i}
-                className="flex flex-col items-center gap-[6px] rounded-[12px] border border-violet-100 bg-violet-50/60 px-2 py-2.5"
+                className="flex flex-col items-center gap-[6px] rounded-[12px] border border-white/10 bg-black/20 px-2 py-2.5"
               >
                 <div
                   className="flex h-[28px] w-[28px] items-center justify-center rounded-lg"
@@ -351,7 +353,7 @@ function BlockNode({ data }: NodeProps<any>) {
                   <Icon size={12} color={color} strokeWidth={1.8} />
                 </div>
 
-                <span className="text-center text-[9px] font-semibold leading-tight text-gray-500">
+                <span className="text-center text-[9px] font-semibold leading-tight text-[var(--text-secondary)]">
                   {item.label}
                 </span>
               </div>
@@ -665,7 +667,7 @@ function LayerLabels() {
 function LivePulse() {
   return (
     <div
-      className="pointer-events-none absolute bottom-5 left-5 z-10 flex items-center gap-2 rounded-full border border-emerald-200 bg-white/90 px-3 py-1.5 shadow-sm backdrop-blur-sm"
+      className="pointer-events-none absolute bottom-5 left-5 z-10 flex items-center gap-2 rounded-full border border-emerald-400/20 bg-black/30 px-3 py-1.5 shadow-sm"
     >
       <span className="relative flex h-2 w-2">
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -721,13 +723,10 @@ const Architecture = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-white py-28"
+      className="relative overflow-hidden bg-transparent py-28"
     >
       {/* Background glows */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-violet-100/50 blur-3xl" />
-
-        <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-fuchsia-100/40 blur-3xl" />
       </div>
 
       <div className="mx-auto max-w-[1650px] px-6">
@@ -746,20 +745,20 @@ const Architecture = () => {
           >
             <Badge
               variant="secondary"
-              className="border border-violet-200 bg-violet-50 p-4 text-sm font-medium text-violet-700"
+              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-200"
             >
               Realtime Architecture
             </Badge>
           </motion.div>
 
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
+          <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
             Built for Distributed{" "}
             <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
               Global Infrastructure
             </span>
           </h2>
 
-          <p className="mt-4 text-lg leading-8 text-gray-500">
+          <p className="mt-4 text-lg leading-8 text-[var(--text-secondary)]">
             From industrial devices to cloud — every layer connected, secured,
             and orchestrated in realtime.
           </p>
@@ -768,7 +767,7 @@ const Architecture = () => {
         {/* Flow canvas */}
         <div
           ref={canvasRef}
-          className="relative mt-20 overflow-hidden rounded-2xl border border-violet-100 bg-violet-50/40"
+          className="relative mt-20 overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/70"
           style={{
             height: 820,
             boxShadow:

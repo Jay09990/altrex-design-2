@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-gray-200 bg-white">
+    <footer className="border-t border-white/10 bg-[var(--bg-void)]">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         {/* Top Section */}
         <div className="grid gap-14 lg:grid-cols-5">
@@ -19,7 +19,7 @@ const Footer = () => {
                 <h1 className="text-md font-bold">
                   Altrex
                 </h1>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-[var(--text-secondary)]">
                   Altrex Digital Platforms Pvt Ltd
                 </p>
               </div>
@@ -182,8 +182,8 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-gray-200 pt-8 md:flex-row md:items-center">
-          <p className="text-sm text-gray-500">
+        <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-white/10 pt-8 md:flex-row md:items-center">
+          <p className="text-sm text-[var(--text-secondary)]">
             © 2026 Altrex. All rights reserved.
           </p>
 
