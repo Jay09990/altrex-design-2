@@ -36,18 +36,23 @@ const Header = () => {
 >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
-        <div className="flex items-center gap-3">
-          <Button size="icon-lg" className="text-md">A</Button>
+        <Link
+          to="/"
+          aria-label="Go to home"
+          onClick={() => setMobileMenu(false)}
+          className="flex items-center gap-3"
+        >
+          <Button asChild size="icon-lg" className="text-md">
+            <span>A</span>
+          </Button>
 
           <div className="hidden sm:block">
-            <h1 className="text-md font-bold">
-              Altrex
-            </h1>
+            <h1 className="text-md font-bold">Altrex</h1>
             <p className="text-xs text-[var(--text-muted)]">
               Altrex Digital Platforms Pvt Ltd
             </p>
           </div>
-        </div>
+        </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
           {navLinks.map((item) => (
