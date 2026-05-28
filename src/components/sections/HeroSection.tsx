@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { gsap } from "gsap";
@@ -19,56 +19,6 @@ const fadeUpVariants: Variants = {
       duration: 0.8,
     },
   },
-};
-
-const HeadlineLine = ({ text }: { text: string }) => {
-  const ref = useRef<HTMLSpanElement>(null);
-  const words = text.split(" ");
-
-  useEffect(() => {
-    if (!ref.current) return;
-
-    const words = ref.current.querySelectorAll("[data-word]");
-
-    gsap.fromTo(
-      words,
-      {
-        y: 32,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0.75,
-        stagger: 0.05,
-        ease: "power3.out",
-      }
-    );
-  }, []);
-
-  return (
-    <span
-      ref={ref}
-      className="inline-flex flex-wrap justify-center gap-x-[0.22em] gap-y-0 leading-none"
-    >
-      {words.map((word, idx) => {
-        const isColored = word === "REALTIME" || word === "COMPLEXITY";
-        return (
-          <span
-            key={`${word}-${idx}`}
-            data-word
-            className={`inline-block whitespace-pre will-change-transform ${
-              isColored
-                ? "bg-gradient-to-r from-[var(--accent-violet)] via-[var(--accent-fuchsia)] to-cyan-400 bg-clip-text text-transparent"
-                : ""
-            }`}
-          >
-            {word}
-          </span>
-        );
-      })}
-    </span>
-  );
 };
 
 const HeroSection = () => {
@@ -95,6 +45,22 @@ const HeroSection = () => {
     );
   }, []);
 
+  const headlineLines = useMemo(
+    () => [
+      <>
+        BUILD POWERFUL{" "}
+        <span className="bg-gradient-to-r from-[var(--accent-violet)] via-[var(--accent-fuchsia)] to-cyan-400 bg-clip-text text-transparent">
+          REALTIME
+        </span>
+      </>,
+      <>APPLICATIONS WITHOUT</>,
+      <span className="bg-gradient-to-r from-[var(--accent-violet)] via-[var(--accent-fuchsia)] to-cyan-400 bg-clip-text text-transparent">
+        COMPLEXITY
+      </span>,
+    ],
+    []
+  );
+
   return (
     <section id="chapter-01" className="relative overflow-hidden scroll-mt-28 pt-32">
       <motion.div
@@ -120,17 +86,27 @@ const HeroSection = () => {
           </Badge>
         </motion.div>
 
-        {/* Heading with animated word lines */}
+        {/* Heading with hard-clipped line scrub */}
         <h1 className="max-w-6xl text-5xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-6xl lg:text-7xl xl:text-8xl">
-          <span className="block leading-[0.88]">
-            <HeadlineLine text="BUILD POWERFUL REALTIME" />
-          </span>
-          <span className="mt-3 block leading-[0.88]">
-            <HeadlineLine text="APPLICATIONS WITHOUT" />
-          </span>
-          <span className="mt-3 block leading-[0.88]">
-            <HeadlineLine text="COMPLEXITY" />
-          </span>
+          {headlineLines.map((line, lineIndex) => (
+            <div
+              key={lineIndex}
+              className={`${lineIndex === 0 ? "" : "mt-3"} block leading-[0.88]`}
+              style={{ overflow: "hidden" }}
+            >
+              <motion.div
+                initial={{ y: "110%" }}
+                animate={{ y: "0%" }}
+                transition={{
+                  duration: 0.9,
+                  delay: lineIndex * 0.15,
+                  ease: [0.76, 0, 0.24, 1],
+                }}
+              >
+                {line}
+              </motion.div>
+            </div>
+          ))}
         </h1>
 
         {/* Metadata Labels */}

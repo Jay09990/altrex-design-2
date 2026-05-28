@@ -1,76 +1,40 @@
+/**
+ * TrustedBy section rendered as a pinned, scroll-scrubbed horizontal logo track.
+ */
+
+import { useRef } from "react";
 import { motion, type Variants } from "framer-motion";
 
-import LogoLoop from "../LogoLoop";
+import { useScrollScrubHorizontalTrack } from "@/hooks/useScrollScrubHorizontalTrack";
 
 const techLogos = [
   {
-    node: (
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg"
-        alt="React"
-        className="h-14 w-auto object-contain"
-      />
-    ),
+    src: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
     title: "React",
     href: "https://react.dev",
   },
-
   {
-    node: (
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg"
-        alt="Next.js"
-        className="h-14 w-auto object-contain"
-      />
-    ),
+    src: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
     title: "Next.js",
     href: "https://nextjs.org",
   },
-
   {
-    node: (
-      <img
-        src="https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-icon.svg"
-        alt="TypeScript"
-        className="h-14 w-auto object-contain"
-      />
-    ),
+    src: "https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-icon.svg",
     title: "TypeScript",
     href: "https://www.typescriptlang.org",
   },
-
   {
-    node: (
-      <img
-        src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg"
-        alt="Tailwind CSS"
-        className="h-14 w-auto object-contain"
-      />
-    ),
+    src: "https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg",
     title: "Tailwind CSS",
     href: "https://tailwindcss.com",
   },
-
   {
-    node: (
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg"
-        alt="Figma"
-        className="h-14 w-auto object-contain"
-      />
-    ),
+    src: "https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg",
     title: "Figma",
     href: "https://figma.com",
   },
-
   {
-    node: (
-      <img
-        src="https://www.vectorlogo.zone/logos/docker/docker-icon.svg"
-        alt="Docker"
-        className="h-14 w-auto object-contain"
-      />
-    ),
+    src: "https://www.vectorlogo.zone/logos/docker/docker-icon.svg",
     title: "Docker",
     href: "https://docker.com",
   },
@@ -78,44 +42,22 @@ const techLogos = [
 
 const containerVariants: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.15 } },
 };
 
 const fadeUpVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.7,
-    },
-  },
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
 };
 
 const TrustedBy = () => {
-  return (
-    <section className="relative overflow-hidden bg-transparent py-20">
-      {/* Background Glow */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <motion.div
-          animate={{
-            opacity: [0.2, 0.4, 0.2],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-          }}
-        />
-      </div>
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
+  useScrollScrubHorizontalTrack(sectionRef, trackRef, { minWidth: 1024, endPadding: 160 });
+
+  return (
+    <section ref={sectionRef} className="relative overflow-hidden bg-transparent py-20">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -139,47 +81,45 @@ const TrustedBy = () => {
             Trusted by Modern Technology Teams
           </motion.h2>
 
-          <motion.p
-            variants={fadeUpVariants}
-            className="mt-6 text-lg leading-8 text-[var(--text-secondary)]"
-          >
-            Powering scalable realtime applications,
-            distributed systems, and next-generation
-            infrastructure across modern platforms.
+          <motion.p variants={fadeUpVariants} className="mt-6 text-lg leading-8 text-[var(--text-secondary)]">
+            A horizontal partner strip that consumes scroll length — breaking vertical monotony while keeping the
+            mission-control vibe.
           </motion.p>
         </div>
-
-        {/* Logo Loop */}
-        <motion.div
-          variants={fadeUpVariants}
-          className="relative mt-16 overflow-hidden"
-        >
-          {/* Left Gradient */}
-          <div className="absolute left-0 top-0 z-10 h-full w-32 bg-gradient-to-r from-[var(--bg-void)] to-transparent" />
-
-          {/* Right Gradient */}
-          <div className="absolute right-0 top-0 z-10 h-full w-32 bg-gradient-to-l from-[var(--bg-void)] to-transparent" />
-
-          <motion.div
-            whileHover={{
-              scale: 1.01,
-            }}
-            className="will-change-transform [transform:translate3d(0,0,0)]"
-          >
-            <LogoLoop
-              logos={techLogos}
-              speed={80}
-              direction="left"
-              logoHeight={60}
-              gap={100}
-              hoverSpeed={0}
-              scaleOnHover={false}
-              fadeOut={false}
-              ariaLabel="Technology partners"
-            />
-          </motion.div>
-        </motion.div>
       </motion.div>
+
+      <div className="relative mt-14 overflow-hidden">
+        <div
+          ref={trackRef}
+          className="flex w-max items-center gap-6 px-6 lg:px-16 will-change-transform [transform:translate3d(0,0,0)]"
+        >
+          {techLogos.map((logo) => (
+            <motion.a
+              key={logo.title}
+              href={logo.href}
+              target="_blank"
+              rel="noreferrer"
+              whileHover={{ y: -2, scale: 1.01 }}
+              transition={{ duration: 0.2 }}
+              className="group flex w-[260px] flex-shrink-0 items-center gap-4 rounded-3xl border border-white/10 bg-[var(--bg-surface)]/75 p-6 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
+            >
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-black/20">
+                <img src={logo.src} alt={logo.title} className="h-10 w-auto object-contain opacity-90" />
+              </div>
+              <div>
+                <div className="text-sm font-semibold text-[var(--text-primary)] group-hover:text-violet-200 transition-colors">
+                  {logo.title}
+                </div>
+                <div className="mt-1 font-mono text-[10px] tracking-widest text-[var(--text-muted)]">
+                  [STATUS: VERIFIED]
+                </div>
+              </div>
+            </motion.a>
+          ))}
+
+          <div className="w-[20vw] flex-shrink-0" aria-hidden="true" />
+        </div>
+      </div>
     </section>
   );
 };

@@ -13,9 +13,11 @@ import {
   Zap,
 } from "lucide-react";
 
-import { motion, type Variants } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
+import InViewDecryptedText from "../InViewDecryptedText";
 
 const barHeights = [38, 52, 70, 48, 82, 60, 110, 88, 130, 100, 150, 120];
 const linePoints = [38, 52, 70, 48, 82, 60, 110, 88, 130, 100, 150, 120];
@@ -55,8 +57,18 @@ const fadeUpVariants: Variants = {
 };
 
 const ProductShowcase = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "0%"]);
+  const cardY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
+  const labelY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+
   return (
-    <section className="relative overflow-hidden bg-transparent py-28">
+    <section ref={sectionRef} className="relative overflow-hidden bg-transparent py-28">
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -71,7 +83,13 @@ const ProductShowcase = () => {
               variant="secondary"
               className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
-              Product Showcase
+              <InViewDecryptedText
+                text="PRODUCT SHOWCASE"
+                speed={60}
+                maxIterations={12}
+                className="text-[var(--data-green)]"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
             </Badge>
           </motion.div>
 
@@ -102,11 +120,26 @@ const ProductShowcase = () => {
         >
           {/* Ambient glow — layered light-bleed effect */}
           {/* Deep blur blob: sits furthest back, spreads the light wide */}
-          <div className="pointer-events-none absolute -inset-10 rounded-[60px] bg-gradient-to-br from-violet-500/30 via-fuchsia-400/20 to-cyan-400/15 blur-3xl" />
-          {/* Mid blur ring: tighter halo right around the card */}
-          <div className="pointer-events-none absolute -inset-4 rounded-[48px] bg-gradient-to-br from-violet-400/20 via-fuchsia-300/15 to-cyan-300/10 blur-xl" />
-          {/* Sharp inner rim: thin bright edge to sell the backlight */}
-          <div className="pointer-events-none absolute -inset-px rounded-[32px] bg-gradient-to-br from-violet-300/10 via-fuchsia-200/8 to-transparent blur-sm" />
+          <motion.div
+            style={{ y: bgY }}
+            className="pointer-events-none absolute left-1/2 top-1/2 h-[100%] w-[100%] -translate-x-1/2 -translate-y-1/2"
+          >
+            <div className="absolute -inset-10 rounded-[60px] bg-gradient-to-br from-violet-500/30 via-fuchsia-400/20 to-cyan-400/15 blur-3xl" />
+            <div className="absolute -inset-4 rounded-[48px] bg-gradient-to-br from-violet-400/20 via-fuchsia-300/15 to-cyan-300/10 blur-xl" />
+            <div className="absolute -inset-px rounded-[32px] bg-gradient-to-br from-violet-300/10 via-fuchsia-200/8 to-transparent blur-sm" />
+          </motion.div>
+
+          <motion.div style={{ y: labelY }} className="pointer-events-none absolute -left-3 top-8 hidden lg:block">
+            <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+              [GRID: ACTIVE]
+            </div>
+          </motion.div>
+
+          <motion.div style={{ y: labelY }} className="pointer-events-none absolute -right-3 bottom-10 hidden lg:block">
+            <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+              [DIAGRAM: SYNCED]
+            </div>
+          </motion.div>
 
           {/* Browser Chrome */}
           <motion.div
@@ -116,6 +149,7 @@ const ProductShowcase = () => {
             transition={{
               duration: 0.25,
             }}
+            style={{ y: cardY }}
             className="relative overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/85 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.45)]"
           >
             {/* Browser Topbar */}

@@ -20,6 +20,7 @@ import {
 } from "../ui/card";
 
 import { Badge } from "../ui/badge";
+import InViewDecryptedText from "../InViewDecryptedText";
 
 const features = [
   {
@@ -136,22 +137,6 @@ const fadeUpVariants: Variants = {
   },
 };
 
-const cardVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 30,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
 const CoreFeatures = () => {
   return (
     <section className="relative overflow-hidden bg-transparent py-28">
@@ -170,7 +155,13 @@ const CoreFeatures = () => {
               className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-              CORE PULSE
+              <InViewDecryptedText
+                text="CORE PULSE"
+                speed={60}
+                maxIterations={12}
+                className="text-[var(--data-green)]"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
             </Badge>
           </motion.div>
 
@@ -200,14 +191,23 @@ const CoreFeatures = () => {
         >
           {features.map((feature, index) => {
             const Icon = feature.icon;
+            const xOffset = index % 2 === 0 ? -80 : 80;
 
             return (
               <motion.div
                 key={index}
-                variants={cardVariants}
+                initial={{ opacity: 0, x: xOffset, rotateY: 8 }}
+                whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+                viewport={{ once: true, amount: 0.35 }}
+                transition={{
+                  duration: 0.7,
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 whileHover={{
                   y: -8,
                 }}
+                style={{ transformPerspective: 900 }}
               >
                 <Card 
                   className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 p-8 transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_var(--hover-glow)]"

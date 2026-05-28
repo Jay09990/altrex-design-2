@@ -10,6 +10,7 @@ import {
 import { motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
+import InViewDecryptedText from "../InViewDecryptedText";
 
 const benefits = [
   {
@@ -147,7 +148,13 @@ const WhyChooseUs = () => {
             variant="secondary"
             className="border border-violet-500/30 bg-violet-500/10 p-4 text-sm font-medium text-violet-400"
           >
-            Why Choose Us
+            <InViewDecryptedText
+              text="WHY CHOOSE US"
+              speed={60}
+              maxIterations={12}
+              className="text-violet-300"
+              encryptedClassName="text-[var(--text-muted)]"
+            />
           </Badge>
         </motion.div>
 

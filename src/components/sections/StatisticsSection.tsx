@@ -12,40 +12,49 @@ import {
 import { motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
+import ScrambleCounter from "../ScrambleCounter";
+import SystemDataTicker from "../SystemDataTicker";
+import InViewDecryptedText from "../InViewDecryptedText";
 
 const stats = [
   {
     icon: MessagesSquare,
+    target: 10_000_000,
     value: "10M+",
     label: "Messages Processed Daily",
     description: "Realtime events and messaging traffic handled globally.",
   },
   {
     icon: Wifi,
+    target: 24_800,
     value: "24.8K",
     label: "Active Connections",
     description: "Connected devices and live realtime infrastructure.",
   },
   {
     icon: Timer,
+    target: 50,
     value: "50ms",
     label: "Average Latency",
     description: "Ultra-fast communication optimized for realtime systems.",
   },
   {
     icon: Globe,
+    target: 120,
     value: "120+",
     label: "Global Regions",
     description: "Distributed infrastructure deployed worldwide.",
   },
   {
     icon: ShieldCheck,
+    target: 100,
     value: "99.99%",
     label: "Infrastructure Uptime",
     description: "Enterprise-grade reliability for mission-critical systems.",
   },
   {
     icon: Activity,
+    target: 1_200_000,
     value: "1.2M/s",
     label: "Message Throughput",
     description: "High-performance event streaming at massive scale.",
@@ -161,7 +170,13 @@ const StatisticsSection = () => {
                 variant="secondary"
                 className="border border-violet-500/30 bg-violet-500/10 p-4 text-sm font-medium text-violet-400"
               >
-                Statistics &amp; Metrics
+                <InViewDecryptedText
+                  text="STATISTICS & METRICS"
+                  speed={60}
+                  maxIterations={12}
+                  className="text-violet-300"
+                  encryptedClassName="text-[var(--text-muted)]"
+                />
               </Badge>
             </motion.div>
 
@@ -214,6 +229,20 @@ const StatisticsSection = () => {
           </motion.div>
         </div>
 
+        <motion.div variants={fadeUpVariants} className="mt-10">
+          <SystemDataTicker
+            items={[
+              "SYS: OK",
+              "REGIONS: 120 ONLINE",
+              "LATENCY: 11ms P50",
+              "PACKETS: 2.1M/s",
+              "ERROR_RATE: 0.002%",
+              "QUEUE_DEPTH: 14",
+              "UPTIME: 99.99%",
+            ]}
+          />
+        </motion.div>
+
         {/* Top row */}
         <div className="mt-16 flex flex-col divide-y divide-white/5 sm:flex-row sm:divide-x sm:divide-y-0">
           {stats.slice(0, 3).map((item, i) => {
@@ -245,7 +274,7 @@ const StatisticsSection = () => {
                 </motion.div>
 
                 <p className="mt-6 text-7xl font-bold tracking-tight text-white">
-                  {item.value}
+                  <ScrambleCounter target={item.target} finalText={item.value} />
                 </p>
 
                 <p className="mt-3 text-lg font-semibold text-[var(--text-primary)]">
@@ -293,7 +322,7 @@ const StatisticsSection = () => {
                 <div>
                   <div className="flex items-center gap-2">
                     <p className="text-3xl font-bold text-[var(--text-primary)]">
-                      {item.value}
+                      <ScrambleCounter target={item.target} finalText={item.value} />
                     </p>
 
                     <div className="flex items-center gap-0.5 text-xs font-medium text-green-400">

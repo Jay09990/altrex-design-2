@@ -1,6 +1,6 @@
 import { useEffect, useRef, memo } from "react";
 
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
 
 import {
   ReactFlow,
@@ -718,6 +718,15 @@ const Architecture = () => {
     margin: "-100px",
   });
 
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const cardY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
+  const labelY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
 
@@ -774,6 +783,17 @@ const Architecture = () => {
       ref={sectionRef}
       className="relative overflow-hidden bg-transparent py-28"
     >
+      <motion.div style={{ y: bgY }} className="pointer-events-none absolute inset-0 -z-10 opacity-60">
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, rgba(139,92,246,0.16) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+      </motion.div>
+
       <div className="mx-auto max-w-[1650px] px-6">
         {/* Header */}
         <motion.div
@@ -811,16 +831,29 @@ const Architecture = () => {
         </motion.div>
 
         {/* Flow canvas */}
-        <div
+        <motion.div
           ref={canvasRef}
           className="relative mt-16 overflow-hidden rounded-xl bg-[#080808]"
           style={{
+            y: cardY,
             height: 883,
             border: '1px solid rgba(139,92,246,0.14)',
             boxShadow:
               '0 0 0 1px rgba(34,197,94,0.04), 0 8px 60px rgba(0,0,0,0.6), 0 0 50px rgba(139,92,246,0.08)',
           }}
         >
+          <motion.div style={{ y: labelY }} className="pointer-events-none absolute left-6 top-6 z-20 hidden lg:block">
+            <div className="rounded-2xl border border-white/10 bg-black/35 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+              [STACK: LAYERED]
+            </div>
+          </motion.div>
+
+          <motion.div style={{ y: labelY }} className="pointer-events-none absolute right-6 top-6 z-20 hidden lg:block">
+            <div className="rounded-2xl border border-white/10 bg-black/35 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+              [PARALLAX: ON]
+            </div>
+          </motion.div>
+
           {/* Terminal chrome bar */}
           <div className="border-b border-white/[0.07] bg-[#0d0d0d]">
             {/* Title row */}
@@ -921,7 +954,7 @@ const Architecture = () => {
           </ReactFlow>
 
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
-        </div>
+        </motion.div>
       </div>
     </section>
   );

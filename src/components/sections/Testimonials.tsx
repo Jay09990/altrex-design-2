@@ -3,6 +3,8 @@ import { Quote, Star } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
+import InViewDecryptedText from "../InViewDecryptedText";
+import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 const testimonials = [
   {
@@ -66,6 +68,7 @@ const fadeUpVariants: Variants = {
 
 const Testimonials = () => {
   const [featured, ...compact] = testimonials;
+  const tilt = useMagneticTilt({ maxRotate: 10, perspective: 900 });
 
   return (
     <section className="relative overflow-hidden bg-transparent py-28">
@@ -86,7 +89,13 @@ const Testimonials = () => {
               variant="secondary"
               className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
-              Testimonials
+              <InViewDecryptedText
+                text="TESTIMONIALS"
+                speed={60}
+                maxIterations={12}
+                className="text-[var(--data-green)]"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
             </Badge>
           </motion.div>
 
@@ -109,12 +118,15 @@ const Testimonials = () => {
         >
           {/* Featured testimonial */}
           <motion.div
+            onMouseMove={tilt.onMouseMove}
+            onMouseLeave={tilt.onMouseLeave}
             whileHover={{
               y: -4,
             }}
             transition={{
               duration: 0.25,
             }}
+            style={{ transformStyle: "preserve-3d" }}
             className="relative flex-1 overflow-hidden rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 p-10 shadow-md lg:basis-3/5"
           >
             {/* Giant quote mark */}
@@ -184,12 +196,15 @@ const Testimonials = () => {
               <motion.div
                 key={i}
                 variants={fadeUpVariants}
+                onMouseMove={tilt.onMouseMove}
+                onMouseLeave={tilt.onMouseLeave}
                 whileHover={{
                   y: -4,
                 }}
                 transition={{
                   duration: 0.25,
                 }}
+                style={{ transformStyle: "preserve-3d" }}
                 className="group rounded-2xl border border-white/10 bg-[var(--bg-surface)]/70 p-7 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
               >
                 <div className="flex items-start justify-between">

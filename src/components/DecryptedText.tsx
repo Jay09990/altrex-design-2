@@ -13,7 +13,7 @@ interface DecryptedTextProps extends HTMLMotionProps<'span'> {
   className?: string;
   encryptedClassName?: string;
   parentClassName?: string;
-  animateOn?: 'view' | 'hover' | 'inViewHover' | 'click';
+  animateOn?: 'view' | 'hover' | 'inViewHover' | 'click' | 'mount' | 'none';
   clickMode?: 'once' | 'toggle';
 }
 
@@ -38,7 +38,9 @@ export default function DecryptedText({
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
   const [revealedIndices, setRevealedIndices] = useState<Set<number>>(new Set());
   const [hasAnimated, setHasAnimated] = useState<boolean>(false);
-  const [isDecrypted, setIsDecrypted] = useState<boolean>(animateOn !== 'click');
+  const [isDecrypted, setIsDecrypted] = useState<boolean>(
+    animateOn !== 'click' && animateOn !== 'none'
+  );
   const [direction, setDirection] = useState<Direction>('forward');
 
   const containerRef = useRef<HTMLSpanElement>(null);
@@ -341,6 +343,9 @@ export default function DecryptedText({
   useEffect(() => {
     if (animateOn === 'click') {
       encryptInstantly();
+    } else if (animateOn === 'none') {
+      setDisplayText(text);
+      setIsDecrypted(true);
     } else {
       setDisplayText(text);
       setIsDecrypted(true);
@@ -348,6 +353,14 @@ export default function DecryptedText({
     setRevealedIndices(new Set());
     setDirection('forward');
   }, [animateOn, text, encryptInstantly]);
+
+  useEffect(() => {
+    if (animateOn !== 'mount') return;
+    if (hasAnimated) return;
+
+    triggerDecrypt();
+    setHasAnimated(true);
+  }, [animateOn, hasAnimated, triggerDecrypt]);
 
   const animateProps =
     animateOn === 'hover' || animateOn === 'inViewHover'

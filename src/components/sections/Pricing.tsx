@@ -3,6 +3,8 @@ import { Check } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
+import InViewDecryptedText from "../InViewDecryptedText";
+import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 const pricingPlans = [
   {
@@ -97,6 +99,8 @@ const fadeUpVariants: Variants = {
 };
 
 const Pricing = () => {
+  const tilt = useMagneticTilt({ maxRotate: 12, perspective: 800 });
+
   return (
     <section className="relative overflow-hidden bg-transparent py-28">
       <style>{`
@@ -162,7 +166,13 @@ const Pricing = () => {
               variant="secondary"
               className="border border-violet-500/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-300"
             >
-              Pricing
+              <InViewDecryptedText
+                text="PRICING"
+                speed={60}
+                maxIterations={12}
+                className="text-violet-200"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
             </Badge>
           </motion.div>
 
@@ -204,6 +214,8 @@ const Pricing = () => {
             <motion.div
               key={i}
               variants={fadeUpVariants}
+              onMouseMove={tilt.onMouseMove}
+              onMouseLeave={tilt.onMouseLeave}
               whileHover={{
                 y: -6,
                 scale: 1.01,
@@ -211,6 +223,7 @@ const Pricing = () => {
               transition={{
                 duration: 0.25,
               }}
+              style={{ transformStyle: "preserve-3d" }}
               className={`relative flex flex-col overflow-hidden rounded-3xl border bg-[var(--bg-surface)]/75 p-8 transition-all duration-300 ${plan.borderHover}`}
             >
               {/* Popular badge */}

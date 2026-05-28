@@ -16,6 +16,7 @@ import {
 import { motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
+import InViewDecryptedText from "../InViewDecryptedText";
 
 const featureChips = [
   { 
@@ -132,7 +133,13 @@ const DeveloperExperience = () => {
               variant="secondary"
               className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-200"
             >
-              Developer Experience
+              <InViewDecryptedText
+                text="DEVELOPER EXPERIENCE"
+                speed={60}
+                maxIterations={12}
+                className="text-violet-200"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
             </Badge>
           </motion.div>
 
