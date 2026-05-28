@@ -324,7 +324,7 @@ const StatisticsSection = () => {
           transition={{
             duration: 0.25,
           }}
-          className="mt-16 grid gap-8 overflow-hidden rounded-3xl border border-white/5 bg-violet-950/50 p-8 lg:grid-cols-2"
+          className="mt-16 grid gap-8 overflow-hidden rounded-3xl p-8 lg:grid-cols-2"
         >
           <div>
             <div className="inline-flex items-center rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-400">

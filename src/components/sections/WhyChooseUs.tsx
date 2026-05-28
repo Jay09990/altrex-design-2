@@ -17,6 +17,9 @@ const benefits = [
     title: "Ultra Low Latency",
     description:
       "Deliver realtime communication with millisecond response times optimized for modern distributed systems.",
+    gradient: "from-violet-600 to-fuchsia-500",
+    borderHover: "hover:border-violet-500/30",
+    glow: "shadow-violet-900/40",
   },
 
   {
@@ -24,6 +27,9 @@ const benefits = [
     title: "Enterprise Security",
     description:
       "Protect infrastructure with secure authentication, encrypted communication, and production-grade reliability.",
+    gradient: "from-cyan-600 to-blue-500",
+    borderHover: "hover:border-cyan-500/30",
+    glow: "shadow-cyan-900/40",
   },
 
   {
@@ -31,6 +37,9 @@ const benefits = [
     title: "Infinite Scalability",
     description:
       "Scale seamlessly across regions and millions of connected devices without operational complexity.",
+    gradient: "from-fuchsia-600 to-pink-500",
+    borderHover: "hover:border-fuchsia-500/30",
+    glow: "shadow-fuchsia-900/40",
   },
 
   {
@@ -38,6 +47,9 @@ const benefits = [
     title: "Global Infrastructure",
     description:
       "Deploy worldwide with edge-ready architecture built for realtime global connectivity.",
+    gradient: "from-emerald-600 to-teal-500",
+    borderHover: "hover:border-emerald-500/30",
+    glow: "shadow-emerald-900/40",
   },
 
   {
@@ -45,6 +57,9 @@ const benefits = [
     title: "99.99% Reliability",
     description:
       "Built for mission-critical workloads with fault-tolerant systems and high availability architecture.",
+    gradient: "from-amber-600 to-orange-500",
+    borderHover: "hover:border-amber-500/30",
+    glow: "shadow-amber-900/40",
   },
 
   {
@@ -52,6 +67,9 @@ const benefits = [
     title: "Developer Experience",
     description:
       "Modern APIs, SDKs, documentation, and tooling designed for fast integration and productivity.",
+    gradient: "from-violet-600 to-cyan-500",
+    borderHover: "hover:border-violet-500/30",
+    glow: "shadow-violet-900/40",
   },
 ];
 
@@ -321,14 +339,14 @@ const WhyChooseUs = () => {
                   duration: 0.35,
                   delay: i * 0.08,
                 }}
-                className="group flex gap-4 rounded-2xl border border-white/5 bg-gray-900/50 p-6 transition-all duration-300 hover:border-violet-500/30 hover:bg-gray-900/70"
+                className={`group flex gap-4 rounded-2xl border border-white/5 bg-gray-900/50 p-6 transition-all duration-300 ${item.borderHover} hover:bg-gray-900/70`}
               >
                 <motion.div
                   whileHover={{
                     scale: 1.08,
                     rotate: 4,
                   }}
-                  className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-md shadow-violet-900/40"
+                  className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-white shadow-md ${item.glow}`}
                 >
                   <Icon className="h-5 w-5" />
                 </motion.div>

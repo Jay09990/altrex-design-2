@@ -21,15 +21,24 @@ import { HOME_CHAPTERS } from "@/data/homeChapters"
 
 const Home = () => {
   const [showLoading, setShowLoading] = useState(true);
-  const showScene = !showLoading;
+  const [showScene, setShowScene] = useState(false);
+  const [animateContent, setAnimateContent] = useState(false);
 
   useEffect(() => {
-    // Preload assets and initialize
+    // Pre-warm the 3D scene and layout in the background before the loader exits
     const timer = setTimeout(() => {
-      setShowLoading(false);
+      setShowScene(true);
+    }, 1000);
+
+    // Start content animation exactly when loader starts sliding up (at 1800ms)
+    const animationTimer = setTimeout(() => {
+      setAnimateContent(true);
     }, 1800);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(animationTimer);
+    };
   }, []);
 
   return (
@@ -39,7 +48,9 @@ const Home = () => {
 
       {/* Three.js Node Web Background */}
       {showScene && (
-        <div className="fixed inset-0 z-0 h-screen w-screen overflow-hidden bg-grid">
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+          {/* Background Grid Overlay */}
+          <div id="bg-grid-overlay" className="absolute inset-0 bg-grid opacity-80" />
           <NodeWeb />
 
           <motion.div
@@ -92,7 +103,15 @@ const Home = () => {
       <ProgressLine />
 
       {/* Content */}
-      <div className="relative z-10">
+      <motion.div
+        className="relative z-10"
+        initial={{ opacity: 0, y: 35 }}
+        animate={animateContent ? { opacity: 1, y: 0 } : {}}
+        transition={{
+          duration: 1.1,
+          ease: [0.16, 1, 0.3, 1], // easeOutQuart/Expo
+        }}
+      >
         <HeroSection />
 
         <div id={HOME_CHAPTERS[1].id} className="scroll-mt-28">
@@ -121,7 +140,7 @@ const Home = () => {
           <FAQ />
           <CTA />
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

@@ -523,3 +523,26 @@ Before any chapter ships, it must pass these checks:
 
 *This document is the single source of truth for the Altrex v2 design transformation.*  
 *Any design decision not covered here should be resolved against `character.md` before implementation.*
+
+---
+
+## Implementation Status (as of 2026-05-28)
+
+Summary of what is already implemented in the repository and notable deviations from this specification.
+
+- **Lenis + GSAP wiring:** Implemented in `src/main.tsx` (Lenis configured with `duration: 1.4`, `expo-out` easing, `smoothWheel: true`, `smoothTouch: false`; GSAP `ScrollTrigger` registered and fed by a root RAF loop).
+- **Home page scrollytelling shell:** Implemented at `src/pages/Home.tsx` — includes `LoadingScreen`, `NodeWeb`, `HomeChapterNav`, and `ProgressLine` and maps the chapter layout described in this doc.
+- **Three.js Node Web:** Implemented at `src/components/NodeWeb.tsx`. The scene uses a `points` geometry and `lineSegments` for edges with ~80 nodes and color pulses. Note: the implementation currently uses GPU points rather than `instancedMesh` for spheres — behavior and performance are satisfactory but differs from the instanced-mesh recommendation in Section 5.4.
+- **Loading screen:** Implemented at `src/components/LoadingScreen.tsx` (progress simulation, cycling messages, safe force-exit after ~3.5s, slide-up exit animation).
+- **Hero and chapter content:** `src/components/sections/HeroSection.tsx` implements headline assembly (word/character animation), metadata labels, and magnetic CTAs via `src/hooks/useMagneticButton.ts`.
+- **Chapter navigation & progress UI:** `src/components/HomeChapterNav.tsx` and `src/components/ProgressLine.tsx` implement the persistent chapter panel and right-edge progress line governed by GSAP ScrollTrigger and Lenis-aware scrolling.
+- **Interaction components:** `src/components/ClickSpark.tsx` and `src/components/CustomCursor.tsx` implement the enhanced click sparks and custom cursor behaviors (with mobile/reduced-motion fallbacks).
+- **Reduced-motion & mobile fallbacks:** Present in `NodeWeb` and other components: Three.js falls back to a CSS gradient on mobile or `prefers-reduced-motion`.
+- **Postprocessing:** `@react-three/postprocessing` (DepthOfField) is not yet integrated — this remains an outstanding enhancement for the 3D polish.
+- **Small divergences:** The scene uses `points` for node rendering (fast and compact) rather than instanced meshes; node count is ~80 (matches current implementation). Some visual polish items (scanlines, terminal frame around React Flow) exist partially across sections and can be iterated.
+
+Action items (repo-aligned)
+- Add `@react-three/postprocessing` only if the performance audit allows postprocessing without dropping below 60fps.
+- Consider switching `NodeWeb` to `instancedMesh` if we need per-node geometry (for clickable scaling) while keeping draw calls low.
+- Add a short `PERFORMANCE.md` checklist and a CI smoke test that runs a local Lighthouse/perf snapshot for the Home page.
+- Mark this `Implementation Status` section as the living record — update when components move from "partial" → "complete".

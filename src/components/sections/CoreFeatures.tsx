@@ -27,6 +27,10 @@ const features = [
     title: "Realtime Messaging",
     description:
       "Deliver ultra-low latency communication across distributed systems and connected devices.",
+    color: "var(--accent-violet)",
+    glow: "rgba(139, 92, 246, 0.25)",
+    label: "MESSAGING",
+    gradient: "from-violet-500 to-fuchsia-500",
   },
 
   {
@@ -34,6 +38,10 @@ const features = [
     title: "Enterprise Security",
     description:
       "Built-in authentication, encrypted communication, and secure infrastructure at scale.",
+    color: "#06b6d4",
+    glow: "rgba(6, 182, 212, 0.25)",
+    label: "SECURITY",
+    gradient: "from-cyan-500 to-blue-500",
   },
 
   {
@@ -41,6 +49,10 @@ const features = [
     title: "IoT Connectivity",
     description:
       "Connect millions of devices using scalable MQTT and WebSocket infrastructure.",
+    color: "var(--accent-fuchsia)",
+    glow: "rgba(217, 70, 239, 0.25)",
+    label: "CONNECT",
+    gradient: "from-fuchsia-500 to-pink-500",
   },
 
   {
@@ -48,6 +60,10 @@ const features = [
     title: "Global Infrastructure",
     description:
       "Deploy worldwide with distributed edge-ready realtime architecture.",
+    color: "var(--data-green)",
+    glow: "rgba(34, 197, 94, 0.25)",
+    label: "EDGE",
+    gradient: "from-emerald-500 to-teal-500",
   },
 
   {
@@ -55,6 +71,10 @@ const features = [
     title: "Live Monitoring",
     description:
       "Track metrics, system health, throughput, and realtime performance instantly.",
+    color: "#f59e0b",
+    glow: "rgba(245, 158, 11, 0.25)",
+    label: "METRICS",
+    gradient: "from-amber-500 to-orange-500",
   },
 
   {
@@ -62,6 +82,10 @@ const features = [
     title: "Horizontal Scaling",
     description:
       "Scale seamlessly with high-performance clustering and fault-tolerant systems.",
+    color: "var(--accent-violet)",
+    glow: "rgba(139, 92, 246, 0.25)",
+    label: "SCALE",
+    gradient: "from-violet-500 to-cyan-500",
   },
 
   {
@@ -69,6 +93,10 @@ const features = [
     title: "Advanced Analytics",
     description:
       "Gain insights with realtime dashboards, event streams, and intelligent metrics.",
+    color: "#3b82f6",
+    glow: "rgba(59, 130, 246, 0.25)",
+    label: "ANALYTICS",
+    gradient: "from-blue-500 to-indigo-500",
   },
 
   {
@@ -76,6 +104,10 @@ const features = [
     title: "High Performance",
     description:
       "Optimized for speed, reliability, and millions of concurrent realtime operations.",
+    color: "var(--accent-fuchsia)",
+    glow: "rgba(217, 70, 239, 0.25)",
+    label: "PERFORMANCE",
+    gradient: "from-fuchsia-500 to-violet-500",
   },
 ];
 
@@ -147,7 +179,7 @@ const CoreFeatures = () => {
             className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Everything You Need to Build
-            <span className="block text-[var(--accent-violet)]">
+            <span className="block bg-gradient-to-r from-[var(--accent-violet)] via-[var(--accent-fuchsia)] to-cyan-400 bg-clip-text text-transparent">
               Modern Realtime Systems
             </span>
           </motion.h2>
@@ -177,12 +209,17 @@ const CoreFeatures = () => {
                   y: -8,
                 }}
               >
-                <Card className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 p-8 transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.2)]">
+                <Card 
+                  className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 p-8 transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_var(--hover-glow)]"
+                  style={{
+                    "--hover-glow": feature.glow,
+                  } as React.CSSProperties}
+                >
                   <CardHeader className="relative z-10 p-0">
                     {/* Status Label */}
-                    <div className="absolute right-6 top-6">
-                      <span className="font-mono text-xs text-[var(--text-muted)] tracking-widest">
-                        [MODULE: ACTIVE]
+                    <div className="absolute right-0 top-0">
+                      <span className="font-mono text-[9px] text-[var(--text-muted)] tracking-widest">
+                        [{feature.label}: ACTIVE]
                       </span>
                     </div>
 
@@ -192,13 +229,26 @@ const CoreFeatures = () => {
                         scale: 1.08,
                         rotate: 3,
                       }}
-                      className="flex h-12 w-12 items-center justify-center rounded-lg bg-[var(--accent-glow)] text-[var(--accent-violet)] shadow-md"
+                      className="flex h-12 w-12 items-center justify-center rounded-lg text-white shadow-md transition-colors"
+                      style={{
+                        background: `rgba(255,255,255,0.03)`,
+                        border: `1px solid rgba(255,255,255,0.08)`,
+                        color: feature.color,
+                        boxShadow: `0 0 12px ${feature.glow}`,
+                      }}
                     >
                       <Icon className="h-5 w-5" />
                     </motion.div>
 
-                    <CardTitle className="mt-6 text-xl font-semibold text-[var(--text-primary)] transition-colors duration-300 group-hover:text-[var(--accent-violet)]">
-                      {feature.title}
+                    <CardTitle 
+                      className="mt-6 text-xl font-semibold text-[var(--text-primary)] transition-colors duration-300"
+                      style={{
+                        "--hover-text": feature.color,
+                      } as React.CSSProperties}
+                    >
+                      <span className="group-hover:text-[var(--hover-text)] transition-colors duration-300">
+                        {feature.title}
+                      </span>
                     </CardTitle>
                   </CardHeader>
 
@@ -214,7 +264,7 @@ const CoreFeatures = () => {
                     whileInView={{ scaleX: 1 }}
                     viewport={{ once: true, amount: 0.5 }}
                     transition={{ duration: 0.8 }}
-                    className="absolute left-0 right-0 top-0 h-[2px] origin-left bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)]"
+                    className={`absolute left-0 right-0 top-0 h-[2px] origin-left bg-gradient-to-r ${feature.gradient}`}
                   />
                 </Card>
               </motion.div>

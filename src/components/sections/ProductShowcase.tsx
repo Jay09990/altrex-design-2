@@ -100,8 +100,13 @@ const ProductShowcase = () => {
           variants={fadeUpVariants}
           className="relative mt-20"
         >
-          {/* Ambient glow */}
-          <div className="absolute -inset-4 rounded-[44px] bg-gradient-to-br from-violet-200/40 via-fuchsia-100/30 to-cyan-100/30" />
+          {/* Ambient glow — layered light-bleed effect */}
+          {/* Deep blur blob: sits furthest back, spreads the light wide */}
+          <div className="pointer-events-none absolute -inset-10 rounded-[60px] bg-gradient-to-br from-violet-500/30 via-fuchsia-400/20 to-cyan-400/15 blur-3xl" />
+          {/* Mid blur ring: tighter halo right around the card */}
+          <div className="pointer-events-none absolute -inset-4 rounded-[48px] bg-gradient-to-br from-violet-400/20 via-fuchsia-300/15 to-cyan-300/10 blur-xl" />
+          {/* Sharp inner rim: thin bright edge to sell the backlight */}
+          <div className="pointer-events-none absolute -inset-px rounded-[32px] bg-gradient-to-br from-violet-300/10 via-fuchsia-200/8 to-transparent blur-sm" />
 
           {/* Browser Chrome */}
           <motion.div

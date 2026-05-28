@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect } from 'react';
 
 interface ClickSparkProps {
   sparkCount?: number;
@@ -66,7 +66,7 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
     };
   }, []);
 
-  const easeInOut = useCallback((t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t, []);
+  const triggerLoopRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -75,9 +75,16 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
     if (!ctx) return;
 
     let animId = 0;
+    let isRunning = false;
     const total = 380; // ms (80ms in, 300ms out)
 
     const draw = (ts: number) => {
+      if (sparksRef.current.length === 0 && residuesRef.current.length === 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        isRunning = false;
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Draw residues (expanding faint circle)
@@ -136,7 +143,13 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
       animId = requestAnimationFrame(draw);
     };
 
-    animId = requestAnimationFrame(draw);
+    triggerLoopRef.current = () => {
+      if (!isRunning) {
+        isRunning = true;
+        animId = requestAnimationFrame(draw);
+      }
+    };
+
     return () => cancelAnimationFrame(animId);
   }, []);
 
@@ -159,6 +172,8 @@ const ClickSpark: React.FC<ClickSparkProps> = ({
       const color = `var(${COLORS[Math.floor(Math.random() * COLORS.length)]})`;
       sparksRef.current.push({ x, y, angle, startTime: now, length, color });
     }
+
+    triggerLoopRef.current();
   };
 
   return (

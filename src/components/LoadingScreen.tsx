@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { gsap } from "gsap";
 import DecryptedText from "./DecryptedText";
 
 interface LoadingScreenProps {
@@ -57,7 +56,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     setIsExiting(true);
     const completeTimer = setTimeout(() => {
       onComplete?.();
-    }, 800);
+    }, 1100);
 
     return () => clearTimeout(completeTimer);
   }, [canExit, progress, isExiting, onComplete]);
@@ -69,7 +68,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
         setIsExiting(true);
         setTimeout(() => {
           onComplete?.();
-        }, 800);
+        }, 1100);
       }
     }, 3500);
 
@@ -78,14 +77,21 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--bg-void)] transition-all duration-800 ${
-        isExiting ? "pointer-events-none opacity-0" : "opacity-100"
-      }`}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--bg-void)]"
       style={{
-        transform: isExiting ? "translateY(-100vh)" : "translateY(0)",
+        transform: isExiting ? "translateY(-100%)" : "translateY(0)",
+        transition: "transform 1100ms cubic-bezier(0.85, 0, 0.15, 1)",
+        pointerEvents: isExiting ? "none" : "auto",
       }}
     >
-      <div className="flex flex-col items-center justify-center gap-12">
+      <div 
+        className="flex flex-col items-center justify-center gap-12"
+        style={{
+          transform: isExiting ? "translateY(-100px)" : "translateY(0)",
+          opacity: isExiting ? 0 : 1,
+          transition: "transform 1000ms cubic-bezier(0.85, 0, 0.15, 1), opacity 800ms cubic-bezier(0.85, 0, 0.15, 1)",
+        }}
+      >
         {/* Logo Mark */}
         <div className="animate-fade-in mb-4">
           <div className="flex h-16 w-16 items-center justify-center rounded-lg border border-[var(--border-subtle)] bg-[var(--accent-violet)]/20">

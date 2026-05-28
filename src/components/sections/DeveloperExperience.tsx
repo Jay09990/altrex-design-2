@@ -18,12 +18,48 @@ import { motion, type Variants } from "framer-motion";
 import { Badge } from "../ui/badge";
 
 const featureChips = [
-  { icon: Code2, label: "Modern SDKs", sub: "React · Node · Go" },
-  { icon: Terminal, label: "CLI & Tooling", sub: "Deploy & debug" },
-  { icon: Globe, label: "REST & WebSocket APIs", sub: "Flexible & fast" },
-  { icon: ShieldCheck, label: "Authentication", sub: "JWT · OAuth · Keys" },
-  { icon: Workflow, label: "Realtime Workflows", sub: "Event-driven" },
-  { icon: Database, label: "Data Streaming", sub: "Live telemetry" },
+  { 
+    icon: Code2, 
+    label: "Modern SDKs", 
+    sub: "React · Node · Go",
+    color: "var(--accent-violet)",
+    glow: "rgba(139, 92, 246, 0.2)"
+  },
+  { 
+    icon: Terminal, 
+    label: "CLI & Tooling", 
+    sub: "Deploy & debug",
+    color: "#06b6d4",
+    glow: "rgba(6, 182, 212, 0.2)"
+  },
+  { 
+    icon: Globe, 
+    label: "REST & WebSocket APIs", 
+    sub: "Flexible & fast",
+    color: "var(--accent-fuchsia)",
+    glow: "rgba(217, 70, 239, 0.2)"
+  },
+  { 
+    icon: ShieldCheck, 
+    label: "Authentication", 
+    sub: "JWT · OAuth · Keys",
+    color: "var(--data-green)",
+    glow: "rgba(34, 197, 94, 0.2)"
+  },
+  { 
+    icon: Workflow, 
+    label: "Realtime Workflows", 
+    sub: "Event-driven",
+    color: "#f59e0b",
+    glow: "rgba(245, 158, 11, 0.2)"
+  },
+  { 
+    icon: Database, 
+    label: "Data Streaming", 
+    sub: "Live telemetry",
+    color: "#3b82f6",
+    glow: "rgba(59, 130, 246, 0.2)"
+  },
 ];
 
 const dxHighlights = [
@@ -32,18 +68,24 @@ const dxHighlights = [
     title: "Ship in Minutes",
     description:
       "Production-ready SDKs and starter templates for every modern framework.",
+    gradient: "from-violet-600 to-fuchsia-500",
+    borderHover: "hover:border-violet-500/30",
   },
   {
     icon: Braces,
     title: "Type-Safe APIs",
     description:
       "Full TypeScript support with auto-generated types from your schema.",
+    gradient: "from-cyan-600 to-blue-500",
+    borderHover: "hover:border-cyan-500/30",
   },
   {
     icon: GitBranch,
     title: "Git-Native Workflow",
     description:
       "Branch-based environments, instant previews, and CI/CD integrations.",
+    gradient: "from-emerald-600 to-teal-500",
+    borderHover: "hover:border-emerald-500/30",
   },
 ];
 
@@ -241,7 +283,7 @@ const DeveloperExperience = () => {
 
               <div className="pl-6">
                 <span className="text-blue-400">console</span>
-                <span className="text-gray-400">.</span>
+                <span className="text-gray-400">: </span>
                 <span className="text-green-400">log</span>
                 <span className="text-gray-400">
                   {"(msg.payload);"}
@@ -317,64 +359,80 @@ const DeveloperExperience = () => {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                {featureChips.map(({ icon: Icon, label, sub }, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{
-                      y: -3,
-                    }}
-                    transition={{
-                      duration: 0.2,
-                    }}
-                    className="flex items-center gap-2.5 rounded-full border border-white/10 bg-black/20 px-4 py-2.5 shadow-sm transition-all hover:border-violet-400/30 hover:shadow-md"
-                  >
-                    <div className="flex h-7 w-7 items-center justify-center rounded-full bg-violet-500/15 text-violet-200">
-                      <Icon className="h-3.5 w-3.5" />
-                    </div>
+                {featureChips.map((chip, i) => {
+                  const Icon = chip.icon;
+                  return (
+                    <motion.div
+                      key={i}
+                      whileHover={{
+                        y: -3,
+                      }}
+                      transition={{
+                        duration: 0.2,
+                      }}
+                      className="flex items-center gap-2.5 rounded-full border border-white/10 bg-black/20 px-4 py-2.5 shadow-sm transition-all hover:border-[var(--hover-border)] hover:shadow-md"
+                      style={{
+                        "--hover-border": chip.color,
+                        boxShadow: `0 0 8px ${chip.glow}`,
+                      } as React.CSSProperties}
+                    >
+                      <div 
+                        className="flex h-7 w-7 items-center justify-center rounded-full"
+                        style={{
+                          background: `${chip.color}15`,
+                          color: chip.color,
+                        }}
+                      >
+                        <Icon className="h-3.5 w-3.5" />
+                      </div>
 
-                    <div>
-                      <p className="text-xs font-semibold text-[var(--text-primary)]">
-                        {label}
-                      </p>
+                      <div>
+                        <p className="text-xs font-semibold text-[var(--text-primary)]">
+                          {chip.label}
+                        </p>
 
-                      <p className="text-[10px] text-[var(--text-secondary)]">
-                        {sub}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
+                        <p className="text-[10px] text-[var(--text-secondary)]">
+                          {chip.sub}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
 
             {/* DX Highlight Cards */}
             <div className="grid gap-4 sm:grid-cols-1">
               {dxHighlights.map(
-                ({ icon: Icon, title, description }, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{
-                      y: -5,
-                    }}
-                    transition={{
-                      duration: 0.25,
-                    }}
-                    className="group flex items-start gap-4 rounded-2xl border border-white/10 bg-black/20 p-5 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-lg"
-                  >
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-md">
-                      <Icon className="h-5 w-5" />
-                    </div>
+                (highlight, i) => {
+                  const Icon = highlight.icon;
+                  return (
+                    <motion.div
+                      key={i}
+                      whileHover={{
+                        y: -5,
+                      }}
+                      transition={{
+                        duration: 0.25,
+                      }}
+                      className={`group flex items-start gap-4 rounded-2xl border border-white/10 bg-black/20 p-5 shadow-sm transition-all duration-300 ${highlight.borderHover} hover:shadow-lg`}
+                    >
+                      <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${highlight.gradient} text-white shadow-md`}>
+                        <Icon className="h-5 w-5" />
+                      </div>
 
-                    <div>
-                      <h3 className="font-semibold text-[var(--text-primary)] transition-colors group-hover:text-violet-300">
-                        {title}
-                      </h3>
+                      <div>
+                        <h3 className="font-semibold text-[var(--text-primary)] transition-colors group-hover:text-violet-300">
+                          {highlight.title}
+                        </h3>
 
-                      <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
-                        {description}
-                      </p>
-                    </div>
-                  </motion.div>
-                )
+                        <p className="mt-1 text-sm leading-6 text-[var(--text-secondary)]">
+                          {highlight.description}
+                        </p>
+                      </div>
+                    </motion.div>
+                  );
+                }
               )}
             </div>
 

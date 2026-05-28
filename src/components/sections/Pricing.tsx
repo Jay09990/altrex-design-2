@@ -20,6 +20,10 @@ const pricingPlans = [
     ],
 
     popular: false,
+    color: "#06b6d4",
+    borderHover: "border-white/10 hover:border-cyan-400/40 hover:shadow-cyan-950/10 hover:shadow-lg",
+    checkBg: "bg-cyan-500/10",
+    checkColor: "text-cyan-400",
   },
 
   {
@@ -37,6 +41,10 @@ const pricingPlans = [
       "WebSocket APIs",
       "Priority Support",
     ],
+    color: "var(--accent-violet)",
+    borderHover: "border-violet-400/40 pro-glow-light",
+    checkBg: "bg-violet-500/15",
+    checkColor: "text-violet-300",
   },
 
   {
@@ -55,6 +63,10 @@ const pricingPlans = [
     ],
 
     popular: false,
+    color: "var(--accent-fuchsia)",
+    borderHover: "border-white/10 hover:border-fuchsia-400/40 hover:shadow-fuchsia-950/10 hover:shadow-lg",
+    checkBg: "bg-fuchsia-500/10",
+    checkColor: "text-fuchsia-400",
   },
 ];
 
@@ -199,11 +211,7 @@ const Pricing = () => {
               transition={{
                 duration: 0.25,
               }}
-              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-[var(--bg-surface)]/75 p-8 transition-all duration-300 hover:-translate-y-1 ${
-                plan.popular
-                    ? "border-violet-400/40 pro-glow-light"
-                    : "border-white/10 hover:border-violet-400/30 hover:shadow-lg"
-              }`}
+              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-[var(--bg-surface)]/75 p-8 transition-all duration-300 ${plan.borderHover}`}
             >
               {/* Popular badge */}
               {plan.popular && (
@@ -230,7 +238,8 @@ const Pricing = () => {
               {/* Plan name */}
               <motion.p
                 variants={fadeUpVariants}
-                className="text-xs font-bold uppercase tracking-widest text-violet-500"
+                className="text-xs font-bold uppercase tracking-widest"
+                style={{ color: plan.color }}
               >
                 {plan.name}
               </motion.p>
@@ -285,19 +294,9 @@ const Pricing = () => {
                         scale: 1.08,
                         rotate: 4,
                       }}
-                      className={`flex h-5 w-5 items-center justify-center rounded-full ${
-                        plan.popular
-                          ? "bg-violet-500/15"
-                          : "bg-white/5"
-                      }`}
+                      className={`flex h-5 w-5 items-center justify-center rounded-full ${plan.checkBg}`}
                     >
-                      <Check
-                        className={`h-3 w-3 ${
-                          plan.popular
-                            ? "text-violet-300"
-                            : "text-[var(--text-muted)]"
-                        }`}
-                      />
+                      <Check className={`h-3 w-3 ${plan.checkColor}`} />
                     </motion.div>
 
                     {feature}
@@ -310,12 +309,13 @@ const Pricing = () => {
                 whileTap={{
                   scale: 0.96,
                 }}
+                style={!plan.popular ? {
+                  "--hover-btn-border": plan.color,
+                } as React.CSSProperties : {}}
                 className={`mt-8 w-full rounded-2xl px-6 py-4 text-sm font-semibold transition-all duration-200 ${
                   plan.popular
                     ? "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-md hover:opacity-90"
-                    : plan.name === "Starter"
-                      ? "border border-white/10 bg-[var(--bg-surface)]/70 text-[var(--text-primary)] hover:border-violet-400/30 hover:text-violet-200"
-                      : "border border-white/10 bg-[var(--bg-surface)]/70 text-[var(--text-primary)] hover:border-violet-400/30 hover:text-violet-200"
+                    : "border border-white/10 bg-[var(--bg-surface)]/70 text-[var(--text-primary)] hover:border-[var(--hover-btn-border)]/40 hover:text-[var(--hover-btn-border)]"
                 }`}
               >
                 {plan.price === "Custom"

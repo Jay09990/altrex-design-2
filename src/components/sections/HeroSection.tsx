@@ -51,15 +51,22 @@ const HeadlineLine = ({ text }: { text: string }) => {
       ref={ref}
       className="inline-flex flex-wrap justify-center gap-x-[0.22em] gap-y-0 leading-none"
     >
-      {words.map((word, idx) => (
-        <span
-          key={`${word}-${idx}`}
-          data-word
-          className="inline-block whitespace-pre will-change-transform"
-        >
-          {word}
-        </span>
-      ))}
+      {words.map((word, idx) => {
+        const isColored = word === "REALTIME" || word === "COMPLEXITY";
+        return (
+          <span
+            key={`${word}-${idx}`}
+            data-word
+            className={`inline-block whitespace-pre will-change-transform ${
+              isColored
+                ? "bg-gradient-to-r from-[var(--accent-violet)] via-[var(--accent-fuchsia)] to-cyan-400 bg-clip-text text-transparent"
+                : ""
+            }`}
+          >
+            {word}
+          </span>
+        );
+      })}
     </span>
   );
 };
@@ -129,13 +136,13 @@ const HeroSection = () => {
         {/* Metadata Labels */}
         <div
           ref={metadataRef}
-          className="mt-12 flex flex-wrap items-center justify-center gap-8 font-mono text-xs tracking-widest text-[var(--text-secondary)] uppercase"
+          className="mt-12 flex flex-wrap items-center justify-center gap-8 font-mono text-[10px] sm:text-xs tracking-widest text-[var(--text-secondary)] uppercase"
         >
-          <span>[NODE_COUNT: 847,291]</span>
-          <span className="hidden sm:inline">|</span>
-          <span className="hidden sm:inline">[LATENCY: 11ms]</span>
-          <span className="hidden md:inline">|</span>
-          <span className="hidden md:inline">[UPTIME: 99.99%]</span>
+          <span>[NODE_COUNT: <span className="text-[var(--accent-violet)] font-bold">847,291</span>]</span>
+          <span className="hidden sm:inline text-white/10">|</span>
+          <span className="hidden sm:inline">[LATENCY: <span className="text-cyan-400 font-bold">11ms</span>]</span>
+          <span className="hidden md:inline text-white/10">|</span>
+          <span className="hidden md:inline">[UPTIME: <span className="text-[var(--data-green)] font-bold">99.99%</span>]</span>
         </div>
 
         {/* Description */}

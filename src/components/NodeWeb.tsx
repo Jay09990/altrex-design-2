@@ -111,9 +111,21 @@ const createGraph = (): GraphData => {
 };
 
 const NodeWebScene = ({ graph }: { graph: GraphData }) => {
-  const pointsGeometryRef = useRef<THREE.BufferGeometry>(null);
   const { camera } = useThree();
   const nodesRef = useRef(graph.nodes);
+
+  // Build attributes imperatively so useFrame can mutate them directly
+  const colorAttribute = useMemo(() => {
+    return new THREE.BufferAttribute(graph.colors.slice(), 3);
+  }, [graph]);
+
+  const positionAttribute = useMemo(() => {
+    return new THREE.BufferAttribute(graph.positions, 3);
+  }, [graph]);
+
+  const edgePositionAttribute = useMemo(() => {
+    return new THREE.BufferAttribute(graph.edges, 3);
+  }, [graph]);
 
   useEffect(() => {
     nodesRef.current = graph.nodes;
@@ -130,27 +142,49 @@ const NodeWebScene = ({ graph }: { graph: GraphData }) => {
     camera.position.z += (targetZ - camera.position.z) * CAMERA_LERP;
     camera.lookAt(0, 0, 0);
 
-    const colorAttribute = pointsGeometryRef.current?.getAttribute("color") as
-      | THREE.BufferAttribute
-      | undefined;
-
-    if (!colorAttribute) return;
-
     const colors = colorAttribute.array as Float32Array;
 
     for (let index = 0; index < nodesRef.current.length; index += 1) {
       const node = nodesRef.current[index];
-      const pulse = 0.22 + 0.14 * Math.sin(elapsed * 0.9 + node.phase);
-      const accentMix = node.tintBias ? 0.82 : 0.48;
-      const brightness = 0.44 + pulse * 0.5;
 
-      colors[index * 3 + 0] = brightness + accentMix * pulse * 0.24;
-      colors[index * 3 + 1] = brightness * (0.96 + accentMix * 0.03);
-      colors[index * 3 + 2] = brightness + (1 - accentMix) * pulse * 0.22;
+      if (node.tintBias === 1) {
+        // violet tint
+        colors[index * 3 + 0] = 0.60; // R
+        colors[index * 3 + 1] = 0.33; // G
+        colors[index * 3 + 2] = 0.92; // B
+      } else {
+        // fuchsia tint
+        colors[index * 3 + 0] = 0.95; // R
+        colors[index * 3 + 1] = 0.18; // G
+        colors[index * 3 + 2] = 0.89; // B
+      }
     }
 
     colorAttribute.needsUpdate = true;
   });
+
+  // Add this hook inside NodeWebScene, before the return
+  const circleTexture = useMemo(() => {
+    const size = 64;
+    const canvas = document.createElement('canvas');
+    canvas.width = size;
+    canvas.height = size;
+    const ctx = canvas.getContext('2d')!;
+
+    // Radial gradient — sharp center, soft edge
+    const gradient = ctx.createRadialGradient(
+      size / 2, size / 2, 0,
+      size / 2, size / 2, size / 2
+    );
+    gradient.addColorStop(0, 'rgba(255,255,255,1.0)');
+    gradient.addColorStop(0.4, 'rgba(255,255,255,0.9)');
+    gradient.addColorStop(1, 'rgba(255,255,255,0.0)');
+
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, size, size);
+
+    return new THREE.CanvasTexture(canvas);
+  }, []);
 
   return (
     <>
@@ -159,16 +193,11 @@ const NodeWebScene = ({ graph }: { graph: GraphData }) => {
       <pointLight position={[-6, -4, 4]} intensity={1.6} color="#d946ef" />
       <pointLight position={[0, 0, 10]} intensity={0.55} color="#22c55e" />
 
+      {/* Nodes */}
       <points frustumCulled={false}>
-        <bufferGeometry ref={pointsGeometryRef}>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[graph.positions, 3]}
-          />
-          <bufferAttribute
-            attach="attributes-color"
-            args={[graph.colors, 3]}
-          />
+        <bufferGeometry>
+          <primitive object={positionAttribute} attach="attributes-position" />
+          <primitive object={colorAttribute} attach="attributes-color" />
         </bufferGeometry>
         <pointsMaterial
           size={POINT_SIZE}
@@ -176,17 +205,23 @@ const NodeWebScene = ({ graph }: { graph: GraphData }) => {
           vertexColors
           transparent
           opacity={0.95}
+          depthWrite={false}
+          map={circleTexture}        // ← add this
+          alphaTest={0.01}           // ← add this (clips square corners cleanly)
         />
       </points>
 
+      {/* Edges */}
       <lineSegments frustumCulled={false}>
         <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[graph.edges, 3]}
-          />
+          <primitive object={edgePositionAttribute} attach="attributes-position" />
         </bufferGeometry>
-        <lineBasicMaterial transparent opacity={0.14} color="#8b5cf6" />
+        <lineBasicMaterial
+          transparent
+          opacity={0.55}
+          color="#8b5cf6"
+          depthWrite={false}
+        />
       </lineSegments>
     </>
   );
@@ -223,7 +258,7 @@ const NodeWeb = () => {
   return (
     <div className="absolute inset-0">
       <Canvas
-        dpr={[1, 1.35]}
+        dpr={[1, 1.2]}
         camera={{ position: [0, 0, 12], fov: 75 }}
         gl={{
           antialias: true,

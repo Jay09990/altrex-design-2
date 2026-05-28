@@ -744,17 +744,17 @@ const Architecture = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        const grid = document.querySelector('.bg-grid') as HTMLElement | null;
+        const grid = document.getElementById('bg-grid-overlay');
         if (!grid) return;
         if (entry.isIntersecting) {
           gsap.to(grid, {
-            '--grid-opacity': 0.08,
+            opacity: 0.8,
             duration: 0.8,
             ease: 'power2.out',
           });
         } else {
           gsap.to(grid, {
-            '--grid-opacity': 0.03,
+            opacity: 0.3,
             duration: 0.6,
             ease: 'power2.out',
           });
