@@ -261,10 +261,10 @@ function ItemNode({ data }: NodeProps<any>) {
 
   return (
     <div
-      className="flex min-w-[155px] items-center gap-2.5 rounded-xl bg-[#0c0c0c] px-3 py-2.5 transition-all duration-200"
+      className="flex min-w-[155px] items-center gap-2.5 rounded-xl bg-[var(--bg-surface)] px-3 py-2.5 transition-all duration-200"
       style={{
         border: `1px solid ${color}28`,
-        boxShadow: `0 0 0 1px ${color}06, 0 4px 16px rgba(0,0,0,0.3), 0 0 10px ${color}10`,
+        boxShadow: `0 0 0 1px ${color}06, 0 4px 16px rgba(0,0,0,0.06), 0 0 10px ${color}08`,
       }}
     >
       <div
@@ -750,7 +750,7 @@ const Architecture = () => {
           >
             <Badge
               variant="secondary"
-              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-200"
+              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-600"
             >
               Realtime Architecture
             </Badge>
@@ -773,29 +773,29 @@ const Architecture = () => {
         {/* Flow canvas */}
         <motion.div
           ref={canvasRef}
-          className="relative mt-16 overflow-hidden rounded-xl bg-[#080808]"
+          className="relative mt-16 overflow-hidden rounded-xl bg-[var(--bg-surface)]"
           style={{
             y: cardY,
             height: 883,
             border: '1px solid rgba(139,92,246,0.14)',
             boxShadow:
-              '0 0 0 1px rgba(34,197,94,0.04), 0 8px 60px rgba(0,0,0,0.6), 0 0 50px rgba(139,92,246,0.08)',
+              '0 0 0 1px rgba(34,197,94,0.04), 0 8px 60px rgba(0,0,0,0.06), 0 0 50px rgba(139,92,246,0.04)',
           }}
         >
           <motion.div style={{ y: labelY }} className="pointer-events-none absolute left-6 top-6 z-20 hidden lg:block">
-            <div className="rounded-2xl border border-white/10 bg-black/35 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+            <div className="rounded-2xl border border-black/[0.08] bg-white/75 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">
               [STACK: LAYERED]
             </div>
           </motion.div>
 
           <motion.div style={{ y: labelY }} className="pointer-events-none absolute right-6 top-6 z-20 hidden lg:block">
-            <div className="rounded-2xl border border-white/10 bg-black/35 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+            <div className="rounded-2xl border border-black/[0.08] bg-white/75 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">
               [PARALLAX: ON]
             </div>
           </motion.div>
 
           {/* Terminal chrome bar */}
-          <div className="border-b border-white/[0.07] bg-[#0d0d0d]">
+          <div className="border-b border-black/[0.06] bg-[var(--bg-void)]">
             {/* Title row */}
             <div className="flex items-center justify-between px-5 py-2">
               <div className="flex items-center gap-3">
@@ -804,7 +804,7 @@ const Architecture = () => {
                   <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
                   <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
                 </div>
-                <div className="h-3 w-px bg-white/[0.08]" />
+                <div className="h-3 w-px bg-black/[0.08]" />
                 <span className="font-mono text-[10px] text-[var(--text-muted)]">
                   altrex@arch:~${" "}
                   <span className="text-[var(--accent-violet)]">./run_topology</span>
@@ -818,7 +818,7 @@ const Architecture = () => {
                 <span className="font-mono text-[9px] text-[var(--text-muted)]">
                   EDGES <span className="text-[var(--accent-fuchsia)]">11</span>
                 </span>
-                <div className="h-3 w-px bg-white/[0.08]" />
+                <div className="h-3 w-px bg-black/[0.08]" />
                 <div className="flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--data-green)]" />
                   <span className="font-mono text-[9px] tracking-widest text-[var(--data-green)] uppercase">
@@ -828,7 +828,7 @@ const Architecture = () => {
               </div>
             </div>
             {/* Status row */}
-            <div className="flex items-center gap-5 border-t border-white/[0.05] bg-black/40 px-5 py-[5px]">
+            <div className="flex items-center gap-5 border-t border-black/[0.06] bg-black/[0.02] px-5 py-[5px]">
               <span className="font-mono text-[8px] text-[var(--text-muted)]">
                 <span className="text-[var(--accent-violet)]">▶</span> TOPOLOGY_ACTIVE
               </span>
@@ -839,7 +839,7 @@ const Architecture = () => {
                 SEC: <span className="text-[var(--data-green)]">TLS 1.3</span>
               </span>
               <span className="font-mono text-[8px] text-[var(--text-muted)]">
-                UPTIME: <span className="text-white/35">99.97%</span>
+                UPTIME: <span className="text-[var(--text-secondary)]">99.97%</span>
               </span>
             </div>
           </div>

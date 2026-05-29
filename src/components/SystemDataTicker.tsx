@@ -17,7 +17,7 @@ export default function SystemDataTicker({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-white/10 bg-black/25 ${className ?? ""}`}
+      className={`relative overflow-hidden rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] ${className ?? ""}`}
     >
       <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[var(--bg-void)] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[var(--bg-void)] to-transparent" />

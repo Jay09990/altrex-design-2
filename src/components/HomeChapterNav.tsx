@@ -98,7 +98,7 @@ const HomeChapterNav = () => {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.96 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="flex items-center gap-2 rounded-full border border-white/10 bg-[var(--bg-surface)]/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-primary)] shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+            className="flex items-center gap-2 rounded-full border border-black/[0.08] bg-[var(--bg-surface)]/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-primary)] shadow-[0_24px_80px_rgba(0,0,0,0.12)]"
           >
             <ChevronLeft className="h-3.5 w-3.5 text-[var(--text-muted)]" />
             Chapters
@@ -110,7 +110,7 @@ const HomeChapterNav = () => {
             animate={{ opacity: 1, x: 0, width: 252 }}
             exit={{ opacity: 0, x: 20, width: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="overflow-hidden rounded-[28px] border border-white/10 bg-[var(--bg-surface)]/70 p-3 shadow-[0_24px_80px_rgba(0,0,0,0.35)]"
+            className="overflow-hidden rounded-[28px] border border-black/[0.08] bg-[var(--bg-surface)]/70 p-3 shadow-[0_24px_80px_rgba(0,0,0,0.12)]"
           >
             <div className="mb-3 flex items-center justify-between px-2 pt-1">
               <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">
@@ -120,7 +120,7 @@ const HomeChapterNav = () => {
               <button
                 type="button"
                 onClick={() => setIsCollapsed(true)}
-                className="rounded-full border border-white/10 bg-black/20 p-1 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)]"
+                className="rounded-full border border-black/[0.08] bg-black/[0.04] p-1 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)] hover:bg-black/[0.08]"
                 aria-label="Hide chapter navigation"
               >
                 <ChevronRight className="h-3.5 w-3.5" />
@@ -145,16 +145,16 @@ const HomeChapterNav = () => {
                     transition={{ duration: 0.2 }}
                     className={`group flex w-[220px] items-center gap-3 rounded-2xl border px-3 py-3 text-left transition-all duration-300 ${
                       isActive
-                        ? "border-violet-400/30 bg-violet-500/12 shadow-[0_0_0_1px_rgba(139,92,246,0.18),0_12px_30px_rgba(0,0,0,0.25)]"
-                        : "border-white/10 bg-black/20 hover:border-white/20 hover:bg-white/5"
+                        ? "border-violet-400/30 bg-violet-500/12 shadow-[0_0_0_1px_rgba(139,92,246,0.18),0_12px_30px_rgba(139,92,246,0.06)]"
+                        : "border-black/[0.06] bg-black/[0.02] hover:border-black/[0.1] hover:bg-black/[0.04]"
                     }`}
                   >
                     <motion.div
                       layout
                       className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border font-mono text-[11px] font-bold tracking-[0.18em] transition-colors ${
                         isActive
-                          ? "border-violet-400/30 bg-violet-500/18 text-violet-200"
-                          : "border-white/10 bg-white/5 text-[var(--text-muted)]"
+                          ? "border-violet-400/30 bg-violet-500/12 text-violet-600"
+                          : "border-black/[0.06] bg-black/[0.02] text-[var(--text-muted)]"
                       }`}
                     >
                       {chapter.number}
@@ -180,7 +180,7 @@ const HomeChapterNav = () => {
                       className={`ml-auto h-2 w-2 rounded-full transition-all ${
                         isActive
                           ? "bg-[var(--accent-violet)] shadow-[0_0_16px_rgba(139,92,246,0.65)]"
-                          : "bg-white/20"
+                          : "bg-black/20"
                       }`}
                     />
                   </motion.button>
