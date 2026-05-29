@@ -85,20 +85,20 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  /* Altrex v2 Design System — Blueprint Colors */
-  --bg-void: #080808;
-  --bg-surface: #111111;
-  --bg-raised: #1a1a1a;
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-active: rgba(255, 255, 255, 0.18);
-  --text-primary: #f5f5f5;
-  --text-secondary: #737373;
-  --text-muted: #404040;
-  --accent-violet: #8b5cf6;
-  --accent-fuchsia: #d946ef;
-  --accent-glow: rgba(139, 92, 246, 0.15);
-  --data-green: #22c55e;
-  --data-amber: #f59e0b;
+  /* Altrex v2 Design System — Blueprint Colors (Light Mode) */
+  --bg-void: #f5f4ff;
+  --bg-surface: #ffffff;
+  --bg-raised: #eeecfb;
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-active: rgba(0, 0, 0, 0.18);
+  --text-primary: #0f0e1a;
+  --text-secondary: #4b4a62;
+  --text-muted: #9896b0;
+  --accent-violet: #7c3aed;
+  --accent-fuchsia: #c026d3;
+  --accent-glow: rgba(124, 58, 237, 0.08);
+  --data-green: #16a34a;
+  --data-amber: #d97706;
 }
 
 .dark {
@@ -134,20 +134,20 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  /* Altrex v2 Design System — Blueprint Colors (used in dark theme) */
-  --bg-void: #080808;
-  --bg-surface: #111111;
-  --bg-raised: #1a1a1a;
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-active: rgba(255, 255, 255, 0.18);
-  --text-primary: #f5f5f5;
-  --text-secondary: #737373;
-  --text-muted: #404040;
-  --accent-violet: #8b5cf6;
-  --accent-fuchsia: #d946ef;
-  --accent-glow: rgba(139, 92, 246, 0.15);
-  --data-green: #22c55e;
-  --data-amber: #f59e0b;
+  /* Altrex v2 Design System — Blueprint Colors (dark theme overrides, kept for reference) */
+  --bg-void: #f5f4ff;
+  --bg-surface: #ffffff;
+  --bg-raised: #eeecfb;
+  --border-subtle: rgba(0, 0, 0, 0.07);
+  --border-active: rgba(0, 0, 0, 0.18);
+  --text-primary: #0f0e1a;
+  --text-secondary: #4b4a62;
+  --text-muted: #9896b0;
+  --accent-violet: #7c3aed;
+  --accent-fuchsia: #c026d3;
+  --accent-glow: rgba(124, 58, 237, 0.08);
+  --data-green: #16a34a;
+  --data-amber: #d97706;
 }
 
 @layer base {
@@ -163,17 +163,17 @@
 
   html {
     @apply font-sans;
-    color-scheme: dark;
+    color-scheme: light;
   }
 }
 
 /* Background Grid for Home page */
 /* AFTER */
 .bg-grid {
-  background-color: rgba(0, 0, 0, 0.144);
+  background-color: rgba(255, 255, 255, 0.5);
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(100, 80, 200, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(100, 80, 200, 0.06) 1px, transparent 1px);
   background-size: 40px 40px;
   background-attachment: fixed;
 }

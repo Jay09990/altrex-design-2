@@ -87,7 +87,7 @@ const Testimonials = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+              className="border border-black/[0.08] bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               <InViewDecryptedText
                 text="TESTIMONIALS"
@@ -127,7 +127,7 @@ const Testimonials = () => {
               duration: 0.25,
             }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative flex-1 overflow-hidden rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 p-10 shadow-md lg:basis-3/5"
+            className="relative flex-1 overflow-hidden rounded-3xl border border-black/[0.08] bg-[var(--bg-surface)] p-10 shadow-md lg:basis-3/5"
           >
             {/* Giant quote mark */}
             <motion.div
@@ -205,7 +205,7 @@ const Testimonials = () => {
                   duration: 0.25,
                 }}
                 style={{ transformStyle: "preserve-3d" }}
-                className="group rounded-2xl border border-white/10 bg-[var(--bg-surface)]/70 p-7 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
+                className="group rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] p-7 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-1">
@@ -292,7 +292,7 @@ const Testimonials = () => {
                   duration: 0.25,
                   delay: i * 0.06,
                 }}
-                className="rounded-xl border border-white/10 bg-black/20 px-6 py-2.5 text-sm font-semibold text-[var(--text-secondary)] shadow-sm"
+                className="rounded-xl border border-black/[0.08] bg-black/5 px-6 py-2.5 text-sm font-semibold text-[var(--text-secondary)] shadow-sm"
               >
                 {co}
               </motion.div>

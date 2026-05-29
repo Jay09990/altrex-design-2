@@ -310,7 +310,7 @@ function BlockNode({ data }: NodeProps<any>) {
 
   return (
     <div
-      className="rounded-[20px] border border-white/10 bg-[var(--bg-surface)]/80 p-[18px]"
+      className="rounded-[20px] border border-black/[0.08] bg-[var(--bg-surface)] p-[18px] shadow-sm"
       style={{
         width: data.width ?? 240,
         border: `1px solid ${color}18`,
@@ -351,7 +351,7 @@ function BlockNode({ data }: NodeProps<any>) {
             return (
               <div
                 key={i}
-                className="flex flex-col items-center gap-[6px] rounded-[12px] border border-white/10 bg-black/20 px-2 py-2.5"
+                className="flex flex-col items-center gap-[6px] rounded-[12px] border border-black/[0.06] bg-black/5 px-2 py-2.5 shadow-sm"
               >
                 <div
                   className="flex h-[28px] w-[28px] items-center justify-center rounded-lg"
@@ -388,7 +388,7 @@ function BlockNode({ data }: NodeProps<any>) {
 
 /* ─── Registries ─────────────────────────────────────────────────────────── */
 
-const nodeTypes = {
+const nodeTypes: any = {
   item: ItemNode,
   block: BlockNode,
 };
@@ -609,74 +609,14 @@ const EDGES: Edge[] = [
 
 /* ─── Labels ─────────────────────────────────────────────────────────────── */
 
-const LAYER_LABELS = [
-  {
-    label: "Industries",
-    left: "1.5%",
-    color: C.violet,
-  },
 
-  {
-    label: "Devices",
-    left: "19%",
-    color: C.violet,
-  },
 
-  {
-    label: "Connectivity",
-    left: "38%",
-    color: C.fuchsia,
-  },
-
-  {
-    label: "Platform",
-    left: "57%",
-    color: C.violet,
-  },
-
-  {
-    label: "Deployment",
-    left: "82%",
-    color: C.cyan,
-  },
-];
-
-function LayerLabels() {
-  return (
-    <div className="pointer-events-none absolute inset-x-6 top-5 z-10">
-      {LAYER_LABELS.map(({ label, left, color }) => (
-        <div
-          key={label}
-          className="absolute flex items-center gap-1.5"
-          style={{ left }}
-        >
-          <span
-            className="inline-block h-[6px] w-[6px] shrink-0 rounded-full"
-            style={{
-              background: color,
-            }}
-          />
-
-          <span
-            className="text-[9px] font-bold uppercase tracking-widest"
-            style={{
-              color,
-              opacity: 0.7,
-            }}
-          >
-            {label}
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 /* ─── Live Pulse ─────────────────────────────────────────────────────────── */
 
 function LivePulse() {
   return (
-    <div className="pointer-events-none absolute bottom-4 left-4 z-10 flex flex-col gap-1.5 rounded-lg border border-white/[0.08] bg-[#0a0a0a]/95 px-3.5 py-2.5 shadow-lg backdrop-blur-sm">
+    <div className="pointer-events-none absolute bottom-4 left-4 z-10 flex flex-col gap-1.5 rounded-lg border border-black/[0.08] bg-[var(--bg-surface)]/95 px-3.5 py-2.5 shadow-lg backdrop-blur-sm">
       <div className="flex items-center gap-2">
         <span className="relative flex h-1.5 w-1.5">
           <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -686,14 +626,14 @@ function LivePulse() {
           STREAM ACTIVE
         </span>
       </div>
-      <div className="flex flex-col gap-[3px] border-t border-white/[0.06] pt-1.5">
+      <div className="flex flex-col gap-[3px] border-t border-black/[0.06] pt-1.5">
         <span className="font-mono text-[8px] text-[var(--text-muted)]">
           <span className="text-emerald-500/50">▸</span> PKT/S{" "}
-          <span className="text-white/35">4.2k</span>
+          <span className="text-[var(--text-secondary)]">4.2k</span>
         </span>
         <span className="font-mono text-[8px] text-[var(--text-muted)]">
           <span className="text-emerald-500/50">▸</span> LATENCY{" "}
-          <span className="text-white/35">2ms</span>
+          <span className="text-[var(--text-secondary)]">2ms</span>
         </span>
       </div>
     </div>

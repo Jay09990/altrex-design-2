@@ -175,10 +175,10 @@ const DeveloperExperience = () => {
             transition={{
               duration: 0.25,
             }}
-            className="overflow-hidden rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 shadow-2xl shadow-black/40"
+            className="overflow-hidden rounded-3xl border border-black/[0.08] bg-[var(--bg-surface)] shadow-xl shadow-black/5"
           >
             {/* Terminal topbar */}
-            <div className="flex items-center gap-2 border-b border-white/5 bg-gray-900 px-5 py-3.5">
+            <div className="flex items-center gap-2 border-b border-black/[0.08] bg-gray-50 px-5 py-3.5">
               <motion.div
                 animate={{
                   opacity: [1, 0.7, 1],
@@ -377,7 +377,7 @@ const DeveloperExperience = () => {
                       transition={{
                         duration: 0.2,
                       }}
-                      className="flex items-center gap-2.5 rounded-full border border-white/10 bg-black/20 px-4 py-2.5 shadow-sm transition-all hover:border-[var(--hover-border)] hover:shadow-md"
+                      className="flex items-center gap-2.5 rounded-full border border-black/[0.08] bg-black/5 px-4 py-2.5 shadow-sm transition-all hover:border-[var(--hover-border)] hover:shadow-md"
                       style={{
                         "--hover-border": chip.color,
                         boxShadow: `0 0 8px ${chip.glow}`,
@@ -451,7 +451,7 @@ const DeveloperExperience = () => {
               transition={{
                 duration: 0.2,
               }}
-              className="flex flex-col gap-3 rounded-2xl border border-white/10 bg-black/20 p-6 sm:flex-row sm:items-center sm:justify-between"
+              className="flex flex-col gap-3 rounded-2xl border border-black/[0.08] bg-black/5 p-6 sm:flex-row sm:items-center sm:justify-between"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-md">
                 <Rocket className="h-5 w-5" />
@@ -488,7 +488,7 @@ const DeveloperExperience = () => {
                   whileTap={{
                     scale: 0.96,
                   }}
-                  className="rounded-xl border border-white/10 bg-black/20 px-4 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors"
+                  className="rounded-xl border border-black/[0.08] bg-black/5 px-4 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors"
                 >
                   API Ref
                 </motion.button>
@@ -512,9 +512,9 @@ const DeveloperExperience = () => {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="flex items-center gap-2 rounded-xl border border-white/10 bg-black/20 px-3 py-2.5"
+                  className="flex items-center gap-2 rounded-xl border border-black/[0.08] bg-[var(--bg-surface)] px-3 py-2.5 shadow-sm"
                 >
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-black/5">
                     <Icon className="h-4 w-4 text-[var(--text-secondary)]" />
                   </div>
 

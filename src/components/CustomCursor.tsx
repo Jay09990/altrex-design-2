@@ -5,8 +5,6 @@ const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const mouseX = useRef(0);
   const mouseY = useRef(0);
-  const cursorX = useRef(0);
-  const cursorY = useRef(0);
 
   useEffect(() => {
     // Disable custom cursor on touch / coarse-pointer devices
@@ -36,7 +34,7 @@ const CustomCursor = () => {
       }
     };
 
-    const handleMouseEnter = (e: Event) => {
+    const handleMouseEnter = () => {
       if (cursorRef.current) {
         gsap.to(cursorRef.current, {
           width: 32,
@@ -49,13 +47,13 @@ const CustomCursor = () => {
       }
     };
 
-    const handleMouseLeave = (e: Event) => {
+    const handleMouseLeave = () => {
       if (cursorRef.current) {
         gsap.to(cursorRef.current, {
           width: 8,
           height: 8,
           backgroundColor: "transparent",
-          borderColor: "rgba(255, 255, 255, 0.6)",
+          borderColor: "rgba(0, 0, 0, 0.4)",
           duration: 0.3,
           overwrite: "auto",
         });
@@ -108,7 +106,7 @@ const CustomCursor = () => {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed z-[10000] w-2 h-2 rounded-full border border-white/60 bg-transparent mix-blend-screen"
+      className="pointer-events-none fixed z-[10000] w-2 h-2 rounded-full border border-black/40 bg-transparent transition-colors duration-300"
       style={{
         left: 0,
         top: 0,

@@ -152,7 +152,7 @@ const CoreFeatures = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+              className="border border-black/[0.08] bg-[var(--bg-surface)]/80 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
               <InViewDecryptedText
@@ -210,7 +210,7 @@ const CoreFeatures = () => {
                 style={{ transformPerspective: 900 }}
               >
                 <Card 
-                  className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 p-8 transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_var(--hover-glow)]"
+                  className="group relative h-full overflow-hidden rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] p-8 transition-all duration-300 hover:border-violet-300/40 hover:shadow-[0_20px_40px_-15px_var(--hover-glow)]"
                   style={{
                     "--hover-glow": feature.glow,
                   } as React.CSSProperties}
@@ -231,8 +231,8 @@ const CoreFeatures = () => {
                       }}
                       className="flex h-12 w-12 items-center justify-center rounded-lg text-white shadow-md transition-colors"
                       style={{
-                        background: `rgba(255,255,255,0.03)`,
-                        border: `1px solid rgba(255,255,255,0.08)`,
+                        background: `rgba(0,0,0,0.04)`,
+                        border: `1px solid rgba(0,0,0,0.08)`,
                         color: feature.color,
                         boxShadow: `0 0 12px ${feature.glow}`,
                       }}

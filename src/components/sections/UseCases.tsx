@@ -154,7 +154,7 @@ const UseCases = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="w-[340px] flex-shrink-0 rounded-3xl border border-white/10 bg-[var(--bg-surface)]/80 p-8 shadow-md backdrop-blur-sm md:w-[420px]"
+                className="w-[340px] flex-shrink-0 rounded-3xl border border-black/[0.08] bg-[var(--bg-surface)] p-8 shadow-sm backdrop-blur-sm md:w-[420px]"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-lg">
@@ -185,7 +185,7 @@ const UseCases = () => {
                   <button className="rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-500 px-5 py-2.5 text-sm font-medium text-white shadow-md hover:opacity-90 transition-opacity">
                     Start Building
                   </button>
-                  <button className="rounded-xl border border-white/10 bg-black/20 px-5 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors">
+                  <button className="rounded-xl border border-black/[0.08] bg-[var(--bg-surface)] px-5 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors shadow-sm">
                     Book Demo
                   </button>
                 </div>

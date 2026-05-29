@@ -76,7 +76,7 @@ const HeroSection = () => {
           transition={{ duration: 0.6 }}
           className="mb-12"
         >
-          <Badge variant="secondary" className="border-white/10 bg-[var(--bg-surface)]/50 p-4">
+          <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] p-4 shadow-sm">
             <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--data-green)]">
               <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
             </div>
@@ -115,9 +115,9 @@ const HeroSection = () => {
           className="mt-12 flex flex-wrap items-center justify-center gap-8 font-mono text-[10px] sm:text-xs tracking-widest text-[var(--text-secondary)] uppercase"
         >
           <span>[NODE_COUNT: <span className="text-[var(--accent-violet)] font-bold">847,291</span>]</span>
-          <span className="hidden sm:inline text-white/10">|</span>
+          <span className="hidden sm:inline text-black/[0.08]">|</span>
           <span className="hidden sm:inline">[LATENCY: <span className="text-cyan-400 font-bold">11ms</span>]</span>
-          <span className="hidden md:inline text-white/10">|</span>
+          <span className="hidden md:inline text-black/[0.08]">|</span>
           <span className="hidden md:inline">[UPTIME: <span className="text-[var(--data-green)] font-bold">99.99%</span>]</span>
         </div>
 
@@ -155,7 +155,7 @@ const HeroSection = () => {
             <Button 
               ref={demoBtnRef}
               variant="outline" 
-              className="gap-2 border-white/10 px-8 py-6 text-[var(--text-primary)] hover:bg-white/5"
+              className="gap-2 border-black/[0.08] bg-[var(--bg-surface)] px-8 py-6 text-[var(--text-primary)] hover:bg-[var(--bg-raised)]"
             >
               <Play className="h-4 w-4" />
               Watch Demo

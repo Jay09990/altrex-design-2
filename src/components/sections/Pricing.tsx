@@ -23,7 +23,7 @@ const pricingPlans = [
 
     popular: false,
     color: "#06b6d4",
-    borderHover: "border-white/10 hover:border-cyan-400/40 hover:shadow-cyan-950/10 hover:shadow-lg",
+    borderHover: "border-black/[0.08] hover:border-cyan-400/40 hover:shadow-cyan-950/10 hover:shadow-lg",
     checkBg: "bg-cyan-500/10",
     checkColor: "text-cyan-400",
   },
@@ -66,7 +66,7 @@ const pricingPlans = [
 
     popular: false,
     color: "var(--accent-fuchsia)",
-    borderHover: "border-white/10 hover:border-fuchsia-400/40 hover:shadow-fuchsia-950/10 hover:shadow-lg",
+    borderHover: "border-black/[0.08] hover:border-fuchsia-400/40 hover:shadow-fuchsia-950/10 hover:shadow-lg",
     checkBg: "bg-fuchsia-500/10",
     checkColor: "text-fuchsia-400",
   },
@@ -195,7 +195,7 @@ const Pricing = () => {
           </motion.p>
 
           {/* Monthly / Annual toggle */}
-          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-white/10 bg-[var(--bg-surface)]/70 p-1.5 shadow-sm">
+          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-black/[0.08] bg-[var(--bg-surface)] p-1.5 shadow-sm">
             <button className="rounded-full bg-[var(--accent-violet)] px-5 py-2 text-sm font-semibold text-white">
               Monthly
             </button>
@@ -282,7 +282,7 @@ const Pricing = () => {
               </motion.p>
 
               {/* Divider */}
-              <div className="my-6 h-px bg-white/5" />
+              <div className="my-6 h-px bg-black/[0.06]" />
 
               {/* Features */}
               <ul className="flex-1 space-y-3">
@@ -328,7 +328,7 @@ const Pricing = () => {
                 className={`mt-8 w-full rounded-2xl px-6 py-4 text-sm font-semibold transition-all duration-200 ${
                   plan.popular
                     ? "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-md hover:opacity-90"
-                    : "border border-white/10 bg-[var(--bg-surface)]/70 text-[var(--text-primary)] hover:border-[var(--hover-btn-border)]/40 hover:text-[var(--hover-btn-border)]"
+                    : "border border-black/[0.08] bg-[var(--bg-surface)] text-[var(--text-primary)] hover:border-[var(--hover-btn-border)]/40 hover:text-[var(--hover-btn-border)]"
                 }`}
               >
                 {plan.price === "Custom"

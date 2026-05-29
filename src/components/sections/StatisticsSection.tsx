@@ -100,10 +100,10 @@ const StatisticsSection = () => {
         .bg-sweep {
           background: linear-gradient(
             135deg,
-            #1e1333 0%,
-            #0f0618 30%,
-            #0c1a2e 60%,
-            #0f0618 100%
+            #ede9fe 0%,
+            #f5f3ff 30%,
+            #e0e7ff 60%,
+            #f5f3ff 100%
           );
 
           background-size: 300% 300%;
@@ -244,7 +244,7 @@ const StatisticsSection = () => {
         </motion.div>
 
         {/* Top row */}
-        <div className="mt-16 flex flex-col divide-y divide-white/5 sm:flex-row sm:divide-x sm:divide-y-0">
+        <div className="mt-16 flex flex-col divide-y divide-black/[0.06] sm:flex-row sm:divide-x sm:divide-y-0">
           {stats.slice(0, 3).map((item, i) => {
             const Icon = item.icon;
 
@@ -273,7 +273,7 @@ const StatisticsSection = () => {
                   <Icon className="h-5 w-5" />
                 </motion.div>
 
-                <p className="mt-6 text-7xl font-bold tracking-tight text-white">
+                <p className="mt-6 text-7xl font-bold tracking-tight text-[var(--text-primary)]">
                   <ScrambleCounter target={item.target} finalText={item.value} />
                 </p>
 
@@ -290,7 +290,7 @@ const StatisticsSection = () => {
         </div>
 
         {/* Divider */}
-        <div className="my-6 h-px bg-white/5" />
+        <div className="my-6 h-px bg-black/[0.06]" />
 
         {/* Bottom row */}
         <div className="grid gap-6 sm:grid-cols-3">
@@ -307,14 +307,14 @@ const StatisticsSection = () => {
                 transition={{
                   duration: 0.25,
                 }}
-                className="flex items-start gap-4 rounded-2xl border border-white/5 p-5"
+                className="flex items-start gap-4 rounded-2xl border border-black/[0.08] p-5 shadow-sm bg-[var(--bg-surface)]"
               >
                 <motion.div
                   whileHover={{
                     scale: 1.08,
                     rotate: 4,
                   }}
-                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-white/5 text-[var(--text-muted)]"
+                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-black/5 text-[var(--text-muted)]"
                 >
                   <Icon className="h-4.5 w-4.5" />
                 </motion.div>
@@ -390,7 +390,7 @@ const StatisticsSection = () => {
                   transition={{
                     duration: 0.2,
                   }}
-                  className="rounded-2xl border border-white/5 bg-white/5 p-5"
+                  className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] p-5 shadow-sm"
                 >
                   <p className="text-3xl font-bold text-[var(--text-primary)]">
                     {m.value}
@@ -412,7 +412,7 @@ const StatisticsSection = () => {
             transition={{
               duration: 0.2,
             }}
-            className="overflow-hidden rounded-2xl border border-white/5 bg-black/30 p-6"
+            className="overflow-hidden rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] p-6 shadow-sm"
           >
             <div className="flex items-center justify-between">
               <p className="text-sm font-medium text-[var(--text-muted)]">

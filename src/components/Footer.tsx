@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-white/10 bg-[var(--bg-void)]">
+    <footer className="border-t border-black/[0.08] bg-[var(--bg-void)]">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         {/* Top Section */}
         <div className="grid gap-14 lg:grid-cols-5">
@@ -182,7 +182,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom */}
-        <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-white/10 pt-8 md:flex-row md:items-center">
+        <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-black/[0.08] pt-8 md:flex-row md:items-center">
           <p className="text-sm text-[var(--text-secondary)]">
             © 2026 Altrex. All rights reserved.
           </p>

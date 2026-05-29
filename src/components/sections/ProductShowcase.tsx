@@ -81,7 +81,7 @@ const ProductShowcase = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+              className="border border-black/[0.08] bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               <InViewDecryptedText
                 text="PRODUCT SHOWCASE"
@@ -130,13 +130,13 @@ const ProductShowcase = () => {
           </motion.div>
 
           <motion.div style={{ y: labelY }} className="pointer-events-none absolute -left-3 top-8 hidden lg:block">
-            <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+            <div className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] shadow-sm">
               [GRID: ACTIVE]
             </div>
           </motion.div>
 
           <motion.div style={{ y: labelY }} className="pointer-events-none absolute -right-3 bottom-10 hidden lg:block">
-            <div className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+            <div className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] shadow-sm">
               [DIAGRAM: SYNCED]
             </div>
           </motion.div>
@@ -150,16 +150,16 @@ const ProductShowcase = () => {
               duration: 0.25,
             }}
             style={{ y: cardY }}
-            className="relative overflow-hidden rounded-2xl border border-white/10 bg-[var(--bg-surface)]/85 shadow-[0_30px_60px_-15px_rgba(0,0,0,0.45)]"
+            className="relative overflow-hidden rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.1)]"
           >
             {/* Browser Topbar */}
-            <div className="flex items-center justify-between border-b border-white/10 bg-black/20 px-5 py-3">
+            <div className="flex items-center justify-between border-b border-black/[0.08] bg-gray-50 px-5 py-3">
               <div className="flex items-center gap-2">
                 <div className="h-3 w-3 rounded-full bg-red-400" />
                 <div className="h-3 w-3 rounded-full bg-yellow-400" />
                 <div className="h-3 w-3 rounded-full bg-green-400" />
 
-                <div className="ml-4 flex items-center gap-2 rounded-lg border border-white/10 bg-black/20 px-4 py-1 text-xs text-[var(--text-secondary)]">
+                <div className="ml-4 flex items-center gap-2 rounded-lg border border-black/[0.08] bg-[var(--bg-surface)] px-4 py-1 text-xs text-[var(--text-secondary)]">
                   <span className="h-2 w-2 rounded-full bg-[var(--text-muted)]" />
                   dashboard.altrex.dev
                 </div>
@@ -181,7 +181,7 @@ const ProductShowcase = () => {
             {/* Dashboard Layout: Sidebar + Main */}
             <div className="flex h-[600px] overflow-hidden">
               {/* Sidebar */}
-              <div className="flex w-16 flex-shrink-0 flex-col items-center gap-6 border-r border-white/10 bg-black/20 py-5">
+              <div className="flex w-16 flex-shrink-0 flex-col items-center gap-6 border-r border-black/[0.08] bg-[var(--bg-surface)] py-5">
                 {/* Logo */}
                 <motion.div
                   whileHover={{
@@ -211,7 +211,7 @@ const ProductShowcase = () => {
                       className={`flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-200 ${
                         active
                           ? "border border-violet-400/20 bg-violet-500/15 text-violet-200 shadow-[0_0_20px_rgba(139,92,246,0.15)]"
-                          : "border border-white/10 bg-white/5 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                          : "border border-black/[0.06] bg-gray-50 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -221,9 +221,9 @@ const ProductShowcase = () => {
               </div>
 
               {/* Main Content */}
-              <div className="flex flex-1 flex-col overflow-hidden bg-black/10">
+              <div className="flex flex-1 flex-col overflow-hidden bg-gray-50/50">
                 {/* Inner Topbar */}
-                <div className="flex flex-shrink-0 items-center justify-between border-b border-white/10 bg-black/20 px-6 py-3">
+                <div className="flex flex-shrink-0 items-center justify-between border-b border-black/[0.08] bg-[var(--bg-surface)] px-6 py-3">
                   <div>
                     <p className="text-[11px] text-[var(--text-muted)]">
                       Welcome back
@@ -235,7 +235,7 @@ const ProductShowcase = () => {
                   </div>
 
                   <div className="flex items-center gap-3">
-                    <div className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-black/20 text-[var(--text-secondary)]">
+                    <div className="relative flex h-8 w-8 items-center justify-center rounded-lg border border-black/[0.08] bg-[var(--bg-surface)] text-[var(--text-secondary)]">
                       <Bell className="h-4 w-4" />
 
                       <div className="absolute right-1.5 top-1.5 h-1.5 w-1.5 rounded-full bg-violet-500" />
@@ -262,7 +262,7 @@ const ProductShowcase = () => {
                           iconBg: "from-violet-600 to-violet-500",
                           iconShadow: "shadow-violet-200",
                           cardBg: "bg-[var(--bg-surface)]/80",
-                          border: "border-white/10",
+                          border: "border-black/[0.08]",
                           blob: "bg-violet-400",
                         },
                         {
@@ -273,7 +273,7 @@ const ProductShowcase = () => {
                           iconBg: "from-fuchsia-600 to-fuchsia-500",
                           iconShadow: "shadow-fuchsia-200",
                           cardBg: "bg-[var(--bg-surface)]/80",
-                          border: "border-white/10",
+                          border: "border-black/[0.08]",
                           blob: "bg-fuchsia-400",
                         },
                         {
@@ -284,7 +284,7 @@ const ProductShowcase = () => {
                           iconBg: "from-cyan-600 to-cyan-500",
                           iconShadow: "shadow-cyan-200",
                           cardBg: "bg-[var(--bg-surface)]/80",
-                          border: "border-white/10",
+                          border: "border-black/[0.08]",
                           blob: "bg-cyan-400",
                         },
                       ].map(
@@ -353,7 +353,7 @@ const ProductShowcase = () => {
                       transition={{
                         duration: 0.25,
                       }}
-                      className="flex flex-1 flex-col rounded-xl border border-white/10 bg-black/20 p-5 shadow-sm"
+                      className="flex flex-1 flex-col rounded-xl border border-black/[0.08] bg-[var(--bg-surface)] p-5 shadow-sm"
                     >
                       <div className="flex items-center justify-between">
                         <div>
@@ -373,7 +373,7 @@ const ProductShowcase = () => {
                             <span>+18% this week</span>
                           </div>
 
-                          <div className="rounded-lg border border-white/10 bg-black/20 px-3 py-1 text-xs text-[var(--text-secondary)]">
+                          <div className="rounded-lg border border-black/[0.08] bg-[var(--bg-surface)] px-3 py-1 text-xs text-[var(--text-secondary)] shadow-sm">
                             24h
                           </div>
                         </div>
@@ -389,7 +389,7 @@ const ProductShowcase = () => {
                           {[0, 1, 2, 3].map((_, i) => (
                             <div
                               key={i}
-                              className="w-full border-t border-white/5"
+                              className="w-full border-t border-black/[0.06]"
                             />
                           ))}
                         </div>

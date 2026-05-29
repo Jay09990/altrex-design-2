@@ -19,9 +19,9 @@ interface GraphData {
   nodes: NodeData[];
 }
 
-const NODE_COUNT = 80;
-const NODE_SPREAD_X = 20;
-const NODE_SPREAD_Y = 20;
+const NODE_COUNT = 220;
+const NODE_SPREAD_X = 45;
+const NODE_SPREAD_Y = 25;
 const NODE_SPREAD_Z = 10;
 const MAX_EDGE_DISTANCE = 3.05;
 const MAX_NEIGHBORS = 3;

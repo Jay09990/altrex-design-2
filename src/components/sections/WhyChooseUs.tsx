@@ -161,7 +161,7 @@ const WhyChooseUs = () => {
         <div className="mt-6 max-w-2xl">
           <motion.h2
             variants={fadeUpVariants}
-            className="text-4xl font-bold tracking-tight text-white sm:text-5xl"
+            className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Built for Modern{" "}
 
@@ -227,7 +227,7 @@ const WhyChooseUs = () => {
             transition={{
               duration: 0.25,
             }}
-            className="relative row-span-2 overflow-hidden rounded-3xl border border-violet-800/40 bg-gray-900/60 p-8"
+            className="relative row-span-2 overflow-hidden rounded-3xl border border-violet-200/60 bg-[var(--bg-surface)] p-8 shadow-sm"
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400">
               <span className="relative flex h-2 w-2">
@@ -279,7 +279,7 @@ const WhyChooseUs = () => {
                     duration: 0.5,
                     delay: i * 0.12,
                   }}
-                  className="stat-animate border-b border-white/5 pb-5"
+                  className="stat-animate border-b border-black/[0.06] pb-5"
                 >
                   <p className={`text-4xl font-bold ${m.color}`}>
                     {m.value}
@@ -289,7 +289,7 @@ const WhyChooseUs = () => {
                     {m.label}
                   </p>
 
-                  <div className="mt-3 h-1 overflow-hidden rounded-full bg-white/10">
+                  <div className="mt-3 h-1 overflow-hidden rounded-full bg-black/[0.08]">
                     <motion.div
                       initial={{
                         width: 0,
@@ -346,7 +346,7 @@ const WhyChooseUs = () => {
                   duration: 0.35,
                   delay: i * 0.08,
                 }}
-                className={`group flex gap-4 rounded-2xl border border-white/5 bg-gray-900/50 p-6 transition-all duration-300 ${item.borderHover} hover:bg-gray-900/70`}
+                className={`group flex gap-4 rounded-2xl border border-black/[0.07] bg-[var(--bg-surface)] p-6 shadow-sm transition-all duration-300 ${item.borderHover} hover:bg-[var(--bg-raised)]`}
               >
                 <motion.div
                   whileHover={{
@@ -359,7 +359,7 @@ const WhyChooseUs = () => {
                 </motion.div>
 
                 <div>
-                  <h3 className="font-semibold text-white">
+                  <h3 className="font-semibold text-[var(--text-primary)]">
                     {item.title}
                   </h3>
 

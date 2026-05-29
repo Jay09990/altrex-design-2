@@ -16,7 +16,7 @@ const ProgressLine = () => {
       end: "bottom bottom",
       scrub: true,
       animation: gsap.to(lineRef.current, {
-        scaleY: 1,
+        transform: "scaleY(1)",
         ease: "none",
       }),
     });
@@ -31,7 +31,7 @@ const ProgressLine = () => {
       <div
         ref={lineRef}
         className="h-full w-full origin-top bg-gradient-to-b from-[var(--accent-violet)] to-[var(--accent-fuchsia)]"
-        style={{ scaleY: 0 }}
+        style={{ transform: "scaleY(0)" }}
       />
     </div>
   );

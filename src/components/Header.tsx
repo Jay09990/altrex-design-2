@@ -30,7 +30,7 @@ const Header = () => {
     <header
   className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
     isScrolled
-      ? "border-b border-white/10 bg-[var(--bg-surface)]/80 shadow-[0_4px_30px_rgba(0,0,0,0.3)]"
+      ? "border-b border-black/[0.08] bg-[var(--bg-surface)]/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-md"
       : "bg-transparent"
   }`}
 >
@@ -85,7 +85,7 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {mobileMenu && (
-        <div className="border-t border-white/10 bg-[var(--bg-surface)] lg:hidden">
+        <div className="border-t border-black/[0.08] bg-[var(--bg-surface)] lg:hidden">
           <div className="space-y-4 px-6 py-6">
             <div className="space-y-4">
               {navLinks.map((item) => (
@@ -100,7 +100,7 @@ const Header = () => {
               ))}
 
               {isHome && (
-                <div className="border-t border-white/10 pt-4">
+                <div className="border-t border-black/[0.08] pt-4">
                   <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">
                     Chapters
                   </p>
