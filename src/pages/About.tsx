@@ -152,7 +152,7 @@ function HeroSection() {
               animateBy="words"
               delay={80}
               direction="top"
-              className="text-5xl font-bold tracking-tight text-[var(--text-primary)] sm:text-6xl lg:text-7xl"
+              className="text-5xl font-bold tracking-tight text-[var(--text-primary)] sm:text-6xl lg:text-7xl uppercase"
             />
           </motion.div>
 
