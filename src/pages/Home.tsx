@@ -16,12 +16,21 @@ import LoadingScreen from "@/components/LoadingScreen"
 import ProgressLine from "@/components/ProgressLine"
 import { HOME_CHAPTERS } from "@/data/homeChapters"
 
+const SPLASH_KEY = "altrex_splash_shown";
+
 const Home = () => {
-  const [showLoading, setShowLoading] = useState(true);
-  const [showScene, setShowScene] = useState(false);
-  const [animateContent, setAnimateContent] = useState(false);
+  // Show the splash only when sessionStorage has no record of it.
+  // sessionStorage survives SPA navigation but is cleared on reload / new tab,
+  // so the loader appears on first load & reload, never on back-navigation.
+  const alreadyShown = sessionStorage.getItem(SPLASH_KEY) === "1";
+
+  const [showLoading, setShowLoading] = useState(!alreadyShown);
+  const [showScene, setShowScene] = useState(alreadyShown);
+  const [animateContent, setAnimateContent] = useState(alreadyShown);
 
   useEffect(() => {
+    if (alreadyShown) return; // nothing to do — skip straight to content
+
     // Pre-warm the 3D scene and layout in the background before the loader exits
     const timer = setTimeout(() => {
       setShowScene(true);
@@ -36,12 +45,19 @@ const Home = () => {
       clearTimeout(timer);
       clearTimeout(animationTimer);
     };
-  }, []);
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className="relative bg-[var(--bg-void)]">
       {/* Loading Screen */}
-      {showLoading && <LoadingScreen onComplete={() => setShowLoading(false)} />}
+      {showLoading && (
+        <LoadingScreen
+          onComplete={() => {
+            sessionStorage.setItem(SPLASH_KEY, "1");
+            setShowLoading(false);
+          }}
+        />
+      )}
 
       {/* Three.js Node Web Background */}
       {showScene && (

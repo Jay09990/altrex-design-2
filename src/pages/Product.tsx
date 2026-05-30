@@ -21,6 +21,7 @@ import {
   Wifi,
   Zap,
 } from "lucide-react";
+import CharReveal from "@/components/CharReveal";
 
 /* ─────────────────────────────────────────────────────────────────
    Shared animation variants
@@ -91,7 +92,7 @@ function ProductHero() {
         variants={stagger}
         initial="hidden"
         animate="visible"
-        className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8"
+        className="relative z-10 mx-auto flex max-w-7xl flex-col items-center px-6 text-center lg:px-8"
       >
         {/* Badge */}
         <motion.div variants={fadeUp} className="flex justify-center">
@@ -104,24 +105,15 @@ function ProductHero() {
         </motion.div>
 
         {/* Headline */}
-        <motion.h1
-          variants={fadeUp}
-          className="mx-auto mt-8 max-w-5xl text-center text-4xl font-black leading-[0.95] tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-7xl"
-        >
-          The Infrastructure
-          <br />
-          <span
-            className="inline-block"
-            style={{
-              background: "linear-gradient(135deg,#ff6b00 0%,#ff9a3c 50%,#ffba70 100%)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
-            Behind Realtime.
-          </span>
-        </motion.h1>
+        <CharReveal
+          as="h1"
+          lines={["The Infrastructure", "Behind Realtime."]}
+          className="mt-25 max-w-9xl text-center text-3xl font-bold leading-[0.95] tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl"
+          immediate
+          delay={0}
+          stagger={0.028}
+          lineGap="mt-2"
+        />
 
         <motion.p
           variants={fadeUp}
@@ -943,7 +935,7 @@ const Product = () => {
       <Protocols />
       <SDKs />
       <CTABanner />
-    </div>  
+    </div>
   );
 };
 

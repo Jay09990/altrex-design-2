@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ArrowRight, Play } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { gsap } from "gsap";
@@ -6,6 +6,7 @@ import useMagneticButton from "@/hooks/useMagneticButton";
 
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import CharReveal from "@/components/CharReveal";
 
 const fadeUpVariants: Variants = {
   hidden: {
@@ -45,13 +46,7 @@ const HeroSection = () => {
     );
   }, []);
 
-  const headlineLines = useMemo(
-    () => [
-      <>BUILD REALTIME APPLICATIONS</>,
-      <>WITHOUT COMPLEXITY</>
-    ],
-    []
-  );
+
 
   return (
     <section id="chapter-01" className="relative overflow-hidden scroll-mt-28 pt-20">
@@ -78,28 +73,16 @@ const HeroSection = () => {
           </Badge>
         </motion.div>
 
-        {/* Heading with hard-clipped line scrub */}
-        <h1 className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-25">
-          {headlineLines.map((line, lineIndex) => (
-            <div
-              key={lineIndex}
-              className={`${lineIndex === 0 ? "" : "mt-2"} block leading-[0.95]`}
-              style={{ overflow: "hidden" }}
-            >
-              <motion.div
-                initial={{ y: "110%" }}
-                animate={{ y: "0%" }}
-                transition={{
-                  duration: 0.9,
-                  delay: lineIndex * 0.15,
-                  ease: [0.76, 0, 0.24, 1],
-                }}
-              >
-                {line}
-              </motion.div>
-            </div>
-          ))}
-        </h1>
+        {/* Heading — character-by-character reveal */}
+        <CharReveal
+          as="h1"
+          lines={["BUILD REALTIME APPLICATIONS", "WITHOUT COMPLEXITY"]}
+          className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-25 leading-[0.95]"
+          immediate
+          delay={0}
+          stagger={0.028}
+          lineGap="mt-2"
+        />
 
         {/* Metadata Labels */}
         <div

@@ -25,6 +25,7 @@ import { Button } from "@/components/ui/button";
 //   npx shadcn@latest add https://reactbits.dev/r/StarBorder-TS-TW
 //   npx shadcn@latest add https://reactbits.dev/r/GradientText-TS-TW
 import BlurText from "@/components/BlurText";
+import CharReveal from "@/components/CharReveal";
 import DecryptedText from "@/components/DecryptedText";
 import ShinyText from "@/components/ShinyText";
 import ClickSpark from "@/components/ClickSpark";
@@ -38,17 +39,17 @@ import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 /* ─── Shared Variants ────────────────────────────────────────────────────── */
 
 const fadeUpVariants: Variants = {
-  hidden:  { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.65 } },
 };
 
 const containerVariants: Variants = {
-  hidden:  {},
+  hidden: {},
   visible: { transition: { staggerChildren: 0.12 } },
 };
 
 const cardVariants: Variants = {
-  hidden:  { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
@@ -73,10 +74,10 @@ const values = [
 ];
 
 const stats = [
-  { value: 200,   suffix: "+", label: "Global Deployments" },
-  { value: 50,    suffix: "+", label: "Team Members" },
+  { value: 200, suffix: "+", label: "Global Deployments" },
+  { value: 50, suffix: "+", label: "Team Members" },
   { value: 99.99, suffix: "%", label: "Uptime SLA" },
-  { value: 15,    suffix: "ms", label: "Avg Latency" },
+  { value: 15, suffix: "ms", label: "Avg Latency" },
 ];
 
 const timeline = [
@@ -88,26 +89,26 @@ const timeline = [
 ];
 
 const team = [
-  { initials: "RA", name: "Raj Aghera",    role: "Founder / CEO",           bio: "Leading Altrex's vision for industrial intelligence platforms." },
-  { initials: "DK", name: "Daniel Kim",    role: "CTO",                     bio: "Architecting scalable realtime industrial infrastructure." },
-  { initials: "EC", name: "Emily Carter",  role: "Head of Product",         bio: "Designing powerful industrial workflows and experiences." },
-  { initials: "SP", name: "Sarah Patel",   role: "Head of Customer Success", bio: "Helping industries modernise operations with confidence." },
+  { initials: "RA", name: "Raj Aghera", role: "Founder / CEO", bio: "Leading Altrex's vision for industrial intelligence platforms." },
+  { initials: "DK", name: "Daniel Kim", role: "CTO", bio: "Architecting scalable realtime industrial infrastructure." },
+  { initials: "EC", name: "Emily Carter", role: "Head of Product", bio: "Designing powerful industrial workflows and experiences." },
+  { initials: "SP", name: "Sarah Patel", role: "Head of Customer Success", bio: "Helping industries modernise operations with confidence." },
 ];
 
 const principles = [
-  { number: "01", title: "Transparency",  description: "Open, honest communication with every client at every stage." },
-  { number: "02", title: "Reliability",   description: "99.99% uptime backed by redundant global infrastructure." },
-  { number: "03", title: "Innovation",    description: "Continuous R&D investment in AI, ML, and edge computing." },
-  { number: "04", title: "Security",      description: "Enterprise-grade encryption and SOC 2 compliant practices." },
-  { number: "05", title: "Speed",         description: "Sub-15ms response times across all platform services." },
-  { number: "06", title: "Partnership",   description: "Long-term relationships, not one-time transactions." },
+  { number: "01", title: "Transparency", description: "Open, honest communication with every client at every stage." },
+  { number: "02", title: "Reliability", description: "99.99% uptime backed by redundant global infrastructure." },
+  { number: "03", title: "Innovation", description: "Continuous R&D investment in AI, ML, and edge computing." },
+  { number: "04", title: "Security", description: "Enterprise-grade encryption and SOC 2 compliant practices." },
+  { number: "05", title: "Speed", description: "Sub-15ms response times across all platform services." },
+  { number: "06", title: "Partnership", description: "Long-term relationships, not one-time transactions." },
 ];
 
 /* ─── Section: Hero ──────────────────────────────────────────────────────── */
 
 function HeroSection() {
-  const ref     = useRef<HTMLElement>(null);
-  const inView  = useInView(ref, { once: true, margin: "-80px" });
+  const ref = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section
@@ -146,15 +147,15 @@ function HeroSection() {
           </motion.div>
 
           {/* H1 — BlurText animates each word in on mount */}
-          <motion.div variants={fadeUpVariants} className="mt-8">
-            <BlurText
-              text="We are building the future of Industrial Intelligence"
-              animateBy="words"
-              delay={80}
-              direction="top"
-              className="text-5xl font-bold tracking-tight text-[var(--text-primary)] sm:text-6xl lg:text-7xl uppercase"
-            />
-          </motion.div>
+          <CharReveal
+            as="h1"
+            lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELIGENECE"]}
+            className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-25 leading-[0.95]"
+            immediate
+            delay={0}
+            stagger={0.028}
+            lineGap="mt-2"
+          />
 
           {/* Subtitle */}
           <motion.p
@@ -173,8 +174,8 @@ function HeroSection() {
           >
             {[
               { icon: Building2, label: "Founded 2021" },
-              { icon: MapPin,    label: "Ahmedabad, India" },
-              { icon: Globe,     label: "200+ Global Deployments" },
+              { icon: MapPin, label: "Ahmedabad, India" },
+              { icon: Globe, label: "200+ Global Deployments" },
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}
@@ -207,7 +208,7 @@ function HeroSection() {
 /* ─── Section: Mission ───────────────────────────────────────────────────── */
 
 function MissionSection() {
-  const ref    = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -336,7 +337,7 @@ function StatsSection() {
 /* ─── Section: Timeline ──────────────────────────────────────────────────── */
 
 function TimelineSection() {
-  const ref    = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -377,9 +378,8 @@ function TimelineSection() {
                 initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className={`relative mb-16 flex w-full md:items-center ${
-                  isLeft ? "md:justify-start" : "md:justify-end"
-                }`}
+                className={`relative mb-16 flex w-full md:items-center ${isLeft ? "md:justify-start" : "md:justify-end"
+                  }`}
               >
                 {/* Timeline dot */}
                 <div className="absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-500 shadow-[0_0_0_6px_rgba(139,92,246,0.12)] md:left-1/2" />
@@ -413,7 +413,7 @@ function TimelineSection() {
 /* ─── Section: Team ──────────────────────────────────────────────────────── */
 
 function TeamSection() {
-  const ref    = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const tilt = useMagneticTilt({ maxRotate: 10, perspective: 900 });
 
@@ -485,7 +485,7 @@ function TeamSection() {
 // StarBorder renders a dark card by default — we override the inner content
 // with our own white card and pass `as="div"` so it doesn't render as a button.
 function ValuesSection() {
-  const ref    = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
@@ -556,7 +556,7 @@ function ValuesSection() {
 /* ─── Section: CTA ───────────────────────────────────────────────────────── */
 
 function CTASection() {
-  const ref    = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
