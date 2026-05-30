@@ -1,7 +1,5 @@
 import { useEffect, useRef, memo } from "react";
-
 import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
-
 import {
   ReactFlow,
   Background,
@@ -15,11 +13,8 @@ import {
   type Node,
   type Edge,
   type NodeProps,
-  type EdgeProps,
 } from "@xyflow/react";
-
 import "@xyflow/react/dist/style.css";
-
 import {
   BriefcaseBusiness,
   Building2,
@@ -41,18 +36,22 @@ import {
   Wifi,
   Zap,
 } from "lucide-react";
-
 import { Badge } from "../ui/badge";
-
-import { gsap } from "gsap"
+import { gsap } from "gsap";
+import { useTheme } from "@/hooks/useTheme";
+import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
+import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
 
 /* ─── Color Tokens ───────────────────────────────────────────────────────── */
 
 const C = {
-  violet: "#ff6b00",
-  fuchsia: "#1b1b1f",
-  cyan: "#06b6d4",
-  orange: "#ff6b00",
+  source: "#10b981",       // Industries
+  device: "#3b82f6",       // Devices
+  connectivity: "#d946ef", // Connectivity
+  platform: "#ff6b00",     // Altrex Brand
+  cloud: "#06b6d4",        // Hosting
+  system: "#6366f1",       // SAP/ERP/CRM
+  edge: "#ff6b00",         // All Edges
 } as const;
 
 /* ─── Edge durations ─────────────────────────────────────────────────────── */
@@ -65,13 +64,10 @@ const EDGE_DURATIONS: Record<string, number> = {
   "ind-dev-4": 4.8,
   "ind-dev-5": 5.2,
   "ind-dev-6": 4.4,
-
   "dev-con": 4.5,
   "con-plat": 5.1,
-
   "plat-host-1": 4.7,
   "plat-host-2": 5.3,
-
   "plat-sap": 4.9,
   "plat-erp": 5.5,
   "plat-crm": 4.3,
@@ -126,18 +122,11 @@ const hosting = [
 /* ─── Motion Variants ────────────────────────────────────────────────────── */
 
 const headerVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 32,
-  },
-
+  hidden: { opacity: 0, y: 32 },
   visible: {
     opacity: 1,
     y: 0,
-
-    transition: {
-      duration: 0.6,
-    },
+    transition: { duration: 0.6 },
   },
 };
 
@@ -146,49 +135,21 @@ const headerVariants: Variants = {
 function useFlowStyles() {
   useEffect(() => {
     const STYLE_ID = "arch-flow-styles";
-
     if (document.getElementById(STYLE_ID)) return;
-
     const style = document.createElement("style");
-
     style.id = STYLE_ID;
-
     style.innerHTML = `
-      .arch-flow .react-flow__node {
-        cursor: grab;
-      }
-
-      .arch-flow .react-flow__node:active {
-        cursor: grabbing;
-      }
-
-      .arch-flow .react-flow__attribution {
-        display: none !important;
-      }
-
-      .arch-flow .react-flow__renderer {
-        background: transparent !important;
-      }
-
-      .flow-active .beam-animated {
-        animation-play-state: running;
-      }
-
-      .beam-animated {
-        animation-play-state: paused;
-      }
-
+      .arch-flow .react-flow__node { cursor: grab; }
+      .arch-flow .react-flow__node:active { cursor: grabbing; }
+      .arch-flow .react-flow__attribution { display: none !important; }
+      .arch-flow .react-flow__renderer { background: transparent !important; }
+      .flow-active .beam-animated { animation-play-state: running; }
+      .beam-animated { animation-play-state: paused; }
       @keyframes beam-flow {
-        from {
-          stroke-dashoffset: 120;
-        }
-
-        to {
-          stroke-dashoffset: 0;
-        }
+        from { stroke-dashoffset: 120; }
+        to { stroke-dashoffset: 0; }
       }
     `;
-
     document.head.appendChild(style);
   }, []);
 }
@@ -203,12 +164,9 @@ const AnimatedEdge = memo(function AnimatedEdge({
   targetY,
   sourcePosition,
   targetPosition,
-  data,
-}: EdgeProps) {
-  const color = (data?.color as string) ?? C.violet;
-
+}: any) {
+  const color = C.edge;
   const duration = EDGE_DURATIONS[id] ?? 5;
-
   const [edgePath] = getSmoothStepPath({
     sourceX,
     sourceY,
@@ -226,26 +184,25 @@ const AnimatedEdge = memo(function AnimatedEdge({
         path={edgePath}
         style={{
           stroke: color,
-          strokeWidth: 1.5,
-          strokeOpacity: 0.15,
+          strokeWidth: 2,
+          strokeOpacity: 0.2,
         }}
       />
-
       <path
         className="beam-animated"
         d={edgePath}
         fill="none"
         stroke={color}
-        strokeWidth={2}
+        strokeWidth={3}
         strokeLinecap="round"
         style={{
-          strokeDasharray: "5 8",
+          strokeDasharray: "8 12",
           strokeDashoffset: 120,
           animationName: "beam-flow",
           animationDuration: `${duration}s`,
           animationTimingFunction: "linear",
           animationIterationCount: "infinite",
-          filter: `drop-shadow(0 0 3px ${color}70)`,
+          filter: `drop-shadow(0 0 8px ${color}bb)`,
         }}
       />
     </>
@@ -256,49 +213,39 @@ const AnimatedEdge = memo(function AnimatedEdge({
 
 function ItemNode({ data }: NodeProps<any>) {
   const Icon = data.icon;
-
-  const color = (data.color as string) ?? C.violet;
+  const color = (data.color as string) ?? C.platform;
 
   return (
     <div
       className="flex min-w-[155px] items-center gap-2.5 rounded-xl bg-[var(--bg-surface)] px-3 py-2.5 transition-all duration-200"
       style={{
-        border: `1px solid ${color}28`,
-        boxShadow: `0 0 0 1px ${color}06, 0 4px 16px rgba(0,0,0,0.06), 0 0 10px ${color}08`,
+        border: `1px solid ${color}40`,
+        boxShadow: `0 0 0 1px ${color}10, 0 4px 16px rgba(0,0,0,0.06), 0 0 10px ${color}15`,
       }}
     >
       <div
         className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-lg"
         style={{
-          background: `${color}10`,
-          border: `1px solid ${color}22`,
+          background: `${color}15`,
+          border: `1px solid ${color}30`,
         }}
       >
         {Icon && <Icon size={13} color={color} strokeWidth={1.8} />}
       </div>
-
       <div className="flex min-w-0 flex-col gap-[3px]">
         <span className="text-xs font-semibold leading-none text-[var(--text-primary)]">
           {data.label}
         </span>
         <span
           className="font-mono text-[7px] leading-none uppercase tracking-widest"
-          style={{ color: `${color}65` }}
+          style={{ color: `${color}80` }}
         >
           ◉ STATUS:ACTIVE
         </span>
       </div>
-
       <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
-
       <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
-
-      <Handle
-        type="target"
-        position={Position.Top}
-        style={{ opacity: 0 }}
-        id="top"
-      />
+      <Handle type="target" position={Position.Top} style={{ opacity: 0 }} id="top" />
     </div>
   );
 }
@@ -306,16 +253,16 @@ function ItemNode({ data }: NodeProps<any>) {
 /* ─── Block Node ─────────────────────────────────────────────────────────── */
 
 function BlockNode({ data }: NodeProps<any>) {
-  const color = (data.color as string) ?? C.violet;
+  const color = (data.color as string) ?? C.platform;
 
   return (
     <div
-      className="rounded-[20px] border border-black/[0.08] bg-[var(--bg-surface)] p-[18px] shadow-sm"
+      className="rounded-[20px] bg-[var(--bg-surface)] p-[18px] shadow-sm"
       style={{
         width: data.width ?? 240,
-        border: `1px solid ${color}18`,
+        border: `1px solid ${color}30`,
         borderTop: `3px solid ${color}`,
-        boxShadow: `0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px ${color}06`,
+        boxShadow: `0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px ${color}10`,
       }}
     >
       <p
@@ -333,8 +280,8 @@ function BlockNode({ data }: NodeProps<any>) {
               className="rounded-[9px] px-3 py-[6px] text-center text-[11px] font-semibold"
               style={{
                 color,
-                background: `${color}08`,
-                border: `1px solid ${color}16`,
+                background: `${color}10`,
+                border: `1px solid ${color}20`,
               }}
             >
               {item}
@@ -344,10 +291,9 @@ function BlockNode({ data }: NodeProps<any>) {
       )}
 
       {data.variant === "platform" && (
-        <div className="grid grid-cols-2 gap-2">
+        <div className={`grid gap-2 ${data.cols === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
           {(data.items as { icon: any; label: string }[]).map((item, i) => {
             const Icon = item.icon;
-
             return (
               <div
                 key={i}
@@ -356,13 +302,12 @@ function BlockNode({ data }: NodeProps<any>) {
                 <div
                   className="flex h-[28px] w-[28px] items-center justify-center rounded-lg"
                   style={{
-                    background: `${color}12`,
-                    border: `1px solid ${color}20`,
+                    background: `${color}15`,
+                    border: `1px solid ${color}25`,
                   }}
                 >
                   <Icon size={12} color={color} strokeWidth={1.8} />
                 </div>
-
                 <span className="text-center text-[9px] font-semibold leading-tight text-[var(--text-secondary)]">
                   {item.label}
                 </span>
@@ -373,24 +318,86 @@ function BlockNode({ data }: NodeProps<any>) {
       )}
 
       <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
-
       <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
-
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        style={{ opacity: 0 }}
-        id="bottom"
-      />
+      <Handle type="source" position={Position.Bottom} style={{ opacity: 0 }} id="bottom" />
     </div>
   );
 }
+
+/* ─── Platform Node (Octagon) ────────────────────────────────────────────── */
+
+const PlatformNode = memo(({ data }: NodeProps<any>) => {
+  const { theme } = useTheme();
+  const logo = theme === "dark" ? darklogo : lightlogo;
+  const color = C.platform;
+
+  return (
+    <div 
+      className="relative flex items-center justify-center bg-[var(--bg-surface)]"
+      style={{
+        width: 400,
+        height: 400,
+        clipPath: "polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)",
+        border: `2px solid ${color}`,
+        boxShadow: `0 0 50px ${color}30`,
+      }}
+    >
+      {/* Background decoration */}
+      <div className="absolute inset-0 opacity-10" style={{
+        backgroundImage: `radial-gradient(${color} 1px, transparent 1px)`,
+        backgroundSize: '20px 20px'
+      }} />
+
+      {/* Central Logo */}
+      <div className="z-20 flex h-40 w-40 items-center justify-center rounded-full bg-[var(--bg-surface)] shadow-2xl" style={{ border: `1px solid ${color}30` }}>
+        <img src={logo} alt="Altrex Logo" className="h-auto w-28 object-contain" />
+      </div>
+
+      {/* Rotating Items in a Circle */}
+      {data.items.map((item: any, i: number) => {
+        const angle = (i * 360) / data.items.length - 90;
+        const radius = 145;
+        const x = Math.cos((angle * Math.PI) / 180) * radius;
+        const y = Math.sin((angle * Math.PI) / 180) * radius;
+        const Icon = item.icon;
+
+        return (
+          <div
+            key={i}
+            className="absolute z-30 flex flex-col items-center gap-1.5"
+            style={{
+              transform: `translate(${x}px, ${y}px)`,
+            }}
+          >
+            <div
+              className="flex h-12 w-12 items-center justify-center rounded-full border bg-[var(--bg-surface)] shadow-lg transition-transform hover:scale-110"
+              style={{
+                borderColor: `${color}40`,
+                boxShadow: `0 0 15px ${color}20`,
+              }}
+            >
+              <Icon size={20} color={color} strokeWidth={2} />
+            </div>
+            <span className="max-w-[80px] text-center text-[9px] font-bold uppercase tracking-tight text-[var(--text-primary)]">
+              {item.label}
+            </span>
+          </div>
+        );
+      })}
+
+      <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
+      <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
+      <Handle type="source" position={Position.Bottom} style={{ opacity: 0 }} id="bottom" />
+    </div>
+  );
+});
 
 /* ─── Registries ─────────────────────────────────────────────────────────── */
 
 const nodeTypes: any = {
   item: ItemNode,
   block: BlockNode,
+  platform: PlatformNode,
 };
 
 const edgeTypes = {
@@ -404,29 +411,30 @@ const NODES: Node[] = [
     id: `industry-${i}`,
     type: "item" as const,
     position: { x: 20, y: 90 + i * 88 },
-    data: { ...item, color: C.violet },
+    data: { ...item, color: C.source },
   })),
 
   {
     id: "devices",
     type: "block" as const,
-    position: { x: 310, y: 270 },
+    position: { x: 310, y: 220 },
     data: {
       title: "Devices",
-      color: C.violet,
+      color: C.device,
       items: devices,
-      width: 230,
+      width: 180,
       variant: "platform",
+      cols: 1,
     },
   },
 
   {
     id: "connectivity",
     type: "block" as const,
-    position: { x: 620, y: 204 },
+    position: { x: 580, y: 202 },
     data: {
       title: "Connectivity",
-      color: C.fuchsia,
+      color: C.connectivity,
       items: connectivity,
       width: 220,
       variant: "connectivity",
@@ -435,43 +443,40 @@ const NODES: Node[] = [
 
   {
     id: "platform",
-    type: "block" as const,
-    position: { x: 940, y: 60 },
+    type: "platform" as const,
+    position: { x: 880, y: 120 },
     data: {
-      title: "ALTREX PLATFORM",
-      color: C.violet,
+      color: C.platform,
       items: platform,
-      width: 310,
-      variant: "platform",
     },
   },
 
   ...hosting.map((item, i) => ({
     id: `hosting-${i}`,
     type: "item" as const,
-    position: { x: 1362, y: 160 + i * 150 },
-    data: { ...item, color: C.cyan },
+    position: { x: 1362, y: 220 + i * 180 },
+    data: { ...item, color: C.cloud },
   })),
 
   {
     id: "sap",
     type: "item" as const,
-    position: { x: 880, y: 595 },
-    data: { icon: BriefcaseBusiness, label: "SAP", color: C.cyan },
+    position: { x: 840, y: 650 },
+    data: { icon: BriefcaseBusiness, label: "SAP", color: C.system },
   },
 
   {
     id: "erp",
     type: "item" as const,
-    position: { x: 1000, y: 595 },
-    data: { icon: Database, label: "ERP", color: C.orange },
+    position: { x: 1000, y: 650 },
+    data: { icon: Database, label: "ERP", color: C.system },
   },
 
   {
     id: "crm",
     type: "item" as const,
-    position: { x: 1120, y: 595 },
-    data: { icon: Users, label: "CRM", color: C.fuchsia },
+    position: { x: 1160, y: 650 },
+    data: { icon: Users, label: "CRM", color: C.system },
   },
 ]
 
@@ -483,9 +488,6 @@ const EDGES: Edge[] = [
     source: `industry-${i}`,
     target: "devices",
     type: "animated" as const,
-    data: {
-      color: C.violet,
-    },
   })),
 
   {
@@ -493,9 +495,6 @@ const EDGES: Edge[] = [
     source: "devices",
     target: "connectivity",
     type: "animated",
-    data: {
-      color: C.violet,
-    },
   },
 
   {
@@ -503,9 +502,6 @@ const EDGES: Edge[] = [
     source: "connectivity",
     target: "platform",
     type: "animated",
-    data: {
-      color: C.fuchsia,
-    },
   },
 
   {
@@ -513,9 +509,6 @@ const EDGES: Edge[] = [
     source: "platform",
     target: "hosting-0",
     type: "animated",
-    data: {
-      color: C.cyan,
-    },
   },
 
   {
@@ -523,9 +516,6 @@ const EDGES: Edge[] = [
     source: "platform",
     target: "hosting-1",
     type: "animated",
-    data: {
-      color: C.cyan,
-    },
   },
 
   {
@@ -535,9 +525,6 @@ const EDGES: Edge[] = [
     target: "sap",
     targetHandle: "top",
     type: "animated",
-    data: {
-      color: C.cyan,
-    },
   },
 
   {
@@ -547,9 +534,6 @@ const EDGES: Edge[] = [
     target: "erp",
     targetHandle: "top",
     type: "animated",
-    data: {
-      color: C.orange,
-    },
   },
 
   {
@@ -559,16 +543,8 @@ const EDGES: Edge[] = [
     target: "crm",
     targetHandle: "top",
     type: "animated",
-    data: {
-      color: C.fuchsia,
-    },
   },
 ];
-
-/* ─── Labels ─────────────────────────────────────────────────────────────── */
-
-
-
 
 /* ─── Live Pulse ─────────────────────────────────────────────────────────── */
 
@@ -602,13 +578,9 @@ function LivePulse() {
 
 const Architecture = () => {
   useFlowStyles();
-
   const [flowNodes, , onNodesChange] = useNodesState(NODES);
-
   const [flowEdges, , onEdgesChange] = useEdgesState(EDGES);
-
   const sectionRef = useRef<HTMLDivElement>(null);
-
   const canvasRef = useRef<HTMLDivElement>(null);
 
   const isInView = useInView(sectionRef, {
@@ -627,85 +599,56 @@ const Architecture = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
-
     if (!canvas) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         canvas.classList.toggle("flow-active", entry.isIntersecting);
       },
-
-      {
-        threshold: 0.05,
-      },
+      { threshold: 0.05 }
     );
-
     observer.observe(canvas);
-
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         const grid = document.getElementById('bg-grid-overlay');
         if (!grid) return;
         if (entry.isIntersecting) {
-          gsap.to(grid, {
-            opacity: 0.8,
-            duration: 0.8,
-            ease: 'power2.out',
-          });
+          gsap.to(grid, { opacity: 0.8, duration: 0.8, ease: 'power2.out' });
         } else {
-          gsap.to(grid, {
-            opacity: 0.3,
-            duration: 0.6,
-            ease: 'power2.out',
-          });
+          gsap.to(grid, { opacity: 0.3, duration: 0.6, ease: 'power2.out' });
         }
       },
       { threshold: 0.2 }
     );
-
     observer.observe(section);
     return () => observer.disconnect();
   }, []);
 
-
-
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden bg-transparent py-28"
-    >
+    <section ref={sectionRef} className="relative overflow-hidden bg-transparent py-28">
       <motion.div style={{ y: bgY }} className="pointer-events-none absolute inset-0 -z-10 opacity-60">
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage:
-              "radial-gradient(circle, var(--border-subtle) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(circle, var(--border-subtle) 1px, transparent 1px)",
             backgroundSize: "32px 32px",
           }}
         />
       </motion.div>
 
       <div className="mx-auto max-w-[1650px] px-6">
-        {/* Header */}
         <motion.div
           className="mx-auto max-w-3xl text-center"
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
           variants={headerVariants}
         >
-          <motion.div
-            whileHover={{
-              scale: 1.03,
-            }}
-            className="inline-block"
-          >
+          <motion.div whileHover={{ scale: 1.03 }} className="inline-block">
             <Badge
               variant="secondary"
               className="border border-[var(--accent-violet)]/20 bg-[var(--accent-violet)]/10 p-4 text-sm font-medium text-[var(--accent-violet)]"
@@ -714,21 +657,16 @@ const Architecture = () => {
             </Badge>
           </motion.div>
 
-
           <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-[var(--text-primary)] sm:text-5xl">
             BUILT FOR DISTRIBUTED{" "}
-            <span className="text-[var(--accent-violet)]">
-              GLOBAL INFRASTRUCTURE
-            </span>
+            <span className="text-[var(--accent-violet)]">GLOBAL INFRASTRUCTURE</span>
           </h2>
 
           <p className="mt-4 text-lg leading-8 text-[var(--text-secondary)]">
-            From industrial devices to cloud — every layer connected, secured,
-            and orchestrated in realtime.
+            From industrial devices to cloud — every layer connected, secured, and orchestrated in realtime.
           </p>
         </motion.div>
 
-        {/* Flow canvas */}
         <motion.div
           ref={canvasRef}
           className="relative mt-16 overflow-hidden rounded-xl bg-[var(--bg-surface)]"
@@ -736,8 +674,7 @@ const Architecture = () => {
             y: cardY,
             height: 883,
             border: '1px solid var(--border-subtle)',
-            boxShadow:
-              '0 0 0 1px rgba(0,0,0,0.04), 0 8px 60px rgba(0,0,0,0.06), 0 0 50px var(--accent-glow)',
+            boxShadow: '0 0 0 1px rgba(0,0,0,0.04), 0 8px 60px rgba(0,0,0,0.06), 0 0 50px var(--accent-glow)',
           }}
         >
           <motion.div style={{ y: labelY }} className="pointer-events-none absolute left-6 top-6 z-20 hidden lg:block">
@@ -752,9 +689,7 @@ const Architecture = () => {
             </div>
           </motion.div>
 
-          {/* Terminal chrome bar */}
           <div className="border-b border-black/[0.06] bg-[var(--bg-void)]">
-            {/* Title row */}
             <div className="flex items-center justify-between px-5 py-2">
               <div className="flex items-center gap-3">
                 <div className="flex gap-1.5">
@@ -785,7 +720,6 @@ const Architecture = () => {
                 </div>
               </div>
             </div>
-            {/* Status row */}
             <div className="flex items-center gap-5 border-t border-black/[0.06] bg-black/[0.02] px-5 py-[5px]">
               <span className="font-mono text-[8px] text-[var(--text-muted)]">
                 <span className="text-[var(--accent-violet)]">▶</span> TOPOLOGY_ACTIVE
@@ -804,12 +738,10 @@ const Architecture = () => {
 
           <div className="pointer-events-none absolute inset-x-0 top-[63px] z-10 h-px bg-gradient-to-r from-transparent via-[var(--accent-violet)]/40 to-transparent" />
 
-          {/* CRT scanline overlay */}
           <div
             className="pointer-events-none absolute inset-0 z-[5]"
             style={{
-              background:
-                'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px)',
+              background: 'repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0,0,0,0.04) 3px, rgba(0,0,0,0.04) 4px)',
             }}
           />
 
@@ -831,24 +763,13 @@ const Architecture = () => {
             preventScrolling={true}
             minZoom={1}
             maxZoom={1}
-            defaultViewport={{
-              x: 0,
-              y: 0,
-              zoom: 1,
-            }}
+            defaultViewport={{ x: 0, y: 0, zoom: 1 }}
             nodesDraggable
             nodesConnectable={false}
             elementsSelectable={false}
-            proOptions={{
-              hideAttribution: true,
-            }}
+            proOptions={{ hideAttribution: true }}
           >
-            <Background
-              variant={BackgroundVariant.Dots}
-              gap={28}
-              size={1.2}
-              color="var(--border-subtle)"
-            />
+            <Background variant={BackgroundVariant.Dots} gap={28} size={1.2} color="var(--border-subtle)" />
           </ReactFlow>
 
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-[var(--accent-violet)]/30 to-transparent" />
