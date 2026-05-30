@@ -6,7 +6,6 @@ import useMagneticButton from "@/hooks/useMagneticButton";
 
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import TrustedBy from "./TrustedBy";
 
 const fadeUpVariants: Variants = {
   hidden: {
@@ -48,7 +47,7 @@ const HeroSection = () => {
 
   const headlineLines = useMemo(
     () => [
-      <>BUILD POWERFUL REALTIME APPLICATIONS</>,
+      <>BUILD REALTIME APPLICATIONS</>,
       <>WITHOUT COMPLEXITY</>
     ],
     []
@@ -80,7 +79,7 @@ const HeroSection = () => {
         </motion.div>
 
         {/* Heading with hard-clipped line scrub */}
-        <h1 className="max-w-5xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-4xl lg:text-5xl xl:text-6xl">
+        <h1 className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-25">
           {headlineLines.map((line, lineIndex) => (
             <div
               key={lineIndex}
