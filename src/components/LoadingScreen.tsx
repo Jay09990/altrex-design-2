@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import DecryptedText from "./DecryptedText";
+import { useTheme } from "@/hooks/useTheme";
+import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
+import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
 
 interface LoadingScreenProps {
   onComplete?: () => void;
@@ -10,6 +13,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const [canExit, setCanExit] = useState(false);
+  const { theme } = useTheme();
 
   const loadingMessages = [
     "CONNECTING TO EDGE NETWORK...",
@@ -94,9 +98,11 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
       >
         {/* Logo Mark */}
         <div className="animate-fade-in mb-4">
-          <div className="flex h-16 w-16 items-center justify-center rounded-lg border border-[var(--border-subtle)] bg-[var(--accent-violet)]/20">
-            <span className="text-2xl font-bold text-[var(--accent-violet)]">A</span>
-          </div>
+          <img
+            src={theme === "dark" ? darklogo : lightlogo}
+            alt="Altrex Logo"
+            className="h-20 w-auto object-contain"
+          />
         </div>
 
         {/* Wordmark */}

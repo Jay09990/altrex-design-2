@@ -49,10 +49,10 @@ import { gsap } from "gsap"
 /* ─── Color Tokens ───────────────────────────────────────────────────────── */
 
 const C = {
-  violet: "#8b5cf6",
-  fuchsia: "#d946ef",
+  violet: "#ff6b00",
+  fuchsia: "#1b1b1f",
   cyan: "#06b6d4",
-  orange: "#f97316",
+  orange: "#ff6b00",
 } as const;
 
 /* ─── Edge durations ─────────────────────────────────────────────────────── */
@@ -403,23 +403,14 @@ const NODES: Node[] = [
   ...industries.map((item, i) => ({
     id: `industry-${i}`,
     type: "item" as const,
-    position: {
-      x: 20,
-      y: 90 + i * 88,
-    },
-    data: {
-      ...item,
-      color: C.violet,
-    },
+    position: { x: 20, y: 90 + i * 88 },
+    data: { ...item, color: C.violet },
   })),
 
   {
     id: "devices",
     type: "block" as const,
-    position: {
-      x: 310,
-      y: 140,
-    },
+    position: { x: 310, y: 270 },
     data: {
       title: "Devices",
       color: C.violet,
@@ -432,10 +423,7 @@ const NODES: Node[] = [
   {
     id: "connectivity",
     type: "block" as const,
-    position: {
-      x: 620,
-      y: 110,
-    },
+    position: { x: 620, y: 204 },
     data: {
       title: "Connectivity",
       color: C.fuchsia,
@@ -448,10 +436,7 @@ const NODES: Node[] = [
   {
     id: "platform",
     type: "block" as const,
-    position: {
-      x: 940,
-      y: 60,
-    },
+    position: { x: 940, y: 60 },
     data: {
       title: "ALTREX PLATFORM",
       color: C.violet,
@@ -464,58 +449,31 @@ const NODES: Node[] = [
   ...hosting.map((item, i) => ({
     id: `hosting-${i}`,
     type: "item" as const,
-    position: {
-      x: 1295,
-      y: 160 + i * 150,
-    },
-    data: {
-      ...item,
-      color: C.cyan,
-    },
+    position: { x: 1362, y: 160 + i * 150 },
+    data: { ...item, color: C.cyan },
   })),
 
   {
     id: "sap",
     type: "item" as const,
-    position: {
-      x: 880,
-      y: 595,
-    },
-    data: {
-      icon: BriefcaseBusiness,
-      label: "SAP",
-      color: C.cyan,
-    },
+    position: { x: 880, y: 595 },
+    data: { icon: BriefcaseBusiness, label: "SAP", color: C.cyan },
   },
 
   {
     id: "erp",
     type: "item" as const,
-    position: {
-      x: 1000,
-      y: 595,
-    },
-    data: {
-      icon: Database,
-      label: "ERP",
-      color: C.orange,
-    },
+    position: { x: 1000, y: 595 },
+    data: { icon: Database, label: "ERP", color: C.orange },
   },
 
   {
     id: "crm",
     type: "item" as const,
-    position: {
-      x: 1120,
-      y: 595,
-    },
-    data: {
-      icon: Users,
-      label: "CRM",
-      color: C.fuchsia,
-    },
+    position: { x: 1120, y: 595 },
+    data: { icon: Users, label: "CRM", color: C.fuchsia },
   },
-];
+]
 
 /* ─── Edges ──────────────────────────────────────────────────────────────── */
 
@@ -728,7 +686,7 @@ const Architecture = () => {
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "radial-gradient(circle, rgba(139,92,246,0.16) 1px, transparent 1px)",
+              "radial-gradient(circle, var(--border-subtle) 1px, transparent 1px)",
             backgroundSize: "32px 32px",
           }}
         />
@@ -750,7 +708,7 @@ const Architecture = () => {
           >
             <Badge
               variant="secondary"
-              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-600"
+              className="border border-[var(--accent-violet)]/20 bg-[var(--accent-violet)]/10 p-4 text-sm font-medium text-[var(--accent-violet)]"
             >
               Realtime Architecture
             </Badge>
@@ -759,7 +717,7 @@ const Architecture = () => {
 
           <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-[var(--text-primary)] sm:text-5xl">
             BUILT FOR DISTRIBUTED{" "}
-            <span className="bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)] bg-clip-text text-transparent">
+            <span className="text-[var(--accent-violet)]">
               GLOBAL INFRASTRUCTURE
             </span>
           </h2>
@@ -777,19 +735,19 @@ const Architecture = () => {
           style={{
             y: cardY,
             height: 883,
-            border: '1px solid rgba(139,92,246,0.14)',
+            border: '1px solid var(--border-subtle)',
             boxShadow:
-              '0 0 0 1px rgba(34,197,94,0.04), 0 8px 60px rgba(0,0,0,0.06), 0 0 50px rgba(139,92,246,0.04)',
+              '0 0 0 1px rgba(0,0,0,0.04), 0 8px 60px rgba(0,0,0,0.06), 0 0 50px var(--accent-glow)',
           }}
         >
           <motion.div style={{ y: labelY }} className="pointer-events-none absolute left-6 top-6 z-20 hidden lg:block">
-            <div className="rounded-2xl border border-black/[0.08] bg-white/75 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">
+            <div className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)]/75 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">
               [STACK: LAYERED]
             </div>
           </motion.div>
 
           <motion.div style={{ y: labelY }} className="pointer-events-none absolute right-6 top-6 z-20 hidden lg:block">
-            <div className="rounded-2xl border border-black/[0.08] bg-white/75 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">
+            <div className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)]/75 px-4 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">
               [PARALLAX: ON]
             </div>
           </motion.div>
@@ -844,7 +802,7 @@ const Architecture = () => {
             </div>
           </div>
 
-          <div className="pointer-events-none absolute inset-x-0 top-[63px] z-10 h-px bg-gradient-to-r from-transparent via-violet-400/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 top-[63px] z-10 h-px bg-gradient-to-r from-transparent via-[var(--accent-violet)]/40 to-transparent" />
 
           {/* CRT scanline overlay */}
           <div
@@ -889,11 +847,11 @@ const Architecture = () => {
               variant={BackgroundVariant.Dots}
               gap={28}
               size={1.2}
-              color="rgba(139,92,246,0.09)"
+              color="var(--border-subtle)"
             />
           </ReactFlow>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-[var(--accent-violet)]/30 to-transparent" />
         </motion.div>
       </div>
     </section>

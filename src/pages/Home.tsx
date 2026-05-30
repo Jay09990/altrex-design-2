@@ -7,15 +7,12 @@ import DeveloperExperience from "@/components/sections/DeveloperExperience"
 import FAQ from "@/components/sections/FAQ"
 import HeroSection from "@/components/sections/HeroSection"
 import Pricing from "@/components/sections/Pricing"
-import ProductShowcase from "@/components/sections/ProductShowcase"
 import StatisticsSection from "@/components/sections/StatisticsSection"
 import Testimonials from "@/components/sections/Testimonials"
 import TrustedBy from "@/components/sections/TrustedBy"
 import UseCases from "@/components/sections/UseCases"
 import WhyChooseUs from "@/components/sections/WhyChooseUs"
-import NodeWeb from "@/components/NodeWeb"
 import LoadingScreen from "@/components/LoadingScreen"
-import HomeChapterNav from "@/components/HomeChapterNav"
 import ProgressLine from "@/components/ProgressLine"
 import { HOME_CHAPTERS } from "@/data/homeChapters"
 
@@ -51,7 +48,6 @@ const Home = () => {
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           {/* Background Grid Overlay */}
           <div id="bg-grid-overlay" className="absolute inset-0 bg-grid opacity-80" />
-          <NodeWeb />
 
           <motion.div
             aria-hidden="true"
@@ -95,10 +91,7 @@ const Home = () => {
           />
         </div>
       )}
-
-      {/* Chapter Nav */}
-      <HomeChapterNav />
-
+      
       {/* Progress Line */}
       <ProgressLine />
 
@@ -120,7 +113,6 @@ const Home = () => {
         </div>
 
         <div id={HOME_CHAPTERS[2].id} className="scroll-mt-28">
-          <ProductShowcase />
           <WhyChooseUs />
           <Architecture />
         </div>

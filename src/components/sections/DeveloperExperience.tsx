@@ -1,4 +1,5 @@
 import {
+  Activity,
   ArrowRight,
   Blocks,
   Braces,
@@ -19,44 +20,44 @@ import { Badge } from "../ui/badge";
 import InViewDecryptedText from "../InViewDecryptedText";
 
 const featureChips = [
-  { 
-    icon: Code2, 
-    label: "Modern SDKs", 
+  {
+    icon: Code2,
+    label: "Modern SDKs",
     sub: "React · Node · Go",
     color: "var(--accent-violet)",
     glow: "rgba(139, 92, 246, 0.2)"
   },
-  { 
-    icon: Terminal, 
-    label: "CLI & Tooling", 
+  {
+    icon: Terminal,
+    label: "CLI & Tooling",
     sub: "Deploy & debug",
     color: "#06b6d4",
     glow: "rgba(6, 182, 212, 0.2)"
   },
-  { 
-    icon: Globe, 
-    label: "REST & WebSocket APIs", 
+  {
+    icon: Globe,
+    label: "REST & WebSocket APIs",
     sub: "Flexible & fast",
     color: "var(--accent-fuchsia)",
     glow: "rgba(217, 70, 239, 0.2)"
   },
-  { 
-    icon: ShieldCheck, 
-    label: "Authentication", 
+  {
+    icon: ShieldCheck,
+    label: "Authentication",
     sub: "JWT · OAuth · Keys",
     color: "var(--data-green)",
     glow: "rgba(34, 197, 94, 0.2)"
   },
-  { 
-    icon: Workflow, 
-    label: "Realtime Workflows", 
+  {
+    icon: Workflow,
+    label: "Realtime Workflows",
     sub: "Event-driven",
     color: "#f59e0b",
     glow: "rgba(245, 158, 11, 0.2)"
   },
-  { 
-    icon: Database, 
-    label: "Data Streaming", 
+  {
+    icon: Database,
+    label: "Data Streaming",
     sub: "Live telemetry",
     color: "#3b82f6",
     glow: "rgba(59, 130, 246, 0.2)"
@@ -69,15 +70,15 @@ const dxHighlights = [
     title: "Ship in Minutes",
     description:
       "Production-ready SDKs and starter templates for every modern framework.",
-    gradient: "from-violet-600 to-fuchsia-500",
-    borderHover: "hover:border-violet-500/30",
+    gradient: "from-[#0d9488] to-[#0d9488]",
+    borderHover: "hover:border-[var(--accent-violet)]/30",
   },
   {
     icon: Braces,
     title: "Type-Safe APIs",
     description:
       "Full TypeScript support with auto-generated types from your schema.",
-    gradient: "from-cyan-600 to-blue-500",
+    gradient: "from-[#0d9488] to-[#0d9488]",
     borderHover: "hover:border-cyan-500/30",
   },
   {
@@ -85,7 +86,7 @@ const dxHighlights = [
     title: "Git-Native Workflow",
     description:
       "Branch-based environments, instant previews, and CI/CD integrations.",
-    gradient: "from-emerald-600 to-teal-500",
+    gradient: "from-[#0d9488] to-[#0d9488]",
     borderHover: "hover:border-emerald-500/30",
   },
 ];
@@ -131,13 +132,13 @@ const DeveloperExperience = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-200"
+              className="border border-[var(--accent-violet)]/20 bg-[var(--accent-violet)]/10 p-4 text-sm font-medium text-[var(--accent-violet)]"
             >
               <InViewDecryptedText
-                text="DEVELOPER EXPERIENCE"
+                text="REALTIME ARCHITECTURE"
                 speed={60}
                 maxIterations={12}
-                className="text-violet-200"
+                className="text-[var(--accent-violet)]"
                 encryptedClassName="text-[var(--text-muted)]"
               />
             </Badge>
@@ -148,7 +149,7 @@ const DeveloperExperience = () => {
             className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Built for{" "}
-            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[var(--accent-violet)] to-fuchsia-500 bg-clip-text text-transparent">
               Modern Developers
             </span>
           </motion.h2>
@@ -167,7 +168,7 @@ const DeveloperExperience = () => {
           variants={fadeUpVariants}
           className="mt-20 grid gap-10 lg:grid-cols-2"
         >
-          {/* Left: Terminal */}
+          {/* Left: Code Playground */}
           <motion.div
             whileHover={{
               y: -4,
@@ -175,185 +176,78 @@ const DeveloperExperience = () => {
             transition={{
               duration: 0.25,
             }}
-            className="overflow-hidden rounded-3xl border border-black/[0.08] bg-[var(--bg-surface)] shadow-xl shadow-black/5"
+            className="relative overflow-hidden rounded-3xl border border-black/[0.08] bg-[var(--bg-surface)] shadow-2xl shadow-black/5"
           >
-            {/* Terminal topbar */}
-            <div className="flex items-center gap-2 border-b border-black/[0.08] bg-gray-50 px-5 py-3.5">
-              <motion.div
-                animate={{
-                  opacity: [1, 0.7, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                }}
-                className="h-3 w-3 rounded-full bg-red-500/80"
-              />
-
-              <motion.div
-                animate={{
-                  opacity: [1, 0.7, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: 0.2,
-                }}
-                className="h-3 w-3 rounded-full bg-yellow-500/80"
-              />
-
-              <motion.div
-                animate={{
-                  opacity: [1, 0.7, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: 0.4,
-                }}
-                className="h-3 w-3 rounded-full bg-green-500/80"
-              />
-
-              <span className="ml-3 text-xs text-gray-500">
-                realtime-client.ts
-              </span>
+            {/* Background Glow */}
+            <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-[var(--accent-glow)] opacity-20 blur-3xl" />
+            
+            {/* Title Bar */}
+            <div className="flex h-12 items-center justify-between border-b border-black/[0.08] bg-black/[0.02] px-5">
+              <div className="flex items-center gap-4">
+                <div className="flex gap-1.5">
+                  <div className="h-3 w-3 rounded-full bg-[#ff5f56]" />
+                  <div className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
+                  <div className="h-3 w-3 rounded-full bg-[#27c93f]" />
+                </div>
+                <div className="h-4 w-[1px] bg-black/[0.1]" />
+                <div className="flex items-center gap-2">
+                  <Code2 className="h-4 w-4 text-[var(--text-secondary)]" />
+                  <span className="text-xs font-medium text-[var(--text-secondary)]">src/index.ts — altrex-sdk</span>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <div className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--data-green)] opacity-75"></span>
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[var(--data-green)]"></span>
+                </div>
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--data-green)]">Connected</span>
+              </div>
             </div>
 
-            {/* Code */}
-            <div className="space-y-1 p-6 font-mono text-[13px] leading-7">
+            {/* Code Editor */}
+            <div className="p-6 font-mono text-sm leading-relaxed">
+              <div className="space-y-0.5">
+                <p><span className="text-fuchsia-500">import</span> {"{"} <span className="text-cyan-500">AltrexClient</span> {"}"} <span className="text-fuchsia-500">from</span> <span className="text-emerald-500">"@altrex/sdk"</span>;</p>
+                <p>&nbsp;</p>
+                <p><span className="text-fuchsia-500">const</span> client = <span className="text-fuchsia-500">new</span> <span className="text-cyan-500">AltrexClient</span>({"{"}</p>
+                <p>&nbsp;&nbsp;apiKey: <span className="text-emerald-500">"at_live_8k2f..."</span>,</p>
+                <p>&nbsp;&nbsp;region: <span className="text-emerald-500">"us-east"</span></p>
+                <p>{"}"});</p>
+                <p>&nbsp;</p>
+                <p><span className="text-slate-500">// Subscribe to realtime stream</span></p>
+                <p><span className="text-fuchsia-500">const</span> stream = client.<span className="text-blue-500">subscribe</span>(<span className="text-emerald-500">"telemetry/v1"</span>);</p>
+                <p>&nbsp;</p>
+                <p>stream.<span className="text-blue-500">on</span>(<span className="text-emerald-500">"message"</span>, (data) <span className="text-fuchsia-500">=&gt;</span> {"{"}</p>
+                <p>&nbsp;&nbsp;console.<span className="text-blue-500">log</span>(<span className="text-emerald-500">"Received:"</span>, data);</p>
+                <p>{"}"});</p>
+                <p>&nbsp;</p>
+                <p><span className="text-slate-500">// Publish update</span></p>
+                <p><span className="text-fuchsia-500">await</span> client.<span className="text-blue-500">publish</span>(<span className="text-emerald-500">"updates/v1"</span>, {"{"}</p>
+                <p>&nbsp;&nbsp;status: <span className="text-emerald-500">"active"</span>,</p>
+                <p>&nbsp;&nbsp;timestamp: <span className="text-cyan-500">Date</span>.<span className="text-blue-500">now</span>()</p>
+                <p>{"}"});</p>
+              </div>
+            </div>
+
+            {/* Floating Metric Overlay */}
+            <div className="absolute bottom-6 right-6 flex items-center gap-3 rounded-xl border border-black/[0.08] bg-[var(--bg-surface)]/90 p-3 shadow-lg backdrop-blur-sm">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--data-green)]/10 text-[var(--data-green)]">
+                <Activity className="h-4 w-4" />
+              </div>
               <div>
-                <span className="text-fuchsia-400">import</span>
-                <span className="text-white"> {"{ AltrexClient }"} </span>
-                <span className="text-fuchsia-400">from</span>
-                <span className="text-violet-300">
-                  {" "}
-                  '@altrex/realtime'
-                </span>
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Node Latency</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm font-bold text-[var(--text-primary)]">1.2ms</span>
+                  <div className="flex items-end gap-[1px] h-3">
+                    <div className="w-[2px] bg-[var(--data-green)]/30 h-1" />
+                    <div className="w-[2px] bg-[var(--data-green)]/50 h-2" />
+                    <div className="w-[2px] bg-[var(--data-green)]/40 h-1.5" />
+                    <div className="w-[2px] bg-[var(--data-green)] h-3" />
+                    <div className="w-[2px] bg-[var(--data-green)]/60 h-2" />
+                  </div>
+                </div>
               </div>
-
-              <div className="text-gray-500"></div>
-
-              <div>
-                <span className="text-gray-500">
-                  // Initialize with your API key
-                </span>
-              </div>
-
-              <div>
-                <span className="text-fuchsia-400">const</span>
-                <span className="text-white"> client </span>
-                <span className="text-gray-400">= </span>
-                <span className="text-green-400">new</span>
-                <span className="text-white"> AltrexClient</span>
-                <span className="text-gray-400">{"({"}</span>
-              </div>
-
-              <div className="pl-6">
-                <span className="text-cyan-300">apiKey</span>
-                <span className="text-gray-400">: </span>
-                <span className="text-violet-300">
-                  process.env.ALTREX_KEY
-                </span>
-                <span className="text-gray-400">,</span>
-              </div>
-
-              <div className="pl-6">
-                <span className="text-cyan-300">region</span>
-                <span className="text-gray-400">: </span>
-                <span className="text-violet-300">'us-east-1'</span>
-              </div>
-
-              <div>
-                <span className="text-gray-400">{"})"};</span>
-              </div>
-
-              <div className="text-gray-500"></div>
-
-              <div>
-                <span className="text-gray-500">
-                  // Subscribe to a topic
-                </span>
-              </div>
-
-              <div>
-                <span className="text-white">client</span>
-                <span className="text-gray-400">.</span>
-                <span className="text-green-400">subscribe</span>
-                <span className="text-gray-400">{"('"}</span>
-                <span className="text-violet-300">
-                  devices/live
-                </span>
-                <span className="text-gray-400">
-                  {"', (msg) => {"}
-                </span>
-              </div>
-
-              <div className="pl-6">
-                <span className="text-blue-400">console</span>
-                <span className="text-gray-400">: </span>
-                <span className="text-green-400">log</span>
-                <span className="text-gray-400">
-                  {"(msg.payload);"}
-                </span>
-              </div>
-
-              <div>
-                <span className="text-gray-400">{"});"}</span>
-              </div>
-
-              <div className="text-gray-500"></div>
-
-              <div>
-                <span className="text-gray-500">
-                  // Publish metrics
-                </span>
-              </div>
-
-              <div>
-                <span className="text-white">client</span>
-                <span className="text-gray-400">.</span>
-                <span className="text-green-400">publish</span>
-                <span className="text-gray-400">{"('"}</span>
-                <span className="text-violet-300">
-                  metrics/update
-                </span>
-                <span className="text-gray-400">
-                  {"', {"}
-                </span>
-              </div>
-
-              <div className="pl-6">
-                <span className="text-cyan-300">temp</span>
-                <span className="text-gray-400">: </span>
-                <span className="text-orange-300">72.4</span>
-                <span className="text-gray-400">, </span>
-                <span className="text-cyan-300">status</span>
-                <span className="text-gray-400">: </span>
-                <span className="text-violet-300">'ok'</span>
-              </div>
-
-              <div>
-                <span className="text-gray-400">{"});"}</span>
-              </div>
-
-              <motion.div
-                animate={{
-                  opacity: [1, 0.7, 1],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                }}
-                className="flex items-center gap-2 pt-2"
-              >
-                <div className="h-2 w-2 rounded-full bg-green-400" />
-
-                <span className="text-green-400">
-                  Connected · 1 subscriber active
-                </span>
-
-                <span className="inline-block h-4 w-0.5 animate-pulse bg-green-400" />
-              </motion.div>
             </div>
           </motion.div>
 
@@ -383,7 +277,7 @@ const DeveloperExperience = () => {
                         boxShadow: `0 0 8px ${chip.glow}`,
                       } as React.CSSProperties}
                     >
-                      <div 
+                      <div
                         className="flex h-7 w-7 items-center justify-center rounded-full"
                         style={{
                           background: `${chip.color}15`,
@@ -422,14 +316,14 @@ const DeveloperExperience = () => {
                       transition={{
                         duration: 0.25,
                       }}
-                      className={`group flex items-start gap-4 rounded-2xl border border-white/10 bg-black/20 p-5 shadow-sm transition-all duration-300 ${highlight.borderHover} hover:shadow-lg`}
+                      className={`group flex items-start gap-4 rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 p-5 shadow-sm transition-all duration-300 ${highlight.borderHover} hover:shadow-lg`}
                     >
                       <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${highlight.gradient} text-white shadow-md`}>
                         <Icon className="h-5 w-5" />
                       </div>
 
                       <div>
-                        <h3 className="font-semibold text-[var(--text-primary)] transition-colors group-hover:text-violet-300">
+                        <h3 className="font-semibold text-[var(--text-primary)] transition-colors group-hover:text-[var(--accent-violet)]">
                           {highlight.title}
                         </h3>
 
@@ -453,7 +347,7 @@ const DeveloperExperience = () => {
               }}
               className="flex flex-col gap-3 rounded-2xl border border-black/[0.08] bg-black/5 p-6 sm:flex-row sm:items-center sm:justify-between"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-md">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0d9488] text-white shadow-md">
                 <Rocket className="h-5 w-5" />
               </div>
 
@@ -488,7 +382,7 @@ const DeveloperExperience = () => {
                   whileTap={{
                     scale: 0.96,
                   }}
-                  className="rounded-xl border border-black/[0.08] bg-black/5 px-4 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors"
+                  className="rounded-xl border border-black/[0.08] bg-black/5 px-4 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-[var(--accent-violet)]/30 hover:text-[var(--text-primary)] transition-colors"
                 >
                   API Ref
                 </motion.button>

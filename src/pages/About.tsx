@@ -196,7 +196,6 @@ function HeroSection() {
                 "LATENCY: 15ms",
                 "REGIONS: GLOBAL",
               ]}
-              className="bg-black/20"
             />
           </motion.div>
         </motion.div>
@@ -250,7 +249,7 @@ function MissionSection() {
             Empowering industries through{" "}
             {/* GradientText gives the key phrase an animated colour sweep */}
             <GradientText
-              colors={["#7c3aed", "#d946ef", "#7c3aed"]}
+              colors={["#ff6b00", "#ffa05e", "#ff6b00"]}
               animationSpeed={6}
               className="inline-block text-4xl font-bold sm:text-5xl"
             >
@@ -532,7 +531,7 @@ function ValuesSection() {
               */}
               <StarBorder
                 as="div"
-                color="#8b5cf6"
+                color="#ff6b00"
                 speed="8s"
                 thickness={1}
                 className="w-full cursor-default"

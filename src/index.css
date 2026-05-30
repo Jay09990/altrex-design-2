@@ -49,6 +49,32 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Override Tailwind's default violet with Altrex brand orange */
+  --color-violet-50: #fff5eb;
+  --color-violet-100: #ffe8d1;
+  --color-violet-200: #ffd0a3;
+  --color-violet-300: #ffb06e;
+  --color-violet-400: #ff8e3a;
+  --color-violet-500: #ff6b00; /* Core Brand Orange */
+  --color-violet-600: #e05600;
+  --color-violet-700: #b84100;
+  --color-violet-800: #8f3100;
+  --color-violet-900: #702500;
+  --color-violet-950: #3d1200;
+
+  /* Override Tailwind's default fuchsia with Altrex brand slate/dark gray */
+  --color-fuchsia-50: #f6f6f7;
+  --color-fuchsia-100: #ececed;
+  --color-fuchsia-200: #d0d0d4;
+  --color-fuchsia-300: #a7a7af;
+  --color-fuchsia-400: #7c7c86;
+  --color-fuchsia-500: #1b1b1f; /* Core Brand Dark Grey/Black */
+  --color-fuchsia-600: #141417;
+  --color-fuchsia-700: #0f0f12;
+  --color-fuchsia-800: #0a0a0c;
+  --color-fuchsia-900: #050506;
+  --color-fuchsia-950: #020202;
 }
 
 :root {
@@ -86,19 +112,22 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   /* Altrex v2 Design System — Blueprint Colors (Light Mode) */
-  --bg-void: #f5f4ff;
+  --bg-void: #faf9f6;
   --bg-surface: #ffffff;
-  --bg-raised: #eeecfb;
+  --bg-raised: #f5f4f0; /* Desaturated raised card background */
   --border-subtle: rgba(0, 0, 0, 0.07);
   --border-active: rgba(0, 0, 0, 0.18);
   --text-primary: #0f0e1a;
   --text-secondary: #4b4a62;
   --text-muted: #9896b0;
-  --accent-violet: #7c3aed;
-  --accent-fuchsia: #c026d3;
-  --accent-glow: rgba(124, 58, 237, 0.08);
+  --accent-violet: #ff6b00; /* Mapped to brand orange */
+  --accent-fuchsia: #1b1b1f; /* Mapped to brand slate */
+  --accent-glow: rgba(255, 107, 0, 0.08);
   --data-green: #16a34a;
   --data-amber: #d97706;
+  --cursor-border: rgba(15, 14, 26, 0.4);
+  --cursor-border-hover: rgba(255, 107, 0, 0.6);
+  --cursor-bg-hover: rgba(255, 107, 0, 0.15);
 }
 
 .dark {
@@ -134,20 +163,23 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 
-  /* Altrex v2 Design System — Blueprint Colors (dark theme overrides, kept for reference) */
-  --bg-void: #f5f4ff;
-  --bg-surface: #ffffff;
-  --bg-raised: #eeecfb;
-  --border-subtle: rgba(0, 0, 0, 0.07);
-  --border-active: rgba(0, 0, 0, 0.18);
-  --text-primary: #0f0e1a;
-  --text-secondary: #4b4a62;
-  --text-muted: #9896b0;
-  --accent-violet: #7c3aed;
-  --accent-fuchsia: #c026d3;
-  --accent-glow: rgba(124, 58, 237, 0.08);
-  --data-green: #16a34a;
-  --data-amber: #d97706;
+  /* Altrex v2 Design System — Blueprint Colors (Dark Mode) */
+  --bg-void: #070612;
+  --bg-surface: #0d0b1a;
+  --bg-raised: #14112a;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-active: rgba(255, 255, 255, 0.16);
+  --text-primary: #f3f1ff;
+  --text-secondary: rgba(243, 241, 255, 0.78);
+  --text-muted: rgba(243, 241, 255, 0.55);
+  --accent-violet: #ff7e1a; /* Mapped to brand orange */
+  --accent-fuchsia: #f3f1ff; /* Mapped to light text grey */
+  --accent-glow: rgba(255, 126, 26, 0.14);
+  --data-green: #4ade80;
+  --data-amber: #fbbf24;
+  --cursor-border: rgba(243, 241, 255, 0.4);
+  --cursor-border-hover: rgba(255, 126, 26, 0.6);
+  --cursor-bg-hover: rgba(255, 126, 26, 0.15);
 }
 
 @layer base {
@@ -165,17 +197,22 @@
     @apply font-sans;
     color-scheme: light;
   }
+
+  html.dark {
+    color-scheme: dark;
+  }
 }
 
 /* Background Grid for Home page */
 /* AFTER */
 .bg-grid {
-  background-color: rgba(255, 255, 255, 0.5);
-  background-image:
-    linear-gradient(rgba(100, 80, 200, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(100, 80, 200, 0.06) 1px, transparent 1px);
-  background-size: 40px 40px;
-  background-attachment: fixed;
+  background-color: var(--bg-void);
+  background-image: none;
+}
+
+.dark .bg-grid {
+  background-color: var(--bg-void);
+  background-image: none;
 }
 
 /* Geist font configuration */

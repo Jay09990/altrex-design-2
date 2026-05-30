@@ -1,0 +1,13 @@
+// Hook for reading and updating the global theme provided by `ThemeProvider`.
+
+import { useContext } from "react";
+
+import { ThemeContext } from "@/theme/themeContext";
+
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error("useTheme must be used within ThemeProvider");
+  }
+  return context;
+}

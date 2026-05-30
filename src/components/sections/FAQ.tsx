@@ -198,7 +198,7 @@ const FAQ = () => {
                           whileHover={{
                             scale: 1.08,
                           }}
-                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-black/20 text-[var(--text-secondary)] transition-all group-data-[state=open]/accordion-trigger:border-violet-400/30 group-data-[state=open]/accordion-trigger:bg-violet-500/10 group-data-[state=open]/accordion-trigger:text-violet-300"
+                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-raised)] text-[var(--text-secondary)] transition-all group-data-[state=open]/accordion-trigger:border-violet-400/30 group-data-[state=open]/accordion-trigger:bg-violet-500/10 group-data-[state=open]/accordion-trigger:text-violet-300"
                         >
                           <span className="select-none text-lg font-light leading-none group-data-[state=open]/accordion-trigger:hidden">
                             +

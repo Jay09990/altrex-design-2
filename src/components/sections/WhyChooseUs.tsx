@@ -18,9 +18,9 @@ const benefits = [
     title: "Ultra Low Latency",
     description:
       "Deliver realtime communication with millisecond response times optimized for modern distributed systems.",
-    gradient: "from-violet-600 to-fuchsia-500",
-    borderHover: "hover:border-violet-500/30",
-    glow: "shadow-violet-900/40",
+    gradient: "from-orange-500 to-orange-400",
+    borderHover: "hover:border-orange-500/30",
+    glow: "shadow-orange-900/40",
   },
 
   {
@@ -38,9 +38,9 @@ const benefits = [
     title: "Infinite Scalability",
     description:
       "Scale seamlessly across regions and millions of connected devices without operational complexity.",
-    gradient: "from-fuchsia-600 to-pink-500",
-    borderHover: "hover:border-fuchsia-500/30",
-    glow: "shadow-fuchsia-900/40",
+    gradient: "from-orange-600 to-amber-500",
+    borderHover: "hover:border-orange-500/30",
+    glow: "shadow-orange-900/40",
   },
 
   {
@@ -68,9 +68,9 @@ const benefits = [
     title: "Developer Experience",
     description:
       "Modern APIs, SDKs, documentation, and tooling designed for fast integration and productivity.",
-    gradient: "from-violet-600 to-cyan-500",
-    borderHover: "hover:border-violet-500/30",
-    glow: "shadow-violet-900/40",
+    gradient: "from-orange-500 to-cyan-500",
+    borderHover: "hover:border-orange-500/30",
+    glow: "shadow-orange-900/40",
   },
 ];
 
@@ -126,7 +126,7 @@ const WhyChooseUs = () => {
         }
 
         .dot-grid {
-          background-image: radial-gradient(circle, rgba(139,92,246,0.18) 1px, transparent 1px);
+          background-image: radial-gradient(circle, rgba(255,107,0,0.15) 1px, transparent 1px);
           background-size: 28px 28px;
         }
       `}</style>
@@ -134,7 +134,6 @@ const WhyChooseUs = () => {
       {/* Dot grid overlay */}
       <div className="dot-grid absolute inset-0 -z-10" />
 
-      {/* Ambient glows */}
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -146,13 +145,13 @@ const WhyChooseUs = () => {
         <motion.div variants={fadeUpVariants}>
           <Badge
             variant="secondary"
-            className="border border-violet-500/30 bg-violet-500/10 p-4 text-sm font-medium text-violet-400"
+            className="border border-orange-500/30 bg-orange-500/10 p-4 text-sm font-medium text-orange-500"
           >
             <InViewDecryptedText
               text="WHY CHOOSE US"
               speed={60}
               maxIterations={12}
-              className="text-violet-300"
+              className="text-orange-500"
               encryptedClassName="text-[var(--text-muted)]"
             />
           </Badge>
@@ -165,7 +164,7 @@ const WhyChooseUs = () => {
           >
             Built for Modern{" "}
 
-            <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
               Realtime Infrastructure
             </span>
           </motion.h2>
@@ -186,20 +185,13 @@ const WhyChooseUs = () => {
         >
           {/* Hero Card */}
           <motion.div
-            whileHover={{
-              y: -6,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
-            className="relative col-span-1 overflow-hidden rounded-3xl bg-gradient-to-br from-violet-600 to-fuchsia-600 p-10 text-white shadow-2xl shadow-violet-900/40 lg:col-span-2"
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="relative col-span-1 overflow-hidden rounded-3xl bg-gradient-to-br from-orange-600 to-orange-400 p-10 text-white shadow-2xl shadow-orange-900/40 lg:col-span-2"
           >
             <div className="relative z-10">
               <motion.div
-                whileHover={{
-                  scale: 1.08,
-                  rotate: 4,
-                }}
+                whileHover={{ scale: 1.08, rotate: 4 }}
                 className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/10"
               >
                 <Zap className="h-8 w-8 text-white" />
@@ -211,7 +203,7 @@ const WhyChooseUs = () => {
                 Realtime Systems
               </h3>
 
-              <p className="mt-5 text-lg leading-8 text-violet-100">
+              <p className="mt-5 text-lg leading-8 text-orange-50">
                 Power scalable messaging, connected devices, and distributed
                 applications with modern infrastructure optimized for speed,
                 reliability, and global scale.
@@ -221,102 +213,40 @@ const WhyChooseUs = () => {
 
           {/* Live Metric Card */}
           <motion.div
-            whileHover={{
-              y: -6,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
-            className="relative row-span-2 overflow-hidden rounded-3xl border border-violet-200/60 bg-[var(--bg-surface)] p-8 shadow-sm"
+            whileHover={{ y: -6 }}
+            transition={{ duration: 0.25 }}
+            className="relative row-span-2 overflow-hidden rounded-3xl border border-orange-200/60 bg-[var(--bg-surface)] p-8 shadow-sm"
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
               </span>
-
               Live Metrics
             </div>
 
             <div className="space-y-6">
               {[
-                {
-                  label: "Messages Daily",
-                  value: "10M+",
-                  color: "text-violet-400",
-                },
-
-                {
-                  label: "Uptime SLA",
-                  value: "99.99%",
-                  color: "text-green-400",
-                },
-
-                {
-                  label: "Avg Latency",
-                  value: "50ms",
-                  color: "text-fuchsia-400",
-                },
-
-                {
-                  label: "Global Regions",
-                  value: "120+",
-                  color: "text-cyan-400",
-                },
+                { label: "Messages Daily", value: "10M+", color: "text-orange-500", bar: "bg-orange-500" },
+                { label: "Uptime SLA", value: "99.99%", color: "text-green-400", bar: "bg-green-500" },
+                { label: "Avg Latency", value: "50ms", color: "text-amber-400", bar: "bg-amber-500" },
+                { label: "Global Regions", value: "120+", color: "text-cyan-400", bar: "bg-cyan-500" },
               ].map((m, i) => (
                 <motion.div
                   key={i}
-                  initial={{
-                    opacity: 0,
-                    y: 20,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * 0.12,
-                  }}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.12 }}
                   className="stat-animate border-b border-black/[0.06] pb-5"
                 >
-                  <p className={`text-4xl font-bold ${m.color}`}>
-                    {m.value}
-                  </p>
-
-                  <p className="mt-1 text-sm text-[var(--text-muted)]">
-                    {m.label}
-                  </p>
-
+                  <p className={`text-4xl font-bold ${m.color}`}>{m.value}</p>
+                  <p className="mt-1 text-sm text-[var(--text-muted)]">{m.label}</p>
                   <div className="mt-3 h-1 overflow-hidden rounded-full bg-black/[0.08]">
                     <motion.div
-                      initial={{
-                        width: 0,
-                      }}
-                      whileInView={{
-                        width:
-                          i === 0
-                            ? "72%"
-                            : i === 1
-                              ? "99.99%"
-                              : i === 2
-                                ? "40%"
-                                : "85%",
-                      }}
-                      transition={{
-                        duration: 1,
-                        delay: i * 0.15,
-                      }}
-                      className={`h-full rounded-full ${
-                        m.color === "text-violet-400"
-                          ? "bg-violet-500"
-                          : m.color === "text-green-400"
-                            ? "bg-green-500"
-                            : m.color === "text-fuchsia-400"
-                              ? "bg-fuchsia-500"
-                              : "bg-cyan-500"
-                      }`}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: i === 0 ? "72%" : i === 1 ? "99.99%" : i === 2 ? "40%" : "85%" }}
+                      transition={{ duration: 1, delay: i * 0.15 }}
+                      className={`h-full rounded-full ${m.bar}`}
                     />
                   </div>
                 </motion.div>
@@ -331,28 +261,14 @@ const WhyChooseUs = () => {
             return (
               <motion.div
                 key={i}
-                initial={{
-                  opacity: 0,
-                  y: 30,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                whileHover={{
-                  y: -5,
-                }}
-                transition={{
-                  duration: 0.35,
-                  delay: i * 0.08,
-                }}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.35, delay: i * 0.08 }}
                 className={`group flex gap-4 rounded-2xl border border-black/[0.07] bg-[var(--bg-surface)] p-6 shadow-sm transition-all duration-300 ${item.borderHover} hover:bg-[var(--bg-raised)]`}
               >
                 <motion.div
-                  whileHover={{
-                    scale: 1.08,
-                    rotate: 4,
-                  }}
+                  whileHover={{ scale: 1.08, rotate: 4 }}
                   className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-white shadow-md ${item.glow}`}
                 >
                   <Icon className="h-5 w-5" />

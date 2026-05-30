@@ -74,11 +74,11 @@ const CTA = () => {
         .cta-gradient {
           background: linear-gradient(
             135deg,
-            #4c1d95 0%,
-            #7c3aed 25%,
-            #c026d3 50%,
-            #7c3aed 75%,
-            #3b0764 100%
+            #7c2d12 0%,
+            #ea580c 25%,
+            #ff6b00 50%,
+            #ea580c 75%,
+            #431407 100%
           );
 
           background-size: 300% 300%;

@@ -1,10 +1,14 @@
 import { FiMail } from "react-icons/fi";
-
 import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { useTheme } from "@/hooks/useTheme";
+import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
+import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
 
 const Footer = () => {
+  const { theme } = useTheme();
+
   return (
     <footer className="border-t border-black/[0.08] bg-[var(--bg-void)]">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
@@ -13,7 +17,11 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="mb-6 flex items-center gap-3">
-              <Button size="icon-lg">A</Button>
+              <img
+                src={theme === "dark" ? darklogo : lightlogo}
+                alt="Altrex Logo"
+                className="h-12 w-auto object-contain"
+              />
 
               <div className="hidden sm:block">
                 <h1 className="text-md font-bold">

@@ -39,8 +39,8 @@ const CustomCursor = () => {
         gsap.to(cursorRef.current, {
           width: 32,
           height: 32,
-          backgroundColor: "rgba(139, 92, 246, 0.15)",
-          borderColor: "rgba(139, 92, 246, 0.6)",
+          backgroundColor: "var(--cursor-bg-hover)",
+          borderColor: "var(--cursor-border-hover)",
           duration: 0.3,
           overwrite: "auto",
         });
@@ -53,7 +53,7 @@ const CustomCursor = () => {
           width: 8,
           height: 8,
           backgroundColor: "transparent",
-          borderColor: "rgba(0, 0, 0, 0.4)",
+          borderColor: "var(--cursor-border)",
           duration: 0.3,
           overwrite: "auto",
         });
@@ -106,7 +106,7 @@ const CustomCursor = () => {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed z-[10000] w-2 h-2 rounded-full border border-black/40 bg-transparent transition-colors duration-300"
+      className="pointer-events-none fixed z-[10000] w-2 h-2 rounded-full border border-[var(--cursor-border)] bg-transparent transition-colors duration-300"
       style={{
         left: 0,
         top: 0,

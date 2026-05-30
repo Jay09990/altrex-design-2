@@ -145,7 +145,7 @@ const HomeChapterNav = () => {
                     transition={{ duration: 0.2 }}
                     className={`group flex w-[220px] items-center gap-3 rounded-2xl border px-3 py-3 text-left transition-all duration-300 ${
                       isActive
-                        ? "border-violet-400/30 bg-violet-500/12 shadow-[0_0_0_1px_rgba(139,92,246,0.18),0_12px_30px_rgba(139,92,246,0.06)]"
+                        ? "border-orange-400/30 bg-orange-500/10 shadow-[0_0_0_1px_rgba(255,107,0,0.18),0_12px_30px_rgba(255,107,0,0.06)]"
                         : "border-black/[0.06] bg-black/[0.02] hover:border-black/[0.1] hover:bg-black/[0.04]"
                     }`}
                   >
@@ -153,7 +153,7 @@ const HomeChapterNav = () => {
                       layout
                       className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border font-mono text-[11px] font-bold tracking-[0.18em] transition-colors ${
                         isActive
-                          ? "border-violet-400/30 bg-violet-500/12 text-violet-600"
+                          ? "border-orange-400/30 bg-orange-500/10 text-orange-600"
                           : "border-black/[0.06] bg-black/[0.02] text-[var(--text-muted)]"
                       }`}
                     >
@@ -179,8 +179,8 @@ const HomeChapterNav = () => {
                     <div
                       className={`ml-auto h-2 w-2 rounded-full transition-all ${
                         isActive
-                          ? "bg-[var(--accent-violet)] shadow-[0_0_16px_rgba(139,92,246,0.65)]"
-                          : "bg-black/20"
+                          ? "bg-[var(--accent-violet)] shadow-[0_0_16px_rgba(255,107,0,0.65)]"
+                          : "bg-black/[0.12]"
                       }`}
                     />
                   </motion.button>
