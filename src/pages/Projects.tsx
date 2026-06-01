@@ -700,41 +700,44 @@ const Projects = () => {
           className="mt-24 border-t border-white/5 pt-20"
         >
           <div className="text-center mb-12">
-            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ HARDWARE ABSTRACTION ]</span>
+            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">
+              [ HARDWARE ABSTRACTION ]
+            </span>
             <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
               Inside an Altrex Edge Node
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
-              Discover the microservices that power sub-millisecond data routing at the edge, packaged in a lightweight 18MB WebAssembly runtime.
+              Discover the microservices that power sub-millisecond data routing
+              at the edge, packaged in a lightweight 18MB WebAssembly runtime.
             </p>
           </div>
 
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
             {[
               {
                 icon: <Globe className="h-6 w-6" />,
                 title: "Protocol Normalizer",
                 desc: "Ingests raw Modbus, OPC-UA, and MQTT streams, instantly converting them into a unified, high-speed binary format.",
-                color: "text-blue-400"
+                color: "text-blue-400",
               },
               {
                 icon: <Zap className="h-6 w-6" />,
                 title: "Event Router",
                 desc: "Evaluates rules and routes messages locally at 150μs latency, ensuring mission-critical logic executes even without cloud access.",
-                color: "text-orange-500"
+                color: "text-orange-500",
               },
               {
                 icon: <Layers className="h-6 w-6" />,
                 title: "Persistent Buffer",
                 desc: "Caches events during network dropouts using an embedded, lightning-fast append-only log, guaranteeing zero data loss.",
-                color: "text-[var(--data-green)]"
+                color: "text-[var(--data-green)]",
               },
               {
                 icon: <Lock className="h-6 w-6" />,
                 title: "Zero-Trust Proxy",
                 desc: "Secures all outbound connections using mutual TLS (mTLS) and hardware-backed cryptographic identity verification.",
-                color: "text-purple-400"
-              }
+                color: "text-purple-400",
+              },
             ].map((feature, i) => (
               <motion.div
                 key={i}
@@ -744,7 +747,9 @@ const Projects = () => {
                 transition={{ duration: 0.5, delay: i * 0.1 }}
                 className="rounded-2xl border border-white/10 bg-[var(--bg-surface)]/60 p-6 flex flex-col gap-4 backdrop-blur-md relative overflow-hidden group hover:border-orange-500/30 transition-colors"
               >
-                <div className={`p-3 rounded-xl bg-zinc-900 w-fit ${feature.color} shadow-inner`}>
+                <div
+                  className={`p-3 rounded-xl bg-zinc-900 w-fit ${feature.color} shadow-inner`}
+                >
                   {feature.icon}
                 </div>
                 <h3 className="text-lg font-bold uppercase tracking-tight text-[var(--text-primary)]">
@@ -759,83 +764,94 @@ const Projects = () => {
               </motion.div>
             ))}
           </div>
-
-</motion.div>
+        </motion.div>
 
         {/* ── SECTION 5: THREAT & ANOMALY MATRIX ── */}
         <motion.div
-    initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
           className="mt-24 border-t border-white/5 pt-20 mb-12"
         >
-
-<div className="text-center mb-12">
-            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ SECURITY POSTURE ]</span>
+          <div className="text-center mb-12">
+            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">
+              [ SECURITY POSTURE ]
+            </span>
             <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
               Global Threat Matrix
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
-              Real-time visualization of intercepted anomalies and automated security responses across the Altrex global infrastructure.
+              Real-time visualization of intercepted anomalies and automated
+              security responses across the Altrex global infrastructure.
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto rounded-3xl border border-red-500/20 bg-red-950/10 p-1 shadow-2xl backdrop-blur-md">
-             <div className="rounded-[22px] border border-white/5 bg-zinc-950/80 p-6 flex flex-col md:flex-row gap-8">
-               
-               {/* Stats Column */}
-               <div className="flex flex-col gap-6 w-full md:w-1/3">
-                 <div className="p-4 rounded-xl border border-white/5 bg-zinc-900/50">
-                    <span className="flex items-center gap-2 font-mono text-[10px] text-[var(--text-muted)] uppercase mb-2">
-                      <Shield className="h-3 w-3 text-red-500" />
-                      Anomalies Blocked (24h)
-                    </span>
-<span className="text-3xl font-bold text-red-500">14,289</span>
-                 </div>
-                 <div className="p-4 rounded-xl border border-white/5 bg-zinc-900/50">
-                    <span className="flex items-center gap-2 font-mono text-[10px] text-[var(--text-muted)] uppercase mb-2">
-                      <Cpu className="h-3 w-3 text-orange-500" />
-                      ML Analysis Latency
-                    </span>
-                    <span className="text-3xl font-bold text-orange-500">4.2ms</span>
-                 </div>
-               </div>
+            <div className="rounded-[22px] border border-white/5 bg-zinc-950/80 p-6 flex flex-col md:flex-row gap-8">
+              {/* Stats Column */}
+              <div className="flex flex-col gap-6 w-full md:w-1/3">
+                <div className="p-4 rounded-xl border border-white/5 bg-zinc-900/50">
+                  <span className="flex items-center gap-2 font-mono text-[10px] text-[var(--text-muted)] uppercase mb-2">
+                    <Shield className="h-3 w-3 text-red-500" />
+                    Anomalies Blocked (24h)
+                  </span>
+                  <span className="text-3xl font-bold text-red-500">
+                    14,289
+                  </span>
+                </div>
+                <div className="p-4 rounded-xl border border-white/5 bg-zinc-900/50">
+                  <span className="flex items-center gap-2 font-mono text-[10px] text-[var(--text-muted)] uppercase mb-2">
+                    <Cpu className="h-3 w-3 text-orange-500" />
+                    ML Analysis Latency
+                  </span>
+                  <span className="text-3xl font-bold text-orange-500">
+                    4.2ms
+                  </span>
+                </div>
+              </div>
 
-{/* Log Column */}
-               <div className="flex-1 rounded-xl border border-zinc-900 bg-black/60 p-4 font-mono text-[10px] sm:text-xs overflow-hidden relative">
-                  <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-black/80 to-transparent z-10" />
-                  <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-black/80 to-transparent z-10" />
-                  
-                  <div className="space-y-3 opacity-80 animate-pulse">
-                    <div className="flex gap-4">
-                      <span className="text-zinc-600">[12:44:01]</span>
-                      <span className="text-red-500">[WARN] DDoS Signature detected at EU-Frankfurt</span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="text-zinc-600">[12:44:02]</span>
-                      <span className="text-orange-500">[ACTN] Routing traffic to mitigation sinkhole...</span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="text-zinc-600">[12:44:05]</span>
-                      <span className="text-[var(--data-green)]">[OK] Threat neutralized. Edge node stable.</span>
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="text-zinc-600">[12:47:11]</span>
-                      <span className="text-blue-400">[INFO] Rotating mTLS certificates for SG-Node-4</span>
-                    </div>
-                     <div className="flex gap-4">
-                      <span className="text-zinc-600">[12:48:33]</span>
-                      <span className="text-yellow-500">[WARN] Malformed Modbus payload rejected</span>
-                    </div>
+              {/* Log Column */}
+              <div className="flex-1 rounded-xl border border-zinc-900 bg-black/60 p-4 font-mono text-[10px] sm:text-xs overflow-hidden relative">
+                <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-black/80 to-transparent z-10" />
+                <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-black/80 to-transparent z-10" />
+
+                <div className="space-y-3 opacity-80 animate-pulse">
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600">[12:44:01]</span>
+                    <span className="text-red-500">
+                      [WARN] DDoS Signature detected at EU-Frankfurt
+                    </span>
                   </div>
-               </div>
-
- </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600">[12:44:02]</span>
+                    <span className="text-orange-500">
+                      [ACTN] Routing traffic to mitigation sinkhole...
+                    </span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600">[12:44:05]</span>
+                    <span className="text-[var(--data-green)]">
+                      [OK] Threat neutralized. Edge node stable.
+                    </span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600">[12:47:11]</span>
+                    <span className="text-blue-400">
+                      [INFO] Rotating mTLS certificates for SG-Node-4
+                    </span>
+                  </div>
+                  <div className="flex gap-4">
+                    <span className="text-zinc-600">[12:48:33]</span>
+                    <span className="text-yellow-500">
+                      [WARN] Malformed Modbus payload rejected
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-</motion.div>
-
+        </motion.div>
       </div>
     </div>
   );
