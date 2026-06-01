@@ -72,8 +72,6 @@ const Testimonials = () => {
 
   return (
     <section className="relative overflow-hidden bg-transparent py-28">
-      {/* Top accent stripe */}
-      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)]" />
 
       <motion.div
         variants={containerVariants}
@@ -173,7 +171,7 @@ const Testimonials = () => {
                   scale: 1.08,
                   rotate: 4,
                 }}
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-500 text-sm font-bold text-white"
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-sm font-bold text-white"
               >
                 {featured.initials}
               </motion.div>
@@ -227,7 +225,7 @@ const Testimonials = () => {
                       scale: 1.08,
                       rotate: 4,
                     }}
-                    className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-xs font-bold text-white"
+                    className="flex h-10 w-10 items-center justify-center rounded-xl  bg-orange-700 text-xs font-bold text-white"
                   >
                     <Quote className="h-4 w-4" />
                   </motion.div>
@@ -243,7 +241,7 @@ const Testimonials = () => {
                       scale: 1.08,
                       rotate: 4,
                     }}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-500 text-xs font-bold text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-full  bg-orange-500 text-xs font-bold text-white"
                   >
                     {item.initials}
                   </motion.div>

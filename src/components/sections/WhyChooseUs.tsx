@@ -18,7 +18,7 @@ const benefits = [
     title: "Ultra Low Latency",
     description:
       "Deliver realtime communication with millisecond response times optimized for modern distributed systems.",
-    gradient: "from-orange-500 to-orange-400",
+    gradient: "bg-orange-400",
     borderHover: "hover:border-orange-500/30",
     glow: "shadow-orange-900/40",
   },
@@ -28,7 +28,7 @@ const benefits = [
     title: "Enterprise Security",
     description:
       "Protect infrastructure with secure authentication, encrypted communication, and production-grade reliability.",
-    gradient: "from-cyan-600 to-blue-500",
+    gradient: "bg-blue-500",
     borderHover: "hover:border-cyan-500/30",
     glow: "shadow-cyan-900/40",
   },
@@ -38,7 +38,7 @@ const benefits = [
     title: "Infinite Scalability",
     description:
       "Scale seamlessly across regions and millions of connected devices without operational complexity.",
-    gradient: "from-orange-600 to-amber-500",
+    gradient: "bg-amber-500",
     borderHover: "hover:border-orange-500/30",
     glow: "shadow-orange-900/40",
   },
@@ -48,7 +48,7 @@ const benefits = [
     title: "Global Infrastructure",
     description:
       "Deploy worldwide with edge-ready architecture built for realtime global connectivity.",
-    gradient: "from-emerald-600 to-teal-500",
+    gradient: "bg-teal-500",
     borderHover: "hover:border-emerald-500/30",
     glow: "shadow-emerald-900/40",
   },
@@ -58,7 +58,7 @@ const benefits = [
     title: "99.99% Reliability",
     description:
       "Built for mission-critical workloads with fault-tolerant systems and high availability architecture.",
-    gradient: "from-amber-600 to-orange-500",
+    gradient: "bg-amber-500",
     borderHover: "hover:border-amber-500/30",
     glow: "shadow-amber-900/40",
   },
@@ -68,9 +68,9 @@ const benefits = [
     title: "Developer Experience",
     description:
       "Modern APIs, SDKs, documentation, and tooling designed for fast integration and productivity.",
-    gradient: "from-orange-500 to-cyan-500",
-    borderHover: "hover:border-orange-500/30",
-    glow: "shadow-orange-900/40",
+    gradient: "bg-cyan-500",
+    borderHover: "hover:border-cyan-500/30",
+    glow: "shadow-cyan-900/40",
   },
 ];
 
@@ -164,7 +164,7 @@ const WhyChooseUs = () => {
           >
             Built for Modern{" "}
 
-            <span className="bg-gradient-to-r from-orange-500 to-amber-400 bg-clip-text text-transparent">
+            <span className="bg-amber-500/80 bg-clip-text text-transparent">
               Realtime Infrastructure
             </span>
           </motion.h2>
@@ -227,10 +227,10 @@ const WhyChooseUs = () => {
 
             <div className="space-y-6">
               {[
-                { label: "Messages Daily", value: "10M+", color: "text-orange-500", bar: "bg-orange-500" },
-                { label: "Uptime SLA", value: "99.99%", color: "text-green-400", bar: "bg-green-500" },
-                { label: "Avg Latency", value: "50ms", color: "text-amber-400", bar: "bg-amber-500" },
-                { label: "Global Regions", value: "120+", color: "text-cyan-400", bar: "bg-cyan-500" },
+                { label: "Messages Daily", value: "10M+", color: "text-orange-600", bar: "bg-orange-600" },
+                { label: "Uptime SLA", value: "99.99%", color: "text-orange-500", bar: "bg-orange-500" },
+                { label: "Avg Latency", value: "50ms", color: "text-orange-400", bar: "bg-orange-500" },
+                { label: "Global Regions", value: "120+", color: "text-orange-300", bar: "bg-orange-300" },
               ].map((m, i) => (
                 <motion.div
                   key={i}

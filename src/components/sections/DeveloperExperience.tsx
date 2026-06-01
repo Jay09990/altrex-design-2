@@ -149,7 +149,7 @@ const DeveloperExperience = () => {
             className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Built for{" "}
-            <span className="bg-gradient-to-r from-[var(--accent-violet)] to-fuchsia-500 bg-clip-text text-transparent">
+            <span className="bg-orange-500 bg-clip-text text-transparent">
               Modern Developers
             </span>
           </motion.h2>

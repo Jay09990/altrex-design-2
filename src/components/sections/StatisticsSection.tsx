@@ -130,7 +130,7 @@ const StatisticsSection = () => {
       `}</style>
 
       {/* Animated gradient background */}
-      <div className="bg-sweep absolute inset-0 -z-10" />
+      <div className="absolute inset-0 -z-10" />
 
       {/* Ambient glows */}
       <motion.div
@@ -168,7 +168,7 @@ const StatisticsSection = () => {
             <motion.div variants={fadeUpVariants}>
               <Badge
                 variant="secondary"
-                className="border border-violet-500/30 bg-violet-500/10 p-4 text-sm font-medium text-violet-400"
+                className="border border-orange-500/30 bg-orange-500/10 p-4 text-sm font-medium text-orange-400"
               >
                 <InViewDecryptedText
                   text="STATISTICS & METRICS"
@@ -186,7 +186,7 @@ const StatisticsSection = () => {
             >
               Realtime Infrastructure{" "}
 
-              <span className="bg-gradient-to-r from-violet-400 to-fuchsia-400 bg-clip-text text-transparent">
+              <span className="bg-orange-500 bg-clip-text text-transparent">
                 at Global Scale
               </span>
             </motion.h2>
@@ -209,7 +209,7 @@ const StatisticsSection = () => {
             transition={{
               duration: 0.25,
             }}
-            className="flex flex-shrink-0 items-center gap-3 rounded-2xl border border-violet-700/40 bg-violet-900/30 px-6 py-4"
+            className="flex flex-shrink-0 items-center gap-3 rounded-2xl border border-1 border-orange-500/30 bg-orange-600/30 px-6 py-4"
           >
             <span className="relative flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
@@ -268,7 +268,7 @@ const StatisticsSection = () => {
                     rotate: 4,
                     scale: 1.06,
                   }}
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white shadow-lg"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-500 text-white shadow-lg"
                 >
                   <Icon className="h-5 w-5" />
                 </motion.div>
@@ -440,7 +440,7 @@ const StatisticsSection = () => {
                       duration: 0.5,
                       delay: i * 0.05,
                     }}
-                    className="flex-1 rounded-t bg-gradient-to-t from-violet-600 to-fuchsia-500"
+                    className="flex-1 rounded-t bg-orange-500"
                   />
                 )
               )}
