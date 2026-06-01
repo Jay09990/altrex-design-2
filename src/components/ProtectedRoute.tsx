@@ -3,17 +3,17 @@ import { Navigate } from "react-router-dom";
 import { useLoading } from "@/context/LoadingContext";
 
 interface ProtectedRouteProps {
-  children: ReactNode;
+    children: ReactNode;
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const { isInitialLoadComplete } = useLoading();
+    const { isInitialLoadComplete } = useLoading();
 
-  if (!isInitialLoadComplete) {
-    return <Navigate to="/loading" replace />;
-  }
+    if (!isInitialLoadComplete) {
+        return <Navigate to="/loading" replace />;
+    }
 
-  return children;
+    return children;
 };
 
 export default ProtectedRoute;
