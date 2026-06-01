@@ -6,11 +6,17 @@ import MainLayout from "./layout/MainLayout";
 import Projects from "./pages/Projects";
 import Solutions from "./pages/Solutions";
 import Industries from "./pages/Industries";
+import Loading from "./pages/Loading";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
+    path: "/loading",
+    element: <Loading />,
+  },
+  {
     path: "/",
-    element: <MainLayout />,
+    element: <ProtectedRoute><MainLayout /></ProtectedRoute>,
 
     children: [
       {
