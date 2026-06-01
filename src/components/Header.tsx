@@ -26,10 +26,9 @@ const Header = () => {
 
   const navLinks = [
     { name: "About", href: "/about" },
-    { name: "Products", href: "/product" },
+    { name: "Projects", href: "/projects" },
     { name: "Solutions", href: "/solutions" },
-    { name: "Pricing", href: "/pricing" },
-    { name: "Company", href: "/company" },
+    { name: "Industries", href: "/industries" },
   ];
 
   const { theme } = useTheme();
