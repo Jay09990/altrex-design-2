@@ -65,11 +65,11 @@ const HeroSection = () => {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] p-4 shadow-sm">
-              <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--data-green)]">
-                <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
+            <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
               </div>
-              <span className="font-mono text-xs text-[var(--text-primary)]">
+              <span className="font-mono text-sm text-[var(--text-primary)]">
                 MODERN REALTIME INFRASTRUCTURE PLATFORM
               </span>
             </Badge>

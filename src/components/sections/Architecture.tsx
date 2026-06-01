@@ -386,7 +386,7 @@ const Architecture = () => {
       <div className="mx-auto max-w-[1650px] px-6">
         <motion.div className="mx-auto max-w-3xl text-center" initial="hidden" animate={isInView ? "visible" : "hidden"} variants={headerVariants}>
           <motion.div whileHover={{ scale: 1.03 }} className="inline-block">
-            <Badge variant="secondary" className="border border-[var(--accent-violet)]/20 bg-[var(--accent-violet)]/10 p-4 text-sm font-medium text-[var(--accent-violet)]">Realtime Architecture</Badge>
+            <Badge variant="secondary" className="border border-[var(--accent-violet)]/20 bg-[var(--accent-violet)]/10 text-[var(--accent-violet)]">Realtime Architecture</Badge>
           </motion.div>
           <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-[var(--text-primary)] sm:text-5xl">BUILT FOR DISTRIBUTED <span className="text-[var(--accent-violet)]">GLOBAL INFRASTRUCTURE</span></h2>
           <p className="mt-4 text-lg leading-8 text-[var(--text-secondary)]">From industrial devices to cloud — every layer connected, secured, and orchestrated in realtime.</p>

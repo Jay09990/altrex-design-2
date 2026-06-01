@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import InViewDecryptedText from "../InViewDecryptedText";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
@@ -196,15 +197,8 @@ const Pricing = () => {
 
           {/* Monthly / Annual toggle */}
           <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-black/[0.08] bg-[var(--bg-surface)] p-1.5 shadow-sm">
-            <button className="rounded-full bg-[var(--accent-violet)] px-5 py-2 text-sm font-semibold text-white">
-              Monthly
-            </button>
-            <button className="rounded-full px-5 py-2 text-sm font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]">
-              Annual
-              <span className="ml-1.5 rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-bold text-green-400">
-                –20%
-              </span>
-            </button>
+            <Button variant="default" className="rounded-full">Monthly</Button>
+            <Button variant="outline" className="rounded-full">Annual <span className="ml-1.5 rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-bold text-green-400">–20%</span></Button>
           </div>
         </div>
 

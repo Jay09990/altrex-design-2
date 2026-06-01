@@ -589,9 +589,9 @@ function TeamSection() {
               <p className="mt-1 text-sm font-medium text-[var(--accent-violet)]">{member.role}</p>
               <p className="mt-4 text-sm leading-7 text-[var(--text-secondary)]">{member.bio}</p>
 
-              <button className="mt-6 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 text-[var(--text-muted)] transition-colors hover:border-violet-400/30 hover:text-violet-200">
+              <Button size="icon" variant="ghost" aria-label={`LinkedIn ${member.name}`}>
                 <FaLinkedinIn className="h-4 w-4" />
-              </button>
+              </Button>
             </motion.div>
           ))}
         </motion.div>
@@ -711,16 +711,9 @@ function CTASection() {
           */}
           <div className="relative z-10 mt-10">
             <ClickSpark sparkCount={8}>
-              <div className="flex flex-wrap items-center justify-center gap-4 py-4">
-                <Button className="h-12 rounded-xl px-8 bg-violet-500 hover:bg-violet-600">
-                  Get Started
-                </Button>
-                <Button
-                  variant="outline"
-                  className="h-12 rounded-xl px-8"
-                >
-                  Talk to Sales
-                </Button>
+                <div className="flex flex-wrap items-center justify-center gap-4 py-4">
+                <Button variant="default">Get Started</Button>
+                <Button variant="outline">Talk to Sales</Button>
               </div>
             </ClickSpark>
           </div>

@@ -17,6 +17,7 @@ import {
 } from "lucide-react";
 
 import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 import { useScrollScrubHorizontalTrack } from "@/hooks/useScrollScrubHorizontalTrack";
 
 const useCases = [
@@ -182,12 +183,8 @@ const UseCases = () => {
                 </ul>
 
                 <div className="mt-8 flex gap-3">
-                  <button className="rounded-xl bg-[#ff751f] px-5 py-2.5 text-sm font-medium text-white shadow-md hover:opacity-90 transition-opacity">
-                    Start Building
-                  </button>
-                  <button className="rounded-xl border border-black/[0.08] bg-[var(--bg-surface)] px-5 py-2.5 text-sm font-medium text-[var(--text-secondary)] hover:border-violet-400/30 hover:text-[var(--text-primary)] transition-colors shadow-sm">
-                    Book Demo
-                  </button>
+                  <Button variant="default">Start Building</Button>
+                  <Button variant="outline">Book Demo</Button>
                 </div>
               </motion.div>
             );

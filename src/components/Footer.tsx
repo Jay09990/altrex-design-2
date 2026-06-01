@@ -46,9 +46,9 @@ const Footer = () => {
 
               <div className="flex flex-col gap-3 sm:flex-row">
 
-                <Input placeholder="Enter your email" className="py-6"/>
+                <Input placeholder="Enter your email" />
 
-                <Button className="px-4 py-6">
+                <Button>
                   Subscribe
                 </Button>
               </div>
