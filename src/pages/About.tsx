@@ -24,7 +24,6 @@ import { Button } from "@/components/ui/button";
 //   npx shadcn@latest add https://reactbits.dev/r/ClickSpark-TS-TW
 //   npx shadcn@latest add https://reactbits.dev/r/StarBorder-TS-TW
 //   npx shadcn@latest add https://reactbits.dev/r/GradientText-TS-TW
-import BlurText from "@/components/BlurText";
 import CharReveal from "@/components/CharReveal";
 import DecryptedText from "@/components/DecryptedText";
 import ShinyText from "@/components/ShinyText";
