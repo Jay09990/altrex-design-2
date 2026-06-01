@@ -65,16 +65,12 @@ const Header = () => {
 
         <div className="hidden items-center gap-4 lg:flex">
           <ThemeToggle />
-
-          <Button size="lg" variant="ghost">
-            Sign In
-          </Button>
-
-          <Button size="lg">Get Started</Button>
         </div>
 
         {/* Mobile Button */}
-        <button
+        <Button
+          size="icon"
+          variant="outline"
           onClick={() => setMobileMenu(!mobileMenu)}
           className="flex items-center justify-center lg:hidden"
         >
@@ -83,7 +79,7 @@ const Header = () => {
           ) : (
             <Menu className="h-6 w-6" />
           )}
-        </button>
+        </Button>
       </div>
 
       {/* Mobile Menu */}
@@ -136,12 +132,6 @@ const Header = () => {
                   </div>
                 </div>
               )}
-
-              <div className="flex flex-col gap-3 pt-4">
-                <Button variant="ghost">Sign In</Button>
-
-                <Button>Get Started</Button>
-              </div>
             </div>
           </div>
         </div>
