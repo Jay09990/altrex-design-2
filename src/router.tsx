@@ -3,10 +3,9 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import MainLayout from "./layout/MainLayout";
-import Product from "./pages/Product";
+import Projects from "./pages/Projects";
 import Solutions from "./pages/Solutions";
-import Company from "./pages/Company";
-import Pricing from "./pages/Pricing";
+import Industries from "./pages/Industries";
 
 export const router = createBrowserRouter([
   {
@@ -23,21 +22,17 @@ export const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/product",
-        element: <Product />,
+        path: "/projects",
+        element: <Projects />,
       },
       {
         path: "/solutions",
         element: <Solutions />,
       },
       {
-        path: "/company",
-        element: <Company />,
-      },
-      {
-        path: "/pricing",
-        element: <Pricing />,
-      },
+        path: "/industries",
+        element: <Industries />,
+      }
     ],
   },
 ]);
