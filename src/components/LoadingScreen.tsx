@@ -60,7 +60,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
     setIsExiting(true);
     const completeTimer = setTimeout(() => {
       onComplete?.();
-    }, 1100);
+    }, 1150);
 
     return () => clearTimeout(completeTimer);
   }, [canExit, progress, isExiting, onComplete]);
