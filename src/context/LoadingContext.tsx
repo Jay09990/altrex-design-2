@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from "react";
+import { createContext, useContext, useState, type ReactNode } from "react";
 
 interface LoadingContextType {
     isInitialLoadComplete: boolean;
@@ -8,15 +8,12 @@ interface LoadingContextType {
 const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
 
 export function LoadingProvider({ children }: { children: ReactNode }) {
-    const [isInitialLoadComplete, setIsInitialLoadComplete] = useState(false);
-
-    // Check if we've already shown the loading screen in this session
-    useEffect(() => {
-        const hasSeenSplash = sessionStorage.getItem("altrex_initial_load_complete");
-        if (hasSeenSplash === "1") {
-            setIsInitialLoadComplete(true);
+    const [isInitialLoadComplete, setIsInitialLoadComplete] = useState(() => {
+        if (typeof window !== "undefined") {
+            return sessionStorage.getItem("altrex_initial_load_complete") === "1";
         }
-    }, []);
+        return false;
+    });
 
     const handleSetComplete = (complete: boolean) => {
         setIsInitialLoadComplete(complete);

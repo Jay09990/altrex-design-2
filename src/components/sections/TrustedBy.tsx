@@ -40,14 +40,14 @@ const techLogos = [
 
 const TrustedBy = () => {
   return (
-    <div className="w-full overflow-hidden py-10 opacity-70 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
+    <div className="w-full overflow-hidden pb-16 opacity-100">
       <LogoLoop 
         logos={techLogos} 
         speed={40} 
-        gap={60} 
-        logoHeight={32} 
+        gap={80} 
+        logoHeight={54} 
         fadeOut={true}
-        pauseOnHover={true}
+        pauseOnHover={false}
       />
     </div>
   );

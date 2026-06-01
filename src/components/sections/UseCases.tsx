@@ -127,7 +127,7 @@ const UseCases = () => {
             className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Built for Modern{" "}
-            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+            <span className="bg-orange-500 bg-clip-text text-transparent">
               Realtime Platforms
             </span>
           </motion.h2>

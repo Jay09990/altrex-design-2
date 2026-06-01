@@ -6,25 +6,24 @@ import CTA from "@/components/sections/CTA"
 import DeveloperExperience from "@/components/sections/DeveloperExperience"
 import FAQ from "@/components/sections/FAQ"
 import HeroSection from "@/components/sections/HeroSection"
-import Pricing from "@/components/sections/Pricing"
 import StatisticsSection from "@/components/sections/StatisticsSection"
 import Testimonials from "@/components/sections/Testimonials"
-import TrustedBy from "@/components/sections/TrustedBy"
 import UseCases from "@/components/sections/UseCases"
 import WhyChooseUs from "@/components/sections/WhyChooseUs"
 import ProgressLine from "@/components/ProgressLine"
 import LoadingScreen from "@/components/LoadingScreen"
 import { HOME_CHAPTERS } from "@/data/homeChapters"
 
-const Home = () => {
-  const SPLASH_KEY = "altrex_splash_shown";
-  const alreadyShown = sessionStorage.getItem(SPLASH_KEY) === "1";
+import { useLoading } from "@/context/LoadingContext"
 
-  const [showLoading, setShowLoading] = useState(!alreadyShown);
-  const [showContent, setShowContent] = useState(alreadyShown);
+const Home = () => {
+  const { isInitialLoadComplete, setInitialLoadComplete } = useLoading();
+
+  const [showLoading, setShowLoading] = useState(!isInitialLoadComplete);
+  const [showContent, setShowContent] = useState(isInitialLoadComplete);
 
   useEffect(() => {
-    if (alreadyShown) return;
+    if (isInitialLoadComplete) return;
 
     // After loading screen exits (at ~1100ms), show content
     const contentTimer = setTimeout(() => {
@@ -32,10 +31,10 @@ const Home = () => {
     }, 1100);
 
     return () => clearTimeout(contentTimer);
-  }, []);
+  }, [isInitialLoadComplete]);
 
   const handleLoadingComplete = () => {
-    sessionStorage.setItem(SPLASH_KEY, "1");
+    setInitialLoadComplete(true);
     setShowLoading(false);
   };
 
@@ -109,7 +108,6 @@ const Home = () => {
         <HeroSection />
 
         <div id={HOME_CHAPTERS[1].id} className="scroll-mt-28">
-          <TrustedBy />
           <CoreFeatures />
         </div>
 
@@ -126,7 +124,6 @@ const Home = () => {
 
         <div id={HOME_CHAPTERS[4].id} className="scroll-mt-28">
           <Testimonials />
-          <Pricing />
         </div>
 
         <div id={HOME_CHAPTERS[5].id} className="scroll-mt-28">

@@ -6,7 +6,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import "./index.css";
 import App from "./App";
-import { ThemeProvider } from "./components/ThemeProvider";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import { LoadingProvider } from "@/context/LoadingContext";
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -33,7 +34,9 @@ requestAnimationFrame(raf);
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider>
-      <App />
+      <LoadingProvider>
+        <App />
+      </LoadingProvider>
     </ThemeProvider>
   </React.StrictMode>
 );

@@ -170,7 +170,7 @@ const CoreFeatures = () => {
             className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
             Everything You Need to Build
-            <span className="block bg-gradient-to-r from-[var(--accent-violet)] via-[var(--accent-fuchsia)] to-cyan-400 bg-clip-text text-transparent">
+            <span className="block  bg-orange-500 bg-clip-text text-transparent">
               Modern Realtime Systems
             </span>
           </motion.h2>

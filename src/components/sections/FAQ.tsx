@@ -104,7 +104,7 @@ const FAQ = () => {
             >
               Frequently{" "}
 
-              <span className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-transparent">
+              <span className=" bg-orange-500 bg-clip-text text-transparent">
                 Asked Questions
               </span>
             </motion.h2>
@@ -131,7 +131,7 @@ const FAQ = () => {
                   rotate: 4,
                   scale: 1.08,
                 }}
-                className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-md"
+                className="flex h-9 w-9 items-center justify-center rounded-xl  bg-orange-500 text-white shadow-md"
               >
                 <Mail className="h-4 w-4" />
               </motion.div>
