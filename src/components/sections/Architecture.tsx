@@ -286,9 +286,9 @@ const NODES: Node[] = [
   })),
   { id: "devices",      type: "block"    as const, position: { x: 320,  y: 190 }, data: { title: "Devices",      color: C.device,       items: devices,       width: 200, variant: "platform"     } },
   { id: "connectivity", type: "block"    as const, position: { x: 600,  y: 220 }, data: { title: "Connectivity", color: C.connectivity, items: connectivity,  width: 200, variant: "connectivity" } },
-  { id: "platform",     type: "platform" as const, position: { x: 880,  y: 80  }, data: { items: platform } },
+  { id: "platform",     type: "platform" as const, position: { x: 880,  y: 188}, data: { items: platform } },
   // Combined hosting node
-  { id: "hosting",      type: "hosting"  as const, position: { x: 1385, y: 210 }, data: { items: hosting } },
+  { id: "hosting",      type: "hosting"  as const, position: { x: 1354, y: 212  }, data: { items: hosting } },
   // SAP / ERP / CRM — further below, ERP centred under platform
   { id: "sap", type: "item" as const, position: { x: 793,  y: 768 }, data: { icon: BriefcaseBusiness, label: "SAP", color: C.system } },
   { id: "erp", type: "item" as const, position: { x: 1013, y: 768 }, data: { icon: Database,          label: "ERP", color: C.system } },
