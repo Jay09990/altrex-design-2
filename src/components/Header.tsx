@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
-import { HOME_CHAPTERS } from "@/data/homeChapters";
 import ThemeToggle from "@/components/ThemeToggle";
 // Add this import at the top
 import { useTheme } from "@/hooks/useTheme";
@@ -13,8 +12,6 @@ import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,6 +22,7 @@ const Header = () => {
   }, []);
 
   const navLinks = [
+    { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Projects", href: "/projects" },
     { name: "Solutions", href: "/solutions" },
@@ -104,34 +102,6 @@ const Header = () => {
                   {item.name}
                 </Link>
               ))}
-
-              {isHome && (
-                <div className="border-t border-black/[0.08] pt-4">
-                  <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-muted)]">
-                    Chapters
-                  </p>
-
-                  <div className="space-y-3">
-                    {HOME_CHAPTERS.map((chapter) => (
-                      <button
-                        key={chapter.id}
-                        type="button"
-                        onClick={() => {
-                          const target = document.getElementById(chapter.id);
-                          target?.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                          });
-                          setMobileMenu(false);
-                        }}
-                        className="block text-left text-sm font-medium"
-                      >
-                        {chapter.number} {chapter.name}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
