@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Architecture from "@/components/sections/Architecture"
 import CoreFeatures from "@/components/sections/CoreFeatures"
@@ -13,17 +13,39 @@ import TrustedBy from "@/components/sections/TrustedBy"
 import UseCases from "@/components/sections/UseCases"
 import WhyChooseUs from "@/components/sections/WhyChooseUs"
 import ProgressLine from "@/components/ProgressLine"
+import LoadingScreen from "@/components/LoadingScreen"
 import { HOME_CHAPTERS } from "@/data/homeChapters"
 
 const Home = () => {
-  // Home page only mounts after initial loading screen is complete,
-  // so animations can start immediately
+  const SPLASH_KEY = "altrex_splash_shown";
+  const alreadyShown = sessionStorage.getItem(SPLASH_KEY) === "1";
+
+  const [showLoading, setShowLoading] = useState(!alreadyShown);
+  const [showContent, setShowContent] = useState(alreadyShown);
+
   useEffect(() => {
-    // Pre-warm any resources if needed on component mount
+    if (alreadyShown) return;
+
+    // After loading screen exits (at ~1100ms), show content
+    const contentTimer = setTimeout(() => {
+      setShowContent(true);
+    }, 1100);
+
+    return () => clearTimeout(contentTimer);
   }, []);
+
+  const handleLoadingComplete = () => {
+    sessionStorage.setItem(SPLASH_KEY, "1");
+    setShowLoading(false);
+  };
 
   return (
     <div className="relative bg-[var(--bg-void)]">
+      {/* Loading Screen */}
+      {showLoading && (
+        <LoadingScreen onComplete={handleLoadingComplete} />
+      )}
+
       {/* Three.js Node Web Background */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         {/* Background Grid Overlay */}
@@ -78,7 +100,7 @@ const Home = () => {
       <motion.div
         className="relative z-10"
         initial={{ opacity: 0, y: 35 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={showContent ? { opacity: 1, y: 0 } : {}}
         transition={{
           duration: 1.1,
           ease: [0.16, 1, 0.3, 1], // easeOutQuart/Expo
