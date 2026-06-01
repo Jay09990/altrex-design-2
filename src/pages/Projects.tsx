@@ -213,17 +213,18 @@ const Projects = () => {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Page Header */}
         <div className="text-center mb-16">
-          <Badge
-            variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)] mb-6"
-          >
-            <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2 animate-pulse" />
-            <InViewDecryptedText
-              text="LIVE SYSTEM IMPLEMENTATIONS"
-              speed={50}
-              className="text-[var(--data-green)]"
-              encryptedClassName="text-[var(--text-muted)]"
-            />
+          <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm mb-6">
+            <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+            </div>
+            <span className="font-mono text-sm text-[var(--text-primary)]">
+              <InViewDecryptedText
+                text="LIVE SYSTEM IMPLEMENTATIONS"
+                speed={50}
+                className="text-[var(--text-primary)]"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
+            </span>
           </Badge>
 
           <CharReveal
@@ -763,93 +764,6 @@ const Projects = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </motion.div>
-
-        {/* ── SECTION 5: THREAT & ANOMALY MATRIX ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-24 border-t border-white/5 pt-20 mb-12"
-        >
-          <div className="text-center mb-12">
-            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">
-              [ SECURITY POSTURE ]
-            </span>
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
-              Global Threat Matrix
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
-              Real-time visualization of intercepted anomalies and automated
-              security responses across the Altrex global infrastructure.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto rounded-3xl border border-red-500/20 bg-red-950/10 p-1 shadow-2xl backdrop-blur-md">
-            <div className="rounded-[22px] border border-white/5 bg-zinc-950/80 p-6 flex flex-col md:flex-row gap-8">
-              {/* Stats Column */}
-              <div className="flex flex-col gap-6 w-full md:w-1/3">
-                <div className="p-4 rounded-xl border border-white/5 bg-zinc-900/50">
-                  <span className="flex items-center gap-2 font-mono text-[10px] text-[var(--text-muted)] uppercase mb-2">
-                    <Shield className="h-3 w-3 text-red-500" />
-                    Anomalies Blocked (24h)
-                  </span>
-                  <span className="text-3xl font-bold text-red-500">
-                    14,289
-                  </span>
-                </div>
-                <div className="p-4 rounded-xl border border-white/5 bg-zinc-900/50">
-                  <span className="flex items-center gap-2 font-mono text-[10px] text-[var(--text-muted)] uppercase mb-2">
-                    <Cpu className="h-3 w-3 text-orange-500" />
-                    ML Analysis Latency
-                  </span>
-                  <span className="text-3xl font-bold text-orange-500">
-                    4.2ms
-                  </span>
-                </div>
-              </div>
-
-              {/* Log Column */}
-              <div className="flex-1 rounded-xl border border-zinc-900 bg-black/60 p-4 font-mono text-[10px] sm:text-xs overflow-hidden relative">
-                <div className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-black/80 to-transparent z-10" />
-                <div className="absolute bottom-0 left-0 w-full h-8 bg-gradient-to-t from-black/80 to-transparent z-10" />
-
-                <div className="space-y-3 opacity-80 animate-pulse">
-                  <div className="flex gap-4">
-                    <span className="text-zinc-600">[12:44:01]</span>
-                    <span className="text-red-500">
-                      [WARN] DDoS Signature detected at EU-Frankfurt
-                    </span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-zinc-600">[12:44:02]</span>
-                    <span className="text-orange-500">
-                      [ACTN] Routing traffic to mitigation sinkhole...
-                    </span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-zinc-600">[12:44:05]</span>
-                    <span className="text-[var(--data-green)]">
-                      [OK] Threat neutralized. Edge node stable.
-                    </span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-zinc-600">[12:47:11]</span>
-                    <span className="text-blue-400">
-                      [INFO] Rotating mTLS certificates for SG-Node-4
-                    </span>
-                  </div>
-                  <div className="flex gap-4">
-                    <span className="text-zinc-600">[12:48:33]</span>
-                    <span className="text-yellow-500">
-                      [WARN] Malformed Modbus payload rejected
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </motion.div>
       </div>

@@ -96,17 +96,18 @@ const Industries = () => {
         
         {/* Page Header */}
         <div className="text-center mb-16">
-          <Badge
-            variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)] mb-6"
-          >
-            <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-            <InViewDecryptedText
-              text="ENTERPRISE CORE INFRASTRUCTURE"
-              speed={55}
-              className="text-[var(--data-green)]"
-              encryptedClassName="text-[var(--text-muted)]"
-            />
+          <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm mb-6">
+            <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+            </div>
+            <span className="font-mono text-sm text-[var(--text-primary)]">
+              <InViewDecryptedText
+                text="ENTERPRISE CORE INFRASTRUCTURE"
+                speed={55}
+                className="text-[var(--text-primary)]"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
+            </span>
           </Badge>
 
           <CharReveal

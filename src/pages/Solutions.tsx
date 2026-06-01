@@ -72,17 +72,18 @@ const Solutions = () => {
         
         {/* ── SECTION 1: HERO ── */}
         <div className="text-center mb-20 mt-10">
-          <Badge
-            variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-orange-500 mb-8 backdrop-blur-sm"
-          >
-            <Activity className="h-4 w-4 mr-2 animate-pulse" />
-            <InViewDecryptedText
-              text="ENTERPRISE USE CASES"
-              speed={40}
-              className="text-orange-500"
-              encryptedClassName="text-orange-500/50"
-            />
+          <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm mb-8">
+            <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
+              <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+            </div>
+            <span className="font-mono text-sm text-[var(--text-primary)]">
+              <InViewDecryptedText
+                text="ENTERPRISE USE CASES"
+                speed={40}
+                className="text-[var(--text-primary)]"
+                encryptedClassName="text-[var(--text-muted)]"
+              />
+            </span>
           </Badge>
 
           <CharReveal

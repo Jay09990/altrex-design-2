@@ -29,7 +29,6 @@ import DecryptedText from "@/components/DecryptedText";
 import ShinyText from "@/components/ShinyText";
 import ClickSpark from "@/components/ClickSpark";
 import StarBorder from "@/components/StarBorder";
-import GradientText from "@/components/GradientText";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
 import SystemDataTicker from "@/components/SystemDataTicker";
@@ -169,18 +168,19 @@ function HeroSection() {
         >
           {/* Badge */}
           <motion.div variants={fadeUpVariants}>
-            <Badge
-              variant="secondary"
-              className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
-            >
-              <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-              <InViewDecryptedText
-                text="OUR STORY"
-                speed={60}
-                maxIterations={12}
-                className="text-[var(--data-green)]"
-                encryptedClassName="text-[var(--text-muted)]"
-              />
+            <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm">
+              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
+                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+              </div>
+              <span className="font-mono text-sm text-[var(--text-primary)]">
+                <InViewDecryptedText
+                  text="OUR STORY"
+                  speed={60}
+                  maxIterations={12}
+                  className="text-[var(--text-primary)]"
+                  encryptedClassName="text-[var(--text-muted)]"
+                />
+              </span>
             </Badge>
           </motion.div>
 
