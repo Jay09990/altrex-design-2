@@ -80,15 +80,54 @@ const stats = [
 ];
 
 const timeline = [
-  { year: "2021", title: "Company founded in Ahmedabad", description: "Started building scalable industrial intelligence infrastructure." },
-  { year: "2022", title: "First industrial SCADA deployment", description: "Delivered enterprise-grade monitoring for Oil & Gas operations." },
-  { year: "2023", title: "IoT platform launched, 50+ clients", description: "Expanded into realtime IoT and asset monitoring infrastructure." },
-  { year: "2024", title: "AI/ML analytics module added", description: "Introduced predictive analytics and industrial AI workflows." },
-  { year: "2025", title: "Global expansion, 200+ deployments", description: "Scaled infrastructure across multiple regions and industries." },
+  {
+    level: "Level 1",
+    timeLabel: "μs / ms to generate",
+    title: "Data Source",
+    description:
+      "Field devices — PLCs, Sensors, RTUs, Flow Computers, Rectifiers, Panels, VFDs, and Smart Meters — generate raw operational data at microsecond to millisecond resolution.",
+    tags: ["PLCs", "Sensors", "RTUs", "Flow Computers", "VFDs", "Smart Meters"],
+    status: "completed",
+  },
+  {
+    level: "Level 2",
+    timeLabel: "Seconds to acquire",
+    title: "Data Acquisition",
+    description:
+      "Industrial acquisition layer — SCADA, DCS, HMI, GPRS/GSM, Gateways, Historian, Data Logger, and W! Controller — captures and consolidates field data within seconds.",
+    tags: ["SCADA", "DCS", "HMI", "Gateways", "Historian", "Data Logger"],
+    status: "completed",
+  },
+  {
+    level: "Level 3",
+    timeLabel: "Minutes to process",
+    title: "IoT Platform",
+    description:
+      "Cloud-connected IoT backbone handling OT-IT Integration, Connectivity, Web-Server, Database, Cloud (Azure / GCP / AWS), Cyber-Security, DMZ, and Authentication.",
+    tags: ["OT-IT Integration", "Cloud", "Cyber-Security", "DMZ", "Authentication"],
+    status: "completed",
+  },
+  {
+    level: "Level 4",
+    timeLabel: "Days / Months to analyze",
+    title: "Enterprise Application",
+    description:
+      "Full enterprise layer delivering Dashboards, Authentication Levels, Assets Mapping / GIS, Insights & Analytics, Notifications & Alerts, Customized Reports, ERP & SAP Connectivity, and Billing Center.",
+    tags: ["Dashboards", "GIS", "Analytics", "ERP / SAP", "Billing Center"],
+    status: "current",  // ← we are here
+  },
+  {
+    level: "Level 5",
+    timeLabel: "Quarters / Years to learn",
+    title: "AI / ML Intelligence",
+    description:
+      "The final frontier — Predictive Analytics, Predictive Insights, Digital Twins, Artificial Intelligence, Machine Learning, and Deep Learning transforming industrial operations.",
+    tags: ["Predictive Analytics", "Digital Twins", "AI", "ML", "Deep Learning"],
+    status: "upcoming",
+  },
 ];
-
 const team = [
-  { initials: "RA", name: "Raj Aghera", role: "Founder / CEO", bio: "Leading Altrex's vision for industrial intelligence platforms." },
+  { initials: "RD", name: "Ravi Dondeti", role: "Founder / CEO", bio: "Leading Altrex's vision for industrial intelligence platforms." },
   { initials: "DK", name: "Daniel Kim", role: "CTO", bio: "Architecting scalable realtime industrial infrastructure." },
   { initials: "EC", name: "Emily Carter", role: "Head of Product", bio: "Designing powerful industrial workflows and experiences." },
   { initials: "SP", name: "Sarah Patel", role: "Head of Customer Success", bio: "Helping industries modernise operations with confidence." },
@@ -248,13 +287,11 @@ function MissionSection() {
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
             Empowering industries through{" "}
             {/* GradientText gives the key phrase an animated colour sweep */}
-            <GradientText
-              colors={["#ff6b00", "#ffa05e", "#ff6b00"]}
-              animationSpeed={6}
-              className="inline-block text-4xl font-bold sm:text-5xl"
+            <span
+              className="inline-block text-4xl font-bold sm:text-5xl text-[var(--accent-violet)]"
             >
               realtime intelligence
-            </GradientText>
+            </span>
           </h2>
 
           <p className="mt-8 text-lg leading-8 text-[var(--text-secondary)]">
@@ -281,7 +318,7 @@ function MissionSection() {
                 whileHover={{ y: -4, boxShadow: "0 20px 40px -12px rgba(124,58,237,0.12)" }}
                 className="rounded-3xl border border-white/10 bg-[var(--bg-surface)]/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-600 to-fuchsia-500 text-white shadow-lg">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--accent-violet)]/15 text-[var(--accent-violet)] shadow-lg">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-[var(--text-primary)]">{item.title}</h3>
@@ -338,14 +375,15 @@ function StatsSection() {
 function TimelineSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-
+ 
   return (
     <section ref={ref} className="relative bg-transparent py-24">
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-35">
         <div className="absolute inset-0 bg-gradient-to-b from-fuchsia-500/10 via-transparent to-violet-500/10" />
       </div>
-
+ 
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        {/* Header */}
         <div className="text-center">
           <Badge
             variant="secondary"
@@ -361,44 +399,128 @@ function TimelineSection() {
             />
           </Badge>
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
-            From idea to global platform
+            Digital maturity model
           </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-[var(--text-secondary)]">
+            Five levels of industrial intelligence — from raw field data to
+            AI-driven predictive operations. Currently operating at{" "}
+            <span className="font-semibold text-[var(--accent-violet)]">Level 4</span>.
+          </p>
         </div>
-
+ 
+        {/* Timeline */}
         <div className="relative mt-20">
           {/* Central gradient line */}
-          <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-violet-400/40 via-fuchsia-400/35 to-cyan-400/35 md:left-1/2 md:-translate-x-px" />
-
+          <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-violet-500 via-green-500/35 to-black/10 md:left-1/2 md:-translate-x-px" />
+ 
           {timeline.map((item, i) => {
             const isLeft = i % 2 === 0;
+            const isCurrent = item.status === "current";
+            const isUpcoming = item.status === "upcoming";
+ 
             return (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className={`relative mb-16 flex w-full md:items-center ${isLeft ? "md:justify-start" : "md:justify-end"
-                  }`}
+                className={`relative mb-16 flex w-full md:items-center ${
+                  isLeft ? "md:justify-start" : "md:justify-end"
+                }`}
               >
-                {/* Timeline dot */}
-                <div className="absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-500 shadow-[0_0_0_6px_rgba(139,92,246,0.12)] md:left-1/2" />
-
+                {/* Timeline dot — pulsing ring on current level */}
+                <div
+                  className={`absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full md:left-1/2 ${
+                    isCurrent
+                      ? "bg-[var(--data-green)] shadow-[0_0_0_6px_rgba(74,222,128,0.18)] animate-pulse"
+                      : isUpcoming
+                      ? "bg-white/20 shadow-[0_0_0_4px_rgba(255,255,255,0.06)]"
+                      : "bg-gradient-to-br from-violet-500 to-orange-400/35 shadow-[0_0_0_6px_rgba(139,92,246,0.12)]"
+                  }`}
+                />
+ 
                 {/* Card */}
-                <div className="ml-12 max-w-sm rounded-3xl border border-white/10 bg-[var(--bg-surface)]/75 p-8 shadow-sm md:ml-0">
-                  {/* Year — DecryptedText scrambles then resolves when in view */}
-                  <div className="inline-flex overflow-hidden rounded-full bg-violet-600/80 px-4 py-1.5">
-                    <DecryptedText
-                      text={item.year}
-                      animateOn="view"
-                      speed={60}
-                      sequential
-                      revealDirection="start"
-                      className="text-sm font-bold text-white"
-                      encryptedClassName="text-sm font-bold text-violet-300"
-                    />
+                <div
+                  className={`ml-12 max-w-sm rounded-3xl border p-8 shadow-sm transition-all duration-300 md:ml-0 ${
+                    isCurrent
+                      ? "border-[var(--data-green)]/40 bg-[var(--bg-surface)]/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
+                      : isUpcoming
+                      ? "border-white/5 bg-[var(--bg-surface)]/40 opacity-60"
+                      : "border-white/10 bg-[var(--bg-surface)]/75 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+                  }`}
+                >
+                  {/* Level pill */}
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`inline-flex overflow-hidden rounded-full px-4 py-1.5 ${
+                        isCurrent
+                          ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
+                          : isUpcoming ? "bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
+                          : "bg-violet-500"
+                      }`}
+                    >
+                      <DecryptedText
+                        text={item.level}
+                        animateOn="view"
+                        speed={60}
+                        sequential
+                        revealDirection="start"
+                        className={`text-sm font-bold ${
+                          isCurrent
+                            ? "text-[var(--data-green)]"
+                            : isUpcoming ? "text-[var(--text-muted)]"
+                            : "text-white"
+                        }`}
+                        encryptedClassName={`text-sm font-bold ${
+                          isCurrent ? "text-[var(--data-green)]/50" : "text-violet-300"
+                        }`}
+                      />
+                    </div>
+ 
+                    {/* Status badge */}
+                    {isCurrent && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--data-green)]/30 bg-[var(--data-green)]/10 px-3 py-1 text-xs font-medium text-[var(--data-green)]">
+                        <span className="h-1.5 w-1.5 rounded-full bg-[var(--data-green)] animate-pulse" />
+                        Current
+                      </span>
+                    )}
+                    {isUpcoming && (
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+                        Upcoming
+                      </span>
+                    )}
                   </div>
-                  <h3 className="mt-5 text-xl font-semibold text-[var(--text-primary)]">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-[var(--text-secondary)]">{item.description}</p>
+ 
+                  {/* Time label */}
+                  <p className={`mt-3 text-xs font-mono tracking-widest uppercase ${
+                    isCurrent ? "text-[var(--data-green)]/70" : "text-[var(--text-muted)]"
+                  }`}>
+                    {item.timeLabel}
+                  </p>
+ 
+                  <h3 className="mt-3 text-xl font-semibold text-[var(--text-primary)]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 leading-7 text-[var(--text-secondary)] text-sm">
+                    {item.description}
+                  </p>
+ 
+                  {/* Tags */}
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {item.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className={`rounded-lg border px-2.5 py-1 text-xs font-medium ${
+                          isCurrent
+                            ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
+                            : isUpcoming ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-[var(--text-muted)] opacity-60"
+                            : "border-black/8 bg-black/3 text-[var(--text-muted)]"
+                        }`}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </motion.div>
             );
@@ -408,7 +530,6 @@ function TimelineSection() {
     </section>
   );
 }
-
 /* ─── Section: Team ──────────────────────────────────────────────────────── */
 
 function TeamSection() {
@@ -460,7 +581,7 @@ function TeamSection() {
               className="rounded-3xl border border-white/10 bg-[var(--bg-surface)]/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
             >
               {/* Gradient avatar with initials */}
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-2xl font-bold text-white shadow-lg">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-violet-500 text-2xl font-bold text-white shadow-lg">
                 {member.initials}
               </div>
 
@@ -537,7 +658,7 @@ function ValuesSection() {
                 innerClassName="border border-white/10 bg-[var(--bg-surface)]/75 p-6 rounded-[18px]"
               >
                 <div className="">
-                  <div className="bg-gradient-to-r from-violet-600 to-fuchsia-500 bg-clip-text text-6xl font-bold text-transparent">
+                  <div className="bg-violet-500 bg-clip-text text-6xl font-bold text-transparent">
                     {item.number}
                   </div>
                   <h3 className="mt-4 text-xl font-semibold text-[var(--text-primary)]">{item.title}</h3>
@@ -565,21 +686,21 @@ function CTASection() {
           initial={{ opacity: 0, y: 28 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-violet-600/70 to-fuchsia-600/60 px-8 py-20 text-center shadow-2xl lg:px-20"
+          className="relative overflow-hidden rounded-3xl border border-violet-500 px-8 py-20 text-center shadow-[inset_0_0_40px_rgba(255,107,0,0.15)] lg:px-20"
         >
           {/* ShinyText sweeps a metallic shine across the heading */}
           <h2 className="relative z-10 text-4xl font-bold tracking-tight sm:text-5xl">
             <ShinyText
               text="Ready to transform your operations?"
               speed={3}
-              color="#ffffff"
-              shineColor="#ffffffcc"
+              color="#ff6b00"
+              shineColor="#ffffff"
               spread={100}
               className="text-4xl font-bold sm:text-5xl"
             />
           </h2>
 
-          <p className="relative z-10 mx-auto mt-6 max-w-2xl text-lg text-white/70">
+          <p className="relative z-10 mx-auto mt-6 max-w-2xl text-lg">
             Build smarter industrial systems with realtime intelligence,
             AI-driven analytics, and scalable infrastructure.
           </p>
@@ -591,12 +712,12 @@ function CTASection() {
           <div className="relative z-10 mt-10">
             <ClickSpark sparkCount={8}>
               <div className="flex flex-wrap items-center justify-center gap-4 py-4">
-                <Button className="h-12 rounded-2xl bg-white px-8 text-violet-700 hover:bg-violet-50">
+                <Button className="h-12 rounded-xl px-8 bg-violet-500 hover:bg-violet-600">
                   Get Started
                 </Button>
                 <Button
                   variant="outline"
-                  className="h-12 rounded-2xl border-white/30 bg-transparent px-8 text-white hover:bg-white/10"
+                  className="h-12 rounded-xl px-8"
                 >
                   Talk to Sales
                 </Button>
