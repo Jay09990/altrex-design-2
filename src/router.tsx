@@ -6,6 +6,7 @@ import MainLayout from "./layout/MainLayout";
 import Projects from "./pages/Projects";
 import Solutions from "./pages/Solutions";
 import Industries from "./pages/Industries";
+import Contact from "./pages/Contact";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "/industries",
         element: <Industries />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       }
     ],
   },

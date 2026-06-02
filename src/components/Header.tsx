@@ -27,6 +27,7 @@ const Header = () => {
     { name: "Projects", href: "/projects" },
     { name: "Solutions", href: "/solutions" },
     { name: "Industries", href: "/industries" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   const { theme } = useTheme();

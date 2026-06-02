@@ -10,7 +10,7 @@ const Footer = () => {
   const { theme } = useTheme();
 
   return (
-    <footer className="border-t border-black/[0.08] bg-[var(--bg-void)]">
+    <footer className="border-t border-[var(--border)] bg-[var(--bg-void)] z-10">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         {/* Top Section */}
         <div className="grid gap-14 lg:grid-cols-5">
@@ -44,11 +44,11 @@ const Footer = () => {
                 Subscribe to our newsletter
               </h3>
 
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col gap-3 sm:flex-row justify-center">
 
-                <Input placeholder="Enter your email" />
+                <Input placeholder="Enter your email" className="p-5" />
 
-                <Button>
+                <Button className="p-5">
                   Subscribe
                 </Button>
               </div>
