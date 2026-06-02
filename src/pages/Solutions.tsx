@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { 
+import {
   Zap,
   Activity,
   ArrowRight,
@@ -61,7 +61,7 @@ const Solutions = () => {
 
   return (
     <div className="min-h-screen bg-[var(--bg-void)] pt-24 pb-20 text-[var(--text-primary)] overflow-hidden">
-      
+
       {/* Decorative Blur Backgrounds */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-screen overflow-hidden">
         <div className="absolute right-[-10%] top-[10%] h-[500px] w-[500px] rounded-full bg-orange-500/10 blur-[150px]" />
@@ -69,7 +69,7 @@ const Solutions = () => {
       </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        
+
         {/* ── SECTION 1: HERO ── */}
         <div className="text-center mb-20 mt-10">
           <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm mb-8">
@@ -95,7 +95,7 @@ const Solutions = () => {
             stagger={0.03}
             lineGap="mt-2"
           />
-          
+
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -204,9 +204,9 @@ const Solutions = () => {
           <div className="rounded-3xl border border-white/10 bg-black/60 p-8 sm:p-12 shadow-2xl backdrop-blur-xl relative overflow-hidden">
             {/* Background grid lines */}
             <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
-            
+
             <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-              
+
               {/* Step 1: Edge Ingest */}
               <div className="flex flex-col items-center text-center gap-4 relative">
                 <div className="h-20 w-20 rounded-2xl border border-orange-500/30 bg-orange-500/10 flex items-center justify-center relative z-10 backdrop-blur-md shadow-[0_0_30px_-5px_rgba(255,126,26,0.3)]">
@@ -216,7 +216,7 @@ const Solutions = () => {
                   <h4 className="font-bold text-white uppercase tracking-tight">1. Edge Ingest</h4>
                   <p className="text-xs text-[var(--text-muted)] mt-1 font-mono">Modbus / OPC-UA / MQTT</p>
                 </div>
-                
+
                 {/* Connecting Line (Desktop only) */}
                 <div className="hidden md:block absolute top-10 left-[60%] w-full h-[2px] bg-white/10 z-0">
                   <div className="h-full w-full bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-50 animate-[shimmer_2s_infinite]" />
@@ -232,7 +232,7 @@ const Solutions = () => {
                   <h4 className="font-bold text-white uppercase tracking-tight">2. Altrex Broker</h4>
                   <p className="text-xs text-[var(--text-muted)] mt-1 font-mono">Filter / Buffer / Route</p>
                 </div>
-                
+
                 {/* Connecting Line (Desktop only) */}
                 <div className="hidden md:block absolute top-12 left-[65%] w-full h-[2px] bg-white/10 z-0">
                   <div className="h-full w-full bg-gradient-to-r from-transparent via-[var(--data-green)] to-transparent opacity-50 animate-[shimmer_2s_infinite_0.5s]" />
@@ -253,16 +253,14 @@ const Solutions = () => {
 
             {/* Simulated Data Packets (Dots) */}
             <div className="hidden md:block absolute inset-0 z-0 pointer-events-none">
-               <motion.div 
-                 className="absolute h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_10px_#ff7e1a] top-[calc(50%-33px)] left-[25%]"
-                 animate={{ x: [0, 150, 300], opacity: [0, 1, 0] }}
-                 transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-               />
-               <motion.div 
-                 className="absolute h-2 w-2 rounded-full bg-[var(--data-green)] shadow-[0_0_10px_#4ade80] top-[calc(50%-33px)] left-[50%]"
-                 animate={{ x: [0, 150, 300], opacity: [0, 1, 0] }}
-                 transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: 1.2 }}
-               />
+              <motion.div
+                className="absolute h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_10px_#ff7e1a] top-[calc(50%-33px)] left-[25%]"
+                animate={{
+                  x: [0, 360, 650],
+                  backgroundColor: ["#ff7e1a", "#4ade80", "#4fa1ff"]
+                }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              />
             </div>
           </div>
         </motion.div>
@@ -308,9 +306,9 @@ const Solutions = () => {
 
             {/* VS Divider */}
             <div className="flex items-center justify-center lg:flex-col gap-2 opacity-50">
-               <div className="w-12 h-px lg:w-px lg:h-12 bg-white/20" />
-               <span className="font-mono text-[10px] text-[var(--text-muted)] tracking-widest uppercase">VS</span>
-               <div className="w-12 h-px lg:w-px lg:h-12 bg-white/20" />
+              <div className="w-12 h-px lg:w-px lg:h-12 bg-white/20" />
+              <span className="font-mono text-[10px] text-[var(--text-muted)] tracking-widest uppercase">VS</span>
+              <div className="w-12 h-px lg:w-px lg:h-12 bg-white/20" />
             </div>
 
             {/* Altrex Approach */}
