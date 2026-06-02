@@ -13,8 +13,6 @@ import {
   Zap,
   Layers,
   Lock,
-  Shield,
-  Cpu,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";

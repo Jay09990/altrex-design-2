@@ -32,6 +32,7 @@ import StarBorder from "@/components/StarBorder";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
 import SystemDataTicker from "@/components/SystemDataTicker";
+import ROICalculator from "@/components/sections/ROICalculator";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 /* ─── Shared Variants ────────────────────────────────────────────────────── */
@@ -547,7 +548,7 @@ function TeamSection() {
         <div className="text-center">
           <Badge
             variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium ]"
           >
             <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
             <InViewDecryptedText
@@ -730,6 +731,7 @@ const About = () => {
     <div className="overflow-hidden bg-[var(--bg-void)]">
       <HeroSection />
       <MissionSection />
+      <ROICalculator />
       <StatsSection />
       <TimelineSection />
       <TeamSection />
