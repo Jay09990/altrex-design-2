@@ -254,14 +254,14 @@ const Solutions = () => {
             {/* Simulated Data Packets (Dots) */}
             <div className="hidden md:block absolute inset-0 z-0 pointer-events-none">
                <motion.div 
-                 className="absolute h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_10px_#ff7e1a] top-[calc(50%-44px)] left-[25%]"
-                 animate={{ x: [0, 200, 400], opacity: [0, 1, 0] }}
+                 className="absolute h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_10px_#ff7e1a] top-[calc(50%-33px)] left-[25%]"
+                 animate={{ x: [0, 150, 300], opacity: [0, 1, 0] }}
                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
                />
                <motion.div 
-                 className="absolute h-2 w-2 rounded-full bg-[var(--data-green)] shadow-[0_0_10px_#4ade80] top-[calc(50%-36px)] left-[50%]"
+                 className="absolute h-2 w-2 rounded-full bg-[var(--data-green)] shadow-[0_0_10px_#4ade80] top-[calc(50%-33px)] left-[50%]"
                  animate={{ x: [0, 150, 300], opacity: [0, 1, 0] }}
-                 transition={{ duration: 1.8, repeat: Infinity, ease: "linear", delay: 0.8 }}
+                 transition={{ duration: 2, repeat: Infinity, ease: "linear", delay: 1.2 }}
                />
             </div>
           </div>

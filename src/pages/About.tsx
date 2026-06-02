@@ -686,7 +686,7 @@ function CTASection() {
           initial={{ opacity: 0, y: 28 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-3xl border border-violet-500 px-8 py-20 text-center shadow-[inset_0_0_40px_rgba(255,107,0,0.15)] lg:px-20"
+          className="relative overflow-hidden rounded-4xl border border-violet-500 px-8 py-10 text-center shadow-[inset_0_0_80px_rgba(255,107,0,0.15)] lg:px-20"
         >
           {/* ShinyText sweeps a metallic shine across the heading */}
           <h2 className="relative z-10 text-4xl font-bold tracking-tight sm:text-5xl">
@@ -696,11 +696,11 @@ function CTASection() {
               color="#ff6b00"
               shineColor="#ffffff"
               spread={100}
-              className="text-4xl font-bold sm:text-5xl"
+              className="text-4xl font-bold sm:text-6xl"
             />
           </h2>
 
-          <p className="relative z-10 mx-auto mt-6 max-w-2xl text-lg">
+          <p className="relative z-10 mx-auto mt-6 max-w-2xl text-xl">
             Build smarter industrial systems with realtime intelligence,
             AI-driven analytics, and scalable infrastructure.
           </p>
@@ -709,7 +709,7 @@ function CTASection() {
             ClickSpark wraps both buttons inside a shared canvas.
             Each click anywhere in the div fires particle sparks at the cursor.
           */}
-          <div className="relative z-10 mt-10">
+          <div className="relative z-10 mt-8">
             <ClickSpark sparkCount={8}>
                 <div className="flex flex-wrap items-center justify-center gap-4 py-4">
                 <Button variant="default">Get Started</Button>
