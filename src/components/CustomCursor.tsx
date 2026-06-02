@@ -39,8 +39,9 @@ const CustomCursor = () => {
         gsap.to(cursorRef.current, {
           width: 32,
           height: 32,
-          backgroundColor: "var(--cursor-bg-hover)",
-          borderColor: "var(--cursor-border-hover)",
+          backgroundColor: "rgba(216, 162, 101, 0.29)",
+          borderColor: "#b1b1b1",
+          boxShadow: "0 0 20px rgb(255, 255, 255)",
           duration: 0.3,
           overwrite: "auto",
         });
@@ -50,10 +51,11 @@ const CustomCursor = () => {
     const handleMouseLeave = () => {
       if (cursorRef.current) {
         gsap.to(cursorRef.current, {
-          width: 8,
-          height: 8,
-          backgroundColor: "transparent",
-          borderColor: "var(--cursor-border)",
+          width: 12,
+          height: 12,
+         backgroundColor: "rgba(216, 162, 101, 0.29)",
+          borderColor: "#b1b1b1",
+          boxShadow: "0 0 20px rgb(255, 255, 255)",
           duration: 0.3,
           overwrite: "auto",
         });
@@ -106,10 +108,15 @@ const CustomCursor = () => {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed z-[10000] w-2 h-2 rounded-full border border-[var(--cursor-border)] bg-transparent transition-colors duration-300"
+      className="pointer-events-none fixed z-[10000] rounded-full"
       style={{
         left: 0,
         top: 0,
+        width: "12px",
+        height: "12px",
+        backgroundColor: "#dfdfdf",
+        border: "1px solid #ffffff",
+        boxShadow: "0 0 12px rgba(255, 255, 255, 0.65)",
         transform: "translate(-50%, -50%)",
       }}
     />

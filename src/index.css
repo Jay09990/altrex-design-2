@@ -201,6 +201,29 @@
   html.dark {
     color-scheme: dark;
   }
+
+  /* Custom Solid Cursors */
+  /* Light mode: black solid cursor */
+  html:not(.dark) {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M8 4L8 28L16 20L24 24L28 20L20 16L28 8Z" fill="%23000000"/></svg>') 8 4, auto;
+  }
+
+  /* Dark mode: white solid cursor */
+  html.dark {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M8 4L8 28L16 20L24 24L28 20L20 16L28 8Z" fill="%23ffffff"/></svg>') 8 4, auto;
+  }
+
+  html:not(.dark) button,
+  html:not(.dark) [role="button"],
+  html:not(.dark) a {
+    cursor: pointer;
+  }
+
+  html.dark button,
+  html.dark [role="button"],
+  html.dark a {
+    cursor: pointer;
+  }
 }
 
 /* Background Grid for Home page */

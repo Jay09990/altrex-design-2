@@ -32,7 +32,7 @@ import StarBorder from "@/components/StarBorder";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
 import SystemDataTicker from "@/components/SystemDataTicker";
-import ROICalculator from "@/components/sections/ROICalculator";
+import ROIMetricsCascade from "@/components/sections/ROIMetricsCascade";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 /* ─── Shared Variants ────────────────────────────────────────────────────── */
@@ -376,13 +376,13 @@ function StatsSection() {
 function TimelineSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
- 
+
   return (
     <section ref={ref} className="relative bg-transparent py-24">
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-35">
         <div className="absolute inset-0 bg-gradient-to-b from-fuchsia-500/10 via-transparent to-violet-500/10" />
       </div>
- 
+
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         {/* Header */}
         <div className="text-center">
@@ -408,57 +408,53 @@ function TimelineSection() {
             <span className="font-semibold text-[var(--accent-violet)]">Level 4</span>.
           </p>
         </div>
- 
+
         {/* Timeline */}
         <div className="relative mt-20">
           {/* Central gradient line */}
           <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-violet-500 via-green-500/35 to-black/10 md:left-1/2 md:-translate-x-px" />
- 
+
           {timeline.map((item, i) => {
             const isLeft = i % 2 === 0;
             const isCurrent = item.status === "current";
             const isUpcoming = item.status === "upcoming";
- 
+
             return (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.6, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className={`relative mb-16 flex w-full md:items-center ${
-                  isLeft ? "md:justify-start" : "md:justify-end"
-                }`}
+                className={`relative mb-16 flex w-full md:items-center ${isLeft ? "md:justify-start" : "md:justify-end"
+                  }`}
               >
                 {/* Timeline dot — pulsing ring on current level */}
                 <div
-                  className={`absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full md:left-1/2 ${
-                    isCurrent
-                      ? "bg-[var(--data-green)] shadow-[0_0_0_6px_rgba(74,222,128,0.18)] animate-pulse"
-                      : isUpcoming
+                  className={`absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full md:left-1/2 ${isCurrent
+                    ? "bg-[var(--data-green)] shadow-[0_0_0_6px_rgba(74,222,128,0.18)] animate-pulse"
+                    : isUpcoming
                       ? "bg-white/20 shadow-[0_0_0_4px_rgba(255,255,255,0.06)]"
                       : "bg-gradient-to-br from-violet-500 to-orange-400/35 shadow-[0_0_0_6px_rgba(139,92,246,0.12)]"
-                  }`}
+                    }`}
                 />
- 
+
                 {/* Card */}
                 <div
-                  className={`ml-12 max-w-sm rounded-3xl border p-8 shadow-sm transition-all duration-300 md:ml-0 ${
-                    isCurrent
-                      ? "border-[var(--data-green)]/40 bg-[var(--bg-surface)]/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
-                      : isUpcoming
+                  className={`ml-12 max-w-sm rounded-3xl border p-8 shadow-sm transition-all duration-300 md:ml-0 ${isCurrent
+                    ? "border-[var(--data-green)]/40 bg-[var(--bg-surface)]/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
+                    : isUpcoming
                       ? "border-white/5 bg-[var(--bg-surface)]/40 opacity-60"
                       : "border-white/10 bg-[var(--bg-surface)]/75 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
-                  }`}
+                    }`}
                 >
                   {/* Level pill */}
                   <div className="flex items-center gap-3">
                     <div
-                      className={`inline-flex overflow-hidden rounded-full px-4 py-1.5 ${
-                        isCurrent
-                          ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
-                          : isUpcoming ? "bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
+                      className={`inline-flex overflow-hidden rounded-full px-4 py-1.5 ${isCurrent
+                        ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
+                        : isUpcoming ? "bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
                           : "bg-violet-500"
-                      }`}
+                        }`}
                     >
                       <DecryptedText
                         text={item.level}
@@ -466,18 +462,16 @@ function TimelineSection() {
                         speed={60}
                         sequential
                         revealDirection="start"
-                        className={`text-sm font-bold ${
-                          isCurrent
-                            ? "text-[var(--data-green)]"
-                            : isUpcoming ? "text-[var(--text-muted)]"
+                        className={`text-sm font-bold ${isCurrent
+                          ? "text-[var(--data-green)]"
+                          : isUpcoming ? "text-[var(--text-muted)]"
                             : "text-white"
-                        }`}
-                        encryptedClassName={`text-sm font-bold ${
-                          isCurrent ? "text-[var(--data-green)]/50" : "text-violet-300"
-                        }`}
+                          }`}
+                        encryptedClassName={`text-sm font-bold ${isCurrent ? "text-[var(--data-green)]/50" : "text-violet-300"
+                          }`}
                       />
                     </div>
- 
+
                     {/* Status badge */}
                     {isCurrent && (
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--data-green)]/30 bg-[var(--data-green)]/10 px-3 py-1 text-xs font-medium text-[var(--data-green)]">
@@ -491,32 +485,30 @@ function TimelineSection() {
                       </span>
                     )}
                   </div>
- 
+
                   {/* Time label */}
-                  <p className={`mt-3 text-xs font-mono tracking-widest uppercase ${
-                    isCurrent ? "text-[var(--data-green)]/70" : "text-[var(--text-muted)]"
-                  }`}>
+                  <p className={`mt-3 text-xs font-mono tracking-widest uppercase ${isCurrent ? "text-[var(--data-green)]/70" : "text-[var(--text-muted)]"
+                    }`}>
                     {item.timeLabel}
                   </p>
- 
+
                   <h3 className="mt-3 text-xl font-semibold text-[var(--text-primary)]">
                     {item.title}
                   </h3>
                   <p className="mt-3 leading-7 text-[var(--text-secondary)] text-sm">
                     {item.description}
                   </p>
- 
+
                   {/* Tags */}
                   <div className="mt-5 flex flex-wrap gap-2">
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className={`rounded-lg border px-2.5 py-1 text-xs font-medium ${
-                          isCurrent
-                            ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
-                            : isUpcoming ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-[var(--text-muted)] opacity-60"
+                        className={`rounded-lg border px-2.5 py-1 text-xs font-medium ${isCurrent
+                          ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
+                          : isUpcoming ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-[var(--text-muted)] opacity-60"
                             : "border-black/8 bg-black/3 text-[var(--text-muted)]"
-                        }`}
+                          }`}
                       >
                         {tag}
                       </span>
@@ -676,53 +668,66 @@ function ValuesSection() {
 
 /* ─── Section: CTA ───────────────────────────────────────────────────────── */
 
-function CTASection() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+import {
+  BookOpen,
+  Zap,
+} from "lucide-react";
 
+const CTA = () => {
   return (
-    <section ref={ref} className="bg-transparent py-24">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 28 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
-          className="relative overflow-hidden rounded-4xl border border-violet-500 px-8 py-10 text-center shadow-[inset_0_0_80px_rgba(255,107,0,0.15)] lg:px-20"
-        >
-          {/* ShinyText sweeps a metallic shine across the heading */}
-          <h2 className="relative z-10 text-4xl font-bold tracking-tight sm:text-5xl">
-            <ShinyText
-              text="Ready to transform your operations?"
-              speed={3}
-              color="#ff6b00"
-              shineColor="#ffffff"
-              spread={100}
-              className="text-4xl font-bold sm:text-6xl"
-            />
-          </h2>
+    <section className="relative overflow-hidden bg-transparent py-32 mx-auto max-w-7xl px-6 pt-16 pb-0 lg:px-8">
+      <style>{`
+        @keyframes cta-bg {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
 
-          <p className="relative z-10 mx-auto mt-6 max-w-2xl text-xl">
-            Build smarter industrial systems with realtime intelligence,
-            AI-driven analytics, and scalable infrastructure.
-          </p>
+        .cta-gradient {
+          background: linear-gradient(
+            135deg,
+            #7c2d12 0%,
+            #ea580c 25%,
+            #ff6b00 50%,
+            #ea580c 75%,
+            #431407 100%
+          );
 
-          {/*
-            ClickSpark wraps both buttons inside a shared canvas.
-            Each click anywhere in the div fires particle sparks at the cursor.
-          */}
-          <div className="relative z-10 mt-8">
-            <ClickSpark sparkCount={8}>
-                <div className="flex flex-wrap items-center justify-center gap-4 py-4">
-                <Button variant="default">Get Started</Button>
-                <Button variant="outline">Talk to Sales</Button>
-              </div>
-            </ClickSpark>
+          background-size: 300% 300%;
+
+          animation: cta-bg 8s ease infinite;
+        }
+
+        .headline-glow {
+          text-shadow:
+            0 0 60px rgba(196,181,253,0.4),
+            0 0 120px rgba(196,181,253,0.15);
+        }
+      `}</style>
+
+      <div className="relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm">
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div>
+            <h2 className="font-bold text-4xl text-[var(--text-primary)] leading-snug">
+              Ready to transform your operations{" "}
+            </h2>
+            <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-xl leading-relaxed">
+              Build smarter industrial systems with realtime intelligence, AI-driven analytics, and scalable infrastructure.
+            </p>
           </div>
-        </motion.div>
+          <div className="flex gap-2.5">
+            <Button className="gap-2 bg-violet-500 text-white border-none">
+              <Zap className="h-3.5 w-3.5" /> Get started 
+            </Button>
+            <Button variant="outline" >
+              <BookOpen className="h-3.5 w-3.5" /> Talk To sales
+            </Button>
+          </div>
+        </div>
       </div>
     </section>
   );
-}
+};
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
@@ -731,12 +736,12 @@ const About = () => {
     <div className="overflow-hidden bg-[var(--bg-void)]">
       <HeroSection />
       <MissionSection />
-      <ROICalculator />
+      <ROIMetricsCascade />
       <StatsSection />
       <TimelineSection />
       <TeamSection />
       <ValuesSection />
-      <CTASection />
+      <CTA />
     </div>
   );
 };
