@@ -127,8 +127,8 @@ const Home = () => {
         </div>
 
         <div id={HOME_CHAPTERS[5].id} className="scroll-mt-28">
-          <FAQ />
           <CTA />
+          <FAQ />
         </div>
       </motion.div>
     </div>

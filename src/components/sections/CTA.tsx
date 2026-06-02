@@ -1,69 +1,13 @@
 import {
-  ArrowRight,
-  Globe,
-  ShieldCheck,
-  Timer,
+  BookOpen,
   Zap,
 } from "lucide-react";
 
-import {
-  motion,
-  type Variants,
-} from "framer-motion";
-
-import { Badge } from "../ui/badge";
-
-const trustItems = [
-  {
-    icon: Timer,
-    label: "99.99% Uptime",
-  },
-
-  {
-    icon: ShieldCheck,
-    label: "SOC2 Compliant",
-  },
-
-  {
-    icon: Globe,
-    label: "GDPR Ready",
-  },
-
-  {
-    icon: Zap,
-    label: "24/7 Support",
-  },
-];
-
-const containerVariants: Variants = {
-  hidden: {},
-
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
-};
-
-const fadeUpVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-
-    transition: {
-      duration: 0.7,
-    },
-  },
-};
+import { Button } from "../ui/button";
 
 const CTA = () => {
   return (
-    <section className="relative overflow-hidden bg-transparent py-32">
+    <section className="relative overflow-hidden bg-transparent py-32 mx-auto max-w-7xl px-6 pt-16 pb-0 lg:px-8">
       <style>{`
         @keyframes cta-bg {
           0%   { background-position: 0% 50%; }
@@ -93,165 +37,30 @@ const CTA = () => {
         }
       `}</style>
 
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-        className="mx-auto max-w-7xl px-6 lg:px-8"
-      >
-        {/* Gradient Container */}
-        <motion.div
-          variants={fadeUpVariants}
-          whileHover={{
-            y: -4,
-          }}
-          transition={{
-            duration: 0.3,
-          }}
-          className="cta-gradient relative overflow-hidden rounded-3xl px-10 py-20 text-center shadow-2xl shadow-violet-900/30 lg:px-20"
-        >
-          {/* Noise texture overlay */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.03]"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-            }}
-          />
-
-          {/* Ambient glow */}
-          <motion.div
-            animate={{
-              opacity: [0.15, 0.3, 0.15],
-              scale: [1, 1.08, 1],
-            }}
-            transition={{
-              duration: 8,
-              repeat: Infinity,
-            }}
-          />
-
-          <motion.div
-            animate={{
-              opacity: [0.15, 0.28, 0.15],
-              scale: [1, 1.1, 1],
-            }}
-            transition={{
-              duration: 10,
-              repeat: Infinity,
-            }}
-          />
-
-          <div className="relative z-10 mx-auto max-w-3xl">
-            {/* Badge */}
-            <motion.div variants={fadeUpVariants}>
-              <Badge
-                variant="secondary"
-                className="border border-white/20 bg-white/10 p-4 text-sm font-medium text-white"
-              >
-                Start Building Today
-              </Badge>
-            </motion.div>
-
-            {/* Headline */}
-            <motion.h2
-              variants={fadeUpVariants}
-              className="headline-glow mt-10 text-5xl font-bold tracking-tight text-white sm:text-6xl"
-            >
-              Build Realtime Systems
-
-              <span className="mt-2 block text-white/90">
-                Without Complexity
-              </span>
-            </motion.h2>
-
-            {/* Subtext */}
-            <motion.p
-              variants={fadeUpVariants}
-              className="mx-auto mt-8 max-w-xl text-lg leading-8 text-violet-200/80"
-            >
-              Deploy scalable messaging infrastructure, connect millions of
-              devices, and power modern realtime applications globally.
-            </motion.p>
-
-            {/* Buttons */}
-            <motion.div
-              variants={fadeUpVariants}
-              className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
-            >
-              <motion.button
-                whileHover={{
-                  scale: 1.03,
-                  y: -2,
-                }}
-                whileTap={{
-                  scale: 0.97,
-                }}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-8 py-4 text-base font-semibold text-gray-900 shadow-xl transition-all hover:scale-[1.02] hover:bg-gray-50 active:scale-[0.98]"
-              >
-                Start Building
-
-                <motion.div
-                  animate={{
-                    x: [0, 4, 0],
-                  }}
-                  transition={{
-                    duration: 1.6,
-                    repeat: Infinity,
-                  }}
-                >
-                  <ArrowRight className="h-4 w-4" />
-                </motion.div>
-              </motion.button>
-
-              <motion.button
-                whileHover={{
-                  scale: 1.03,
-                  y: -2,
-                }}
-                whileTap={{
-                  scale: 0.97,
-                }}
-                className="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-8 py-4 text-base font-semibold text-white transition-all hover:bg-white/20"
-              >
-                Book Demo
-              </motion.button>
-            </motion.div>
-
-            {/* Trust indicators */}
-            <motion.div
-              variants={fadeUpVariants}
-              className="mt-12 flex flex-wrap items-center justify-center gap-3"
-            >
-              {trustItems.map(({ icon: Icon, label }, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{
-                    y: -3,
-                    scale: 1.03,
-                  }}
-                  transition={{
-                    duration: 0.2,
-                  }}
-                  className="flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-5 py-2.5 text-sm font-medium text-white"
-                >
-                  <motion.div
-                    whileHover={{
-                      rotate: 6,
-                      scale: 1.08,
-                    }}
-                    className="flex h-5 w-5 items-center justify-center rounded-full bg-white/20"
-                  >
-                    <Icon className="h-3 w-3 text-white" />
-                  </motion.div>
-
-                  {label}
-                </motion.div>
-              ))}
-            </motion.div>
+      <div className="relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm">
+          <div className="flex flex-wrap items-center justify-between gap-6">
+            <div>
+              <h2 className="font-bold text-4xl text-[var(--text-primary)] leading-snug">
+                Start building with{" "}
+                <span className="bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                  Altrex
+                </span>{" "}
+                today
+              </h2>
+              <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-md leading-relaxed">
+                Deploy realtime infrastructure in minutes. No credit card required for the free tier.
+              </p>
+            </div>
+            <div className="flex gap-2.5">
+              <Button className="gap-2 bg-violet-500 text-white border-none">
+                <Zap className="h-3.5 w-3.5" /> Get started free
+              </Button>
+              <Button variant="outline" >
+                <BookOpen className="h-3.5 w-3.5" /> Read the docs
+              </Button>
+            </div>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
     </section>
   );
 };

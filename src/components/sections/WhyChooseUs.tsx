@@ -164,7 +164,7 @@ const WhyChooseUs = () => {
           >
             Built for Modern{" "}
 
-            <span className="bg-amber-500/80 bg-clip-text text-transparent">
+            <span className="bg-violet-500 bg-clip-text text-transparent">
               Realtime Infrastructure
             </span>
           </motion.h2>
@@ -187,12 +187,12 @@ const WhyChooseUs = () => {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="relative col-span-1 overflow-hidden rounded-3xl bg-gradient-to-br from-orange-600 to-orange-400 p-10 text-white shadow-2xl shadow-orange-900/40 lg:col-span-2"
+            className="relative col-span-1 overflow-hidden rounded-3xl bg-white p-10 shadow-2xl lg:col-span-2"
           >
             <div className="relative z-10">
               <motion.div
                 whileHover={{ scale: 1.08, rotate: 4 }}
-                className="flex h-16 w-16 items-center justify-center rounded-2xl border border-white/20 bg-white/10"
+                className="flex h-16 w-16 items-center justify-center rounded-2xl border border-orange-500/30 bg-gradient-to-br from-orange-600 to-orange-400 text-white shadow-md"
               >
                 <Zap className="h-8 w-8 text-white" />
               </motion.div>
@@ -203,7 +203,7 @@ const WhyChooseUs = () => {
                 Realtime Systems
               </h3>
 
-              <p className="mt-5 text-lg leading-8 text-orange-50">
+              <p className="mt-5 text-lg leading-8 text-gray-500">
                 Power scalable messaging, connected devices, and distributed
                 applications with modern infrastructure optimized for speed,
                 reliability, and global scale.
@@ -227,10 +227,10 @@ const WhyChooseUs = () => {
 
             <div className="space-y-6">
               {[
-                { label: "Messages Daily", value: "10M+", color: "text-orange-600", bar: "bg-orange-600" },
-                { label: "Uptime SLA", value: "99.99%", color: "text-orange-500", bar: "bg-orange-500" },
-                { label: "Avg Latency", value: "50ms", color: "text-orange-400", bar: "bg-orange-500" },
-                { label: "Global Regions", value: "120+", color: "text-orange-300", bar: "bg-orange-300" },
+                { label: "Messages Daily",  value: "10M+",   color: "text-orange-600",  iconBg: "bg-orange-500/10",  iconColor: "text-orange-500",  deltaColor: "bg-orange-500/10 text-orange-700",  bar: "bg-gradient-to-r from-orange-500 to-amber-400" },
+{ label: "Uptime SLA",      value: "99.99%", color: "text-violet-600",  iconBg: "bg-violet-500/10",  iconColor: "text-violet-500",  deltaColor: "bg-violet-500/10 text-violet-700",  bar: "bg-gradient-to-r from-violet-500 to-purple-400" },
+{ label: "Avg Latency",     value: "50ms",   color: "text-teal-600",    iconBg: "bg-teal-500/10",    iconColor: "text-teal-500",    deltaColor: "bg-teal-500/10 text-teal-700",      bar: "bg-gradient-to-r from-teal-500 to-emerald-400" },
+{ label: "Global Regions",  value: "120+",   color: "text-sky-600",     iconBg: "bg-sky-500/10",     iconColor: "text-sky-500",     deltaColor: "bg-sky-500/10 text-sky-700",        bar: "bg-gradient-to-r from-sky-500 to-cyan-400" },
               ].map((m, i) => (
                 <motion.div
                   key={i}
