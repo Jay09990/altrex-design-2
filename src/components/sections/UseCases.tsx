@@ -46,22 +46,6 @@ const useCases = [
     bullets: ["GPS telemetry streaming", "Route optimization signals", "Driver behavior analytics"],
   },
   {
-    icon: Sprout,
-    title: "Smart Agriculture",
-    description:
-      "Connect sensors, monitor crops, and automate farming operations using IoT infrastructure.",
-    metric: "Connects 200K field sensors",
-    bullets: ["Soil & climate sensors", "Automated irrigation triggers", "Crop health dashboards"],
-  },
-  {
-    icon: HeartPulse,
-    title: "Healthcare Monitoring",
-    description:
-      "Enable secure realtime patient monitoring and connected medical device communication.",
-    metric: "Streams vitals for 5K patients",
-    bullets: ["HIPAA-compliant transport", "Wearable device connectivity", "Emergency alert routing"],
-  },
-  {
     icon: Building2,
     title: "Smart Cities",
     description:
