@@ -118,7 +118,7 @@ const HeroSection = () => {
             transition={{ delay: 1.4, duration: 0.8 }}
             className="mt-12 mb-20 flex flex-col items-center gap-4 sm:flex-row"
           >
-            <div className="relative">
+            {/* <div className="relative">
               <Button
                 ref={startBtnRef}
                 className="gap-2 bg-[var(--accent-violet)] px-8 py-5 text-white hover:bg-[var(--accent-violet)]/90"
@@ -126,13 +126,14 @@ const HeroSection = () => {
                 Start Building
                 <ArrowRight className="h-4 w-4" />
               </Button>
-            </div>
+            </div> */}
 
             <div className="relative">
               <Button
-                ref={demoBtnRef}
+                // ref={demoBtnRef}
+                ref={startBtnRef}
                 variant="outline"
-                className="gap-2 border-black/[0.08] bg-[var(--bg-surface)] px-8 py-5 text-[var(--text-primary)] hover:bg-[var(--bg-raised)]"
+                className="gap-2 bg-[var(--accent-violet)] px-8 py-5 text-white"
               >
                 <Play className="h-4 w-4" />
                 Watch Demo

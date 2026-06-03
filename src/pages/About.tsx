@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
+  Contact,
 } from "lucide-react";
 import { FaLinkedinIn } from "react-icons/fa6";
 
@@ -390,7 +391,7 @@ function TimelineSection() {
           >
             <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
             <InViewDecryptedText
-              text="OUR JOURNEY"
+              text="OUR MODEL"
               speed={60}
               maxIterations={12}
               className="text-[var(--data-green)]"
@@ -715,11 +716,8 @@ const CTA = () => {
           </div>
           <div className="flex gap-2.5">
             <Button className="gap-2 bg-violet-500 text-white border-none">
-              <Zap className="h-3.5 w-3.5" /> Get started 
-            </Button>
-            <Button variant="outline" >
-              <BookOpen className="h-3.5 w-3.5" /> Talk To sales
-            </Button>
+                <Contact className="h-3.5 w-3.5" /> Contact Us
+              </Button>
           </div>
         </div>
       </div>

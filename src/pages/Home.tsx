@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import Architecture from "@/components/sections/Architecture"
 import CoreFeatures from "@/components/sections/CoreFeatures"
 import CTA from "@/components/sections/CTA"
-import DeveloperExperience from "@/components/sections/DeveloperExperience"
 import FAQ from "@/components/sections/FAQ"
 import HeroSection from "@/components/sections/HeroSection"
 import StatisticsSection from "@/components/sections/StatisticsSection"
@@ -118,7 +117,6 @@ const Home = () => {
 
         <div id={HOME_CHAPTERS[3].id} className="scroll-mt-28">
           <UseCases />
-          <DeveloperExperience />
           <StatisticsSection />
         </div>
 

@@ -227,8 +227,8 @@ const WhyChooseUs = () => {
             <div className="space-y-6">
               {[
                 {
-                  label: "Messages Daily",
-                  value: "10M+",
+                  label: "Global Deployments",
+                  value: "200+",
                   color: "text-orange-600",
                   iconBg: "bg-orange-500/10",
                   iconColor: "text-orange-500",

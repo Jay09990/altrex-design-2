@@ -1,5 +1,6 @@
 import {
   BookOpen,
+  Contact,
   Zap,
 } from "lucide-react";
 
@@ -53,10 +54,7 @@ const CTA = () => {
             </div>
             <div className="flex gap-2.5">
               <Button className="gap-2 bg-violet-500 text-white border-none">
-                <Zap className="h-3.5 w-3.5" /> Get started free
-              </Button>
-              <Button variant="outline" >
-                <BookOpen className="h-3.5 w-3.5" /> Read the docs
+                <Contact className="h-3.5 w-3.5" /> Contact Us
               </Button>
             </div>
           </div>

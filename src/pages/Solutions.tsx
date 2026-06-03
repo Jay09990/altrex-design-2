@@ -1,19 +1,18 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
-  Zap,
   Activity,
-  ArrowRight,
   Network,
   ShieldCheck,
-  Server,
   Layers,
-  Settings,
-  GitMerge,
-  CloudLightning,
-  ChevronRight
+  ChevronRight,
+  Flame,
+  Wind,
+  Factory,
+  Truck,
+  Sun,
+  Leaf,
 } from "lucide-react";
-import { Link } from "react-router-dom";
-
 import { Badge } from "@/components/ui/badge";
 import CharReveal from "@/components/CharReveal";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
@@ -21,7 +20,286 @@ import SystemDataTicker from "@/components/SystemDataTicker";
 import StarBorder from "@/components/StarBorder";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
-const SOLUTIONS_DATA = [
+// ─────────────────────────────────────────────
+// Types
+// ─────────────────────────────────────────────
+type SolutionItem = {
+  number: string;
+  title: string;
+  bullets: string[];
+};
+
+type IndustrySolution = {
+  id: string;
+  label: string;
+  tagline: string;
+  description: string;
+  icon: React.ReactNode;
+  color: string;           // tailwind text color
+  accentHex: string;       // raw hex for glow / SVG
+  items: SolutionItem[];
+};
+
+// ─────────────────────────────────────────────
+// Data
+// ─────────────────────────────────────────────
+const INDUSTRY_SOLUTIONS: IndustrySolution[] = [
+  {
+    id: "cgd",
+    label: "CGD",
+    tagline: "City Gas Distribution",
+    description: "Complete Digital Gas Distribution Network Platform",
+    icon: <Flame className="h-5 w-5" />,
+    color: "text-orange-500",
+    accentHex: "#f97316",
+    items: [
+      {
+        number: "01",
+        title: "Region / GA (Geographical Area)",
+        bullets: ["Regionwise Stations", "Sales per Region", "Gas Demand", "Downtime Monitoring", "Reconciliation"],
+      },
+      {
+        number: "02",
+        title: "CGS (City Gate Station)",
+        bullets: ["City Sales", "Gas Losses (LUAG)", "Availability", "CNG Demand", "PNG Demand", "Gas Parameters Monitoring", "Reconciliation"],
+      },
+      {
+        number: "03",
+        title: "Distribution Level",
+        bullets: ["CNG – Online, Mother, Daughter Stations", "PNG – Industrial, Commercial, Domestic", "LCNG", "DRS", "AMR", "Reconciliation"],
+      },
+      {
+        number: "04",
+        title: "CNG Station Level",
+        bullets: ["Equipments – Compressors, Boosters, Dispensers", "Cascade Monitoring", "Analytics", "Sales", "PAS", "Reconciliation"],
+      },
+      {
+        number: "05",
+        title: "GIS & VTS",
+        bullets: ["Asset Management", "Cascade Tracking", "Route Optimization", "Automatic Allocation", "Pipeline Network"],
+      },
+    ],
+  },
+  {
+    id: "omc",
+    label: "OMC",
+    tagline: "Oil Marketing Companies",
+    description: "Complete Digital Fuel Network Platform",
+    icon: <Truck className="h-5 w-5" />,
+    color: "text-blue-400",
+    accentHex: "#60a5fa",
+    items: [
+      {
+        number: "01",
+        title: "Terminal / Refinery Monitoring",
+        bullets: ["Terminal Automation", "Tank Levels", "Fuel Availability", "Dispatch Planning", "Pumps Status", "Loading Operations"],
+      },
+      {
+        number: "02",
+        title: "Depot Monitoring",
+        bullets: ["Tank Levels", "Inward/Outward Fuel", "Pumps Status", "Fuel Quality", "Stock Reconciliation"],
+      },
+      {
+        number: "03",
+        title: "Tank Truck / Logistics Monitoring",
+        bullets: ["Truck GPS Tracking", "Fuel Quantity", "Delivery Status", "ETA", "Route Optimization"],
+      },
+      {
+        number: "04",
+        title: "Fuel Station Monitoring",
+        bullets: ["Tank Levels", "Sales", "Availability", "Station Performance", "Sales Tracking"],
+      },
+      {
+        number: "05",
+        title: "Fuel Dispenser Monitoring",
+        bullets: ["Nozzle Sales", "Dispenser Health", "Remote Diagnostics", "Vehicle Counts", "Vehicle Density"],
+      },
+    ],
+  },
+  {
+    id: "steel",
+    label: "Steel",
+    tagline: "Steel & Metals",
+    description: "Integrated Steel Plant Operations Platform",
+    icon: <Factory className="h-5 w-5" />,
+    color: "text-slate-300",
+    accentHex: "#94a3b8",
+    items: [
+      {
+        number: "01",
+        title: "Blast Furnace Monitoring",
+        bullets: ["Hot Metal Temperature", "Pressure Profiles", "Tapping Schedules", "Burden Distribution", "Energy Efficiency"],
+      },
+      {
+        number: "02",
+        title: "Steel Melt Shop",
+        bullets: ["Heat Tracking", "Alloy Additions", "Ladle Temperature", "Casting Speed", "Quality Grading"],
+      },
+      {
+        number: "03",
+        title: "Rolling Mill Automation",
+        bullets: ["Roll Gap Control", "Strip Thickness", "Cooling Water Flow", "Speed Synchronization", "Coil Tracking"],
+      },
+      {
+        number: "04",
+        title: "Utilities & Energy",
+        bullets: ["Power Distribution", "Compressed Air", "Water Treatment", "Gas Recovery", "Steam Balancing"],
+      },
+      {
+        number: "05",
+        title: "Quality & Compliance",
+        bullets: ["Lab Integration", "Mechanical Testing", "SPC Charts", "Traceability", "Regulatory Reporting"],
+      },
+    ],
+  },
+  {
+    id: "manufacturing",
+    label: "Manufacturing",
+    tagline: "Discrete & Process Industries",
+    description: "Smart Factory Intelligence Platform",
+    icon: <Activity className="h-5 w-5" />,
+    color: "text-purple-400",
+    accentHex: "#c084fc",
+    items: [
+      {
+        number: "01",
+        title: "OEE & Production Tracking",
+        bullets: ["Machine Availability", "Performance Rate", "Quality Rate", "Shift Reports", "Downtime Classification"],
+      },
+      {
+        number: "02",
+        title: "Predictive Maintenance",
+        bullets: ["Vibration Analysis", "Bearing Wear Detection", "Oil Condition", "Thermal Imaging Integration", "Work Order Triggers"],
+      },
+      {
+        number: "03",
+        title: "Quality Management",
+        bullets: ["SPC / SQC Charts", "Defect Tracking", "Root Cause Analysis", "First Pass Yield", "Customer Returns"],
+      },
+      {
+        number: "04",
+        title: "Supply Chain Visibility",
+        bullets: ["Inventory Levels", "Material Flow", "WIP Tracking", "Supplier Performance", "Batch Traceability"],
+      },
+      {
+        number: "05",
+        title: "Energy Management",
+        bullets: ["Per-machine Consumption", "Peak Demand Control", "Carbon Footprint", "ISO 50001 Reports", "Cost Allocation"],
+      },
+    ],
+  },
+  {
+    id: "wind",
+    label: "Wind",
+    tagline: "Wind Energy",
+    description: "Wind Farm SCADA & Performance Platform",
+    icon: <Wind className="h-5 w-5" />,
+    color: "text-cyan-400",
+    accentHex: "#22d3ee",
+    items: [
+      {
+        number: "01",
+        title: "Turbine Performance Monitoring",
+        bullets: ["Power Curve Analysis", "Rotor Speed", "Pitch Angle Control", "Nacelle Direction", "Availability Factor"],
+      },
+      {
+        number: "02",
+        title: "Condition Monitoring",
+        bullets: ["Gearbox Vibration", "Generator Temperature", "Blade Structural Health", "Tower Oscillation", "Bearing Diagnostics"],
+      },
+      {
+        number: "03",
+        title: "SCADA & Control",
+        bullets: ["Remote Start/Stop", "Fault Management", "Curtailment Control", "Park Controller", "Grid Compliance"],
+      },
+      {
+        number: "04",
+        title: "Generation & Revenue",
+        bullets: ["Energy Production (MWh)", "Capacity Utilization Factor", "PLF Tracking", "Revenue Forecasting", "PPA Compliance"],
+      },
+      {
+        number: "05",
+        title: "Maintenance Planning",
+        bullets: ["Scheduled Maintenance", "Crane Scheduling", "Spare Parts Inventory", "Technician Dispatch", "Safety Compliance"],
+      },
+    ],
+  },
+  {
+    id: "solar",
+    label: "Solar",
+    tagline: "Solar Energy",
+    description: "Solar Asset Management & Analytics Platform",
+    icon: <Sun className="h-5 w-5" />,
+    color: "text-yellow-400",
+    accentHex: "#facc15",
+    items: [
+      {
+        number: "01",
+        title: "Plant Performance Monitoring",
+        bullets: ["Irradiance vs Generation", "PR Ratio", "CUF Tracking", "Inverter Efficiency", "String-level Analysis"],
+      },
+      {
+        number: "02",
+        title: "Inverter & Combiner Box",
+        bullets: ["Real-time Fault Alerts", "MPPT Performance", "String Current Imbalance", "Temperature Monitoring", "Remote Reset"],
+      },
+      {
+        number: "03",
+        title: "Weather & Forecasting",
+        bullets: ["GHI / DNI / DHI Sensors", "Soiling Loss Estimation", "Weather Forecasting Integration", "Shadow Analysis", "Cleaning Schedule"],
+      },
+      {
+        number: "04",
+        title: "Grid Integration",
+        bullets: ["Export / Import Monitoring", "Power Quality", "Reactive Power Control", "Grid Fault Events", "SLDC Reporting"],
+      },
+      {
+        number: "05",
+        title: "O&M & Revenue",
+        bullets: ["Ticket Management", "Preventive Maintenance", "Energy Generation Reports", "Revenue Tracking", "Carbon Credits"],
+      },
+    ],
+  },
+  {
+    id: "renewable",
+    label: "Renewable",
+    tagline: "Hybrid & Multi-Source",
+    description: "Unified Renewable Energy Command Platform",
+    icon: <Leaf className="h-5 w-5" />,
+    color: "text-green-400",
+    accentHex: "#4ade80",
+    items: [
+      {
+        number: "01",
+        title: "Hybrid Plant Management",
+        bullets: ["Solar + Wind + Storage", "Source Switching Logic", "Combined Generation View", "Grid-Tied / Off-Grid Modes", "Dispatch Optimization"],
+      },
+      {
+        number: "02",
+        title: "Battery Energy Storage",
+        bullets: ["State of Charge (SoC)", "Cycle Count Tracking", "Charge / Discharge Curves", "Thermal Management", "BMS Integration"],
+      },
+      {
+        number: "03",
+        title: "Power Forecasting & Trading",
+        bullets: ["Day-Ahead Forecast", "Intra-day Balancing", "Market Price Integration", "Curtailment Scheduling", "Penalty Avoidance"],
+      },
+      {
+        number: "04",
+        title: "Multi-site Portfolio",
+        bullets: ["Consolidated Dashboard", "Cross-site Benchmarking", "Normalized KPIs", "Executive Reports", "Investor Portals"],
+      },
+      {
+        number: "05",
+        title: "Sustainability & ESG",
+        bullets: ["Carbon Emission Tracking", "Green Certificates", "ESG Reporting", "Scope 2 Reduction", "Net Zero Roadmap"],
+      },
+    ],
+  },
+];
+
+// capability cards (retained from original section 2)
+const CAPABILITIES = [
   {
     id: "predictive-maintenance",
     title: "Predictive Maintenance",
@@ -53,16 +331,151 @@ const SOLUTIONS_DATA = [
     icon: <ShieldCheck className="h-6 w-6" />,
     color: "text-purple-400",
     glow: "rgba(192, 132, 252, 0.5)",
-  }
+  },
 ];
 
+// ─────────────────────────────────────────────
+// Sub-components
+// ─────────────────────────────────────────────
+
+/** Single numbered solution row — mirrors the reference image layout */
+function SolutionRow({ item, accent, index }: { item: SolutionItem; accent: string; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 24 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.45, delay: index * 0.07 }}
+      className="flex items-start gap-5 group"
+    >
+      {/* Icon circle — uses accent color */}
+      <div
+        className="shrink-0 w-12 h-12 rounded-full flex items-center justify-center border"
+        style={{
+          borderColor: `${accent}40`,
+          backgroundColor: `${accent}15`,
+          boxShadow: `0 0 18px ${accent}20`,
+        }}
+      >
+        <span className="font-mono text-xs font-bold" style={{ color: accent }}>
+          {item.number}
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="flex-1 pb-6 border-b border-white/5 group-last:border-0">
+        <h4 className="text-[var(--text-primary)] font-semibold text-base mb-2 leading-tight">
+          {item.title}
+        </h4>
+        <p className="text-[var(--text-muted)] text-sm leading-relaxed">
+          {item.bullets.join(" • ")}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+/** Left panel — big circle with title */
+function IndustryHeroPanel({ solution }: { solution: IndustrySolution }) {
+  return (
+    <motion.div
+      key={solution.id + "-panel"}
+      initial={{ opacity: 0, scale: 0.93 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.93 }}
+      transition={{ duration: 0.4 }}
+      className="flex flex-col items-center justify-center text-center h-full min-h-[320px]"
+    >
+      {/* big decorative circle */}
+      <div
+        className="relative flex items-center justify-center rounded-full mb-8"
+        style={{
+          width: 260,
+          height: 260,
+          background: `radial-gradient(circle at 40% 40%, ${solution.accentHex}18, transparent 70%)`,
+          border: `1.5px solid ${solution.accentHex}30`,
+          boxShadow: `0 0 60px ${solution.accentHex}18, inset 0 0 40px ${solution.accentHex}08`,
+        }}
+      >
+        {/* inner ring */}
+        <div
+          className="absolute inset-[24px] rounded-full"
+          style={{ border: `1px solid ${solution.accentHex}18` }}
+        />
+        <div className="z-10 flex flex-col items-center gap-2 px-8">
+          <span className="font-bold text-3xl text-[var(--text-primary)] leading-none">
+            Solution for
+          </span>
+          <span
+            className="font-bold text-3xl leading-none"
+            style={{ color: solution.accentHex }}
+          >
+            {solution.label} Business
+          </span>
+          <div
+            className="mt-4 w-10 h-px"
+            style={{ backgroundColor: solution.accentHex }}
+          />
+          <p className="text-[var(--text-secondary)] text-sm mt-3 leading-snug max-w-[180px]">
+            {solution.description}
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Industry selector tab
+// ─────────────────────────────────────────────
+function IndustryTab({
+  solution,
+  active,
+  onClick,
+}: {
+  solution: IndustrySolution;
+  active: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`
+        flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
+        border transition-all duration-200 whitespace-nowrap
+        ${active
+          ? "border-transparent text-white"
+          : "border-white/10 text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:border-white/20 bg-transparent"
+        }
+      `}
+      style={
+        active
+          ? {
+              backgroundColor: solution.accentHex,
+              boxShadow: `0 0 20px ${solution.accentHex}50`,
+            }
+          : {}
+      }
+    >
+      <span className={active ? "text-white" : solution.color}>{solution.icon}</span>
+      {solution.label}
+    </button>
+  );
+}
+
+// ─────────────────────────────────────────────
+// Main page
+// ─────────────────────────────────────────────
 const Solutions = () => {
   const cardTilt = useMagneticTilt({ maxRotate: 5, perspective: 1000 });
+  const [activeId, setActiveId] = useState<string>("cgd");
+
+  const active = INDUSTRY_SOLUTIONS.find((s) => s.id === activeId)!;
 
   return (
     <div className="min-h-screen bg-[var(--bg-void)] pt-24 pb-20 text-[var(--text-primary)] overflow-hidden">
 
-      {/* Decorative Blur Backgrounds */}
+      {/* ── Decorative glows ── */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-screen overflow-hidden">
         <div className="absolute right-[-10%] top-[10%] h-[500px] w-[500px] rounded-full bg-orange-500/10 blur-[150px]" />
         <div className="absolute left-[-10%] top-[30%] h-[400px] w-[400px] rounded-full bg-blue-500/10 blur-[150px]" />
@@ -70,9 +483,14 @@ const Solutions = () => {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
-        {/* ── SECTION 1: HERO ── */}
+        {/* ══════════════════════════════════════
+            SECTION 1 — HERO
+        ══════════════════════════════════════ */}
         <div className="text-center mb-20 mt-10">
-          <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm mb-8">
+          <Badge
+            variant="secondary"
+            className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm mb-8"
+          >
             <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
               <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
             </div>
@@ -88,7 +506,7 @@ const Solutions = () => {
 
           <CharReveal
             as="h1"
-            lines={["THE REALTIME", "IMPERATIVE"]}
+            lines={["THE REALTIME IMPERATIVE"]}
             className="text-4xl font-bold tracking-tight sm:text-6xl uppercase"
             immediate
             delay={0}
@@ -102,7 +520,8 @@ const Solutions = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="mx-auto mt-8 max-w-3xl text-lg text-[var(--text-secondary)] leading-relaxed"
           >
-            From smart factories to national energy grids, Altrex provides the unyielding infrastructure required to capture, route, and analyze industrial events instantly.
+            From smart factories to national energy grids, Altrex provides the unyielding
+            infrastructure required to capture, route, and analyze industrial events instantly.
           </motion.p>
 
           <motion.div
@@ -123,7 +542,119 @@ const Solutions = () => {
           </motion.div>
         </div>
 
-        {/* ── SECTION 2: CORE CAPABILITIES MATRIX ── */}
+        {/* ══════════════════════════════════════
+            SECTION 2 — INDUSTRY SOLUTIONS
+            Reference-image layout:
+            Left: big circle with title
+            Right: numbered rows with bullets
+        ══════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-32"
+        >
+          {/* section header */}
+          <div className="text-center mb-12">
+            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
+              [ INDUSTRY SOLUTIONS ]
+            </span>
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
+              Built for Your Industry
+            </h2>
+          </div>
+
+          {/* Industry selector tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mb-12">
+            {INDUSTRY_SOLUTIONS.map((sol) => (
+              <IndustryTab
+                key={sol.id}
+                solution={sol}
+                active={activeId === sol.id}
+                onClick={() => setActiveId(sol.id)}
+              />
+            ))}
+          </div>
+
+          {/* Content panel */}
+          <div
+            className="rounded-2xl border border-white/[0.07] bg-[var(--bg-surface)]/40 backdrop-blur-sm overflow-hidden"
+            style={{ boxShadow: `0 0 60px ${active.accentHex}10` }}
+          >
+            {/* top accent line */}
+            <div
+              className="h-[2px] w-full"
+              style={{
+                background: `linear-gradient(90deg, transparent, ${active.accentHex}, transparent)`,
+              }}
+            />
+
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-0">
+
+              {/* LEFT — hero panel */}
+              <div
+                className="flex items-center justify-center p-10 border-b lg:border-b-0 lg:border-r"
+                style={{ borderColor: `${active.accentHex}18` }}
+              >
+                <AnimatePresence mode="wait">
+                  <IndustryHeroPanel key={active.id} solution={active} />
+                </AnimatePresence>
+              </div>
+
+              {/* RIGHT — solution rows */}
+              <div className="p-8 sm:p-10">
+                {/* sub-heading */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active.id + "-heading"}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
+                    className="mb-8"
+                  >
+                    <span
+                      className="font-mono text-xs uppercase tracking-widest"
+                      style={{ color: active.accentHex }}
+                    >
+                      {active.tagline}
+                    </span>
+                    <h3 className="text-xl font-bold text-[var(--text-primary)] mt-1">
+                      {active.description}
+                    </h3>
+                  </motion.div>
+                </AnimatePresence>
+
+                {/* numbered items */}
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={active.id + "-rows"}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex flex-col gap-1"
+                  >
+                    {active.items.map((item, i) => (
+                      <SolutionRow
+                        key={item.number}
+                        item={item}
+                        accent={active.accentHex}
+                        index={i}
+                      />
+                    ))}
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ══════════════════════════════════════
+            SECTION 3 — CORE CAPABILITIES MATRIX
+            (retained from original)
+        ══════════════════════════════════════ */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -132,14 +663,16 @@ const Solutions = () => {
           className="mb-32"
         >
           <div className="text-center mb-16">
-            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">[ CAPABILITY MATRIX ]</span>
+            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
+              [ CAPABILITY MATRIX ]
+            </span>
             <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
               Transformative Solutions
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {SOLUTIONS_DATA.map((solution, i) => (
+            {CAPABILITIES.map((solution, i) => (
               <motion.div
                 key={solution.id}
                 initial={{ opacity: 0, scale: 0.95 }}
@@ -162,7 +695,9 @@ const Solutions = () => {
                     className="flex flex-col h-full"
                   >
                     <div className="flex items-center gap-4 mb-6">
-                      <div className={`p-4 rounded-2xl bg-zinc-900 shadow-inner border border-white/5 ${solution.color}`}>
+                      <div
+                        className={`p-4 rounded-2xl bg-zinc-900 shadow-inner border border-white/5 ${solution.color}`}
+                      >
                         {solution.icon}
                       </div>
                       <h3 className="text-2xl font-bold uppercase tracking-tight leading-none text-[var(--text-primary)]">
@@ -181,184 +716,6 @@ const Solutions = () => {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        {/* ── SECTION 3: INTERACTIVE DATA PIPELINE ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-32 relative"
-        >
-          <div className="text-center mb-16">
-            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ EVENT TOPOLOGY ]</span>
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
-              The Edge-to-Cloud Pipeline
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
-              Watch how raw machine telemetry is ingested, normalized, and securely routed to enterprise applications with zero data loss.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-white/10 bg-black/60 p-8 sm:p-12 shadow-2xl backdrop-blur-xl relative overflow-hidden">
-            {/* Background grid lines */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px]" />
-
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-
-              {/* Step 1: Edge Ingest */}
-              <div className="flex flex-col items-center text-center gap-4 relative">
-                <div className="h-20 w-20 rounded-2xl border border-orange-500/30 bg-orange-500/10 flex items-center justify-center relative z-10 backdrop-blur-md shadow-[0_0_30px_-5px_rgba(255,126,26,0.3)]">
-                  <Settings className="h-8 w-8 text-orange-500 animate-[spin_4s_linear_infinite]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white uppercase tracking-tight">1. Edge Ingest</h4>
-                  <p className="text-xs text-[var(--text-muted)] mt-1 font-mono">Modbus / OPC-UA / MQTT</p>
-                </div>
-
-                {/* Connecting Line (Desktop only) */}
-                <div className="hidden md:block absolute top-10 left-[60%] w-full h-[2px] bg-white/10 z-0">
-                  <div className="h-full w-full bg-gradient-to-r from-transparent via-orange-500 to-transparent opacity-50 animate-[shimmer_2s_infinite]" />
-                </div>
-              </div>
-
-              {/* Step 2: Altrex Broker */}
-              <div className="flex flex-col items-center text-center gap-4 relative">
-                <div className="h-24 w-24 rounded-3xl border-2 border-[var(--data-green)] bg-zinc-950 flex items-center justify-center relative z-10 shadow-[0_0_40px_-5px_rgba(74,222,128,0.4)]">
-                  <GitMerge className="h-10 w-10 text-[var(--data-green)]" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white uppercase tracking-tight">2. Altrex Broker</h4>
-                  <p className="text-xs text-[var(--text-muted)] mt-1 font-mono">Filter / Buffer / Route</p>
-                </div>
-
-                {/* Connecting Line (Desktop only) */}
-                <div className="hidden md:block absolute top-12 left-[65%] w-full h-[2px] bg-white/10 z-0">
-                  <div className="h-full w-full bg-gradient-to-r from-transparent via-[var(--data-green)] to-transparent opacity-50 animate-[shimmer_2s_infinite_0.5s]" />
-                </div>
-              </div>
-
-              {/* Step 3: Cloud / Enterprise */}
-              <div className="flex flex-col items-center text-center gap-4 relative">
-                <div className="h-20 w-20 rounded-2xl border border-blue-500/30 bg-blue-500/10 flex items-center justify-center relative z-10 backdrop-blur-md shadow-[0_0_30px_-5px_rgba(96,165,250,0.3)]">
-                  <CloudLightning className="h-8 w-8 text-blue-400" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-white uppercase tracking-tight">3. Enterprise</h4>
-                  <p className="text-xs text-[var(--text-muted)] mt-1 font-mono">Kafka / Cloud / Historian</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Simulated Data Packets (Dots) */}
-            <div className="hidden md:block absolute inset-0 z-0 pointer-events-none">
-              <motion.div
-                className="absolute h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_10px_#ff7e1a] top-[calc(50%-33px)] left-[25%]"
-                animate={{
-                  x: [0, 360, 650],
-                  backgroundColor: ["#ff7e1a", "#4ade80", "#4fa1ff"]
-                }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ── SECTION 4: LEGACY VS ALTREX ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-24"
-        >
-          <div className="text-center mb-16">
-            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">[ ARCHITECTURE COMPARISON ]</span>
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
-              The Evolution of Industrial IT
-            </h2>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-6">
-            {/* Legacy Approach */}
-            <div className="flex-1 rounded-[24px] border border-red-500/20 bg-red-950/10 p-8 backdrop-blur-sm">
-              <div className="flex items-center gap-3 mb-8">
-                <span className="p-2 rounded-full bg-red-500/20">
-                  <Server className="h-5 w-5 text-red-500" />
-                </span>
-                <h3 className="text-xl font-bold uppercase tracking-tight text-white/80">Legacy Polling</h3>
-              </div>
-              <ul className="space-y-6">
-                {[
-                  { label: "Architecture", val: "Centralized SCADA Pull", color: "text-zinc-400" },
-                  { label: "Avg Latency", val: "500ms - 2s", color: "text-red-400 font-bold" },
-                  { label: "Offline Resilience", val: "Total Data Loss", color: "text-red-400 font-bold" },
-                  { label: "Hardware Req", val: "Heavy Edge Server", color: "text-zinc-400" }
-                ].map((stat, i) => (
-                  <li key={i} className="flex justify-between items-center border-b border-red-500/10 pb-4">
-                    <span className="font-mono text-xs text-[var(--text-muted)] uppercase">{stat.label}</span>
-                    <span className={`text-sm ${stat.color}`}>{stat.val}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* VS Divider */}
-            <div className="flex items-center justify-center lg:flex-col gap-2 opacity-50">
-              <div className="w-12 h-px lg:w-px lg:h-12 bg-white/20" />
-              <span className="font-mono text-[10px] text-[var(--text-muted)] tracking-widest uppercase">VS</span>
-              <div className="w-12 h-px lg:w-px lg:h-12 bg-white/20" />
-            </div>
-
-            {/* Altrex Approach */}
-            <div className="flex-1 rounded-[24px] border border-orange-500/30 bg-orange-500/[0.02] p-8 backdrop-blur-sm relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 via-yellow-500 to-orange-500" />
-              <div className="flex items-center gap-3 mb-8">
-                <span className="p-2 rounded-full bg-orange-500/20 shadow-[0_0_20px_-2px_#ff7e1a]">
-                  <Zap className="h-5 w-5 text-orange-500" />
-                </span>
-                <h3 className="text-xl font-bold uppercase tracking-tight text-white">Altrex Event Streaming</h3>
-              </div>
-              <ul className="space-y-6">
-                {[
-                  { label: "Architecture", val: "Decentralized Edge Push", color: "text-zinc-200" },
-                  { label: "Avg Latency", val: "1.2ms (Sub-millisecond)", color: "text-[var(--data-green)] font-bold" },
-                  { label: "Offline Resilience", val: "100% Immutable Buffering", color: "text-[var(--data-green)] font-bold" },
-                  { label: "Hardware Req", val: "18MB WASM Runtime", color: "text-zinc-200" }
-                ].map((stat, i) => (
-                  <li key={i} className="flex justify-between items-center border-b border-orange-500/10 pb-4">
-                    <span className="font-mono text-xs text-[var(--text-muted)] uppercase">{stat.label}</span>
-                    <span className={`text-sm ${stat.color}`}>{stat.val}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </motion.div>
-
-        {/* ── SECTION 5: CTA ── */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="rounded-[32px] border border-orange-500/20 bg-gradient-to-b from-orange-500/10 to-transparent p-12 text-center relative overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
-          <h2 className="text-3xl font-bold uppercase tracking-tight text-white sm:text-5xl mb-6 relative z-10">
-            Ready to modernize?
-          </h2>
-          <p className="mx-auto max-w-xl text-sm text-[var(--text-secondary)] mb-10 relative z-10 leading-relaxed">
-            Stop losing telemetry data and dealing with massive integration delays. Deploy the Altrex runtime to your industrial gateways in under 5 minutes.
-          </p>
-          <Link
-            to="/projects"
-            className="inline-flex items-center justify-center gap-3 rounded-full bg-orange-500 px-8 py-4 font-mono text-sm font-bold text-white transition-all hover:bg-orange-600 active:scale-95 shadow-[0_0_40px_-10px_#ff7e1a] relative z-10"
-          >
-            VIEW LIVE DEPLOYMENTS
-            <ArrowRight className="h-4 w-4" />
-          </Link>
         </motion.div>
 
       </div>
