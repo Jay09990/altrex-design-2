@@ -414,12 +414,12 @@ const NODES: Node[] = [
   {
     id: "merged-hub",
     type: "merged-hub" as const,
-    position: { x: 310, y: 100 },
+    position: { x: 330, y: 100 },
     data: { devices: devices, connectivity: connectivity }
   },
-  { id: "platform", type: "platform" as const, position: { x: 760, y: 120 }, data: { items: platform } },
-  { id: "hosting", type: "list-group" as const, position: { x: 1180, y: 45 }, data: { items: hosting, title: "Hosting", color: C.cloud } },
-  { id: "services", type: "list-group" as const, position: { x: 1180, y: 280 }, data: { items: services, title: "Enterprise Services", color: C.platform } },
+  { id: "platform", type: "platform" as const, position: { x: 760, y: 99 }, data: { items: platform } },
+  { id: "hosting", type: "list-group" as const, position: { x: 1250, y: 45 }, data: { items: hosting, title: "Hosting", color: C.cloud } },
+  { id: "services", type: "list-group" as const, position: { x: 1250, y: 280 }, data: { items: services, title: "Enterprise Services", color: C.platform } },
 ];
 
 const EDGES: Edge[] = [
