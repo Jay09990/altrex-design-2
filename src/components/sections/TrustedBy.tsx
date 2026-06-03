@@ -14,7 +14,7 @@ const techLogos = [
     src: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
     alt: "Next.js",
     href: "https://nextjs.org",
-    className: "invert dark:invert-0 brightness-0 dark:brightness-100" // Traditional logic, but let's try a direct color approach if possible
+    className: "dark:invert"
   },
   {
     src: "https://www.vectorlogo.zone/logos/typescriptlang/typescriptlang-icon.svg",

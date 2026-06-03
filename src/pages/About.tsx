@@ -26,8 +26,6 @@ import { Button } from "@/components/ui/button";
 //   npx shadcn@latest add https://reactbits.dev/r/GradientText-TS-TW
 import CharReveal from "@/components/CharReveal";
 import DecryptedText from "@/components/DecryptedText";
-import ShinyText from "@/components/ShinyText";
-import ClickSpark from "@/components/ClickSpark";
 import StarBorder from "@/components/StarBorder";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
