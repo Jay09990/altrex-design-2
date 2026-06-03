@@ -190,7 +190,7 @@ const Contact = () => {
                 variants={fadeUpVariants}
                 className="rounded-xl border border-black/10 bg-[var(--bg-surface)] p-6"
               >
-                <div className="flex items-center gap-2 text-fuchsia-600">
+                <div className="flex items-center gap-2 text-slate-700">
                   <Phone className="h-5 w-5" />
                   <span className="text-sm font-semibold text-[var(--text-primary)]">
                     Phone

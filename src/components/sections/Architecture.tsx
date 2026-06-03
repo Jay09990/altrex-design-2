@@ -1,6 +1,6 @@
 import { useEffect, useRef, memo } from "react";
 import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
-import { ReactFlow, Background, BackgroundVariant, useNodesState, useEdgesState, Position, Handle, BaseEdge, getSmoothStepPath, type Node, type Edge, type NodeProps, type EdgeProps } from "@xyflow/react";
+import { ReactFlow, Background, BackgroundVariant, useNodesState, useEdgesState, Position, Handle, BaseEdge, getSmoothStepPath, type Node, type Edge, type NodeProps, type EdgeProps, getSimpleBezierPath } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { BriefcaseBusiness, Building2, Car, Cloud, Cpu, Database, Factory, FlaskConical, Globe, HeartPulse, Layers3, Monitor, Network, Radio, Server, ShieldCheck, Users, Wifi, Zap } from "lucide-react";
 import { Badge } from "../ui/badge";
@@ -247,7 +247,7 @@ function HostingNode({ data }: NodeProps<any>) {
 const AnimatedEdge = memo(function AnimatedEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition }: EdgeProps) {
   const color = C.edge;
   const duration = EDGE_DURATIONS[id] ?? 5;
-  const [edgePath] = getSmoothStepPath({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, borderRadius: 30 });
+  const [edgePath] = getSimpleBezierPath({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition });
   return (
     <>
       <BaseEdge id={id} path={edgePath} style={{ stroke: color, strokeWidth: 1.5, strokeOpacity: 0.15 }} />
