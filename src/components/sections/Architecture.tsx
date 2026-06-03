@@ -1,6 +1,6 @@
 import { useEffect, useRef, memo } from "react";
 import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
-import { ReactFlow, Background, BackgroundVariant, useNodesState, useEdgesState, Position, Handle, BaseEdge, getSmoothStepPath, type Node, type Edge, type NodeProps, type EdgeProps, getSimpleBezierPath } from "@xyflow/react";
+import { ReactFlow, Background, BackgroundVariant, useNodesState, useEdgesState, Position, Handle, BaseEdge, type Node, type Edge, type NodeProps, type EdgeProps, getBezierPath } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { BriefcaseBusiness, Building2, Car, Cloud, Cpu, Database, Factory, FlaskConical, Globe, HeartPulse, Layers3, Monitor, Network, Radio, Server, ShieldCheck, Users, Wifi, Zap } from "lucide-react";
 import { Badge } from "../ui/badge";
@@ -144,8 +144,8 @@ function PlatformNode({ data }: NodeProps<any>) {
         );
       })}
 
-      <Handle type="target" position={Position.Left}   style={{ left: 0, top: "50%", opacity: 0 }} />
-      <Handle type="source" position={Position.Right}  style={{ right: 0, top: "50%", opacity: 0 }} />
+      <Handle type="target" position={Position.Left} style={{ left: 0, top: "50%", opacity: 0 }} />
+      <Handle type="source" position={Position.Right} style={{ right: 0, top: "50%", opacity: 0 }} />
       <Handle type="source" position={Position.Bottom} style={{ bottom: 0, left: "50%", opacity: 0 }} id="bottom" />
     </div>
   );
@@ -167,9 +167,9 @@ function ItemNode({ data }: NodeProps<any>) {
         <span className="text-xs font-semibold leading-none text-[var(--text-primary)]">{data.label}</span>
         <span className="font-mono text-[7px] leading-none uppercase tracking-widest" style={{ color: `${color}65` }}>◉ STATUS:ACTIVE</span>
       </div>
-      <Handle type="target" position={Position.Left}  style={{ opacity: 0 }} />
+      <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
       <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
-      <Handle type="target" position={Position.Top}   style={{ opacity: 0 }} id="top" />
+      <Handle type="target" position={Position.Top} style={{ opacity: 0 }} id="top" />
     </div>
   );
 }
@@ -206,8 +206,8 @@ function BlockNode({ data }: NodeProps<any>) {
           })}
         </div>
       )}
-      <Handle type="target" position={Position.Left}   style={{ opacity: 0 }} />
-      <Handle type="source" position={Position.Right}  style={{ opacity: 0 }} />
+      <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
+      <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
       <Handle type="source" position={Position.Bottom} style={{ opacity: 0 }} id="bottom" />
     </div>
   );
@@ -247,7 +247,7 @@ function HostingNode({ data }: NodeProps<any>) {
 const AnimatedEdge = memo(function AnimatedEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition }: EdgeProps) {
   const color = C.edge;
   const duration = EDGE_DURATIONS[id] ?? 5;
-  const [edgePath] = getSimpleBezierPath({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition });
+  const [edgePath] = getBezierPath({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition });
   return (
     <>
       <BaseEdge id={id} path={edgePath} style={{ stroke: color, strokeWidth: 1.5, strokeOpacity: 0.15 }} />
@@ -257,7 +257,7 @@ const AnimatedEdge = memo(function AnimatedEdge({ id, sourceX, sourceY, targetX,
 });
 
 /** Perfectly straight line — used for ERP so the edge has zero curvature */
-const StraightAnimatedEdge = memo(function StraightAnimatedEdge({ id, sourceX, sourceY, targetX, targetY }: EdgeProps) {
+const StraightAnimatedEdge = memo(function ({ id, sourceX, sourceY, targetX, targetY }: EdgeProps) {
   const color = C.edge;
   const duration = EDGE_DURATIONS[id] ?? 5;
   const edgePath = `M ${sourceX},${sourceY} L ${targetX},${targetY}`;
@@ -284,25 +284,25 @@ const NODES: Node[] = [
     position: { x: 40, y: 90 + i * 70 },
     data: { ...item, color: C.source },
   })),
-  { id: "devices",      type: "block"    as const, position: { x: 320,  y: 190 }, data: { title: "Devices",      color: C.device,       items: devices,       width: 200, variant: "platform"     } },
-  { id: "connectivity", type: "block"    as const, position: { x: 600,  y: 220 }, data: { title: "Connectivity", color: C.connectivity, items: connectivity,  width: 200, variant: "connectivity" } },
-  { id: "platform",     type: "platform" as const, position: { x: 880,  y: 188}, data: { items: platform } },
+  { id: "devices", type: "block" as const, position: { x: 320, y: 190 }, data: { title: "Devices", color: C.device, items: devices, width: 200, variant: "platform" } },
+  { id: "connectivity", type: "block" as const, position: { x: 600, y: 220 }, data: { title: "Connectivity", color: C.connectivity, items: connectivity, width: 200, variant: "connectivity" } },
+  { id: "platform", type: "platform" as const, position: { x: 880, y: 188 }, data: { items: platform } },
   // Combined hosting node
-  { id: "hosting",      type: "hosting"  as const, position: { x: 1354, y: 212  }, data: { items: hosting } },
+  { id: "hosting", type: "hosting" as const, position: { x: 1354, y: 212 }, data: { items: hosting } },
   // SAP / ERP / CRM — further below, ERP centred under platform
-  { id: "sap", type: "item" as const, position: { x: 793,  y: 768 }, data: { icon: BriefcaseBusiness, label: "SAP", color: C.system } },
-  { id: "erp", type: "item" as const, position: { x: 1013, y: 768 }, data: { icon: Database,          label: "ERP", color: C.system } },
-  { id: "crm", type: "item" as const, position: { x: 1233, y: 768 }, data: { icon: Users,             label: "CRM", color: C.system } },
+  { id: "sap", type: "item" as const, position: { x: 793, y: 768 }, data: { icon: BriefcaseBusiness, label: "SAP", color: C.system } },
+  { id: "erp", type: "item" as const, position: { x: 1013, y: 768 }, data: { icon: Database, label: "ERP", color: C.system } },
+  { id: "crm", type: "item" as const, position: { x: 1233, y: 768 }, data: { icon: Users, label: "CRM", color: C.system } },
 ];
 
 const EDGES: Edge[] = [
   ...industries.map((_, i) => ({ id: `ind-dev-${i}`, source: `industry-${i}`, target: "devices", type: "animated" as const })),
-  { id: "dev-con",  source: "devices",      target: "connectivity", type: "animated" },
-  { id: "con-plat", source: "connectivity", target: "platform",     type: "animated" },
-  { id: "plat-host",source: "platform",     target: "hosting",      type: "animated" },
+  { id: "dev-con", source: "devices", target: "connectivity", type: "animated" },
+  { id: "con-plat", source: "connectivity", target: "platform", type: "animated" },
+  { id: "plat-host", source: "platform", target: "hosting", type: "animated" },
   { id: "plat-sap", source: "platform", sourceHandle: "bottom", target: "sap", targetHandle: "top", type: "animated" },
   // straight-animated → perfectly vertical, no curve
-  { id: "plat-erp", source: "platform", sourceHandle: "bottom", target: "erp", targetHandle: "top", type: "straight-animated" as const },
+  { id: "plat-erp", source: "platform", sourceHandle: "bottom", target: "erp", targetHandle: "top", type: "animated"},
   { id: "plat-crm", source: "platform", sourceHandle: "bottom", target: "crm", targetHandle: "top", type: "animated" },
 ];
 
@@ -349,12 +349,12 @@ const Architecture = () => {
   const [flowNodes, , onNodesChange] = useNodesState(NODES);
   const [flowEdges, , onEdgesChange] = useEdgesState(EDGES);
   const sectionRef = useRef<HTMLDivElement>(null);
-  const canvasRef  = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const bgY    = useTransform(scrollYProgress, [0, 1], ["0%",   "15%"]);
-  const cardY  = useTransform(scrollYProgress, [0, 1], ["0%",   "-8%"]);
-  const labelY = useTransform(scrollYProgress, [0, 1], ["0%",  "-20%"]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const cardY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
+  const labelY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -371,7 +371,7 @@ const Architecture = () => {
       const grid = document.getElementById("bg-grid-overlay");
       if (!grid) return;
       if (e.isIntersecting) { gsap.to(grid, { opacity: 0.8, duration: 0.8, ease: "power2.out" }); }
-      else                  { gsap.to(grid, { opacity: 0.3, duration: 0.6, ease: "power2.out" }); }
+      else { gsap.to(grid, { opacity: 0.3, duration: 0.6, ease: "power2.out" }); }
     }, { threshold: 0.2 });
     observer.observe(section);
     return () => observer.disconnect();
@@ -444,7 +444,7 @@ const Architecture = () => {
             defaultViewport={{ x: 0, y: 0, zoom: 1 }}
             nodesDraggable
             nodesConnectable={false}
-            elementsSelectable={false}
+            elementsSelectable={true}
             proOptions={{ hideAttribution: true }}
           >
             <Background variant={BackgroundVariant.Dots} gap={28} size={1.2} color="var(--border-subtle)" />
