@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  BookOpen,
-  Contact,
-  Zap,
-} from "lucide-react";
+import { Contact } from "lucide-react";
 
 import { Button } from "../ui/button";
 
@@ -38,10 +34,7 @@ const CTA = ({
 
   const secondary = secondaryAction ?? null;
 
-  const accentClasses =
-    accent === "teal"
-      ? "border-teal-500/20 bg-teal-950/20"
-      : "border-orange-500/20 bg-slate-950/10";
+  const accentClasses = accent === "teal" ? "border-teal-500/20" : "border";
 
   const primaryClass =
     accent === "teal"
@@ -100,7 +93,9 @@ const CTA = ({
         }
       `}</style>
 
-      <div className={`relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm ${accentClasses}`}>
+      <div
+        className={`relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm ${accentClasses}`}
+      >
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div>
             <h2 className="font-bold text-4xl text-[var(--text-primary)] leading-snug">

@@ -1,6 +1,6 @@
 import { useEffect, useRef, memo } from "react";
 import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
-import { ReactFlow, Background, BackgroundVariant, useNodesState, useEdgesState, Position, Handle, BaseEdge, type Node, type Edge, type NodeProps, type EdgeProps, getBezierPath } from "@xyflow/react";
+import { ReactFlow, useNodesState, useEdgesState, Position, Handle, BaseEdge, type Node, type Edge, type NodeProps, type EdgeProps, getBezierPath } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { BriefcaseBusiness, Building2, Car, Cloud, Cpu, Database, Factory, FlaskConical, Globe, HeartPulse, Layers3, Monitor, Network, Radio, Server, ShieldCheck, Users, Wifi, Zap, Plug, Settings, Activity, Cable, Code } from "lucide-react";
 import { Badge } from "../ui/badge";
@@ -127,16 +127,14 @@ function ItemNode({ data }: NodeProps<any>) {
   const Icon = data.icon;
   return (
     <div
-      className="flex min-w-[155px] items-center gap-2.5 rounded-xl bg-[var(--bg-surface)] px-3 py-2.5 transition-all duration-200"
-      style={{ border: `1px solid ${color}15`, boxShadow: `0 0 0 1px ${color}04, 0 4px 16px rgba(0,0,0,0.05), 0 0 10px ${color}05` }}
+      className={`flex min-w-[140px] items-center gap-3.5 rounded-xl bg-[var(--bg-surface)] px-4 py-3.5 transition-all duration-200`}
+      style={{
+        border: `1px solid ${iconColor}`,
+        boxShadow: `0 8px 12px -9px ${iconColor}`,
+      }}
     >
-      <div className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-lg" style={{ background: `${iconColor}15`, border: `1px solid ${iconColor}30` }}>
-        {Icon && <Icon size={16} color={iconColor} strokeWidth={1.8} />}
-      </div>
-      <div className="flex min-w-0 flex-col gap-[3px]">
-        <span className="text-sm font-semibold leading-none text-[var(--text-primary)]">{data.label}</span>
-        <span className="font-mono text-[9px] leading-none uppercase tracking-widest text-[var(--text-muted)]">◉ STATUS:ACTIVE</span>
-      </div>
+      {Icon && <Icon size={20} color={iconColor} strokeWidth={2} />}
+      <span className="text-[13px] font-bold tracking-tight text-[var(--text-primary)]">{data.label}</span>
       <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
       <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
       <Handle type="target" position={Position.Top} style={{ opacity: 0 }} id="top" />
@@ -428,21 +426,24 @@ const edgeTypes: any = { animated: AnimatedEdge, "straight-animated": StraightAn
 // ── Node layout ───────────────────────────────────────────────────────────────
 const NODES: Node[] = [
   // Industries — tighter 70 px pitch
-  ...industries.map((item, i) => ({
-    id: `industry-${i}`,
-    type: "item" as const,
-    position: { x: 40, y: 60 + i * 70 },
-    data: { ...item, color: C.source },
-  })),
+  ...industries.map((item, i) => {
+    const itemColors = [C.system, C.device, C.connectivity, C.platform, C.cloud, C.system, C.device];
+    return {
+      id: `industry-${i}`,
+      type: "item" as const,
+      position: { x: 40, y: 135 + i * 70 },
+      data: { ...item, color: itemColors[i % itemColors.length] },
+    };
+  }),
   {
     id: "merged-hub",
     type: "merged-hub" as const,
-    position: { x: 330, y: 100 },
+    position: { x: 330, y: 175 },
     data: { devices: devices, connectivity: connectivity }
   },
-  { id: "platform", type: "platform" as const, position: { x: 760, y: 99 }, data: { items: platform } },
-  { id: "hosting", type: "list-group" as const, position: { x: 1250, y: 45 }, data: { items: hosting, title: "Hosting", color: C.cloud } },
-  { id: "services", type: "list-group" as const, position: { x: 1250, y: 280 }, data: { items: services, title: "Enterprise Services", color: C.platform } },
+  { id: "platform", type: "platform" as const, position: { x: 760, y: 174 }, data: { items: platform } },
+  { id: "hosting", type: "list-group" as const, position: { x: 1250, y: 120 }, data: { items: hosting, title: "Hosting", color: C.cloud } },
+  { id: "services", type: "list-group" as const, position: { x: 1250, y: 355 }, data: { items: services, title: "Enterprise Services", color: C.platform } },
 ];
 
 const EDGES: Edge[] = [
@@ -464,7 +465,10 @@ function useFlowStyles() {
       .arch-flow .react-flow__node { cursor: grab; }
       .arch-flow .react-flow__node:active { cursor: grabbing; }
       .arch-flow .react-flow__attribution { display: none !important; }
-      .arch-flow .react-flow__renderer { background: transparent !important; }
+      .arch-flow .react-flow__renderer,
+      .arch-flow .react-flow__pane,
+      .arch-flow .react-flow__background,
+      .arch-flow { background: transparent !important; }
       .flow-active .beam-animated { animation-play-state: running; }
       .beam-animated { animation-play-state: paused; }
       @keyframes beam-flow { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
@@ -512,7 +516,7 @@ const Architecture = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-transparent py-28">
+    <section ref={sectionRef} className="relative overflow-hidden bg-transparent pt-28">
       <motion.div style={{ y: bgY }} className="pointer-events-none absolute inset-0 -z-10 opacity-60">
         <div className="absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, var(--border-subtle) 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
       </motion.div>
@@ -528,33 +532,12 @@ const Architecture = () => {
 
         <motion.div
           ref={canvasRef}
-          className="relative mt-16 overflow-hidden rounded-xl bg-[var(--bg-surface)]"
-          style={{ y: cardY, height: 600, border: "1px solid var(--border-subtle)", boxShadow: "0 0 0 1px rgba(0,0,0,0.04), 0 8px 60px rgba(0,0,0,0.06), 0 0 50px var(--accent-glow)" }}
+          className="relative mt-16 overflow-hidden"
+          style={{
+            y: cardY,
+            height: 750,
+          }}
         >
-          <motion.div style={{ y: labelY }} className="pointer-events-none absolute left-6 top-6 z-20 hidden lg:block"><div className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)]/90 px-4 py-3 font-mono text-[12px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">[STACK: LAYERED]</div></motion.div>
-          <motion.div style={{ y: labelY }} className="pointer-events-none absolute right-6 top-6 z-20 hidden lg:block"><div className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)]/90 px-4 py-3 font-mono text-[12px] tracking-widest text-[var(--text-secondary)] backdrop-blur-sm">[PARALLAX: ON]</div></motion.div>
-
-          <div className="border-b border-black/[0.06] bg-[var(--bg-void)]">
-            <div className="flex items-center justify-between px-5 py-2">
-              <div className="flex items-center gap-3">
-                <div className="flex gap-1.5"><span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" /><span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" /><span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" /></div>
-                <div className="h-3 w-px bg-black/[0.08]" /><span className="font-mono text-[12px] text-[var(--text-muted)]">altrex@arch:~${" "}<span className="text-[var(--accent-violet)]">./run_topology</span>{" "}--env=prod --realtime</span>
-              </div>
-              <div className="flex items-center gap-4">
-                <span className="font-mono text-[11px] text-[var(--text-muted)]">NODES <span className="text-[var(--accent-violet)]">12</span></span>
-                <span className="font-mono text-[11px] text-[var(--text-muted)]">EDGES <span className="text-[var(--accent-fuchsia)]">11</span></span>
-                <div className="h-3 w-px bg-black/[0.08]" /><div className="flex items-center gap-1.5"><span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--data-green)]" /><span className="font-mono text-[11px] tracking-widest text-[var(--data-green)] uppercase">LIVE</span></div>
-              </div>
-            </div>
-            <div className="flex items-center gap-5 border-t border-black/[0.06] bg-black/[0.02] px-5 py-[5px]">
-              <span className="font-mono text-[10px] text-[var(--text-muted)]"><span className="text-[var(--accent-violet)]">▶</span> TOPOLOGY_ACTIVE</span>
-              <span className="font-mono text-[10px] text-[var(--text-muted)]">PROTO: <span className="text-[var(--data-green)]">MQTT · OPC-UA · REST</span></span>
-              <span className="font-mono text-[10px] text-[var(--text-muted)]">SEC: <span className="text-[var(--data-green)]">TLS 1.3</span></span>
-              <span className="font-mono text-[10px] text-[var(--text-muted)]">UPTIME: <span className="text-[var(--text-secondary)]">99.97%</span></span>
-            </div>
-          </div>
-
-          <div className="pointer-events-none absolute inset-x-0 top-[63px] z-10 h-px bg-gradient-to-r from-transparent via-[var(--accent-violet)]/40 to-transparent" />
 
 
           <ReactFlow
@@ -578,13 +561,27 @@ const Architecture = () => {
             nodesConnectable={false}
             elementsSelectable={false}
             autoPanOnNodeDrag={false}
-            nodeExtent={[[0, 0], [1600, 520]]}
+            nodeExtent={[[0, 0], [1600, 750]]}
             proOptions={{ hideAttribution: true }}
-          >
-            <Background variant={BackgroundVariant.Dots} gap={28} size={1.2} color="var(--border-subtle)" />
-          </ReactFlow>
+          />
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-px bg-gradient-to-r from-transparent via-[var(--accent-violet)]/30 to-transparent" />
+          {/* SVG grid overlay — rendered above ReactFlow so it's always visible */}
+          <svg
+            className="pointer-events-none absolute inset-0 h-full w-full"
+            style={{
+              zIndex: 20,
+              WebkitMaskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+              maskImage: "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+            }}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <pattern id="arch-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(100,116,139,0.25)" strokeWidth="1" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#arch-grid)" />
+          </svg>
         </motion.div>
       </div>
     </section>
