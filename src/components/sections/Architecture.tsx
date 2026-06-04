@@ -1,33 +1,9 @@
 
-import { useEffect, useRef, memo } from "react";
+import { useEffect, useRef, memo, useState } from "react";
 import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
 import { ReactFlow, useNodesState, useEdgesState, Position, Handle, BaseEdge, type Node, type Edge, type NodeProps, type EdgeProps, getBezierPath } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
-import {
-  BriefcaseBusiness,
-  Building2,
-  Car,
-  Cloud,
-  Cpu,
-  Database,
-  Factory,
-  FlaskConical,
-  Globe,
-  Layers3,
-  Monitor,
-  Network,
-  Radio,
-  Server,
-  ShieldCheck,
-  Users,
-  Wifi,
-  Zap,
-  Plug,
-  Settings,
-  Activity,
-  Cable,
-  Code,
-} from "lucide-react";
+import { BriefcaseBusiness, Building2, Car, Cloud, Cpu, Database, Factory, FlaskConical, Globe, Layers3, Monitor, Network, Radio, Server, ShieldCheck, Users, Wifi, Zap, Plug, Settings, Activity, Cable, Code, ArrowDown } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { gsap } from "gsap";
 import { useTheme } from "@/hooks/useTheme";
@@ -830,6 +806,16 @@ const Architecture = () => {
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const cardY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
+  const labelY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
