@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   Activity,
   Network,
@@ -12,12 +12,20 @@ import {
   Truck,
   Sun,
   Leaf,
+  BookOpen,
+  Contact,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import Architecture from "@/components/sections/Architecture";
 import CharReveal from "@/components/CharReveal";
+import CoreFeatures from "@/components/sections/CoreFeatures";
+import CTA from "@/components/sections/CTA";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
+import ROIMetricsCascade from "@/components/sections/ROIMetricsCascade";
+import StatisticsSection from "@/components/sections/StatisticsSection";
 import SystemDataTicker from "@/components/SystemDataTicker";
 import StarBorder from "@/components/StarBorder";
+import { INDUSTRIES } from "@/data/industriesData";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 // ─────────────────────────────────────────────
@@ -468,9 +476,6 @@ function IndustryTab({
 // ─────────────────────────────────────────────
 const Solutions = () => {
   const cardTilt = useMagneticTilt({ maxRotate: 5, perspective: 1000 });
-  const [activeId, setActiveId] = useState<string>("cgd");
-
-  const active = INDUSTRY_SOLUTIONS.find((s) => s.id === activeId)!;
 
   return (
     <div className="min-h-screen bg-[var(--bg-void)] pt-24 pb-20 text-[var(--text-primary)] overflow-hidden">
@@ -496,7 +501,7 @@ const Solutions = () => {
             </div>
             <span className="font-mono text-sm text-[var(--text-primary)]">
               <InViewDecryptedText
-                text="ENTERPRISE USE CASES"
+                text="PLATFORM CAPABILITIES"
                 speed={40}
                 className="text-[var(--text-primary)]"
                 encryptedClassName="text-[var(--text-muted)]"
@@ -506,7 +511,7 @@ const Solutions = () => {
 
           <CharReveal
             as="h1"
-            lines={["THE REALTIME IMPERATIVE"]}
+            lines={["THE REALTIME", "INFRASTRUCTURE LAYER."]}
             className="text-4xl font-bold tracking-tight sm:text-6xl uppercase"
             immediate
             delay={0}
@@ -520,8 +525,8 @@ const Solutions = () => {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="mx-auto mt-8 max-w-3xl text-lg text-[var(--text-secondary)] leading-relaxed"
           >
-            From smart factories to national energy grids, Altrex provides the unyielding
-            infrastructure required to capture, route, and analyze industrial events instantly.
+            From edge sensor to enterprise dashboard — Altrex closes the latency gap at every layer
+            of your industrial stack.
           </motion.p>
 
           <motion.div
@@ -532,127 +537,29 @@ const Solutions = () => {
           >
             <SystemDataTicker
               items={[
-                "SYS_ROUTING: DISTRIBUTED",
-                "THROUGHPUT: 18.2 GB/S",
-                "AVG_LATENCY: 4.2ms",
-                "PACKET_LOSS: 0.0000001%",
-                "ENCRYPTION: mTLS ACTIVE",
+                "EVENT BUS: MULTI-PROTOCOL",
+                "INGESTION: 20M EVENTS/S",
+                "DECISIONING: EDGE + CLOUD",
+                "SECURITY: ZERO TRUST",
+                "OBSERVABILITY: FULL STACK",
               ]}
             />
           </motion.div>
         </div>
 
         {/* ══════════════════════════════════════
-            SECTION 2 — INDUSTRY SOLUTIONS
-            Reference-image layout:
-            Left: big circle with title
-            Right: numbered rows with bullets
+            SECTION 2 — CORE PLATFORM CAPABILITIES
         ══════════════════════════════════════ */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.7 }}
-          className="mb-32"
-        >
-          {/* section header */}
-          <div className="text-center mb-12">
-            <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-widest">
-              [ INDUSTRY SOLUTIONS ]
-            </span>
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
-              Built for Your Industry
-            </h2>
-          </div>
-
-          {/* Industry selector tabs */}
-          <div className="flex flex-wrap justify-center gap-2 mb-12">
-            {INDUSTRY_SOLUTIONS.map((sol) => (
-              <IndustryTab
-                key={sol.id}
-                solution={sol}
-                active={activeId === sol.id}
-                onClick={() => setActiveId(sol.id)}
-              />
-            ))}
-          </div>
-
-          {/* Content panel */}
-          <div
-            className="rounded-2xl border border-white/[0.07] bg-[var(--bg-surface)]/40 backdrop-blur-sm overflow-hidden"
-            style={{ boxShadow: `0 0 60px ${active.accentHex}10` }}
-          >
-            {/* top accent line */}
-            <div
-              className="h-[2px] w-full"
-              style={{
-                background: `linear-gradient(90deg, transparent, ${active.accentHex}, transparent)`,
-              }}
-            />
-
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.6fr] gap-0">
-
-              {/* LEFT — hero panel */}
-              <div
-                className="flex items-center justify-center p-10 border-b lg:border-b-0 lg:border-r"
-                style={{ borderColor: `${active.accentHex}18` }}
-              >
-                <AnimatePresence mode="wait">
-                  <IndustryHeroPanel key={active.id} solution={active} />
-                </AnimatePresence>
-              </div>
-
-              {/* RIGHT — solution rows */}
-              <div className="p-8 sm:p-10">
-                {/* sub-heading */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.id + "-heading"}
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.3 }}
-                    className="mb-8"
-                  >
-                    <span
-                      className="font-mono text-xs uppercase tracking-widest"
-                      style={{ color: active.accentHex }}
-                    >
-                      {active.tagline}
-                    </span>
-                    <h3 className="text-xl font-bold text-[var(--text-primary)] mt-1">
-                      {active.description}
-                    </h3>
-                  </motion.div>
-                </AnimatePresence>
-
-                {/* numbered items */}
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={active.id + "-rows"}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.25 }}
-                    className="flex flex-col gap-1"
-                  >
-                    {active.items.map((item, i) => (
-                      <SolutionRow
-                        key={item.number}
-                        item={item}
-                        accent={active.accentHex}
-                        index={i}
-                      />
-                    ))}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+        <CoreFeatures showIndustryLinks={true} />
 
         {/* ══════════════════════════════════════
-            SECTION 3 — CORE CAPABILITIES MATRIX
+            SECTION 3 — ARCHITECTURE DIAGRAM
+            How Altrex fits into your stack
+        ══════════════════════════════════════ */}
+        <Architecture />
+
+        {/* ══════════════════════════════════════
+            SECTION 4 — CORE CAPABILITIES MATRIX
             (retained from original)
         ══════════════════════════════════════ */}
         <motion.div
@@ -717,6 +624,119 @@ const Solutions = () => {
             ))}
           </div>
         </motion.div>
+
+        {/* ══════════════════════════════════════
+            SECTION 5 — ROI & BUSINESS OUTCOMES
+            Financial, operational, and risk ROI
+        ══════════════════════════════════════ */}
+        <ROIMetricsCascade />
+
+        {/* ══════════════════════════════════════
+            SECTION 6 — PLATFORM STATISTICS
+            Social proof: scale, uptime, performance
+        ══════════════════════════════════════ */}
+        <StatisticsSection />
+
+        {/* ══════════════════════════════════════
+            SECTION 7 — INDUSTRY QUICK-LINKS CTA
+            Bridge to /industries with sector navigation
+        ══════════════════════════════════════ */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7 }}
+          className="mb-32"
+        >
+          <div className="text-center mb-16">
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+              Find your sector
+            </h2>
+            <p className="mt-4 text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">
+              See how Altrex powers realtime operations across industries.
+            </p>
+          </div>
+
+          {/* Industry button grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-12">
+            {INDUSTRIES.map((industry) => {
+              const iconMap: Record<string, React.ReactNode> = {
+                cgd: <Flame className="h-5 w-5" />,
+                omc: <Truck className="h-5 w-5" />,
+                steel: <Activity className="h-5 w-5" />,
+                manufacturing: <Layers className="h-5 w-5" />,
+                wind: <Wind className="h-5 w-5" />,
+                solar: <Sun className="h-5 w-5" />,
+                renewable: <Leaf className="h-5 w-5" />,
+              };
+
+              const colorMap: Record<string, string> = {
+                cgd: "#f97316",
+                omc: "#60a5fa",
+                steel: "#94a3b8",
+                manufacturing: "#c084fc",
+                wind: "#22d3ee",
+                solar: "#facc15",
+                renewable: "#4ade80",
+              };
+
+              return (
+                <Link
+                  key={industry.id}
+                  to={`/industries?sector=${industry.id}`}
+                  className="group"
+                >
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full rounded-2xl border border-white/10 bg-[var(--bg-surface)]/40 p-4 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-[var(--bg-surface)]/60"
+                  >
+                    <div className="flex flex-col items-center gap-2 text-center">
+                      <div
+                        className="p-2 rounded-lg"
+                        style={{
+                          backgroundColor: `${colorMap[industry.id]}20`,
+                        }}
+                      >
+                        <span
+                          style={{ color: colorMap[industry.id] }}
+                        >
+                          {iconMap[industry.id]}
+                        </span>
+                      </div>
+                      <h4 className="text-sm font-semibold text-[var(--text-primary)]">
+                        {industry.name}
+                      </h4>
+                    </div>
+                  </motion.button>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Primary & Secondary CTAs */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4">
+            <Link
+              to="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-white bg-orange-500 hover:bg-orange-600 transition-colors"
+            >
+              <Contact className="h-5 w-5" />
+              Book a Demo
+            </Link>
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-[var(--text-primary)] border border-white/10 hover:border-white/20 transition-colors"
+            >
+              <span>View Projects</span>
+              <ChevronRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </motion.div>
+
+        {/* ══════════════════════════════════════
+            SECTION 6 — PLATFORM STATISTICS
+            Social proof: scale, uptime, performance
+        ══════════════════════════════════════ */}
 
       </div>
     </div>

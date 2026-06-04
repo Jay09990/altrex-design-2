@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Activity,
   ShieldCheck,
   Radio,
   BarChart3,
   Layers3,
+  ArrowRight,
 } from "lucide-react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 
@@ -20,6 +22,8 @@ const features = [
       "Connect industrial assets over Modbus, OPC-UA, MQTT, edge drivers and modern APIs with support for Siemens, Rockwell, Schneider, ABB, IEC, DNP3, and BACnet.",
     color: "#f97316",
     label: "CONNECTIVITY",
+    industryExample: "omc",
+    industryLabel: "OMC",
     bullets: [
       "Field-ready Modbus, OPC-UA, and MQTT integration",
       "Support for Siemens, Rockwell, Schneider, ABB equipment",
@@ -34,6 +38,8 @@ const features = [
       "IEC-62443 aligned security with role-based access, MFA, secure deployment modes, and cloud or on-premise protection.",
     color: "#06b6d4",
     label: "SECURITY",
+    industryExample: "steel",
+    industryLabel: "Steel",
     bullets: [
       "IEC-62443 aligned industrial security posture",
       "Multi-factor authentication for every user and admin",
@@ -48,6 +54,8 @@ const features = [
       "Unlimited field devices, tags, clients, users, and assets powered by a SaaS-ready industrial platform architecture.",
     color: "#22c55e",
     label: "LIMITLESS",
+    industryExample: "wind",
+    industryLabel: "Wind",
     bullets: [
       "Unlimited device and asset scale for industrial operations",
       "Infinite tag capacity for telemetry, alarms, and metadata",
@@ -62,6 +70,8 @@ const features = [
       "Alarm engine, fleet and VTS management, KPIs, predictive insights, report schedulers, and dynamic analytics.",
     color: "#f59e0b",
     label: "INTELLIGENCE",
+    industryExample: "manufacturing",
+    industryLabel: "Manufacturing",
     bullets: [
       "Advanced alarm engine and operational event processing",
       "Live KPIs and fleet / VTS telemetry management",
@@ -76,6 +86,8 @@ const features = [
       "Interactive dashboards, asset maps, GIS visualization, real-time reporting, and operational context across every workflow.",
     color: "#3b82f6",
     label: "VISUALIZE",
+    industryExample: "renewable",
+    industryLabel: "Renewable",
     bullets: [
       "Real-time dashboards with industrial context",
       "GIS mapping and asset visualization across sites",
@@ -107,7 +119,11 @@ const fadeUpVariants: Variants = {
   },
 };
 
-const CoreFeatures = () => {
+interface CoreFeaturesProps {
+  showIndustryLinks?: boolean;
+}
+
+const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
@@ -298,6 +314,19 @@ const CoreFeatures = () => {
                     </div>
                   ))}
                 </div>
+
+                {showIndustryLinks && "industryExample" in activeFeature && (
+                  <div className="mt-8 pt-6 border-t border-white/5">
+                    <Link
+                      to={`/industries?sector=${activeFeature.industryExample}`}
+                      className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider transition-all hover:gap-3"
+                      style={{ color: activeFeature.color }}
+                    >
+                      <span>See how this works in {activeFeature.industryLabel}</span>
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </div>
+                )}
 
                 <div className="mt-auto text-right font-mono text-[10px] tracking-widest text-[var(--text-muted)] uppercase">
                   [SYS: 04 / LAT: 11ms / REG: EU-WEST]
