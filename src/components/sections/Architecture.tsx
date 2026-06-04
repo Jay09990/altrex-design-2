@@ -30,6 +30,7 @@ import {
   Factory,
   FlaskConical,
   Globe,
+  HeartPulse,
   Layers3,
   Monitor,
   Network,
@@ -767,6 +768,7 @@ const Architecture = () => {
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const cardY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
+  const labelY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
