@@ -78,7 +78,7 @@ const HeroSection = () => {
           {/* Heading — character-by-character reveal */}
           <CharReveal
             as="h1"
-            lines={["BUILD REALTIME APPLICATIONS", "WITHOUT COMPLEXITY"]}
+            lines={["EMPOWERING THE INDUSTRY", "THROUGH DIGITAL MATURITY"]}
             className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-8 leading-[0.95]"
             immediate
             delay={0}

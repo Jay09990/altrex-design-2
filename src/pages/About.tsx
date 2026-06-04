@@ -149,7 +149,7 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[75vh] items-center overflow-hidden bg-transparent pt-28 pb-20"
+      className="relative flex min-h-[60vh] sm:min-h-[75vh] items-center overflow-hidden bg-transparent pt-20 sm:pt-32 pb-16 sm:pb-24"
     >
       {/* Animated glow blobs — same pattern as HeroSection.tsx */}
       <div className="bg-grid absolute inset-0 -z-20 opacity-[0.35]" />
@@ -158,7 +158,7 @@ function HeroSection() {
         <div className="absolute -right-24 bottom-0 h-[520px] w-[520px] rounded-full bg-fuchsia-500/10 blur-3xl" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -171,7 +171,7 @@ function HeroSection() {
               <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
               </div>
-              <span className="font-mono text-sm text-[var(--text-primary)]">
+              <span className="font-mono text-xs sm:text-sm text-[var(--text-primary)]">
                 <InViewDecryptedText
                   text="OUR STORY"
                   speed={60}
@@ -186,18 +186,18 @@ function HeroSection() {
           {/* H1 — BlurText animates each word in on mount */}
           <CharReveal
             as="h1"
-            lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELIGENECE"]}
-            className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-25 leading-[0.95]"
+            lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELLIGENCE"]}
+            className="mx-auto max-w-4xl text-2xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-6xl xl:text-7xl mt-8 sm:mt-24 leading-tight sm:leading-[0.95]"
             immediate
             delay={0}
             stagger={0.028}
-            lineGap="mt-2"
+            lineGap="mt-2 sm:mt-2"
           />
 
           {/* Subtitle */}
           <motion.p
             variants={fadeUpVariants}
-            className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-[var(--text-secondary)] sm:text-xl"
+            className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:mt-8 sm:text-xl sm:leading-8"
           >
             Altrex builds scalable industrial IoT infrastructure powering realtime
             SCADA systems, AI-driven analytics, asset intelligence, and industrial
@@ -207,7 +207,7 @@ function HeroSection() {
           {/* Stat chips */}
           <motion.div
             variants={fadeUpVariants}
-            className="mt-12 flex flex-wrap items-center justify-center gap-4"
+            className="mt-10 flex flex-wrap items-center justify-center gap-2.5 sm:mt-12 sm:gap-4"
           >
             {[
               { icon: Building2, label: "Founded 2021" },
@@ -216,15 +216,15 @@ function HeroSection() {
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-[var(--bg-surface)]/60 px-5 py-2.5 shadow-sm"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[var(--bg-surface)]/60 px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5 shadow-sm"
               >
-                <Icon className="h-4 w-4 text-[var(--accent-violet)]" />
-                <span className="text-sm font-medium text-[var(--text-primary)]">{label}</span>
+                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[var(--accent-violet)]" />
+                <span className="text-[11px] font-medium text-[var(--text-primary)] sm:text-sm">{label}</span>
               </div>
             ))}
           </motion.div>
 
-          <motion.div variants={fadeUpVariants} className="mx-auto mt-14 max-w-3xl">
+          <motion.div variants={fadeUpVariants} className="mx-auto mt-12 max-w-3xl sm:mt-14">
             <SystemDataTicker
               items={[
                 "ABOUT: ONLINE",

@@ -1,24 +1,7 @@
-import { useEffect, useRef, memo } from "react";
-import {
-  motion,
-  useInView,
-  useScroll,
-  useTransform,
-  type Variants,
-} from "framer-motion";
-import {
-  ReactFlow,
-  useNodesState,
-  useEdgesState,
-  Position,
-  Handle,
-  BaseEdge,
-  type Node,
-  type Edge,
-  type NodeProps,
-  type EdgeProps,
-  getBezierPath,
-} from "@xyflow/react";
+
+import { useEffect, useRef, memo, useState } from "react";
+import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
+import { ReactFlow, useNodesState, useEdgesState, Position, Handle, BaseEdge, type Node, type Edge, type NodeProps, type EdgeProps, getBezierPath } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import {
   BriefcaseBusiness,
@@ -30,7 +13,6 @@ import {
   Factory,
   FlaskConical,
   Globe,
-  HeartPulse,
   Layers3,
   Monitor,
   Network,
@@ -332,7 +314,7 @@ function MergedHubNode({ data }: NodeProps<any>) {
       style={{
         width: SIZE,
         height: SIZE,
-        background: "transparent",
+        background: "bg-[(var(--bg-surface))]",
       }}
     >
       {/* SVG Connectors */}
@@ -754,6 +736,86 @@ function useFlowStyles() {
   }, []);
 }
 
+const ArchitectureMobile = () => {
+  const { theme } = useTheme();
+  const logo = theme === "dark" ? darklogo : lightlogo;
+
+  const steps = [
+    { title: "Industries", items: industries, color: C.system },
+    { title: "Devices", items: devices, color: C.device },
+    { title: "Connectivity", items: connectivity, color: C.connectivity },
+    { title: "Altrex Platform", items: platform, color: C.platform, isPlatform: true },
+    { title: "Enterprise Systems", items: [...hosting, ...services], color: C.cloud }
+  ];
+
+  return (
+    <div className="mt-12 flex flex-col items-center gap-12 px-4">
+      {steps.map((step, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: idx * 0.1 }}
+          className="relative flex w-full max-w-sm flex-col items-center"
+        >
+          {/* Progress line */}
+          {idx < steps.length - 1 && (
+            <div
+              className="absolute top-full left-1/2 h-12 w-0.5 -translate-x-1/2"
+              style={{ background: `linear-gradient(to bottom, ${step.color}, ${steps[idx + 1].color}40)` }}
+            />
+          )}
+
+          <div
+            className="flex w-full flex-col rounded-2xl border bg-[var(--bg-surface)] p-6 shadow-sm"
+            style={{ borderColor: `${step.color}30`, borderTop: `4px solid ${step.color}` }}
+          >
+            <h3 className="mb-4 text-center text-xs font-bold uppercase tracking-widest" style={{ color: step.color }}>
+              {step.title}
+            </h3>
+
+            {step.isPlatform ? (
+              <div className="flex flex-col items-center">
+                <motion.img
+                  src={logo}
+                  alt="Altrex"
+                  className="mb-6 w-24"
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
+                <div className="grid grid-cols-2 gap-3 w-full">
+                  {step.items.slice(0, 4).map((item: any, i) => (
+                    <div key={i} className="flex flex-col items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-raised)] p-2">
+                      <item.icon size={16} color={step.color} />
+                      <span className="text-[10px] font-bold uppercase tracking-tight text-[var(--text-secondary)]">{item.label}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3">
+                {step.items.map((item: any, i) => (
+                  <div key={i} className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-raised)] p-2">
+                    <item.icon size={14} color={step.color} strokeWidth={2} />
+                    <span className="text-[10px] font-semibold text-[var(--text-primary)]">{item.label}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {idx < steps.length - 1 && (
+            <div className="mt-4 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--bg-surface)] border shadow-sm" style={{ borderColor: `${step.color}40` }}>
+              <ArrowDown size={14} className="text-[var(--text-muted)]" />
+            </div>
+          )}
+        </motion.div>
+      ))}
+    </div>
+  );
+};
+
 // ── Architecture section ───────────────────────────────────────────────────────
 const Architecture = () => {
   useFlowStyles();
@@ -768,7 +830,6 @@ const Architecture = () => {
   });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const cardY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
-  const labelY = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -848,72 +909,76 @@ const Architecture = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          ref={canvasRef}
-          className="relative mt-16 overflow-hidden"
-          style={{
-            y: cardY,
-            height: 750,
-          }}
-        >
-          <ReactFlow
-            className="arch-flow"
-            nodes={flowNodes}
-            edges={flowEdges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            zoomOnScroll={false}
-            zoomOnPinch={false}
-            zoomOnDoubleClick={false}
-            panOnDrag={false}
-            panOnScroll={false}
-            preventScrolling={true}
-            minZoom={1}
-            maxZoom={1}
-            defaultViewport={{ x: 0, y: 0, zoom: 1 }}
-            nodesDraggable
-            nodesConnectable={false}
-            elementsSelectable={false}
-            autoPanOnNodeDrag={false}
-            nodeExtent={[
-              [0, 0],
-              [1600, 750],
-            ]}
-            proOptions={{ hideAttribution: true }}
-          />
-
-          {/* SVG grid overlay — rendered above ReactFlow so it's always visible */}
-          <svg
-            className="pointer-events-none absolute inset-0 h-full w-full"
+        {isMobile ? (
+          <ArchitectureMobile />
+        ) : (
+          <motion.div
+            ref={canvasRef}
+            className="relative mt-16 overflow-hidden"
             style={{
-              zIndex: 20,
-              WebkitMaskImage:
-                "radial-gradient(ellipse at center, black 30%, transparent 75%)",
-              maskImage:
-                "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+              y: cardY,
+              height: 750,
             }}
-            xmlns="http://www.w3.org/2000/svg"
           >
-            <defs>
-              <pattern
-                id="arch-grid"
-                width="40"
-                height="40"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M 40 0 L 0 0 0 40"
-                  fill="none"
-                  stroke="rgba(100,116,139,0.25)"
-                  strokeWidth="1"
-                />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#arch-grid)" />
-          </svg>
-        </motion.div>
+            <ReactFlow
+              className="arch-flow"
+              nodes={flowNodes}
+              edges={flowEdges}
+              onNodesChange={onNodesChange}
+              onEdgesChange={onEdgesChange}
+              nodeTypes={nodeTypes}
+              edgeTypes={edgeTypes}
+              zoomOnScroll={false}
+              zoomOnPinch={false}
+              zoomOnDoubleClick={false}
+              panOnDrag={false}
+              panOnScroll={false}
+              preventScrolling={true}
+              minZoom={1}
+              maxZoom={1}
+              defaultViewport={{ x: 0, y: 0, zoom: 1 }}
+              nodesDraggable
+              nodesConnectable={false}
+              elementsSelectable={false}
+              autoPanOnNodeDrag={false}
+              nodeExtent={[
+                [0, 0],
+                [1600, 750],
+              ]}
+              proOptions={{ hideAttribution: true }}
+            />
+
+            {/* SVG grid overlay — rendered above ReactFlow so it's always visible */}
+            <svg
+              className="pointer-events-none absolute inset-0 h-full w-full"
+              style={{
+                zIndex: 20,
+                WebkitMaskImage:
+                  "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+                maskImage:
+                  "radial-gradient(ellipse at center, black 30%, transparent 75%)",
+              }}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <pattern
+                  id="arch-grid"
+                  width="40"
+                  height="40"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M 40 0 L 0 0 0 40"
+                    fill="none"
+                    stroke="rgba(100,116,139,0.25)"
+                    strokeWidth="1"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#arch-grid)" />
+            </svg>
+          </motion.div>
+        )}
       </div>
     </section>
   );
