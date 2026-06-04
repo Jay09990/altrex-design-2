@@ -15,7 +15,6 @@ import {
   Contact,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import Architecture from "@/components/sections/Architecture";
 import CharReveal from "@/components/CharReveal";
 import CoreFeatures from "@/components/sections/CoreFeatures";
 
@@ -550,12 +549,6 @@ const Solutions = () => {
             SECTION 2 — CORE PLATFORM CAPABILITIES
         ══════════════════════════════════════ */}
         <CoreFeatures showIndustryLinks={true} />
-
-        {/* ══════════════════════════════════════
-            SECTION 3 — ARCHITECTURE DIAGRAM
-            How Altrex fits into your stack
-        ══════════════════════════════════════ */}
-        <Architecture />
 
         {/* ══════════════════════════════════════
             SECTION 4 — CORE CAPABILITIES MATRIX
