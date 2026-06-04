@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   BookOpen,
   Contact,
@@ -6,7 +7,68 @@ import {
 
 import { Button } from "../ui/button";
 
-const CTA = () => {
+type CTAAction = {
+  label: string;
+  href?: string;
+  icon?: React.ReactNode;
+  variant?: "default" | "secondary" | "outline" | "ghost" | "destructive";
+};
+
+type CTAProps = {
+  title?: string;
+  description?: string;
+  primaryAction?: CTAAction;
+  secondaryAction?: CTAAction;
+  accent?: "orange" | "teal";
+};
+
+const CTA = ({
+  title = "Start building with Altrex today",
+  description = "Deploy realtime infrastructure in minutes. No credit card required for the free tier.",
+  primaryAction,
+  secondaryAction,
+  accent = "orange",
+}: CTAProps) => {
+  const primary = primaryAction ?? {
+    label: "Contact Us",
+    href: "#contact",
+    icon: <Contact className="h-3.5 w-3.5" />,
+    variant: "default",
+  };
+
+  const secondary = secondaryAction ?? null;
+
+  const accentClasses =
+    accent === "teal"
+      ? "border-teal-500/20 bg-teal-950/20"
+      : "border-orange-500/20 bg-slate-950/10";
+
+  const primaryClass =
+    accent === "teal"
+      ? "gap-2 bg-teal-500 text-white border-none hover:bg-teal-400"
+      : "gap-2 bg-violet-500 text-white border-none hover:bg-violet-400";
+
+  const secondaryClass =
+    accent === "teal"
+      ? "gap-2 border border-teal-500/30 bg-transparent text-teal-100 hover:bg-teal-500/10"
+      : "gap-2 border border-white/10 bg-transparent text-white/80 hover:bg-white/10";
+
+  const renderAction = (action: CTAAction, className: string) => {
+    return action.href ? (
+      <Button asChild className={className}>
+        <a href={action.href}>
+          {action.icon}
+          {action.label}
+        </a>
+      </Button>
+    ) : (
+      <Button className={className}>
+        {action.icon}
+        {action.label}
+      </Button>
+    );
+  };
+
   return (
     <section className="relative overflow-hidden bg-transparent py-32 mx-auto max-w-7xl px-6 pt-16 pb-0 lg:px-8">
       <style>{`
@@ -38,27 +100,22 @@ const CTA = () => {
         }
       `}</style>
 
-      <div className="relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            <div>
-              <h2 className="font-bold text-4xl text-[var(--text-primary)] leading-snug">
-                Start building with{" "}
-                <span className="bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
-                  Altrex
-                </span>{" "}
-                today
-              </h2>
-              <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-md leading-relaxed">
-                Deploy realtime infrastructure in minutes. No credit card required for the free tier.
-              </p>
-            </div>
-            <div className="flex gap-2.5">
-              <Button className="gap-2 bg-violet-500 text-white border-none">
-                <Contact className="h-3.5 w-3.5" /> Contact Us
-              </Button>
-            </div>
+      <div className={`relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm ${accentClasses}`}>
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div>
+            <h2 className="font-bold text-4xl text-[var(--text-primary)] leading-snug">
+              {title}
+            </h2>
+            <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-md leading-relaxed">
+              {description}
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            {renderAction(primary, primaryClass)}
+            {secondary && renderAction(secondary, secondaryClass)}
           </div>
         </div>
+      </div>
     </section>
   );
 };

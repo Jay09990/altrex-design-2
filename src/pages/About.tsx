@@ -667,11 +667,6 @@ function ValuesSection() {
 
 /* ─── Section: CTA ───────────────────────────────────────────────────────── */
 
-import {
-  BookOpen,
-  Zap,
-} from "lucide-react";
-
 const CTA = () => {
   return (
     <section className="relative overflow-hidden bg-transparent py-32 mx-auto max-w-7xl px-6 pt-16 pb-0 lg:px-8">

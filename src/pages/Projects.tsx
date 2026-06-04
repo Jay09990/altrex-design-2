@@ -13,10 +13,13 @@ import {
   Zap,
   Layers,
   Lock,
+  BookOpen,
+  Contact,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import CharReveal from "@/components/CharReveal";
+import CTA from "@/components/sections/CTA";
 import StarBorder from "@/components/StarBorder";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import SystemDataTicker from "@/components/SystemDataTicker";
@@ -33,7 +36,6 @@ const Projects = () => {
   const [selectedIndustry, setSelectedIndustry] = useState<string>(
     sectorParam || "all",
   );
-  const [selectedStatus, setSelectedStatus] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Sync selected sector if the URL search param changes
@@ -54,22 +56,16 @@ const Projects = () => {
   );
   const [consoleLogs, setConsoleLogs] = useState<string[]>([]);
   const [isPinging, setIsPinging] = useState(false);
+  const [sparklineFlash, setSparklineFlash] = useState(false);
 
   const terminalContainerRef = useRef<HTMLDivElement>(null);
   const cardTilt = useMagneticTilt({ maxRotate: 8, perspective: 800 });
-
-  // Get active project details
-  const activeProject = useMemo(() => {
-    return PROJECTS.find((p) => p.id === activeProjectId) || PROJECTS[0];
-  }, [activeProjectId]);
 
   // Filtered projects
   const filteredProjects = useMemo(() => {
     return PROJECTS.filter((p) => {
       const matchIndustry =
         selectedIndustry === "all" || p.industry === selectedIndustry;
-      const matchStatus =
-        selectedStatus === "all" || p.status === selectedStatus;
       const matchSearch =
         searchQuery.trim() === "" ||
         p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -78,9 +74,17 @@ const Projects = () => {
         p.techStack.some((t) =>
           t.toLowerCase().includes(searchQuery.toLowerCase()),
         );
-      return matchIndustry && matchStatus && matchSearch;
+      return matchIndustry && matchSearch;
     });
-  }, [selectedIndustry, selectedStatus, searchQuery]);
+  }, [selectedIndustry, searchQuery]);
+
+  // Get active project details or show empty state when filters match nothing
+  const activeProject = useMemo(() => {
+    if (filteredProjects.length === 0) return null;
+    return PROJECTS.find((p) => p.id === activeProjectId) || filteredProjects[0];
+  }, [activeProjectId, filteredProjects]);
+
+  const noResults = filteredProjects.length === 0;
 
   // Automatically switch active project if current active project gets filtered out
   useEffect(() => {
@@ -94,6 +98,14 @@ const Projects = () => {
 
   // Sync telemetry history initial state on active project change
   useEffect(() => {
+    if (!activeProject) {
+      setTelemetryHistory([]);
+      setConsoleLogs([
+        "[SYSTEM] NO DEPLOYMENT SELECTED. ADJUST FILTERS TO RESTORE LIVE TELEMETRY.",
+      ]);
+      return;
+    }
+
     setTelemetryHistory(activeProject.initialData);
 
     // Seed initial logs
@@ -124,6 +136,8 @@ const Projects = () => {
 
   // System Log Loop: Appends simulated node logs every 2 seconds
   useEffect(() => {
+    if (!activeProject) return;
+
     const interval = setInterval(() => {
       const templates = activeProject.logTemplates;
       const randomLog = templates[Math.floor(Math.random() * templates.length)];
@@ -149,23 +163,27 @@ const Projects = () => {
 
   // Ping Test simulation
   const handlePingTest = () => {
-    if (isPinging) return;
+    if (isPinging || noResults) return;
+    setSparklineFlash(true);
     setIsPinging(true);
 
     const timestamp = new Date().toLocaleTimeString();
     setConsoleLogs((prev) => [
       ...prev,
       `[${timestamp}] [PING] BROADCASTING ECHO PACKETS TO ALL EDGE REPLICAS...`,
-    ]);
+      `[${timestamp}] [PING] ROUTE LATENCY CHECK INITIATED`,
+      `[${timestamp}] [PING] PACKET STREAM VERIFIED FOR ${activeProject?.title.toUpperCase() || "CURRENT PROJECT"}`,
+    ].slice(-30));
 
-    setTimeout(() => {
+    window.setTimeout(() => {
       const latency = parseFloat((Math.random() * 4 + 2).toFixed(2)); // 2ms - 6ms
+      setSparklineFlash(false);
       setIsPinging(false);
       setConsoleLogs((prev) => [
         ...prev,
         `[${new Date().toLocaleTimeString()}] [PING] ECHO OK // 64 BYTES RECEIVED // RTT = ${latency}ms`,
         `[${new Date().toLocaleTimeString()}] [SYSTEM] DEPLOYMENT INTEGRITY CHECKS NOMINAL.`,
-      ]);
+      ].slice(-30));
     }, 850);
   };
 
@@ -173,7 +191,11 @@ const Projects = () => {
   const chartPath = useMemo(() => {
     const width = 500;
     const height = 150;
-    const step = width / (telemetryHistory.length - 1);
+    if (telemetryHistory.length === 0) {
+      return { linePath: "", fillPath: "", points: [] };
+    }
+
+    const step = width / Math.max(telemetryHistory.length - 1, 1);
 
     // Coordinates
     const points = telemetryHistory.map((val, index) => {
@@ -195,10 +217,12 @@ const Projects = () => {
 
   const clearFilters = () => {
     setSelectedIndustry("all");
-    setSelectedStatus("all");
     setSearchQuery("");
     setSearchParams({});
   };
+
+  const hasActiveFilters =
+    selectedIndustry !== "all" || searchQuery.trim() !== "";
 
   return (
     <div className="min-h-screen bg-[var(--bg-void)] pt-24 pb-20 text-[var(--text-primary)]">
@@ -242,8 +266,9 @@ const Projects = () => {
             className="mx-auto mt-6 max-w-3xl text-lg text-[var(--text-secondary)]"
           >
             Explore real-world industrial deployments built on Altrex realtime
-            core network infrastructure. Click any deployment card to initialize
-            the live metrics diagnostic console and streams.
+            core network infrastructure. Filter by industry, status, or tech
+            stack to surface the exact deployment profile you need, then click a
+            card to initialize the live metrics diagnostic console and streams.
           </motion.p>
 
           <motion.div
@@ -274,87 +299,109 @@ const Projects = () => {
         >
           {/* Active Project Info */}
           <div className="rounded-3xl border border-white/10 bg-[var(--bg-surface)]/75 p-8 lg:col-span-5 flex flex-col justify-between shadow-xl backdrop-blur-md">
-            <div>
-              <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
-                  <Activity className="h-5 w-5" />
-                </span>
+            {activeProject ? (
+              <>
                 <div>
-                  <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">
-                    [ ACTIVE CHANNEL ]
-                  </span>
-                  <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
-                    {activeProject.title}
-                  </h2>
-                </div>
-              </div>
-
-              <p className="mt-6 text-sm leading-relaxed text-[var(--text-secondary)]">
-                {activeProject.description}
-              </p>
-
-              <div className="mt-8 grid grid-cols-3 gap-4 border-y border-white/5 py-6">
-                <div>
-                  <span className="block font-mono text-[10px] uppercase text-[var(--text-muted)] tracking-wider">
-                    Ingest Scale
-                  </span>
-                  <span className="mt-1 block text-lg font-bold text-orange-500">
-                    {activeProject.scale}
-                  </span>
-                </div>
-                <div>
-                  <span className="block font-mono text-[10px] uppercase text-[var(--text-muted)] tracking-wider">
-                    Avg Latency
-                  </span>
-                  <span className="mt-1 block text-lg font-bold text-[var(--text-primary)]">
-                    {activeProject.latency}
-                  </span>
-                </div>
-                <div>
-                  <span className="block font-mono text-[10px] uppercase text-[var(--text-muted)] tracking-wider">
-                    Uptime SLA
-                  </span>
-                  <span className="mt-1 block text-lg font-bold text-[var(--data-green)]">
-                    {activeProject.uptime}
-                  </span>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <h4 className="font-mono text-xs text-[var(--text-secondary)] uppercase tracking-wider mb-3">
-                  Edge SDK & Protocol Integration:
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {activeProject.techStack.map((tech) => (
-                    <span
-                      key={tech}
-                      className="rounded-lg border border-white/5 bg-[var(--bg-raised)] px-3 py-1 font-mono text-xs text-[var(--text-secondary)]"
-                    >
-                      {tech}
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500">
+                      <Activity className="h-5 w-5" />
                     </span>
-                  ))}
-                </div>
-              </div>
-            </div>
+                    <div>
+                      <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">
+                        [ ACTIVE CHANNEL ]
+                      </span>
+                      <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                        {activeProject.title}
+                      </h2>
+                    </div>
+                  </div>
 
-            <div className="mt-10 pt-6 border-t border-white/5 flex items-center justify-between">
-              <Link
-                to={`/industries?sector=${activeProject.industry}`}
-                className="inline-flex items-center gap-2 font-mono text-xs text-orange-500 hover:text-orange-400 transition-colors group"
-              >
-                VIEW INDUSTRY SATELLITE
-                <ExternalLink className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
-              </Link>
-              <div className="flex items-center gap-2">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--data-green)] opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--data-green)]"></span>
+                  <p className="mt-6 text-sm leading-relaxed text-[var(--text-secondary)]">
+                    {activeProject.description}
+                  </p>
+
+                  <div className="mt-8 grid grid-cols-3 gap-4 border-y border-white/5 py-6">
+                    <div>
+                      <span className="block font-mono text-[10px] uppercase text-[var(--text-muted)] tracking-wider">
+                        Ingest Scale
+                      </span>
+                      <span className="mt-1 block text-lg font-bold text-orange-500">
+                        {activeProject.scale}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="block font-mono text-[10px] uppercase text-[var(--text-muted)] tracking-wider">
+                        Avg Latency
+                      </span>
+                      <span className="mt-1 block text-lg font-bold text-[var(--text-primary)]">
+                        {activeProject.latency}
+                      </span>
+                    </div>
+                    <div>
+                      <span className="block font-mono text-[10px] uppercase text-[var(--text-muted)] tracking-wider">
+                        Uptime SLA
+                      </span>
+                      <span className="mt-1 block text-lg font-bold text-[var(--data-green)]">
+                        {activeProject.uptime}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="mt-8">
+                    <h4 className="font-mono text-xs text-[var(--text-secondary)] uppercase tracking-wider mb-3">
+                      Edge SDK & Protocol Integration:
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {activeProject.techStack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded-lg border border-white/5 bg-[var(--bg-raised)] px-3 py-1 font-mono text-xs text-[var(--text-secondary)]"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-10 pt-6 border-t border-white/5 flex items-center justify-between">
+                  <Link
+                    to={`/industries?sector=${activeProject.industry}`}
+                    className="inline-flex items-center gap-2 font-mono text-xs text-orange-500 hover:text-orange-400 transition-colors group"
+                  >
+                    VIEW INDUSTRY SATELLITE
+                    <ExternalLink className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                  </Link>
+                  <div className="flex items-center gap-2">
+                    <span className="relative flex h-2 w-2">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--data-green)] opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--data-green)]"></span>
+                    </span>
+                    <span className="font-mono text-xs uppercase text-[var(--data-green)]">
+                      TELEMETRY ON
+                    </span>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex min-h-[420px] flex-col items-center justify-center text-center text-[var(--text-secondary)]">
+                <span className="font-mono text-xs uppercase tracking-[0.28em] text-orange-500">
+                  NO DEPLOYMENT SELECTED
                 </span>
-                <span className="font-mono text-xs uppercase text-[var(--data-green)]">
-                  TELEMETRY ON
-                </span>
+                <h2 className="mt-5 text-2xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                  Adjust filters to restore the live console
+                </h2>
+                <p className="mt-4 max-w-sm text-sm leading-relaxed">
+                  No deployments match the current filter set. Clear filters or broaden your search to see realtime telemetry for a selected system.
+                </p>
+                <button
+                  onClick={clearFilters}
+                  className="mt-8 rounded-xl border border-white/10 bg-[var(--bg-surface)] px-5 py-2 font-mono text-xs text-orange-500 hover:bg-[var(--bg-raised)]"
+                >
+                  [ CLEAR FILTERS ]
+                </button>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Real-time Diagnostics Terminal */}
@@ -372,21 +419,27 @@ const Projects = () => {
               <div className="flex items-center gap-3">
                 <button
                   onClick={handlePingTest}
-                  disabled={isPinging}
-                  className="flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900 px-3 py-1.5 font-mono text-xs text-zinc-300 transition-all hover:bg-zinc-800 active:scale-95 disabled:opacity-50"
+                  disabled={isPinging || noResults}
+                  className="flex items-center gap-2 rounded-xl border border-orange-500/20 bg-orange-500/10 px-3 py-1.5 font-mono text-xs font-semibold text-orange-100 transition-all hover:bg-orange-500/15 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <Wifi className="h-3 w-3 text-orange-500" />
-                  {isPinging ? "PINGING..." : "PING TEST"}
+                  <Wifi className="h-3 w-3 text-orange-400" />
+                  {isPinging ? "PINGING..." : "PING"}
                 </button>
               </div>
             </div>
 
             {/* SVG Interactive Live Chart */}
-            <div className="relative mb-6 h-36 w-full overflow-hidden border border-zinc-900 rounded-xl bg-zinc-950">
+            <div className={`relative mb-6 h-36 w-full overflow-hidden rounded-xl bg-zinc-950 transition-shadow duration-300 ${sparklineFlash ? "border-orange-400/70 shadow-[0_0_40px_rgba(255,126,26,0.18)]" : "border border-zinc-900"}`}>
               <div className="absolute inset-0 grid grid-cols-6 grid-rows-3 opacity-[0.03]">
                 {Array.from({ length: 18 }).map((_, i) => (
                   <div key={i} className="border-t border-l border-zinc-100" />
                 ))}
+              </div>
+              <div className="absolute left-4 top-4 text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-mono">
+                MSG THROUGHPUT
+              </div>
+              <div className="absolute left-4 bottom-4 text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-mono">
+                events/sec
               </div>
 
               {/* Dynamic Path render */}
@@ -430,7 +483,7 @@ const Projects = () => {
               <div className="absolute right-4 top-4 font-mono text-[10px] uppercase text-zinc-400 bg-zinc-900/60 px-2 py-1 rounded">
                 LIVE_THROUGHPUT:{" "}
                 <span className="font-bold text-orange-500">
-                  {telemetryHistory[telemetryHistory.length - 1]} Event/s
+                  {telemetryHistory.length > 0 ? telemetryHistory[telemetryHistory.length - 1] : "—"} Event/s
                 </span>
               </div>
             </div>
@@ -440,30 +493,44 @@ const Projects = () => {
               ref={terminalContainerRef}
               className="flex-1 overflow-y-auto max-h-56 pr-2 font-mono text-[11px] text-green-500/90 leading-relaxed custom-scrollbar bg-black/40 p-4 rounded-xl border border-zinc-900/60"
             >
-              {consoleLogs.map((log, index) => {
-                let textClass = "text-green-500/90";
-                if (log.includes("WARNING") || log.includes("ANOMALY"))
-                  textClass = "text-yellow-400";
-                if (log.includes("ECHO OK"))
-                  textClass = "text-orange-400 font-bold";
-                if (log.includes("[SYSTEM] READY")) textClass = "text-cyan-400";
-                return (
-                  <div
-                    key={index}
-                    className={`flex items-start gap-1 py-0.5 ${textClass}`}
-                  >
-                    <span className="text-zinc-600 select-none">&gt;</span>
-                    <span>{log}</span>
-                  </div>
-                );
-              })}
-              {isPinging && (
-                <div className="flex items-center gap-1.5 text-orange-400">
-                  <span className="text-zinc-600 select-none">&gt;</span>
-                  <span className="animate-pulse">
-                    PING TRANSMIT IN PROGRESS...
+              {noResults ? (
+                <div className="flex h-full flex-col items-center justify-center gap-3 text-center text-[var(--text-secondary)]">
+                  <span className="font-mono text-xs uppercase tracking-[0.32em] text-orange-500">
+                    LIVE TELEMETRY PAUSED
                   </span>
+                  <p className="max-w-xs text-sm leading-relaxed">
+                    No projects are currently selected. Clear or broaden your filters to resume realtime logs and sparkline telemetry.
+                  </p>
                 </div>
+              ) : (
+                <>
+                  {consoleLogs.map((log, index) => {
+                    let textClass = "text-green-500/90";
+                    if (log.includes("WARNING") || log.includes("ANOMALY"))
+                      textClass = "text-yellow-400";
+                    if (log.includes("ECHO OK"))
+                      textClass = "text-orange-400 font-bold";
+                    if (log.includes("[SYSTEM] READY"))
+                      textClass = "text-cyan-400";
+                    return (
+                      <div
+                        key={index}
+                        className={`flex items-start gap-1 py-0.5 ${textClass}`}
+                      >
+                        <span className="text-zinc-600 select-none">&gt;</span>
+                        <span>{log}</span>
+                      </div>
+                    );
+                  })}
+                  {isPinging && (
+                    <div className="flex items-center gap-1.5 text-orange-400">
+                      <span className="text-zinc-600 select-none">&gt;</span>
+                      <span className="animate-pulse">
+                        PING TRANSMIT IN PROGRESS...
+                      </span>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           </div>
@@ -471,22 +538,26 @@ const Projects = () => {
 
         {/* Filters Header block */}
         <div className="border-t border-white/5 pt-12 mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-3">
-            <Filter className="h-4 w-4 text-orange-500" />
-            <h3 className="font-mono text-sm uppercase tracking-widest text-[var(--text-secondary)]">
-              FILTER DEPLOYMENTS
-            </h3>
-            {(selectedIndustry !== "all" ||
-              selectedStatus !== "all" ||
-              searchQuery.trim() !== "") && (
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="flex items-center gap-3">
+              <Filter className="h-4 w-4 text-orange-500" />
+              <h3 className="font-mono text-sm uppercase tracking-widest text-[var(--text-secondary)]">
+                FILTER DEPLOYMENTS
+              </h3>
+            </div>
+            {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="font-mono text-xs text-orange-500 hover:text-orange-400 underline transition-all ml-4"
+                className="font-mono text-xs text-orange-500 hover:text-orange-400 underline transition-all"
               >
-                [ RESET ALL ]
+                [ CLEAR FILTERS ]
               </button>
             )}
           </div>
+
+          <p className="font-mono text-xs text-[var(--text-secondary)]">
+            Showing {filteredProjects.length} of {PROJECTS.length} projects
+          </p>
 
           {/* Search bar */}
           <div className="relative max-w-sm w-full">
@@ -541,39 +612,6 @@ const Projects = () => {
             ))}
           </div>
 
-          {/* Status Tags */}
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="font-mono text-xs text-[var(--text-muted)] uppercase mr-3">
-              STATUS:
-            </span>
-            <button
-              onClick={() => setSelectedStatus("all")}
-              className={`rounded-lg px-3 py-1 font-mono text-[10px] transition-all duration-200 border ${
-                selectedStatus === "all"
-                  ? "bg-[var(--text-primary)] border-[var(--text-primary)] text-[var(--bg-void)] font-bold"
-                  : "bg-[var(--bg-surface)]/50 border-white/5 text-[var(--text-secondary)] hover:border-white/10"
-              }`}
-            >
-              ALL STATUS
-            </button>
-            {[
-              { id: "operational", name: "OPERATIONAL" },
-              { id: "scaling", name: "SCALING" },
-              { id: "beta", name: "BETA / LAB" },
-            ].map((stat) => (
-              <button
-                key={stat.id}
-                onClick={() => setSelectedStatus(stat.id)}
-                className={`rounded-lg px-3 py-1 font-mono text-[10px] transition-all duration-200 border ${
-                  selectedStatus === stat.id
-                    ? "bg-[var(--text-primary)] border-[var(--text-primary)] text-[var(--bg-void)] font-bold"
-                    : "bg-[var(--bg-surface)]/50 border-white/5 text-[var(--text-secondary)] hover:border-white/10"
-                }`}
-              >
-                {stat.name}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* Deployments grid */}
@@ -690,6 +728,23 @@ const Projects = () => {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <CTA
+          title="Your industry. Your data. Your integration."
+          description="Ready to build your integration? Book a demo for architecture review or view the docs for a faster technical path."
+          accent="teal"
+          primaryAction={{
+            label: "Book Demo",
+            href: "/contact",
+            icon: <Contact className="h-3.5 w-3.5" />,
+          }}
+          secondaryAction={{
+            label: "View Docs",
+            href: "/docs",
+            icon: <BookOpen className="h-3.5 w-3.5" />,
+          }}
+        />
+
         {/* ── SECTION 4: EDGE NODE ARCHITECTURE ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
