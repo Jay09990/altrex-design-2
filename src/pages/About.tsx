@@ -31,7 +31,6 @@ import StarBorder from "@/components/StarBorder";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
 import SystemDataTicker from "@/components/SystemDataTicker";
-import ROIMetricsCascade from "@/components/sections/ROIMetricsCascade";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 /* ─── Shared Variants ────────────────────────────────────────────────────── */
@@ -727,7 +726,6 @@ const About = () => {
     <div className="overflow-hidden bg-[var(--bg-void)]">
       <HeroSection />
       <MissionSection />
-      <ROIMetricsCascade />
       <StatsSection />
       <TimelineSection />
       <TeamSection />
