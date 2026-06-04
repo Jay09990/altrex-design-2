@@ -217,10 +217,10 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                     <span className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
                       0{index + 1}
                     </span>
-                    <span className="text-lg font-bold text-[var(--text-primary)]">
+                    <span className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
                       {feature.title}
                     </span>
-                    <span className="text-sm text-[var(--text-secondary)]">
+                    <span className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-secondary)]">
                       {feature.subtitle}
                     </span>
                   </button>
@@ -251,11 +251,11 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                         <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
                           0{index + 1}
                         </span>
-                        <span className="text-xs text-[var(--text-secondary)]">
+                        <span className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-secondary)]">
                           {feature.subtitle}
                         </span>
                       </div>
-                      <p className="mt-3 text-sm font-bold text-[var(--text-primary)]">
+                      <p className="mt-3 text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
                         {feature.title}
                       </p>
                     </button>
@@ -295,10 +295,10 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                  <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
                     {activeFeature.title}
                   </h3>
-                  <p className="max-w-3xl text-base leading-8 text-[var(--text-secondary)]">
+                  <p className="max-w-3xl text-[14px] leading-relaxed text-[var(--text-secondary)]">
                     {activeFeature.description}
                   </p>
                 </div>
@@ -310,7 +310,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                         className="mt-1 h-2.5 w-2.5 rounded-full"
                         style={{ backgroundColor: activeFeature.color }}
                       />
-                      <p className="text-sm leading-7 text-[var(--text-secondary)]">{bullet}</p>
+                      <p className="text-[14px] leading-relaxed text-[var(--text-secondary)]">{bullet}</p>
                     </div>
                   ))}
                 </div>

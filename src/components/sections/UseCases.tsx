@@ -9,11 +9,9 @@ import {
   Building2,
   Car,
   Factory,
-  HeartPulse,
   MapPinned,
   Shield,
   Smartphone,
-  Sprout,
 } from "lucide-react";
 
 import { Badge } from "../ui/badge";
@@ -152,8 +150,8 @@ const UseCases = () => {
                   </div>
                 </div>
 
-                <h3 className="mt-6 text-2xl font-bold text-[var(--text-primary)]">{item.title}</h3>
-                <p className="mt-3 text-sm leading-7 text-[var(--text-secondary)]">{item.description}</p>
+                <h3 className="mt-6 text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">{item.title}</h3>
+                <p className="mt-3 text-[14px] leading-relaxed text-[var(--text-secondary)]">{item.description}</p>
 
                 <ul className="mt-6 space-y-3">
                   {item.bullets.map((bullet) => (

@@ -13,7 +13,6 @@ import {
   Zap,
   Layers,
   Lock,
-  BookOpen,
   Contact,
 } from "lucide-react";
 
@@ -700,22 +699,22 @@ const Projects = () => {
                           <h3 className="mt-4 text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
                             {project.title}
                           </h3>
-                          <span className="block font-mono text-[11px] text-orange-500 uppercase tracking-wide mt-1">
+                          <span className="block font-mono text-[12px] text-orange-500 uppercase tracking-wide mt-1">
                             {project.subtitle}
                           </span>
 
                           {/* Summary text */}
-                          <p className="mt-4 text-xs text-[var(--text-secondary)] line-clamp-3 leading-relaxed">
+                          <p className="mt-4 text-[14px] text-[var(--text-secondary)] line-clamp-3 leading-relaxed">
                             {project.description}
                           </p>
                         </div>
 
                         {/* Card bottom section */}
                         <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between">
-                          <span className="font-mono text-[10px] text-[var(--text-muted)]">
+                          <span className="font-mono text-[11px] text-[var(--text-muted)]">
                             SCALE: {project.scale}
                           </span>
-                          <span className="font-mono text-[10px] text-orange-500 group-hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
+                          <span className="font-mono text-[11px] text-orange-500 group-hover:translate-x-1 transition-all inline-flex items-center gap-1.5">
                             {isActive ? "ACTIVE STREAM" : "START DIAGNOSTIC"}
                             <ArrowRight className="h-3 w-3" />
                           </span>
@@ -732,16 +731,11 @@ const Projects = () => {
         <CTA
           title="Your industry. Your data. Your integration."
           description="Ready to build your integration? Book a demo for architecture review or view the docs for a faster technical path."
-          accent="teal"
+          accent="orange"
           primaryAction={{
             label: "Book Demo",
             href: "/contact",
             icon: <Contact className="h-3.5 w-3.5" />,
-          }}
-          secondaryAction={{
-            label: "View Docs",
-            href: "/docs",
-            icon: <BookOpen className="h-3.5 w-3.5" />,
           }}
         />
 

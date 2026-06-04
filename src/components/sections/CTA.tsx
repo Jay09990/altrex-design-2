@@ -1,5 +1,9 @@
 import * as React from "react";
-import { Contact } from "lucide-react";
+import {
+  BookOpen,
+  Contact,
+  Zap,
+} from "lucide-react";
 
 import { Button } from "../ui/button";
 

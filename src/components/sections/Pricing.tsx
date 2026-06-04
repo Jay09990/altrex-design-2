@@ -245,7 +245,7 @@ const Pricing = () => {
               {/* Plan name */}
               <motion.p
                 variants={fadeUpVariants}
-                className="text-xs font-bold uppercase tracking-widest"
+                className="font-mono text-[12px] uppercase tracking-wide"
                 style={{ color: plan.color }}
               >
                 {plan.name}
@@ -270,7 +270,7 @@ const Pricing = () => {
               {/* Description */}
               <motion.p
                 variants={fadeUpVariants}
-                className="mt-4 text-sm leading-7 text-[var(--text-secondary)]"
+                className="mt-4 text-[14px] leading-relaxed text-[var(--text-secondary)]"
               >
                 {plan.description}
               </motion.p>
@@ -294,7 +294,7 @@ const Pricing = () => {
                     transition={{
                       delay: j * 0.05,
                     }}
-                    className="flex items-center gap-3 text-sm text-[var(--text-secondary)]"
+                    className="flex items-center gap-3 text-[14px] leading-relaxed text-[var(--text-secondary)]"
                   >
                     <motion.div
                       whileHover={{

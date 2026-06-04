@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Activity,
   ArrowRight,
@@ -103,6 +103,15 @@ const Industries = () => {
 
   // Active sector selection
   const [activeSectorId, setActiveSectorId] = useState<string>(sectorParam || "cgd");
+
+  const [currentIndustryIndex, setCurrentIndustryIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndustryIndex((prev) => (prev + 1) % INDUSTRIES.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
 
 
 
@@ -727,35 +736,54 @@ const Industries = () => {
       </div>
 
       {/* ── SECTION 5: PAGE-LEVEL CTA ── */}
-      <div className="border-t border-white/5 bg-[var(--bg-surface)] py-20">
-        <div className="mx-auto max-w-4xl px-6 text-center">
-          <h2 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl mb-4">
-            Ready to deploy Altrex in your <span className="text-orange-500">{activeSector.name}</span> network?
-          </h2>
-          <p className="text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
-            Talk to our engineering team to see a live demo of the Altrex decentralized stream broker tailored for your use case.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <StarBorder
-              as="button"
-              className="w-full sm:w-auto"
-              innerClassName="bg-[var(--bg-void)] border border-orange-500/20 text-white text-sm font-semibold py-3 px-8 transition-colors flex items-center justify-center"
-              color="#ff7e1a"
-            >
-              Book Demo
-            </StarBorder>
-            <Button
-              asChild
-              variant="outline"
-              className="w-full sm:w-auto h-[46px] border-white/10 bg-[var(--bg-void)] hover:bg-[var(--bg-raised)] hover:text-white px-8"
-            >
-              <Link to={`/projects?sector=${activeSector.id}`}>
-                View Projects
-              </Link>
-            </Button>
+      <section className="relative overflow-hidden bg-transparent mx-auto max-w-7xl px-6 pt-16 pb-20 lg:px-8">
+        <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[var(--bg-surface)] px-10 py-9 text-[var(--text-primary)] shadow-sm">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div>
+              <h2 className="font-bold text-3xl sm:text-4xl text-[var(--text-primary)] leading-snug">
+                Ready to deploy Altrex in your{" "}
+                <span className="inline-flex text-orange-500 overflow-hidden align-bottom" style={{ height: "1.3em" }}>
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={currentIndustryIndex}
+                      initial={{ y: 30, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -30, opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="inline-block"
+                    >
+                      {INDUSTRIES[currentIndustryIndex].name}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>{" "}
+                network?
+              </h2>
+              <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-2xl leading-relaxed">
+                Talk to our engineering team to see a live demo of the Altrex decentralized stream broker tailored for your use case.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
+              <StarBorder
+                as="button"
+                className="w-full sm:w-auto"
+                innerClassName="bg-[var(--bg-void)] border border-orange-500/20 text-white text-sm font-semibold py-3 px-8 transition-colors flex items-center justify-center"
+                color="#ff7e1a"
+              >
+                Book Demo
+              </StarBorder>
+              <Button
+                asChild
+                variant="outline"
+                className="w-full sm:w-auto h-[46px] border-white/10 bg-[var(--bg-void)] hover:bg-[var(--bg-raised)] hover:text-white px-8"
+              >
+                <Link to={`/projects?sector=${activeSector.id}`}>
+                  View Projects
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

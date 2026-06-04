@@ -277,11 +277,11 @@ const StatisticsSection = () => {
                   <ScrambleCounter target={item.target} finalText={item.value} />
                 </p>
 
-                <p className="mt-3 text-lg font-semibold text-[var(--text-primary)]">
+                <p className="mt-3 text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
                   {item.label}
                 </p>
 
-                <p className="mt-2 text-sm text-[var(--text-muted)]">
+                <p className="mt-2 text-[14px] leading-relaxed text-[var(--text-muted)]">
                   {item.description}
                 </p>
               </motion.div>
@@ -331,11 +331,11 @@ const StatisticsSection = () => {
                     </div>
                   </div>
 
-                  <p className="mt-1 text-sm font-medium text-[var(--text-muted)]">
+                  <p className="mt-1 font-mono text-[12px] uppercase tracking-wide text-[var(--text-muted)]">
                     {item.label}
                   </p>
 
-                  <p className="mt-1 text-xs text-[var(--text-secondary)]">
+                  <p className="mt-1 text-[14px] leading-relaxed text-[var(--text-secondary)]">
                     {item.description}
                   </p>
                 </div>
