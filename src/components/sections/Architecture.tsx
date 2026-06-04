@@ -1,5 +1,5 @@
 
-import { useEffect, useRef, memo, useState } from "react";
+import { useEffect, useRef, memo } from "react";
 import { motion, useInView, useScroll, useTransform, type Variants } from "framer-motion";
 import { ReactFlow, useNodesState, useEdgesState, Position, Handle, BaseEdge, type Node, type Edge, type NodeProps, type EdgeProps, getBezierPath } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
