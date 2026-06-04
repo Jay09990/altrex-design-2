@@ -210,33 +210,57 @@ function MergedHubNode({ data }: NodeProps<any>) {
   const devItems = data.devices as { icon: any; label: string }[];
   const conItems = data.connectivity as { icon: any; label: string }[];
 
-  const SIZE = 360;
+  const SIZE = 420;
   const center = SIZE / 2;
-  const RING_R = 125; // Radius for connectivity items, same as PlatformNode
+  const INNER_D = 220; // Increased diameter of inner circle
+  const ARC_R = 175;   // Increased radius for top and bottom arcs
 
   return (
     <div
-      className="relative flex items-center justify-center rounded-full"
+      className="relative flex items-center justify-center"
       style={{
         width: SIZE,
         height: SIZE,
-        background: isDark ? `rgba(255, 255, 255, 0.02)` : `rgba(0, 0, 0, 0.01)`,
-        border: `1.5px solid ${color}25`,
-        boxShadow: `0 4px 24px rgba(0,0,0,0.06), 0 0 0 1px ${color}06`,
+        background: "transparent",
       }}
     >
-      {/* Center circle background */}
+      {/* SVG Connectors */}
+      <svg className="absolute inset-0 pointer-events-none z-0" width={SIZE} height={SIZE}>
+        {conItems.map((_, i) => {
+          const isTop = i < 4;
+          const angleDeg = isTop ? -150 + i * 40 : 30 + (i - 4) * 40;
+          const rad = (angleDeg * Math.PI) / 180;
+          const x1 = center + Math.cos(rad) * (INNER_D / 2);
+          const y1 = center + Math.sin(rad) * (INNER_D / 2);
+          const x2 = center + Math.cos(rad) * (ARC_R - 36);
+          const y2 = center + Math.sin(rad) * (ARC_R - 36);
+          return (
+            <line
+              key={`line-${i}`}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke={C.connectivity}
+              strokeWidth={1.5}
+              strokeDasharray="4 4"
+            />
+          );
+        })}
+      </svg>
+
+      {/* Center circle */}
       <div
         className="absolute rounded-full bg-[var(--bg-surface)] flex items-center justify-center"
         style={{
-          width: 176,
-          height: 176,
+          width: INNER_D,
+          height: INNER_D,
           border: `1.5px solid ${color}35`,
-          boxShadow: `0 0 12px ${color}10`,
+          boxShadow: `0 4px 24px rgba(0,0,0,0.06), 0 0 12px ${color}10`,
         }}
       >
         {/* Device grid 2x2 */}
-        <div className="grid grid-cols-2 grid-rows-2 w-[114px] h-[114px] gap-2">
+        <div className="grid grid-cols-2 grid-rows-2 w-[150px] h-[150px] gap-2">
           {devItems.map((item, i) => {
             const Icon = item.icon;
             return (
@@ -245,18 +269,18 @@ function MergedHubNode({ data }: NodeProps<any>) {
                 className="flex flex-col items-center justify-center p-1 rounded-lg transition-all duration-200 hover:scale-105"
               >
                 <div
-                  className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--bg-surface)] border"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-[var(--bg-surface)] border"
                   style={{
                     borderColor: `${C.device}35`,
                     background: `${C.device}10`,
                     boxShadow: `0 1px 4px ${C.device}12`,
                   }}
                 >
-                  <Icon size={14} color={C.device} strokeWidth={2} />
+                  <Icon size={18} color={C.device} strokeWidth={2} />
                 </div>
                 <span
                   className="mt-1 text-center font-bold uppercase tracking-tighter text-[var(--text-secondary)]"
-                  style={{ fontSize: '7.5px', lineHeight: '1.1', maxWidth: '60px' }}
+                  style={{ fontSize: '9.5px', lineHeight: '1.1', maxWidth: '75px' }}
                 >
                   {item.label}
                 </span>
@@ -264,58 +288,57 @@ function MergedHubNode({ data }: NodeProps<any>) {
             );
           })}
         </div>
-
-        {/* HUB Badge in the center */}
-        <div className="absolute pointer-events-none flex items-center justify-center">
-          <span
-            className="rounded-full px-2 py-[2px] text-[8px] font-black uppercase tracking-[0.2em]"
-            style={{
-              color: isDark ? "#000000" : "#ffffff",
-              background: isDark ? "#ffffff" : "#18181b",
-              border: `1px solid ${color}40`,
-              boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
-              opacity: 0.95,
-            }}
-          >
-            HUB
-          </span>
-        </div>
       </div>
 
-      {/* Items arranged in a ring */}
+      {/* Items arranged in top and bottom arcs */}
       {conItems.map((item, i) => {
-        const angle = (i / conItems.length) * Math.PI * 2;
-        const x = center + Math.cos(angle) * RING_R;
-        const y = center + Math.sin(angle) * RING_R;
+        const isTop = i < 4;
+        let angleDeg = 0;
+        if (isTop) {
+          // Top arc: 4 items mapped to angles from -150 to -30
+          angleDeg = -150 + i * 40;
+        } else {
+          // Bottom arc: 4 items mapped to angles from 30 to 150
+          angleDeg = 30 + (i - 4) * 40;
+        }
+        const rad = (angleDeg * Math.PI) / 180;
+        const x = center + Math.cos(rad) * ARC_R;
+        const y = center + Math.sin(rad) * ARC_R;
         const Icon = item.icon;
         return (
           <div
             key={`con-${i}`}
-            className="absolute z-20 flex flex-col items-center gap-[4px]"
+            className="absolute z-20"
             style={{ left: x, top: y, transform: 'translate(-50%, -50%)' }}
           >
-            <div
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--bg-surface)] border shadow-sm transition-transform hover:scale-115"
-              style={{
-                borderColor: `${C.connectivity}35`,
-                background: `${C.connectivity}10`,
-                boxShadow: `0 2px 8px ${C.connectivity}18, 0 0 0 1px ${C.connectivity}08`,
-              }}
+            <motion.div 
+              className="flex flex-col items-center gap-[4px]"
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: i * 0.15 }}
             >
-              <Icon size={20} color={C.connectivity} strokeWidth={2} />
-            </div>
-            <span
-              className="whitespace-nowrap rounded border bg-[var(--bg-surface)]/90 px-1.5 py-[2px] text-[8px] font-bold uppercase tracking-tighter text-[var(--text-secondary)]"
-              style={{ borderColor: isDark ? `rgba(255,255,255,0.08)` : `rgba(0,0,0,0.06)` }}
-            >
-              {item.label}
-            </span>
+              <div
+                className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--bg-surface)] border shadow-sm transition-transform hover:scale-115"
+                style={{
+                  borderColor: `${C.connectivity}35`,
+                  background: `${C.connectivity}10`,
+                  boxShadow: `0 2px 8px ${C.connectivity}18, 0 0 0 1px ${C.connectivity}08`,
+                }}
+              >
+                <Icon size={20} color={C.connectivity} strokeWidth={2} />
+              </div>
+              <span
+                className="whitespace-nowrap rounded border bg-[var(--bg-surface)]/90 px-1.5 py-[2px] text-[8px] font-bold uppercase tracking-tighter text-[var(--text-secondary)]"
+                style={{ borderColor: isDark ? `rgba(255,255,255,0.08)` : `rgba(0,0,0,0.06)` }}
+              >
+                {item.label}
+              </span>
+            </motion.div>
           </div>
         );
       })}
 
-      <Handle type="target" position={Position.Left} style={{ opacity: 0, left: -1, top: '50%' }} />
-      <Handle type="source" position={Position.Right} style={{ opacity: 0, right: -1, top: '50%' }} />
+      <Handle type="target" position={Position.Left} style={{ opacity: 0, left: center - INNER_D / 2, top: '50%' }} />
+      <Handle type="source" position={Position.Right} style={{ opacity: 0, right: center - INNER_D / 2, top: '50%' }} />
     </div>
   );
 }
@@ -553,7 +576,8 @@ const Architecture = () => {
             defaultViewport={{ x: 0, y: 0, zoom: 1 }}
             nodesDraggable
             nodesConnectable={false}
-            elementsSelectable={true}
+            elementsSelectable={false}
+            autoPanOnNodeDrag={false}
             nodeExtent={[[0, 0], [1600, 520]]}
             proOptions={{ hideAttribution: true }}
           >
