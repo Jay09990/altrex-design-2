@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   Activity,
@@ -12,14 +12,13 @@ import {
   Truck,
   Sun,
   Leaf,
-  BookOpen,
   Contact,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import Architecture from "@/components/sections/Architecture";
 import CharReveal from "@/components/CharReveal";
 import CoreFeatures from "@/components/sections/CoreFeatures";
-import CTA from "@/components/sections/CTA";
+
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ROIMetricsCascade from "@/components/sections/ROIMetricsCascade";
 import StatisticsSection from "@/components/sections/StatisticsSection";
@@ -51,7 +50,7 @@ type IndustrySolution = {
 // ─────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────
-const INDUSTRY_SOLUTIONS: IndustrySolution[] = [
+const _INDUSTRY_SOLUTIONS: IndustrySolution[] = [
   {
     id: "cgd",
     label: "CGD",
@@ -347,7 +346,7 @@ const CAPABILITIES = [
 // ─────────────────────────────────────────────
 
 /** Single numbered solution row — mirrors the reference image layout */
-function SolutionRow({ item, accent, index }: { item: SolutionItem; accent: string; index: number }) {
+function _SolutionRow({ item, accent, index }: { item: SolutionItem; accent: string; index: number }) {
   return (
     <motion.div
       initial={{ opacity: 0, x: 24 }}
@@ -384,7 +383,7 @@ function SolutionRow({ item, accent, index }: { item: SolutionItem; accent: stri
 }
 
 /** Left panel — big circle with title */
-function IndustryHeroPanel({ solution }: { solution: IndustrySolution }) {
+function _IndustryHeroPanel({ solution }: { solution: IndustrySolution }) {
   return (
     <motion.div
       key={solution.id + "-panel"}
@@ -436,7 +435,7 @@ function IndustryHeroPanel({ solution }: { solution: IndustrySolution }) {
 // ─────────────────────────────────────────────
 // Industry selector tab
 // ─────────────────────────────────────────────
-function IndustryTab({
+function _IndustryTab({
   solution,
   active,
   onClick,

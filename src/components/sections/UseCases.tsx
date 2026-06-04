@@ -9,11 +9,9 @@ import {
   Building2,
   Car,
   Factory,
-  HeartPulse,
   MapPinned,
   Shield,
   Smartphone,
-  Sprout,
 } from "lucide-react";
 
 import { Badge } from "../ui/badge";

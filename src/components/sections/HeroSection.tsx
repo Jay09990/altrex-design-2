@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ArrowRight, Play } from "lucide-react";
+import { Play } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { gsap } from "gsap";
 import useMagneticButton from "@/hooks/useMagneticButton";

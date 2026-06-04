@@ -13,7 +13,6 @@ import {
   Zap,
   Layers,
   Lock,
-  BookOpen,
   Contact,
 } from "lucide-react";
 
