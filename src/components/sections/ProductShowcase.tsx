@@ -333,7 +333,7 @@ const ProductShowcase = () => {
                               {value}
                             </p>
 
-                            <p className="mt-0.5 text-xs text-[var(--text-secondary)]">
+                            <p className="mt-0.5 font-mono text-[12px] uppercase tracking-wide text-[var(--text-secondary)]">
                               {label}
                             </p>
 

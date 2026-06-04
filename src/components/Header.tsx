@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -12,6 +12,7 @@ import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,11 +55,20 @@ const Header = () => {
         </Link>
 
         <nav className="hidden items-center gap-8 lg:flex">
-          {navLinks.map((item) => (
-            <Link key={item.name} to={item.href} className="text-sm font-medium">
-              {item.name}
-            </Link>
-          ))}
+          {navLinks.map((item) => {
+            const isActive = location.pathname.startsWith(item.href);
+            return (
+              <Link
+                key={item.name}
+                to={item.href}
+                className={`text-sm font-medium transition-colors ${
+                  isActive ? "text-[var(--accent-violet)]" : "hover:text-[var(--accent-violet)]"
+                }`}
+              >
+                {item.name}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="hidden items-center gap-4 lg:flex">
@@ -92,16 +102,21 @@ const Header = () => {
                 <ThemeToggle />
               </div>
 
-              {navLinks.map((item) => (
-                <Link
-                  key={item.name}
-                  to={item.href}
-                  className="block text-sm font-medium"
-                  onClick={() => setMobileMenu(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navLinks.map((item) => {
+                const isActive = location.pathname.startsWith(item.href);
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className={`block text-sm font-medium transition-colors ${
+                      isActive ? "text-[var(--accent-violet)]" : "hover:text-[var(--accent-violet)]"
+                    }`}
+                    onClick={() => setMobileMenu(false)}
+                  >
+                    {item.name}
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </div>

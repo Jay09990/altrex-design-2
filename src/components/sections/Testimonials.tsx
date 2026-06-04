@@ -159,7 +159,7 @@ const Testimonials = () => {
             {/* Review */}
             <motion.p
               variants={fadeUpVariants}
-              className="relative z-10 mt-6 text-xl leading-9 text-[var(--text-secondary)]"
+              className="relative z-10 mt-6 text-[14px] leading-relaxed text-[var(--text-secondary)]"
             >
               &ldquo;{featured.review}&rdquo;
             </motion.p>
@@ -177,11 +177,11 @@ const Testimonials = () => {
               </motion.div>
 
               <div>
-                <h4 className="font-semibold text-[var(--text-primary)]">
+                <h4 className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
                   {featured.name}
                 </h4>
 
-                <p className="text-sm text-[var(--text-muted)]">
+                <p className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-muted)]">
                   {featured.role}
                 </p>
               </div>
@@ -231,7 +231,7 @@ const Testimonials = () => {
                   </motion.div>
                 </div>
 
-                <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
+                <p className="mt-4 text-[14px] leading-relaxed text-[var(--text-secondary)]">
                   &ldquo;{item.review}&rdquo;
                 </p>
 
@@ -247,11 +247,11 @@ const Testimonials = () => {
                   </motion.div>
 
                   <div>
-                    <h4 className="text-sm font-semibold text-[var(--text-primary)]">
+                    <h4 className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
                       {item.name}
                     </h4>
 
-                    <p className="text-xs text-[var(--text-muted)]">
+                    <p className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-muted)]">
                       {item.role}
                     </p>
                   </div>
