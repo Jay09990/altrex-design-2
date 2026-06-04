@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Activity,
@@ -20,20 +20,86 @@ import {
   Network,
   Server,
   GitBranch,
-  Shield
+  Shield,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import CharReveal from "@/components/CharReveal";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import StarBorder from "@/components/StarBorder";
 
 import { INDUSTRIES } from "@/data/industriesData";
+import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
 const Industries = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sectorParam = searchParams.get("sector");
   const navigate = useNavigate();
+
+  // Solution items per industry (from Solutions.tsx structure)
+  const solutionItemsMap: Record<string, Array<{ number: string; title: string; bullets: string[] }>> = {
+    cgd: [
+      { number: "01", title: "Region / GA (Geographical Area)", bullets: ["Regionwise Stations", "Sales per Region", "Gas Demand", "Downtime Monitoring", "Reconciliation"] },
+      { number: "02", title: "CGS (City Gate Station)", bullets: ["City Sales", "Gas Losses (LUAG)", "Availability", "CNG Demand", "PNG Demand", "Gas Parameters Monitoring", "Reconciliation"] },
+      { number: "03", title: "Distribution Level", bullets: ["CNG – Online, Mother, Daughter Stations", "PNG – Industrial, Commercial, Domestic", "LCNG", "DRS", "AMR", "Reconciliation"] },
+      { number: "04", title: "CNG Station Level", bullets: ["Equipments – Compressors, Boosters, Dispensers", "Cascade Monitoring", "Analytics", "Sales", "PAS", "Reconciliation"] },
+      { number: "05", title: "GIS & VTS", bullets: ["Asset Management", "Cascade Tracking", "Route Optimization", "Automatic Allocation", "Pipeline Network"] },
+    ],
+    omc: [
+      { number: "01", title: "Terminal / Refinery Monitoring", bullets: ["Terminal Automation", "Tank Levels", "Fuel Availability", "Dispatch Planning", "Pumps Status", "Loading Operations"] },
+      { number: "02", title: "Depot Monitoring", bullets: ["Tank Levels", "Inward/Outward Fuel", "Pumps Status", "Fuel Quality", "Stock Reconciliation"] },
+      { number: "03", title: "Tank Truck / Logistics Monitoring", bullets: ["Truck GPS Tracking", "Fuel Quantity", "Delivery Status", "ETA", "Route Optimization"] },
+      { number: "04", title: "Fuel Station Monitoring", bullets: ["Tank Levels", "Sales", "Availability", "Station Performance", "Sales Tracking"] },
+      { number: "05", title: "Fuel Dispenser Monitoring", bullets: ["Nozzle Sales", "Dispenser Health", "Remote Diagnostics", "Vehicle Counts", "Vehicle Density"] },
+    ],
+    steel: [
+      { number: "01", title: "Blast Furnace Monitoring", bullets: ["Hot Metal Temperature", "Pressure Profiles", "Tapping Schedules", "Burden Distribution", "Energy Efficiency"] },
+      { number: "02", title: "Steel Melt Shop", bullets: ["Heat Tracking", "Alloy Additions", "Ladle Temperature", "Casting Speed", "Quality Grading"] },
+      { number: "03", title: "Rolling Mill Automation", bullets: ["Roll Gap Control", "Strip Thickness", "Cooling Water Flow", "Speed Synchronization", "Coil Tracking"] },
+      { number: "04", title: "Utilities & Energy", bullets: ["Power Distribution", "Compressed Air", "Water Treatment", "Gas Recovery", "Steam Balancing"] },
+      { number: "05", title: "Quality & Compliance", bullets: ["Lab Integration", "Mechanical Testing", "SPC Charts", "Traceability", "Regulatory Reporting"] },
+    ],
+    manufacturing: [
+      { number: "01", title: "OEE & Production Tracking", bullets: ["Machine Availability", "Performance Rate", "Quality Rate", "Shift Reports", "Downtime Classification"] },
+      { number: "02", title: "Predictive Maintenance", bullets: ["Vibration Analysis", "Bearing Wear Detection", "Oil Condition", "Thermal Imaging Integration", "Work Order Triggers"] },
+      { number: "03", title: "Quality Management", bullets: ["SPC / SQC Charts", "Defect Tracking", "Root Cause Analysis", "First Pass Yield", "Customer Returns"] },
+      { number: "04", title: "Supply Chain Visibility", bullets: ["Inventory Levels", "Material Flow", "WIP Tracking", "Supplier Performance", "Batch Traceability"] },
+      { number: "05", title: "Energy Management", bullets: ["Per-machine Consumption", "Peak Demand Control", "Carbon Footprint", "ISO 50001 Reports", "Cost Allocation"] },
+    ],
+    wind: [
+      { number: "01", title: "Turbine Performance Monitoring", bullets: ["Power Curve Analysis", "Rotor Speed", "Pitch Angle Control", "Nacelle Direction", "Availability Factor"] },
+      { number: "02", title: "Condition Monitoring", bullets: ["Gearbox Vibration", "Generator Temperature", "Blade Structural Health", "Tower Oscillation", "Bearing Diagnostics"] },
+      { number: "03", title: "SCADA & Control", bullets: ["Remote Start/Stop", "Fault Management", "Curtailment Control", "Park Controller", "Grid Compliance"] },
+      { number: "04", title: "Generation & Revenue", bullets: ["Energy Production (MWh)", "Capacity Utilization Factor", "PLF Tracking", "Revenue Forecasting", "PPA Compliance"] },
+      { number: "05", title: "Maintenance Planning", bullets: ["Scheduled Maintenance", "Crane Scheduling", "Spare Parts Inventory", "Technician Dispatch", "Safety Compliance"] },
+    ],
+    solar: [
+      { number: "01", title: "Plant Performance Monitoring", bullets: ["Irradiance vs Generation", "PR Ratio", "CUF Tracking", "Inverter Efficiency", "String-level Analysis"] },
+      { number: "02", title: "Inverter & Combiner Box", bullets: ["Real-time Fault Alerts", "MPPT Performance", "String Current Imbalance", "Temperature Monitoring", "Remote Reset"] },
+      { number: "03", title: "Weather & Forecasting", bullets: ["GHI / DNI / DHI Sensors", "Soiling Loss Estimation", "Weather Forecasting Integration", "Shadow Analysis", "Cleaning Schedule"] },
+      { number: "04", title: "Grid Integration", bullets: ["Export / Import Monitoring", "Power Quality", "Reactive Power Control", "Grid Fault Events", "SLDC Reporting"] },
+      { number: "05", title: "O&M & Revenue", bullets: ["Ticket Management", "Preventive Maintenance", "Energy Generation Reports", "Revenue Tracking", "Carbon Credits"] },
+    ],
+    renewable: [
+      { number: "01", title: "Hybrid Plant Management", bullets: ["Solar + Wind + Storage", "Source Switching Logic", "Combined Generation View", "Grid-Tied / Off-Grid Modes", "Dispatch Optimization"] },
+      { number: "02", title: "Battery Energy Storage", bullets: ["State of Charge (SoC)", "Cycle Count Tracking", "Charge / Discharge Curves", "Thermal Management", "BMS Integration"] },
+      { number: "03", title: "Power Forecasting & Trading", bullets: ["Day-Ahead Forecast", "Intra-day Balancing", "Market Price Integration", "Curtailment Scheduling", "Penalty Avoidance"] },
+      { number: "04", title: "Multi-site Portfolio", bullets: ["Consolidated Dashboard", "Cross-site Benchmarking", "Normalized KPIs", "Executive Reports", "Investor Portals"] },
+      { number: "05", title: "Sustainability & ESG", bullets: ["Carbon Emission Tracking", "Green Certificates", "ESG Reporting", "Scope 2 Reduction", "Net Zero Roadmap"] },
+    ],
+  };
+
+  const getSolutionItems = (sectorId: string) => {
+    return solutionItemsMap[sectorId] || [];
+  };
 
   // Active sector selection
   const [activeSectorId, setActiveSectorId] = useState<string>(sectorParam || "cgd");
@@ -228,22 +294,34 @@ const Industries = () => {
               </div>
             </div>
 
-            {/* SLA Benchmarks (Scrambler indicators) */}
+            {/* SLA Benchmarks — Enhanced Metric Cards */}
             <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-8">
               {activeSector.metrics.map((metric, i) => (
-                <div key={i} className="rounded-xl bg-[var(--bg-raised)]/30 border border-white/5 p-4 text-center">
-                  <span className="block font-mono text-[9px] uppercase text-[var(--text-muted)] tracking-wider">
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="rounded-xl bg-gradient-to-br from-[var(--bg-raised)] to-[var(--bg-surface)] border border-white/5 p-6 text-center hover:border-orange-500/20 transition-all"
+                >
+                  <span className="block font-mono text-[9px] uppercase text-[var(--text-muted)] tracking-wider mb-3">
                     {metric.label}
                   </span>
-                  <span className="mt-2 block text-xl font-bold text-orange-500">
-                    <ScrambleCounter
-                      target={metric.target}
-                      finalText={metric.value}
-                      totalFrames={30}
-                      intervalMs={25}
-                    />
+                  <div className="flex items-baseline justify-center gap-1">
+                    <span className="text-3xl font-bold text-orange-500">
+                      <ScrambleCounter
+                        target={metric.target}
+                        finalText={metric.value}
+                        totalFrames={30}
+                        intervalMs={25}
+                      />
+                    </span>
+                  </div>
+                  <span className="block font-mono text-[9px] text-[var(--text-muted)] mt-2 opacity-60">
+                    {metric.suffix}
                   </span>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
@@ -356,150 +434,58 @@ const Industries = () => {
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
               </button>
             </div>
+
+            {/* Solution Items Accordion */}
+            <div className="mt-8 pt-8 border-t border-white/5">
+              <Accordion type="single" collapsible className="w-full">
+                {getSolutionItems(activeSector.id)?.map((item) => (
+                  <AccordionItem key={item.number} value={item.number} className="border-b border-white/5 last:border-0">
+                    <AccordionTrigger className="py-4 hover:no-underline hover:text-orange-500 transition-colors group">
+                      <div className="flex items-center gap-4 text-left">
+                        <span
+                          className="flex-shrink-0 h-10 w-10 rounded-full flex items-center justify-center border text-sm font-bold"
+                          style={{
+                            borderColor: "#ff7e1a40",
+                            backgroundColor: "#ff7e1a15",
+                            color: "#f97316",
+                          }}
+                        >
+                          {item.number}
+                        </span>
+                        <span className="font-semibold text-[var(--text-primary)] group-hover:text-orange-500 transition-colors">
+                          {item.title}
+                        </span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4 pl-14">
+                      <div className="space-y-2">
+                        {item.bullets.map((bullet, i) => (
+                          <div key={i} className="flex items-start gap-3">
+                            <span className="h-1.5 w-1.5 rounded-full bg-orange-500/60 mt-1.5 flex-shrink-0" />
+                            <span className="text-sm text-[var(--text-secondary)]">{bullet}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
           </div>
         </div>
 
+{/* ── SECTION 4: WHY CHOOSE US ── */}
+      <div className="border-t border-white/5 bg-[var(--bg-void)]">
+        <WhyChooseUs />
+      </div>
 
-
-
-        {/* ── SECTION 1: LIVE PLATFORM STATS BANNER ── */}
+      {/* ── SECTION 3: ALTREX SOLUTION PILLARS ── */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-24 border-t border-white/5 pt-20"
-        >
-          <div className="text-center mb-12">
-            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ PLATFORM SCALE ]</span>
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
-              Deployed Across Every Scale
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
-              From a single distribution station to a national utility grid — Altrex adapts to your operational footprint without re-architecture.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {[
-              { label: "Industrial Devices Connected", value: "2.4M+", sub: "Across all 7 sectors", icon: <Network className="h-5 w-5" />, color: "text-orange-500" },
-              { label: "Protocols Natively Supported", value: "14+", sub: "Modbus, OPC-UA, DNP3, MQTT…", icon: <GitBranch className="h-5 w-5" />, color: "text-[var(--data-green)]" },
-              { label: "Platform Uptime SLA", value: "99.999%", sub: "Five-nines guaranteed", icon: <Shield className="h-5 w-5" />, color: "text-blue-400" },
-              { label: "Data Points / Day", value: "18 Billion", sub: "Processed at the edge", icon: <Database className="h-5 w-5" />, color: "text-purple-400" }
-            ].map((stat, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className="rounded-2xl border border-white/5 bg-[var(--bg-surface)]/50 p-6 flex flex-col gap-3 backdrop-blur-sm"
-              >
-                <span className={`p-2 rounded-lg bg-[var(--bg-raised)] w-fit ${stat.color}`}>
-                  {stat.icon}
-                </span>
-                <span className={`text-3xl font-bold tracking-tight ${stat.color}`}>
-                  <ScrambleCounter target={parseFloat(stat.value.replace(/[^0-9.]/g, "")) || 0} finalText={stat.value} totalFrames={35} intervalMs={28} />
-                </span>
-                <div>
-                  <span className="block text-sm font-semibold text-[var(--text-primary)]">{stat.label}</span>
-                  <span className="block font-mono text-[10px] text-[var(--text-muted)] mt-0.5">{stat.sub}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* ── SECTION 2: CROSS-INDUSTRY CHALLENGES GRID ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-24 border-t border-white/5 pt-20"
-        >
-          <div className="text-center mb-12">
-            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ UNIVERSAL PAIN POINTS ]</span>
-            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
-              Challenges We Eliminate
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
-              These four systemic failures appear in every sector. Altrex was architected from the ground up to make each one obsolete.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                icon: <GitBranch className="h-6 w-6" />,
-                title: "Protocol Fragmentation",
-                body: "Legacy sites run Modbus RTU, OPC-DA, DNP3, and proprietary BACnet simultaneously with no common data layer. Integration projects take months and create brittle point-to-point bridges.",
-                fix: "Altrex normalises all protocols onto a single unified event stream at the edge — no middleware rewrites required.",
-                accent: "text-orange-500",
-                border: "border-orange-500/15",
-                bg: "bg-orange-500/[0.02]"
-              },
-              {
-                icon: <AlertTriangle className="h-6 w-6" />,
-                title: "Data Loss on Disconnect",
-                body: "GPRS/4G links to remote sites drop unexpectedly. Standard MQTT without persistent sessions loses all telemetry during the outage window, creating compliance and safety blind spots.",
-                fix: "Altrex edge buffers queue events locally and replay them in chronological order the instant connectivity resumes.",
-                accent: "text-yellow-400",
-                border: "border-yellow-400/15",
-                bg: "bg-yellow-400/[0.02]"
-              },
-              {
-                icon: <Zap className="h-6 w-6" />,
-                title: "Latency Jitter in Control Loops",
-                body: "Cloud-routed SCADA polling introduces variable round-trip latency that causes robotic offsets, turbine interlock trips, and inaccurate grid dispatch set-points.",
-                fix: "Local Altrex broker nodes resolve events within 150μs — entirely immune to WAN latency fluctuations.",
-                accent: "text-blue-400",
-                border: "border-blue-400/15",
-                bg: "bg-blue-400/[0.02]"
-              },
-              {
-                icon: <Server className="h-6 w-6" />,
-                title: "Historian Overload",
-                body: "Centralised time-series databases choke when thousands of devices push raw samples simultaneously, causing write backlogs and delayed dashboards during peak production hours.",
-                fix: "Altrex edge nodes pre-filter and delta-compress telemetry, forwarding only significant state changes to the historian.",
-                accent: "text-[var(--data-green)]",
-                border: "border-green-400/15",
-                bg: "bg-green-400/[0.02]"
-              }
-            ].map((item, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`rounded-2xl border ${item.border} ${item.bg} p-6 flex flex-col gap-4 backdrop-blur-sm`}
-              >
-                <span className={`p-2.5 rounded-xl bg-[var(--bg-raised)] w-fit ${item.accent}`}>
-                  {item.icon}
-                </span>
-                <h3 className={`text-base font-bold uppercase tracking-tight ${item.accent}`}>
-                  {item.title}
-                </h3>
-                <p className="text-xs leading-relaxed text-[var(--text-secondary)] flex-1">
-                  {item.body}
-                </p>
-                <div className="border-t border-white/5 pt-4">
-                  <span className="block font-mono text-[9px] uppercase text-[var(--text-muted)] mb-1">ALTREX FIX</span>
-                  <p className="text-xs text-[var(--text-primary)] leading-relaxed">{item.fix}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-
-        {/* ── SECTION 3: ALTREX SOLUTION PILLARS ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mt-24 border-t border-white/5 pt-20 pb-8"
+          className="mt-12 border-t border-white/5 pt-8 pb-8"
         >
           <div className="text-center mb-14">
             <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ CORE ARCHITECTURE ]</span>
@@ -593,6 +579,140 @@ const Industries = () => {
           </div>
         </motion.div>
 
+
+
+        {/* ── SECTION 1: LIVE PLATFORM STATS BANNER ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-12 border-t border-white/5 pt-8"
+        >
+          <div className="text-center mb-12">
+            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ PLATFORM SCALE ]</span>
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
+              Deployed Across Every Scale
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
+              From a single distribution station to a national utility grid — Altrex adapts to your operational footprint without re-architecture.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {[
+              { label: "Industrial Devices Connected", value: "2.4M+", sub: "Across all 7 sectors", icon: <Network className="h-5 w-5" />, color: "text-orange-500" },
+              { label: "Protocols Natively Supported", value: "14+", sub: "Modbus, OPC-UA, DNP3, MQTT…", icon: <GitBranch className="h-5 w-5" />, color: "text-[var(--data-green)]" },
+              { label: "Platform Uptime SLA", value: "99.999%", sub: "Five-nines guaranteed", icon: <Shield className="h-5 w-5" />, color: "text-blue-400" },
+              { label: "Data Points / Day", value: "18 Billion", sub: "Processed at the edge", icon: <Database className="h-5 w-5" />, color: "text-purple-400" }
+            ].map((stat, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="rounded-2xl border border-white/5 bg-[var(--bg-surface)]/50 p-6 flex flex-col gap-3 backdrop-blur-sm"
+              >
+                <span className={`p-2 rounded-lg bg-[var(--bg-raised)] w-fit ${stat.color}`}>
+                  {stat.icon}
+                </span>
+                <span className={`text-3xl font-bold tracking-tight ${stat.color}`}>
+                  <ScrambleCounter target={parseFloat(stat.value.replace(/[^0-9.]/g, "")) || 0} finalText={stat.value} totalFrames={35} intervalMs={28} />
+                </span>
+                <div>
+                  <span className="block text-sm font-semibold text-[var(--text-primary)]">{stat.label}</span>
+                  <span className="block font-mono text-[10px] text-[var(--text-muted)] mt-0.5">{stat.sub}</span>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* ── SECTION 2: CROSS-INDUSTRY CHALLENGES GRID ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="my-24 border-t border-white/5 py-20"
+        >
+          <div className="text-center mb-12">
+            <span className="font-mono text-xs text-orange-500 uppercase tracking-widest">[ UNIVERSAL PAIN POINTS ]</span>
+            <h2 className="text-3xl font-bold uppercase tracking-tight text-[var(--text-primary)] mt-2">
+              Challenges We Eliminate
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm text-[var(--text-secondary)]">
+              These four systemic failures appear in every sector. Altrex was architected from the ground up to make each one obsolete.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                icon: <GitBranch className="h-6 w-6" />,
+                title: "Protocol Fragmentation",
+                body: "Legacy sites run Modbus RTU, OPC-DA, DNP3, and proprietary BACnet simultaneously with no common data layer. Integration projects take months and create brittle point-to-point bridges.",
+                fix: "Altrex normalises all protocols onto a single unified event stream at the edge — no middleware rewrites required.",
+                accent: "text-orange-500",
+                border: "border-orange-500/15",
+                bg: "bg-orange-500/[0.02]"
+              },
+              {
+                icon: <AlertTriangle className="h-6 w-6" />,
+                title: "Data Loss on Disconnect",
+                body: "GPRS/4G links to remote sites drop unexpectedly. Standard MQTT without persistent sessions loses all telemetry during the outage window, creating compliance and safety blind spots.",
+                fix: "Altrex edge buffers queue events locally and replay them in chronological order the instant connectivity resumes.",
+                accent: "text-yellow-400",
+                border: "border-yellow-400/15",
+                bg: "bg-yellow-400/[0.02]"
+              },
+              {
+                icon: <Zap className="h-6 w-6" />,
+                title: "Latency Jitter in Control Loops",
+                body: "Cloud-routed SCADA polling introduces variable round-trip latency that causes robotic offsets, turbine interlock trips, and inaccurate grid dispatch set-points.",
+                fix: "Local Altrex broker nodes resolve events within 150μs — entirely immune to WAN latency fluctuations.",
+                accent: "text-blue-400",
+                border: "border-blue-400/15",
+                bg: "bg-blue-400/[0.02]"
+              },
+              {
+                icon: <Server className="h-6 w-6" />,
+                title: "Historian Overload",
+                body: "Centralised time-series databases choke when thousands of devices push raw samples simultaneously, causing write backlogs and delayed dashboards during peak production hours.",
+                fix: "Altrex edge nodes pre-filter and delta-compress telemetry, forwarding only significant state changes to the historian.",
+                accent: "text-[var(--data-green)]",
+                border: "border-green-400/15",
+                bg: "bg-green-400/[0.02]"
+              }
+            ].map((item, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
+                className={`rounded-2xl border ${item.border} ${item.bg} p-6 flex flex-col gap-4 backdrop-blur-sm`}
+              >
+                <span className={`p-2.5 rounded-xl bg-[var(--bg-raised)] w-fit ${item.accent}`}>
+                  {item.icon}
+                </span>
+                <h3 className={`text-base font-bold uppercase tracking-tight ${item.accent}`}>
+                  {item.title}
+                </h3>
+                <p className="text-xs leading-relaxed text-[var(--text-secondary)] flex-1">
+                  {item.body}
+                </p>
+                <div className="border-t border-white/5 pt-4">
+                  <span className="block font-mono text-[9px] uppercase text-[var(--text-muted)] mb-1">ALTREX FIX</span>
+                  <p className="text-xs text-[var(--text-primary)] leading-relaxed">{item.fix}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        
         {/* Global style injection for stroke-dashoffset animation */}
         <style dangerouslySetInnerHTML={{__html: `
           @keyframes strokePulseY {
@@ -604,6 +724,37 @@ const Industries = () => {
             animation: strokePulseY 4s linear infinite;
           }
         `}} />
+      </div>
+
+      {/* ── SECTION 5: PAGE-LEVEL CTA ── */}
+      <div className="border-t border-white/5 bg-[var(--bg-surface)] py-20">
+        <div className="mx-auto max-w-4xl px-6 text-center">
+          <h2 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl mb-4">
+            Ready to deploy Altrex in your <span className="text-orange-500">{activeSector.name}</span> network?
+          </h2>
+          <p className="text-[var(--text-secondary)] mb-8 max-w-2xl mx-auto">
+            Talk to our engineering team to see a live demo of the Altrex decentralized stream broker tailored for your use case.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <StarBorder
+              as="button"
+              className="w-full sm:w-auto"
+              innerClassName="bg-[var(--bg-void)] border border-orange-500/20 text-white text-sm font-semibold py-3 px-8 transition-colors flex items-center justify-center"
+              color="#ff7e1a"
+            >
+              Book Demo
+            </StarBorder>
+            <Button
+              asChild
+              variant="outline"
+              className="w-full sm:w-auto h-[46px] border-white/10 bg-[var(--bg-void)] hover:bg-[var(--bg-raised)] hover:text-white px-8"
+            >
+              <Link to={`/projects?sector=${activeSector.id}`}>
+                View Projects
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
