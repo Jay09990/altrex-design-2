@@ -28,7 +28,6 @@ import { Button } from "@/components/ui/button";
 import CharReveal from "@/components/CharReveal";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
-import StarBorder from "@/components/StarBorder";
 
 import { INDUSTRIES } from "@/data/industriesData";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
@@ -522,14 +521,14 @@ const Industries = () => {
   // ── Icon helper ───────────────────────────────────────────────────────────────
   const getSectorIcon = (id: string, className = "h-5 w-5") => {
     switch (id) {
-      case "cgd":       return <Flame className={className} />;
-      case "steel":     return <Layers className={className} />;
+      case "cgd": return <Flame className={className} />;
+      case "steel": return <Layers className={className} />;
       case "manufacturing": return <Cpu className={className} />;
-      case "omc":       return <Fuel className={className} />;
-      case "wind":      return <Wind className={className} />;
-      case "solar":     return <Sun className={className} />;
+      case "omc": return <Fuel className={className} />;
+      case "wind": return <Wind className={className} />;
+      case "solar": return <Sun className={className} />;
       case "renewable": return <Leaf className={className} />;
-      default:          return <Activity className={className} />;
+      default: return <Activity className={className} />;
     }
   };
 
@@ -603,18 +602,16 @@ const Industries = () => {
               <button
                 key={sector.id}
                 onClick={() => selectSector(sector.id)}
-                className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 ${
-                  isActive
+                className={`flex flex-col items-center justify-center p-4 rounded-2xl border transition-all duration-300 ${isActive
                     ? "border-orange-500 bg-orange-500/5 shadow-[0_0_20px_rgba(255,126,26,0.15)] text-white"
                     : "border-white/5 bg-[var(--bg-surface)]/50 text-[var(--text-secondary)] hover:border-white/15 hover:bg-[var(--bg-surface)]"
-                }`}
+                  }`}
               >
                 <span
-                  className={`p-2.5 rounded-xl transition-all mb-2.5 ${
-                    isActive
+                  className={`p-2.5 rounded-xl transition-all mb-2.5 ${isActive
                       ? "bg-orange-500 text-white"
                       : "bg-[var(--bg-raised)] text-[var(--text-muted)]"
-                  }`}
+                    }`}
                 >
                   {getSectorIcon(sector.id, "h-4 w-4")}
                 </span>
@@ -1144,24 +1141,24 @@ const Industries = () => {
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div>
               <h2 className="font-bold text-3xl sm:text-4xl text-[var(--text-primary)] leading-snug">
-                Ready to deploy Altrex in your{" "}
-                <span
-                  className="inline-flex text-orange-500 overflow-hidden align-bottom"
-                  style={{ height: "1.3em" }}
-                >
+                Ready to deploy Altrex in your
+
+                {/* Fixed height container — only this part animates */}
+                <span className="block overflow-hidden" style={{ height: "1.3em" }}>
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={currentIndustryIndex}
-                      initial={{ y: 30, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: -30, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="inline-block"
+                      initial={{ y: "100%" }}
+                      animate={{ y: "0%" }}
+                      exit={{ y: "-100%" }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="block text-orange-500 truncate"
                     >
                       {INDUSTRIES[currentIndustryIndex].name}
                     </motion.span>
                   </AnimatePresence>
-                </span>{" "}
+                </span>
+
                 network?
               </h2>
               <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-2xl leading-relaxed">
@@ -1170,7 +1167,7 @@ const Industries = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center gap-4 shrink-0">
-              
+
               <Button
                 className="w-full sm:w-auto bg-[#ff7e1a] border border-orange-500/20 text-white text-sm font-semibold py-3 px-8 transition-colors flex items-center justify-center"
               >

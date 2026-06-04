@@ -103,8 +103,8 @@ export default function CharReveal({
                     ease: [0.76, 0, 0.24, 1],
                   }}
                 >
-                  {/* Preserve spaces — regular spaces collapse in inline-flex */}
-                  {char === " " ? "\u00A0" : char}
+                  {/* Regular space allows natural line wrapping on mobile */}
+                  {char === " " ? " " : char}
                 </motion.span>
               </span>
             );

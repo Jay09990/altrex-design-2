@@ -123,10 +123,10 @@ const UseCases = () => {
       </motion.div>
 
       {/* Horizontal track */}
-      <div className="relative mt-14 overflow-hidden">
+      <div className="relative mt-14 overflow-x-auto lg:overflow-hidden scrollbar-hide">
         <div
           ref={trackRef}
-          className="flex w-max gap-6 px-6 lg:px-16 will-change-transform [transform:translate3d(0,0,0)]"
+          className="flex w-max gap-6 px-6 lg:px-16 will-change-transform"
         >
           {useCases.map((item, index) => {
             const Icon = item.icon;
