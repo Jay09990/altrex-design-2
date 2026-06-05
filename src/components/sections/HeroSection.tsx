@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Play } from "lucide-react";
+import { ArrowRight, Play } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { gsap } from "gsap";
 import useMagneticButton from "@/hooks/useMagneticButton";
@@ -43,14 +43,15 @@ const HeroSection = () => {
         duration: 0.8,
         delay: 1,
         ease: "power2.out",
-      }
+      },
     );
   }, []);
 
-
-
   return (
-    <section id="chapter-01" className="relative overflow-hidden scroll-mt-28 min-h-screen flex flex-col">
+    <section
+      id="chapter-01"
+      className="relative overflow-hidden scroll-mt-28 min-h-screen flex flex-col"
+    >
       <div className="flex-1 flex flex-col items-center justify-center">
         <motion.div
           initial={{ opacity: 0 }}
@@ -65,12 +66,15 @@ const HeroSection = () => {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
-            <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm">
+            <Badge
+              variant="secondary"
+              className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm"
+            >
               <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
               </div>
               <span className="font-mono text-sm text-[var(--text-primary)]">
-                MODERN REALTIME INFRASTRUCTURE PLATFORM
+                UNIFIED INDUSTRIAL OPERATIONS PLATFORM
               </span>
             </Badge>
           </motion.div>
@@ -78,8 +82,12 @@ const HeroSection = () => {
           {/* Heading — character-by-character reveal */}
           <CharReveal
             as="h1"
-            lines={["EMPOWERING THE INDUSTRY", "THROUGH DIGITAL MATURITY"]}
-            className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-8 leading-[0.95]"
+            lines={[
+              "DRIVING INDUSTRIAL OPERATIONS",
+              "THROUGH REALTIME",
+              "INTELLIGENCE",
+            ]}
+            className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-8 leading-[0.95] uppercase"
             immediate
             delay={0}
             stagger={0.028}
@@ -91,11 +99,23 @@ const HeroSection = () => {
             ref={metadataRef}
             className="mt-12 flex flex-wrap items-center justify-center gap-8 font-mono text-[10px] sm:text-xs tracking-widest text-[var(--text-secondary)] uppercase"
           >
-            <span>[NODE_COUNT: <span className="text-[var(--accent-violet)] font-bold">847,291</span>]</span>
+            <span>
+              [NODE_COUNT:{" "}
+              <span className="text-[var(--accent-violet)] font-bold">
+                847,291
+              </span>
+              ]
+            </span>
             <span className="hidden sm:inline text-black/[0.08]">|</span>
-            <span className="hidden sm:inline">[LATENCY: <span className="text-cyan-400 font-bold">11ms</span>]</span>
+            <span className="hidden sm:inline">
+              [LATENCY: <span className="text-cyan-400 font-bold">11ms</span>]
+            </span>
             <span className="hidden md:inline text-black/[0.08]">|</span>
-            <span className="hidden md:inline">[UPTIME: <span className="text-[var(--data-green)] font-bold">99.99%</span>]</span>
+            <span className="hidden md:inline">
+              [UPTIME:{" "}
+              <span className="text-[var(--data-green)] font-bold">99.99%</span>
+              ]
+            </span>
           </div>
 
           {/* Description */}
@@ -104,11 +124,11 @@ const HeroSection = () => {
             initial="hidden"
             animate="visible"
             transition={{ delay: 1.2 }}
-            className="mt-10 max-w-2xl text-base leading-7 text-[var(--text-secondary)] sm:text-lg"
+            className="mt-10 max-w-4xl text-base leading-7 text-[var(--text-secondary)] sm:text-lg"
           >
-            Power scalable messaging, IoT communication, and distributed systems
-            with enterprise-grade realtime infrastructure built for modern
-            applications.
+            Altrex enables real-time monitoring, industrial connectivity, asset
+            management, GIS visualization, alarm management, fleet tracking and
+            operational intelligence through a single unified W! Platform.
           </motion.p>
 
           {/* Buttons */}
@@ -118,25 +138,24 @@ const HeroSection = () => {
             transition={{ delay: 1.4, duration: 0.8 }}
             className="mt-12 mb-20 flex flex-col items-center gap-4 sm:flex-row"
           >
-            {/* <div className="relative">
+            <div className="relative">
               <Button
                 ref={startBtnRef}
                 className="gap-2 bg-[var(--accent-violet)] px-8 py-5 text-white hover:bg-[var(--accent-violet)]/90"
               >
-                Start Building
+                Explore Platform
                 <ArrowRight className="h-4 w-4" />
               </Button>
-            </div> */}
+            </div>
 
             <div className="relative">
               <Button
-                // ref={demoBtnRef}
-                ref={startBtnRef}
+                ref={demoBtnRef}
                 variant="outline"
-                className="gap-2 bg-[var(--accent-violet)] px-8 py-5 text-white"
+                className="gap-2 px-8 py-5"
               >
                 <Play className="h-4 w-4" />
-                Watch Demo
+                Request Demo
               </Button>
             </div>
           </motion.div>

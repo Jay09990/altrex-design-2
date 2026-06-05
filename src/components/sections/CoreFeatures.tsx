@@ -130,7 +130,8 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
-    const handleChange = (event: MediaQueryListEvent) => setIsDesktop(event.matches);
+    const handleChange = (event: MediaQueryListEvent) =>
+      setIsDesktop(event.matches);
     setIsDesktop(mediaQuery.matches);
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
@@ -163,7 +164,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
             >
               <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
               <InViewDecryptedText
-                text="ALTREX PLATFORM"
+                text="W! PLATFORM"
                 speed={60}
                 maxIterations={12}
                 className="text-[var(--data-green)]"
@@ -176,9 +177,9 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
             variants={fadeUpVariants}
             className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
-            Core features that power
+            Enterprise Capabilities for
             <span className="block bg-orange-500 bg-clip-text text-transparent">
-              Industrial realtime operations
+              Industrial Digital Transformation
             </span>
           </motion.h2>
 
@@ -186,7 +187,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
             variants={fadeUpVariants}
             className="mt-6 text-lg leading-8 text-[var(--text-secondary)]"
           >
-            Altrex Platform delivers secure connectivity, limitless scale, intelligent automation, and rich visualization for modern industrial systems.
+            Built for utility operators, manufacturing facilities, energy infrastructure, smart cities and mission-critical industrial environments.
           </motion.p>
         </div>
 
@@ -205,13 +206,13 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                     type="button"
                     onClick={() => setActiveIndex(index)}
                     className={`group mb-3 flex w-full cursor-pointer flex-col gap-2 rounded-2xl border-l-4 p-4 text-left transition-all duration-200 ${
-                      isActive
-                        ? "opacity-100"
-                        : "opacity-40 hover:opacity-80"
+                      isActive ? "opacity-100" : "opacity-40 hover:opacity-80"
                     }`}
                     style={{
                       borderColor: isActive ? feature.color : "transparent",
-                      backgroundColor: isActive ? `${feature.color}14` : "transparent",
+                      backgroundColor: isActive
+                        ? `${feature.color}14`
+                        : "transparent",
                     }}
                   >
                     <span className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
@@ -238,13 +239,13 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                       type="button"
                       onClick={() => setActiveIndex(index)}
                       className={`min-w-[170px] rounded-2xl border p-4 text-left transition-all duration-200 ${
-                        isActive
-                          ? "opacity-100"
-                          : "opacity-40 hover:opacity-80"
+                        isActive ? "opacity-100" : "opacity-40 hover:opacity-80"
                       }`}
                       style={{
                         borderColor: isActive ? feature.color : "transparent",
-                        backgroundColor: isActive ? `${feature.color}14` : "transparent",
+                        backgroundColor: isActive
+                          ? `${feature.color}14`
+                          : "transparent",
                       }}
                     >
                       <div className="flex items-center justify-between gap-3">
@@ -310,7 +311,9 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                         className="mt-1 h-2.5 w-2.5 rounded-full"
                         style={{ backgroundColor: activeFeature.color }}
                       />
-                      <p className="text-[14px] leading-relaxed text-[var(--text-secondary)]">{bullet}</p>
+                      <p className="text-[14px] leading-relaxed text-[var(--text-secondary)]">
+                        {bullet}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -322,7 +325,9 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                       className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider transition-all hover:gap-3"
                       style={{ color: activeFeature.color }}
                     >
-                      <span>See how this works in {activeFeature.industryLabel}</span>
+                      <span>
+                        See how this works in {activeFeature.industryLabel}
+                      </span>
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </div>
