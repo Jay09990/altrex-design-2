@@ -249,7 +249,7 @@ function BlockNode({ data }: NodeProps<any>) {
                     border: `1px solid ${iconColor}30`,
                   }}
                 >
-                  <Icon size={15} color={iconColor} strokeWidth={1.8} />
+                  {/* <Icon size={15} color={iconColor} strokeWidth={1.8} /> */}
                 </div>
                 <span className="text-center text-[11px] font-semibold leading-tight text-[var(--text-secondary)]">
                   {item.label}
