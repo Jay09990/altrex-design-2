@@ -216,12 +216,12 @@ const Industries = () => {
       },
       {
         number: "05",
-        title: "Quality & Compliance",
+        title: "Asset Performance",
         bullets: [
-          "Lab Integration",
-          "Mechanical Testing",
-          "SPC Charts",
-          "Traceability",
+          "Maintenance Analytics",
+          "Equipment Reliability",
+          "Condition Monitoring",
+          "Lifecycle Management",
           "Regulatory Reporting",
         ],
       },
@@ -330,13 +330,13 @@ const Industries = () => {
       },
       {
         number: "05",
-        title: "Maintenance Planning",
+        title: "Asset & Maintenance Management",
         bullets: [
-          "Scheduled Maintenance",
-          "Crane Scheduling",
-          "Spare Parts Inventory",
-          "Technician Dispatch",
-          "Safety Compliance",
+          "Preventive Maintenance",
+          "Work Orders",
+          "Spare Parts Management",
+          "Maintenance Planning ",
+          "Asset Lifecycle",
         ],
       },
     ],
@@ -564,7 +564,7 @@ const Industries = () => {
             </div>
             <span className="font-mono text-sm text-[var(--text-primary)]">
               <InViewDecryptedText
-                text="ENTERPRISE CORE INFRASTRUCTURE"
+                text="INDUSTRY SOLUTIONS"
                 speed={55}
                 className="text-[var(--text-primary)]"
                 encryptedClassName="text-[var(--text-muted)]"
@@ -574,7 +574,7 @@ const Industries = () => {
 
           <CharReveal
             as="h1"
-            lines={["REALTIME ARCHITECTURE", "FOR EVERY SECTOR"]}
+            lines={["DIGITAL OPERATIONS FOR", "EVERY INDUSTRY"]}
             className="text-4xl font-bold tracking-tight sm:text-6xl uppercase"
             immediate
             delay={0}
@@ -586,11 +586,9 @@ const Industries = () => {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="mx-auto mt-6 max-w-3xl text-lg text-[var(--text-secondary)]"
+            className="mx-auto mt-6 max-w-4xl text-lg text-[var(--text-secondary)]"
           >
-            Discover how the Altrex decentralized stream broker simplifies
-            legacy protocol gaps, eliminates database queue latency, and
-            balances critical data pipelines at the edge.
+            Purpose-built solutions for energy, utilities, manufacturing, transportation, and critical infrastructure—delivering real-time visibility, operational intelligence, and enterprise-scale automation.
           </motion.p>
         </div>
 
@@ -663,7 +661,7 @@ const Industries = () => {
                     </span>
                     <div>
                       <h4 className="font-mono text-xs uppercase tracking-wider text-[var(--text-primary)] font-bold">
-                        The Sector Ingest Challenge
+                        The Operational Challenges
                       </h4>
                       <p className="mt-2 text-xs leading-relaxed text-[var(--text-muted)]">
                         {activeSector.challenge}
@@ -680,7 +678,7 @@ const Industries = () => {
                     </span>
                     <div>
                       <h4 className="font-mono text-xs uppercase tracking-wider text-orange-500 font-bold">
-                        The Altrex Edge Solution
+                        The Altrex Digital Solution
                       </h4>
                       <p className="mt-2 text-xs leading-relaxed text-[var(--text-secondary)]">
                         {activeSector.solution}
@@ -714,9 +712,6 @@ const Industries = () => {
                         />
                       </span>
                     </div>
-                    <span className="block font-mono text-[9px] text-[var(--text-muted)] mt-2 opacity-60">
-                      {metric.suffix}
-                    </span>
                   </motion.div>
                 ))}
               </div>

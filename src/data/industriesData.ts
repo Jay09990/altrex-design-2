@@ -25,14 +25,14 @@ export const INDUSTRIES: IndustrySector[] = [
   {
     id: "cgd",
     name: "City Gas Distribution",
-    tagline: "Real-Time Pipeline Pressure & Leak Detection at the Distribution Edge",
-    summary: "City Gas Distribution networks span thousands of kilometres of pipelines feeding domestic, commercial, and CNG stations. Altrex streams live pressure sensor telemetry and alarm states from every district regulating station (DRS) to a central SCADA core, ensuring zero-event data loss.",
-    challenge: "Legacy RTU-based SCADA systems operate on polling cycles of 5–30 seconds, creating dangerous blind spots when pressure anomalies or leak events occur. High-volume meter pulse data from thousands of domestic connections overwhelms centralized historians.",
-    solution: "Altrex deploys edge brokers at each DRS to continuously stream real-time pressure, flow, and leak-sensor data using Modbus RTU over TCP. Edge compression eliminates 97% of redundant state reports while forwarding critical alarm events with sub-second latency.",
+    tagline: "Real-Time Monitoring & Intelligence Across the Gas Distribution Network",
+    summary: "Monitor CGS, DRS, CNG stations, pipelines, and distribution networks through a unified platform combining SCADA, telemetry, GIS, asset management, alarms, and operational analytics.",
+    challenge: "Managing geographically distributed gas infrastructure requires continuous monitoring of pressure, flow, equipment health, and operational events across thousands of assets.",
+    solution: "Altrex provides end-to-end visibility across the CGD network, integrating field telemetry, GIS mapping, asset management, alarm monitoring, dashboards, and enterprise reporting within a single operational platform.",
     metrics: [
       { label: "Pipeline Nodes", value: "18,000+", target: 18, suffix: "K+" },
-      { label: "Alarm Propagation", value: "< 800ms", target: 800, suffix: "ms" },
-      { label: "Data Availability", value: "99.998%", target: 99.998, suffix: "%" }
+      { label: "Operational Visibility", value: "24x7", target: 800, suffix: "ms" },
+      { label: "Platform Availability", value: "99.99%", target: 99.998, suffix: "%" }
     ],
     blueprintNodes: {
       source: "DRS Pressure / Flow RTUs",
@@ -44,14 +44,14 @@ export const INDUSTRIES: IndustrySector[] = [
   {
     id: "steel",
     name: "Steel & Metal Processing",
-    tagline: "Blast Furnace Telemetry & Rolling Mill Synchronization at Microsecond Precision",
-    summary: "Integrated steel plants operate blast furnaces, converters, continuous casters, and rolling mills as tightly coupled processes. Altrex synchronizes machine telemetry across every unit to prevent cascade failures and optimize yield.",
-    challenge: "Blast furnace hot-metal temperature and converter lance position data must be shared across process control systems with sub-5ms latency. Legacy OPC-DA servers introduce cumulative delays that trigger interlock trips on rolling mills.",
-    solution: "Altrex deploys OPC-UA over TSN (Time-Sensitive Networking) edge nodes at each process unit. Data is published on shared deterministic topics, giving every downstream controller access to upstream state within a single control cycle.",
+    tagline: "Operational Visibility Across Production, Utilities, and Energy Systems",
+    summary: "Monitor production processes, utility systems, energy consumption, equipment health, and plant performance through centralized industrial intelligence.",
+    challenge: "Steel plants operate highly interconnected production processes where downtime, energy inefficiencies, and equipment failures directly impact productivity and profitability.",
+    solution: "Altrex unifies plant telemetry, energy monitoring, asset performance, alarms, analytics, and production KPIs into a centralized operational intelligence platform.",
     metrics: [
-      { label: "Process Control Jitter", value: "< 200μs", target: 200, suffix: "μs" },
-      { label: "Cross-Unit Sync Lag", value: "3.2ms", target: 3, suffix: "ms" },
-      { label: "Yield Improvement", value: "+ 2.4%", target: 2, suffix: "%" }
+      { label: "Production Assets", value: "500+", target: 200, suffix: "μs" },
+      { label: "Energy Optimization", value: "15%", target: 3, suffix: "ms" },
+      { label: "Operational Availability", value: "99.9%", target: 2, suffix: "%" }
     ],
     blueprintNodes: {
       source: "Blast Furnace / Caster PLCs",
@@ -63,14 +63,14 @@ export const INDUSTRIES: IndustrySector[] = [
   {
     id: "manufacturing",
     name: "Discrete Manufacturing",
-    tagline: "Microsecond Robotic Synchronization & PLC Orchestration on the Factory Floor",
-    summary: "High-speed assembly lines require sub-5ms feedback loops to synchronize robotic welding arms, high-precision conveyors, and machine-vision quality gates in real time.",
-    challenge: "Traditional message brokers introduce unpredictable queue jitter that causes robotic arm offsets, conveyor mis-feeds, and costly safety interlock trips on high-throughput production lines.",
-    solution: "Altrex edge brokers run as lightweight WebAssembly modules directly on industrial PCs. All inter-machine events are routed locally with deterministic sub-millisecond delivery, completely independent of WAN connectivity.",
+    tagline: "Smart Manufacturing Through Connected Operations & Real-Time Intelligence",
+    summary: "Monitor production lines, machines, utilities, and quality processes through a unified platform that delivers real-time visibility, operational analytics, and asset performance intelligence.",
+    challenge: "Manufacturing facilities require continuous visibility into production, equipment health, quality metrics, and operational performance to minimize downtime and maximize productivity.",
+    solution: "Altrex integrates machine data, production KPIs, asset monitoring, quality management, alarms, analytics, and reporting into a single industrial operations platform.",
     metrics: [
-      { label: "Control Loop Jitter", value: "< 150μs", target: 150, suffix: "μs" },
-      { label: "Feedback Ingest RTT", value: "2.8ms", target: 2, suffix: "ms" },
-      { label: "Message Reliability", value: "99.9999%", target: 99.9999, suffix: "%" }
+      { label: "Average OEE", value: "85%+", target: 150, suffix: "μs" },
+      { label: "Downtime Reduction", value: "20%", target: 2, suffix: "ms" },
+      { label: "Efficiency Improvement", value: "15%", target: 99.9999, suffix: "%" }
     ],
     blueprintNodes: {
       source: "KUKA / Fanuc Welding Arms",
@@ -81,15 +81,15 @@ export const INDUSTRIES: IndustrySector[] = [
   },
   {
     id: "omc",
-    name: "Oil Marketing Companies",
-    tagline: "Tank Farm Monitoring, ATG Integration & Petrol Station Telemetry at Scale",
-    summary: "OMCs operate networks of fuel depots, pipeline terminals, and thousands of retail petrol stations, each requiring continuous monitoring of tank levels, pump throughput, and dispenser health.",
-    challenge: "Automatic Tank Gauge (ATG) data from remote petrol stations is collected over GPRS links with frequent dropouts, causing gaps in inventory records and compliance reporting failures.",
-    solution: "Altrex's resilient edge buffer queues ATG and dispenser events locally at the station. On reconnection, data is replayed in timestamp-ordered sequence to the central inventory management system, guaranteeing zero data loss.",
+    name: "Oil & Fuel Distribution",
+    tagline: "Real-Time Network Intelligence Across Depots, Terminals & Retail Fuel Networks",
+    summary: "Oil Marketing Companies operate extensive networks of refineries, terminals, depots, tank farms, transportation fleets, and retail fuel stations requiring continuous operational visibility, inventory control, and asset monitoring.",
+    challenge: "Managing fuel inventory, retail operations, logistics movements, and distributed infrastructure across thousands of locations requires reliable real-time monitoring, reconciliation, and centralized operational control.",
+    solution: "Altrex unifies tank monitoring, ATG integration, fuel station operations, fleet tracking, asset management, alarms, analytics, and enterprise reporting into a single operational platform.",
     metrics: [
-      { label: "Petrol Stations Online", value: "12,000+", target: 12, suffix: "K+" },
-      { label: "Reconnect Replay SLA", value: "< 2s", target: 2, suffix: "s" },
-      { label: "Inventory Accuracy", value: "99.97%", target: 99.97, suffix: "%" }
+      { label: "Connected Fuel Assets", value: "10,000+", target: 12, suffix: "K+" },
+      { label: "Operational Visibility", value: "24x7", target: 2, suffix: "s" },
+      { label: "Inventory Data Availability", value: "99.99%", target: 99.97, suffix: "%" }
     ],
     blueprintNodes: {
       source: "ATG / Dispenser Controllers",
@@ -100,15 +100,15 @@ export const INDUSTRIES: IndustrySector[] = [
   },
   {
     id: "wind",
-    name: "Wind Energy",
-    tagline: "Turbine SCADA Streaming & Predictive Fault Detection Across Wind Farms",
-    summary: "Utility-scale wind farms distribute hundreds of turbines across large terrain. Altrex streams CMS vibration data, SCADA parameters, and meteorological feeds from every turbine to enable real-time predictive maintenance.",
-    challenge: "Each turbine generates dozens of high-frequency CMS (Condition Monitoring System) signals per second. Centralizing these signals over standard OPC connections creates data storms that overload historians and delay fault alerts.",
-    solution: "Altrex edge nodes at each turbine controller perform first-pass signal processing, publishing only delta-significant CMS events while maintaining 100% fidelity for SCADA operational parameters on a separate priority channel.",
+    name: "Wind Energy Operations",
+    tagline: "Real-Time Wind Farm Performance & Asset Intelligence",
+    summary: "Monitor wind turbines, substations, and generation assets through a centralized platform delivering real-time visibility, performance analytics, condition monitoring, and operational intelligence.",
+    challenge: "Wind farm operators must manage geographically distributed assets, maximize energy production, reduce unplanned downtime, and ensure continuous visibility into turbine performance and equipment health.",
+    solution: "Altrex integrates SCADA systems, condition monitoring, generation analytics, asset management, alarms, and predictive maintenance into a unified renewable energy operations platform.",
     metrics: [
-      { label: "Turbines Monitored", value: "3,500+", target: 3, suffix: "K+" },
-      { label: "CMS Signal Latency", value: "< 500ms", target: 500, suffix: "ms" },
-      { label: "Fault Detection Lead", value: "72 hrs", target: 72, suffix: " hrs" }
+      { label: "Operational Availability", value: "99.9%", target: 3, suffix: "K+" },
+      { label: "Reduction in Unplanned Downtime", value: "15%", target: 500, suffix: "ms" },
+      { label: "Remote Operational Visibility", value: "24x7", target: 72, suffix: " hrs" }
     ],
     blueprintNodes: {
       source: "Turbine CMS / SCADA PLC",
@@ -119,15 +119,15 @@ export const INDUSTRIES: IndustrySector[] = [
   },
   {
     id: "solar",
-    name: "Solar Power",
-    tagline: "String-Level Inverter Telemetry & Grid Synchronization for Utility Solar",
-    summary: "Utility-scale solar plants monitor thousands of inverter strings and weather stations continuously. Altrex aggregates string-level performance data and irradiance feeds to detect underperforming strings and dispatch reactive power accurately.",
-    challenge: "String-level monitoring generates millions of data points per hour. Legacy SCADA polling cycles miss brief shadow-induced current dips that cause string mismatches and long-term hotspot degradation.",
-    solution: "Altrex deploys push-based MQTT edge connectors on each inverter gateway, streaming string current and voltage in real time. Anomaly detection rules run directly on the edge to flag deviations without cloud round-trips.",
+    name: "Solar Energy Operations",
+    tagline: "Optimizing Solar Generation Through Connected Operations",
+    summary: "Monitor solar plants, inverters, weather stations, and grid interconnections through a unified platform delivering real-time visibility, performance analytics, and operational intelligence.",
+    challenge: "Solar plant operators must maximize energy generation, identify underperforming assets, manage distributed equipment, and ensure continuous operational visibility across large-scale facilities.",
+    solution: "Altrex integrates plant telemetry, inverter monitoring, weather analytics, asset management, alarms, reporting, and performance optimization into a single operational platform.",
     metrics: [
-      { label: "Inverter Strings Live", value: "280K+", target: 280, suffix: "K+" },
-      { label: "String Event Latency", value: "< 1.2s", target: 1, suffix: "s" },
-      { label: "Performance Ratio Gain", value: "+ 1.8%", target: 1, suffix: "%" }
+      { label: "Plant Data Availability", value: "99.9%", target: 280, suffix: "K+" },
+      { label: "Remote Operational Visibility", value: "24x7", target: 1, suffix: "s" },
+      { label: "Improvement in Operational Efficiency", value: "15%", target: 1, suffix: "%" }
     ],
     blueprintNodes: {
       source: "String Inverter Gateways",

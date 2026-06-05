@@ -53,12 +53,15 @@ export default function CharReveal({
   lineGap = "mt-2",
 }: CharRevealProps) {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-60px" });
+  const inView = useInView(ref as React.RefObject<Element>, {
+    once: true,
+    margin: "-60px",
+  });
   const shouldAnimate = immediate || inView;
 
   // Normalise to LineConfig[]
   const normalizedLines: LineConfig[] = lines.map((l) =>
-    typeof l === "string" ? { text: l } : l
+    typeof l === "string" ? { text: l } : l,
   );
 
   // Track a global character index across all lines for consistent stagger timing
@@ -77,23 +80,31 @@ export default function CharReveal({
         >
           {[...line.text].map((char) => {
             const idx = globalIdx++;
+
+            // Space: render naked so it retains natural width
+            if (char === " ") {
+              return (
+                <span
+                  key={idx}
+                  style={{ display: "inline-block", minWidth: "0.25em" }}
+                >
+                  {" "}
+                </span>
+              );
+            }
+
             return (
-              /* Outer span clips the character vertically */
               <span
                 key={idx}
                 style={{
                   display: "inline-block",
                   overflow: "hidden",
                   verticalAlign: "bottom",
-                  /* Ensure the clip height matches the inherited line-height */
                   lineHeight: "inherit",
                 }}
               >
                 <motion.span
-                  style={{
-                    display: "inline-block",
-                    ...line.style,
-                  }}
+                  style={{ display: "inline-block", ...line.style }}
                   className={line.className ?? ""}
                   initial={{ y: "110%" }}
                   animate={shouldAnimate ? { y: "0%" } : { y: "110%" }}
@@ -103,8 +114,7 @@ export default function CharReveal({
                     ease: [0.76, 0, 0.24, 1],
                   }}
                 >
-                  {/* Regular space allows natural line wrapping on mobile */}
-                  {char === " " ? " " : char}
+                  {char}
                 </motion.span>
               </span>
             );

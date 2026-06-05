@@ -71,14 +71,14 @@ const platform = [
   { icon: Cpu, label: "AI & ML" },
 ];
 const hosting = [
-  { icon: Server, label: "On-Premise Server" },
-  { icon: Cloud, label: "Private Cloud" },
-  { icon: Cloud, label: "Public Cloud" },
+  { icon: Server, label: "On-Premise Server", color: C.device },
+  { icon: Cloud, label: "Private Cloud", color: C.cloud },
+  { icon: Cloud, label: "Public Cloud", color: C.platform },
 ];
 const services = [
-  { icon: BriefcaseBusiness, label: "SAP" },
-  { icon: Database, label: "ERP" },
-  { icon: Users, label: "CRM" },
+  { icon: BriefcaseBusiness, label: "SAP", color: C.platform },
+  { icon: Database, label: "ERP", color: C.cloud },
+  { icon: Users, label: "CRM", color: C.source },
 ];
 
 // ── Platform Node ─────────────────────────────────────────────────────────────
@@ -437,7 +437,6 @@ function GroupNode({ data }: NodeProps<any>) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
   const color = isDark ? "#ffffff" : "#18181b";
-  const iconColor = data.color ?? C.cloud;
   const title = data.title ?? "Group";
   return (
     <div
@@ -456,36 +455,23 @@ function GroupNode({ data }: NodeProps<any>) {
         {title}
       </p>
       <div className="flex flex-col gap-2">
-        {(data.items as { icon: any; label: string }[]).map((item, i) => {
+        {(data.items as { icon: any; label: string; color?: string }[]).map((item, i) => {
           const Icon = item.icon;
+          const itemColor = item.color ?? data.color ?? C.cloud;
           return (
             <div
               key={i}
-              className="flex items-center gap-2.5 rounded-[10px] px-2.5 py-2.5"
+              className="flex min-w-[140px] items-center gap-3.5 rounded-xl bg-[var(--bg-surface)] px-4 py-3.5 transition-all duration-200"
               style={{
-                background: isDark
-                  ? `rgba(255,255,255,0.03)`
-                  : `rgba(0,0,0,0.02)`,
-                border: `1px solid ${color}12`,
+                border: `1px solid ${itemColor}`,
+                boxShadow: `0 8px 12px -9px ${itemColor}`,
               }}
             >
-              <div
-                className="flex h-[28px] w-[28px] shrink-0 items-center justify-center rounded-lg"
-                style={{
-                  background: `${iconColor}15`,
-                  border: `1px solid ${iconColor}30`,
-                }}
-              >
-                <Icon size={15} color={iconColor} strokeWidth={1.8} />
-              </div>
-              <div className="flex flex-col gap-[2px]">
-                <span className="text-[13px] font-semibold leading-none text-[var(--text-primary)]">
-                  {item.label}
-                </span>
-                <span className="font-mono text-[9px] leading-none uppercase tracking-widest text-[var(--text-muted)]">
-                  ◉ ACTIVE
-                </span>
-              </div>
+              
+                <Icon size={20} color={itemColor} strokeWidth={2} />
+              <span className="text-[13px] font-bold tracking-tight text-[var(--text-primary)]">
+                {item.label}
+              </span>
             </div>
           );
         })}
