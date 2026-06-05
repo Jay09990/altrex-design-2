@@ -30,12 +30,14 @@ import { Button } from "./ui/button";
 import ThemeToggle from "@/components/ThemeToggle";
 import { useTheme } from "@/hooks/useTheme";
 
-import darklogo from "@/assets/logo-dark.png";
-import lightlogo from "@/assets/logo.png";
-import darklogo from "@/assets/Logo_Demo_9-removebg-preview.png";
-import lightlogo from "@/assets/Logo_Demo_8-removebg-preview.png";
-
-
+// import darklogo from "@/assets/logo-dark.png";
+// import lightlogo from "@/assets/logo.png";
+// import darklogo from "@/assets/Logo_Demo_9-removebg-preview.png";
+// import lightlogo from "@/assets/Logo_Demo_8-removebg-preview.png";
+// import darklogo from "@/assets/ALTREX-DARK.jpeg";
+// import lightlogo from "@/assets/ALTREX-WHITE.jpeg";
+import darklogo from "@/assets/Logo Demo 35.png";
+import lightlogo from "@/assets/Logo-Demo-24.png";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
