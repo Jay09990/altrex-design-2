@@ -172,15 +172,15 @@ const WhyChooseUs = () => {
             variants={fadeUpVariants}
             className="mt-4 text-lg text-[var(--text-secondary)]"
           >
-            Everything you need to build scalable, secure, and enterprise-grade
-            realtime applications without operational complexity.
+            Everything required to monitor, manage and optimize
+            industrial infrastructure from a single W! Platform.
           </motion.p>
         </div>
 
         {/* Bento Grid */}
         <motion.div
           variants={fadeUpVariants}
-          className="mt-16 grid gap-5 lg:grid-cols-3 lg:grid-rows-2"
+          className="mt-16 grid gap-6 lg:grid-cols-3 lg:grid-rows-2 auto-rows-min"
         >
           {/* Hero Card */}
           <motion.div
@@ -197,15 +197,15 @@ const WhyChooseUs = () => {
               </motion.div>
 
               <h3 className="mt-8 text-3xl font-bold leading-tight lg:text-4xl">
-                Designed for High-Performance
+                Designed for
                 <br />
-                Realtime Systems
+                Mission-Critical Operations.
               </h3>
 
               <p className="mt-5 text-lg leading-8 text-[var(--text-secondary)]">
-                Power scalable messaging, connected devices, and distributed
-                applications with modern infrastructure optimized for speed,
-                reliability, and global scale.
+                Deliver continuous visibility and control across
+                distributed industrial assets with enterprise-grade
+                reliabilit
               </p>
             </div>
           </motion.div>
@@ -307,7 +307,7 @@ const WhyChooseUs = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.35, delay: i * 0.08 }}
-                className={`group flex gap-4 rounded-2xl border border-black/[0.07] bg-[var(--bg-surface)] p-6 shadow-sm transition-all duration-300 ${item.borderHover} hover:bg-[var(--bg-raised)]`}
+                className={`group flex gap-4 self-start rounded-2xl border border-black/[0.07] bg-[var(--bg-surface)] p-6 shadow-sm transition-all duration-300 ${item.borderHover} hover:bg-[var(--bg-raised)]`}
               >
                 <motion.div
                   whileHover={{ scale: 1.08, rotate: 4 }}

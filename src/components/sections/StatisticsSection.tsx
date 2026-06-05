@@ -19,44 +19,44 @@ import InViewDecryptedText from "../InViewDecryptedText";
 const stats = [
   {
     icon: MessagesSquare,
-    target: 10_000_000,
-    value: "10M+",
-    label: "Messages Processed Daily",
+    target: 2_000,
+    value: "2K+",
+    label: "Connected Assets",
     description: "Realtime events and messaging traffic handled globally.",
   },
   {
     icon: Wifi,
-    target: 24_800,
-    value: "24.8K",
-    label: "Active Connections",
+    target: 10_000_000,
+    value: "10M+",
+    label: "Daily Data Points",
     description: "Connected devices and live realtime infrastructure.",
   },
   {
     icon: Timer,
-    target: 50,
-    value: "50ms",
-    label: "Average Latency",
+    target: 10,
+    value: "10+",
+    label: "Industrial Deployments",
     description: "Ultra-fast communication optimized for realtime systems.",
   },
   {
     icon: Globe,
     target: 120,
     value: "120+",
-    label: "Global Regions",
+    label: "Operational Sites",
     description: "Distributed infrastructure deployed worldwide.",
   },
   {
     icon: ShieldCheck,
     target: 100,
     value: "99.99%",
-    label: "Infrastructure Uptime",
+    label: "Plateform Availability",
     description: "Enterprise-grade reliability for mission-critical systems.",
   },
   {
     icon: Activity,
     target: 1_200_000,
-    value: "1.2M/s",
-    label: "Message Throughput",
+    value: "24x7",
+    label: "Operational Monitoring",
     description: "High-performance event streaming at massive scale.",
   },
 ];
@@ -361,25 +361,23 @@ const StatisticsSection = () => {
             </div>
 
             <h3 className="mt-6 text-3xl font-bold text-[var(--text-primary)]">
-              Monitor Infrastructure Performance in Realtime
+              Transform Operational Data into Actionable Intelligence
             </h3>
 
             <p className="mt-4 text-base leading-8 text-[var(--text-secondary)]">
-              Gain complete visibility into messaging traffic, connected
-              devices, and distributed infrastructure through powerful realtime
-              analytics.
+              Monitor assets, alarms, KPIs and operational trends through powerful analytics and reporting tools.
             </p>
 
             <div className="mt-8 grid grid-cols-2 gap-4">
               {[
                 {
-                  label: "Data Streamed Monthly",
-                  value: "4.8PB",
+                  label: "Data Points Processed Monthly",
+                  value: "100M+",
                 },
 
                 {
-                  label: "Concurrent Sessions",
-                  value: "850K+",
+                  label: "Concurrent Asset Update",
+                  value: "50K+",
                 },
               ].map((m, i) => (
                 <motion.div

@@ -111,7 +111,7 @@ const UseCases = () => {
           >
             Built for Modern{" "}
             <span className="bg-orange-500 bg-clip-text text-transparent">
-              Realtime Platforms
+              Enterprise Industrial Operations
             </span>
           </motion.h2>
 

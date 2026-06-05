@@ -19,15 +19,15 @@ const features = [
     title: "Connectivity",
     subtitle: "Modbus, OPC-UA, MQTT, edge drivers, APIs",
     description:
-      "Connect industrial assets over Modbus, OPC-UA, MQTT, edge drivers and modern APIs with support for Siemens, Rockwell, Schneider, ABB, IEC, DNP3, and BACnet.",
+      "Connect PLCs, RTUs, flow computers, analyzers, energy meters, SCADA systems and edge gateways using industry-standard protocols.",
     color: "#f97316",
     label: "CONNECTIVITY",
     industryExample: "omc",
     industryLabel: "OMC",
     bullets: [
-      "Field-ready Modbus, OPC-UA, and MQTT integration",
-      "Support for Siemens, Rockwell, Schneider, ABB equipment",
-      "Universal industrial protocol coverage for OT/IT networks",
+      "Modbus TCP/RTU, OPC-UA, and MQTT integration",
+      "REST APIs, BACnet, IEC-104, DNP3",
+      "Custom Industrial Drivers"
     ],
   },
   {
@@ -35,15 +35,17 @@ const features = [
     title: "Security",
     subtitle: "IEC-62443, MFA, role-based access",
     description:
-      "IEC-62443 aligned security with role-based access, MFA, secure deployment modes, and cloud or on-premise protection.",
+      "Secure industrial infrastructure with IEC-62443 aligned architecture, role-based access control, MFA and encrypted communications.",
     color: "#06b6d4",
     label: "SECURITY",
     industryExample: "steel",
     industryLabel: "Steel",
     bullets: [
-      "IEC-62443 aligned industrial security posture",
+      "IEC-62443 aligned design",
       "Multi-factor authentication for every user and admin",
-      "Role-based access controls across assets and data streams",
+      "Role-based access controls",
+      "Audit Trails",
+      "Encrypted Communications"
     ],
   },
   {
@@ -51,7 +53,7 @@ const features = [
     title: "Limitless Model",
     subtitle: "Unlimited devices, tags, users, assets",
     description:
-      "Unlimited field devices, tags, clients, users, and assets powered by a SaaS-ready industrial platform architecture.",
+      "Manage unlimited devices, tags, assets, users, locations and operational data through a centralized industrial information model",
     color: "#22c55e",
     label: "LIMITLESS",
     industryExample: "wind",
@@ -60,6 +62,10 @@ const features = [
       "Unlimited device and asset scale for industrial operations",
       "Infinite tag capacity for telemetry, alarms, and metadata",
       "SaaS-ready platform architecture for elastic growth",
+      "User and role management for secure access at scale",
+      "Site and location management for multi-site operations",
+      "Hierarchical asset and location modeling for operational context",
+      "Digital twin capabilities for real-time operational insights",
     ],
   },
   {
@@ -67,15 +73,16 @@ const features = [
     title: "Intelligence",
     subtitle: "Alarms, KPIs, predictive analytics",
     description:
-      "Alarm engine, fleet and VTS management, KPIs, predictive insights, report schedulers, and dynamic analytics.",
+      "Transform operational data into actionable insights through alarms, KPIs, analytics, reporting and predictive intelligence.",
     color: "#f59e0b",
     label: "INTELLIGENCE",
     industryExample: "manufacturing",
     industryLabel: "Manufacturing",
     bullets: [
-      "Advanced alarm engine and operational event processing",
-      "Live KPIs and fleet / VTS telemetry management",
+      "Alarm Management ",
+      "KPI Dashboards",
       "Predictive analytics and scheduled insight reporting",
+      "Event Processing and Operational Insights",
     ],
   },
   {
@@ -83,7 +90,7 @@ const features = [
     title: "Visualization",
     subtitle: "Dashboards, GIS, asset maps",
     description:
-      "Interactive dashboards, asset maps, GIS visualization, real-time reporting, and operational context across every workflow.",
+      "Visualize rich operational dashboards with GIS mapping, asset tracking, trend analysis and enterprise reporting.",
     color: "#3b82f6",
     label: "VISUALIZE",
     industryExample: "renewable",
@@ -91,7 +98,8 @@ const features = [
     bullets: [
       "Real-time dashboards with industrial context",
       "GIS mapping and asset visualization across sites",
-      "Operational reports and visualization for exec decision-making",
+      "Trend analysis and reporting for operational insights",
+      "Mobile access to operational data and insights",
     ],
   },
 ];
@@ -205,9 +213,10 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                     key={feature.label}
                     type="button"
                     onClick={() => setActiveIndex(index)}
-                    className={`group mb-3 flex w-full cursor-pointer flex-col gap-2 rounded-2xl border-l-4 p-4 text-left transition-all duration-200 ${
-                      isActive ? "opacity-100" : "opacity-40 hover:opacity-80"
-                    }`}
+                    className={`group mb-3 flex w-full cursor-pointer flex-col gap-2 rounded-2xl border-l-4 p-4 text-left transition-all duration-200 ${isActive
+                        ? "opacity-100"
+                        : "opacity-40 hover:opacity-80"
+                      }`}
                     style={{
                       borderColor: isActive ? feature.color : "transparent",
                       backgroundColor: isActive
@@ -238,9 +247,10 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                       key={feature.label}
                       type="button"
                       onClick={() => setActiveIndex(index)}
-                      className={`min-w-[170px] rounded-2xl border p-4 text-left transition-all duration-200 ${
-                        isActive ? "opacity-100" : "opacity-40 hover:opacity-80"
-                      }`}
+                      className={`min-w-[170px] rounded-2xl border p-4 text-left transition-all duration-200 ${isActive
+                          ? "opacity-100"
+                          : "opacity-40 hover:opacity-80"
+                        }`}
                       style={{
                         borderColor: isActive ? feature.color : "transparent",
                         backgroundColor: isActive
