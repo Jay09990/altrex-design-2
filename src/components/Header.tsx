@@ -6,8 +6,10 @@ import ThemeToggle from "@/components/ThemeToggle";
 // Add this import at the top
 import { useTheme } from "@/hooks/useTheme";
 
-import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
-import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
+import darklogo from "@/assets/Logo_Demo_9-removebg-preview.png";
+import lightlogo from "@/assets/Logo_Demo_8-removebg-preview.png";
+
+
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);

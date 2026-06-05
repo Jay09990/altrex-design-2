@@ -12,6 +12,8 @@ import {
   MapPinned,
   Shield,
   Smartphone,
+  SquareChartGantt,
+  PlugZap
 } from "lucide-react";
 
 import { Badge } from "../ui/badge";
@@ -23,9 +25,9 @@ const useCases = [
     icon: Factory,
     title: "Industrial IoT",
     description:
-      "Monitor machines, automate workflows, and process realtime industrial data at scale.",
-    metric: "Processes 50K sensor events/sec",
-    bullets: ["Machine health monitoring", "Workflow automation pipelines", "Edge data processing"],
+      "Connect field devices, automate data acquisition, and monitor industrial operations across distributed environments.",
+    metric: "Processes 50M+ Telemetry events/sec",
+    bullets: ["Industrial protocol connectivity", "Real-time telemetry acquisition", "Edge-to-cloud data integration"],
   },
   {
     icon: Shield,
@@ -37,19 +39,19 @@ const useCases = [
   },
   {
     icon: Car,
-    title: "Fleet Tracking",
+    title: "Fleet Management",
     description:
-      "Track vehicles, optimize logistics, and stream live telemetry across global fleets.",
-    metric: "Tracks 80K+ vehicles globally",
-    bullets: ["GPS telemetry streaming", "Route optimization signals", "Driver behavior analytics"],
+      "Manage connected vehicles, improve operational efficiency, and enhance fleet safety through intelligent tracking and analytics.",
+    metric: "Tracks 50K+ vehicles in real time",
+    bullets: ["Live vehicle tracking and route optimization", "Driver performance and safety monitoring", "Maintenance scheduling and operational reporting"],
   },
   {
     icon: Building2,
-    title: "Smart Cities",
+    title: "PIPELINE & GAS NETWORKS",
     description:
-      "Build scalable infrastructure for traffic systems, utilities, and connected urban environments.",
-    metric: "Manages 1M+ city devices",
-    bullets: ["Traffic signal coordination", "Utility grid telemetry", "Public safety networks"],
+      "Monitor gas distribution networks, pressure stations, flow parameters, and critical infrastructure assets in real time.",
+    metric: " Monitors 10K+ field assets",
+    bullets: ["Remote Monitoring of CNG Stations", "AMR Infrastructure of Gas Meters", "GIS-based Network & Cascade Vehicle Management "],
   },
   {
     icon: Smartphone,
@@ -58,6 +60,22 @@ const useCases = [
       "Create modern messaging apps, live collaboration platforms, and realtime experiences.",
     metric: "Supports 100K concurrent users",
     bullets: ["Low-latency pub/sub channels", "Presence & typing indicators", "Push notification delivery"],
+  },
+  {
+    icon: SquareChartGantt,
+    title: "GIS & ASSET MANAGEMENT",
+    description:
+      "Visualize infrastructure assets geographically and manage lifecycle, maintenance, and operational performance from a unified platform.",
+    metric: "Manages 500K+ assets",
+    bullets: ["Interactive GIS-based asset visualization", "Asset lifecycle and maintenance management", "Location-based operational intelligence"],
+  },
+  {
+    icon: PlugZap,
+    title: "ENERGY MANAGEMENT",
+    description:
+      "Monitor energy consumption, demand patterns, power quality, and operational efficiency across facilities and infrastructure.",
+    metric: "Monitors 50K+ energy points",
+    bullets: ["Real-time energy consumption monitoring", "Demand and power quality analytics", "Automated reporting and efficiency insights"],
   },
   {
     icon: MapPinned,
@@ -123,7 +141,7 @@ const UseCases = () => {
       </motion.div>
 
       {/* Horizontal track */}
-      <div className="relative mt-14 overflow-x-auto lg:overflow-hidden scrollbar-hide">
+      <div className="relative mt-14 overflow-x-auto scrollbar-hide">
         <div
           ref={trackRef}
           className="flex w-max gap-6 px-6 lg:px-16 will-change-transform"
@@ -173,7 +191,7 @@ const UseCases = () => {
           })}
 
           {/* Tail spacer so the last card fully clears the viewport */}
-          <div className="w-[20vw] flex-shrink-0" aria-hidden="true" />
+          <div className="w-[40vw] md:w-[30vw] lg:w-[20vw] flex-shrink-0" aria-hidden="true" />
         </div>
       </div>
     </section>
