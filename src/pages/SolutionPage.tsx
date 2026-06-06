@@ -611,6 +611,7 @@ const SolutionPage = () => {
           CTA FOOTER
       ══════════════════════════════════════════════════════════ */}
       <section className="border-t border-[var(--border-subtle)]">
+        
         <motion.div
           initial="hidden"
           whileInView="visible"
