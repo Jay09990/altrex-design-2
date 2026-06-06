@@ -27,7 +27,7 @@ const benefits = [
     icon: ShieldCheck,
     title: "Enterprise Security",
     description:
-      "Protect infrastructure with secure authentication, encrypted communication, and production-grade reliability.",
+      "IEC-62443 aligned architecture, Multi-factor authentication,Role-based access, Comprehensive audit trails",
     gradient: "bg-blue-500",
     borderHover: "hover:border-cyan-500/30",
     glow: "shadow-cyan-900/40",
@@ -37,7 +37,7 @@ const benefits = [
     icon: Layers3,
     title: "Infinite Scalability",
     description:
-      "Scale seamlessly across regions and millions of connected devices without operational complexity.",
+      "Scale from a single site to thousands ofassets and millions of telemetry points.",
     gradient: "bg-amber-500",
     borderHover: "hover:border-orange-500/30",
     glow: "shadow-orange-900/40",
@@ -45,9 +45,9 @@ const benefits = [
 
   {
     icon: Globe,
-    title: "Global Infrastructure",
+    title: "Hybrid Infrastructure",
     description:
-      "Deploy worldwide with edge-ready architecture built for realtime global connectivity.",
+      "Deploy on-premise, cloud or hybrid environments with edge-ready architecture.",
     gradient: "bg-teal-500",
     borderHover: "hover:border-emerald-500/30",
     glow: "shadow-emerald-900/40",
@@ -57,7 +57,7 @@ const benefits = [
     icon: TimerReset,
     title: "99.99% Reliability",
     description:
-      "Built for mission-critical workloads with fault-tolerant systems and high availability architecture.",
+      "99.99% availability for mission-critical industrial operations.",
     gradient: "bg-amber-500",
     borderHover: "hover:border-amber-500/30",
     glow: "shadow-amber-900/40",
@@ -180,13 +180,13 @@ const WhyChooseUs = () => {
         {/* Bento Grid */}
         <motion.div
           variants={fadeUpVariants}
-          className="mt-16 grid gap-6 lg:grid-cols-3 lg:grid-rows-2 auto-rows-min"
+          className="mt-16 grid gap-6 lg:grid-cols-3 lg:grid-rows-4 auto-rows-min"
         >
           {/* Hero Card */}
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="relative col-span-1 overflow-hidden rounded-3xl bg-[var(--bg-surface)] p-10 shadow-2xl lg:col-span-2"
+            className="relative col-span-1 overflow-hidden rounded-3xl bg-[var(--bg-surface)] p-10 shadow-2xl lg:col-span-2 lg:row-span-2"
           >
             <div className="relative z-10">
               <motion.div
@@ -214,7 +214,7 @@ const WhyChooseUs = () => {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="relative row-span-2 overflow-hidden rounded-3xl border border-orange-200/60 bg-[var(--bg-surface)] p-8 shadow-sm"
+            className="relative overflow-hidden rounded-3xl border border-orange-200/60 bg-[var(--bg-surface)] p-8 shadow-sm lg:row-span-4"
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400">
               <span className="relative flex h-2 w-2">
@@ -227,8 +227,8 @@ const WhyChooseUs = () => {
             <div className="space-y-6">
               {[
                 {
-                  label: "Global Deployments",
-                  value: "200+",
+                  label: "Connected Devices",
+                  value: "2K+",
                   color: "text-orange-600",
                   iconBg: "bg-orange-500/10",
                   iconColor: "text-orange-500",
@@ -236,8 +236,8 @@ const WhyChooseUs = () => {
                   bar: "bg-gradient-to-r from-orange-500 to-amber-400",
                 },
                 {
-                  label: "Uptime SLA",
-                  value: "99.99%",
+                  label: "Telemetry Events / Day",
+                  value: "10M+",
                   color: "text-violet-600",
                   iconBg: "bg-violet-500/10",
                   iconColor: "text-violet-500",
@@ -245,8 +245,8 @@ const WhyChooseUs = () => {
                   bar: "bg-gradient-to-r from-violet-500 to-purple-400",
                 },
                 {
-                  label: "Avg Latency",
-                  value: "50ms",
+                  label: "Platform Availability",
+                  value: "99.9%",
                   color: "text-teal-600",
                   iconBg: "bg-teal-500/10",
                   iconColor: "text-teal-500",
@@ -254,8 +254,8 @@ const WhyChooseUs = () => {
                   bar: "bg-gradient-to-r from-teal-500 to-emerald-400",
                 },
                 {
-                  label: "Global Regions",
-                  value: "120+",
+                  label: "Operational Facilities",
+                  value: "10+",
                   color: "text-sky-600",
                   iconBg: "bg-sky-500/10",
                   iconColor: "text-sky-500",
