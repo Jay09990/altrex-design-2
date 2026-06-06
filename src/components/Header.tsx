@@ -36,8 +36,11 @@ import { useTheme } from "@/hooks/useTheme";
 // import lightlogo from "@/assets/Logo_Demo_8-removebg-preview.png";
 // import darklogo from "@/assets/ALTREX-DARK.jpeg";
 // import lightlogo from "@/assets/ALTREX-WHITE.jpeg";
-import darklogo from "@/assets/Logo Demo 35.png";
-import lightlogo from "@/assets/Logo-Demo-24.png";
+// import darklogo from "@/assets/Logo Demo 35.png";
+// import lightlogo from "@/assets/Logo-Demo-24.png";
+
+import lightlogo from "@/assets/AltrexLogoTr1.png";
+import darklogo from "@/assets/AltrexLogoTr2.png";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -217,7 +220,7 @@ const Header = () => {
           <img
             src={theme === "dark" ? darklogo : lightlogo}
             alt="Altrex Logo"
-            className="h-30 w-auto object-contain transition-opacity duration-300"
+            className="h-5 w-auto object-contain transition-opacity duration-300"
           />
         </Link>
 
