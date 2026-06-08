@@ -9,6 +9,7 @@ import { gsap } from "gsap";
 import { useTheme } from "@/hooks/useTheme";
 import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
 import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
+import wilogo from "@/assets/W!_icon_round.png"
 
 const C = {
   source: "#10b981",
@@ -83,8 +84,9 @@ const services = [
 
 // ── Platform Node ─────────────────────────────────────────────────────────────
 function PlatformNode({ data }: NodeProps<any>) {
-  const { theme } = useTheme();
-  const logo = theme === "dark" ? darklogo : lightlogo;
+  // const { theme } = useTheme();
+  // const logo = theme === "dark" ? darklogo : lightlogo;
+  const logo = wilogo;
   const SIZE = 360;
   const center = SIZE / 2;
   const RING_R = 125; // Radius for the platform items
@@ -109,7 +111,7 @@ function PlatformNode({ data }: NodeProps<any>) {
       <motion.img
         src={logo}
         alt="Altrex"
-        className="z-10 w-24 drop-shadow-xl"
+        className="z-10 w-12 drop-shadow-xl"
         style={{ position: "absolute" }}
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -742,7 +744,7 @@ const ArchitectureMobile = () => {
                 <motion.img
                   src={logo}
                   alt="Altrex"
-                  className="mb-6 w-24"
+                  className="mb-6 h-10 w-1"
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 3, repeat: Infinity }}
                 />
