@@ -184,10 +184,10 @@ const StatisticsSection = () => {
               variants={fadeUpVariants}
             className="mt-6 max-w-xl text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
             >
-              Realtime Infrastructure{" "}
+              Unified Industrial Operations Platform{" "}
 
               <span className="bg-orange-500 bg-clip-text text-transparent">
-                at Global Scale
+                at Enterprise Scale
               </span>
             </motion.h2>
 
@@ -195,8 +195,7 @@ const StatisticsSection = () => {
               variants={fadeUpVariants}
               className="mt-4 max-w-lg text-lg text-[var(--text-secondary)]"
             >
-              High-performance infrastructure optimized for modern realtime
-              messaging, IoT communication, and distributed systems.
+             Connect, monitor, and optimize assets, facilities, fleets, energy systems, and critical infrastructure through a secure, real-time platform built for industrial operations.
             </motion.p>
           </div>
 

@@ -162,9 +162,9 @@ const WhyChooseUs = () => {
             variants={fadeUpVariants}
             className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
           >
-            Unified Industrial Operations Platform {" "}
+            Built for Modern{" "}
             <span className="bg-violet-500 bg-clip-text text-transparent">
-              at Enterprise Scale
+              Realtime Infrastructure
             </span>
           </motion.h2>
 
@@ -172,7 +172,8 @@ const WhyChooseUs = () => {
             variants={fadeUpVariants}
             className="mt-4 text-lg text-[var(--text-secondary)]"
           >
-            Connect, monitor, and optimize assets, facilities, fleets, energy systems, and critical infrastructure through a secure, real-time platform built for industrial operations
+            Everything required to monitor, manage and optimize
+            industrial infrastructure from a single W! Platform.
           </motion.p>
         </div>
 
