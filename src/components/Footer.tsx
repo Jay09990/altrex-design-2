@@ -3,9 +3,8 @@ import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useTheme } from "@/hooks/useTheme";
-import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
-import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
-
+import lightlogo from "@/assets/AltrexLogoTr1.png";
+import darklogo from "@/assets/AltrexLogoTr2.png";
 const Footer = () => {
   const { theme } = useTheme();
 
@@ -20,17 +19,8 @@ const Footer = () => {
               <img
                 src={theme === "dark" ? darklogo : lightlogo}
                 alt="Altrex Logo"
-                className="h-12 w-auto object-contain"
+                className="h-5 w-auto object-contain"
               />
-
-              <div className="hidden sm:block">
-                <h1 className="text-md font-bold">
-                  Altrex
-                </h1>
-                <p className="text-xs text-[var(--text-secondary)]">
-                  Altrex Digital Platforms Pvt Ltd
-                </p>
-              </div>
             </div>
 
             <p className="max-w-md text-sm leading-7">
