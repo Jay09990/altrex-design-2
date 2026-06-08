@@ -161,11 +161,11 @@ function LegendDot({ color, label }: { color: string; label: string }) {
 }
 
 // ── Main component ────────────────────────────────────────────────────────────
-interface SolutionArchitectureProps {
+interface DynamicArchitectureProps {
   nodes: ArchNode[];
 }
 
-export default function SolutionArchitecture({ nodes }: SolutionArchitectureProps) {
+export default function DynamicArchitecture({ nodes }: DynamicArchitectureProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 

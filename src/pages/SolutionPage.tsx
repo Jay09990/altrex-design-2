@@ -8,7 +8,7 @@ import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
 
 import { getSolutionBySlug } from "@/data/solutionsData";
-import SolutionArchitecture from "@/components/sections/SolutionArchitecture";
+import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -601,7 +601,7 @@ const SolutionPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-surface)]/60 p-6 lg:p-10"
             >
-              <SolutionArchitecture nodes={solution.architecture.nodes} />
+              <DynamicArchitecture nodes={solution.architecture.nodes} />
             </motion.div>
           </div>
         </section>

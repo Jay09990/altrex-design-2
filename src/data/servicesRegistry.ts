@@ -229,7 +229,7 @@ export const servicesRegistry: Record<string, ServiceData> = {
     }
   },
   'industrial-iot-edge': {
-    slug: 'iiot-edge-integration',
+    slug: 'industrial-iot-edge',
     title: 'Industrial IoT & Edge Integration Services',
     hero: {
       title: 'Industrial IoT & Edge Integration Services',

@@ -114,7 +114,7 @@ const Header = () => {
       title: "Integration Services",
       items: [
         { name: "System Integration Services", href: "/services/system-integration", icon: Sliders },
-        { name: "Industrial IoT & Edge Integration", href: "/services/iiot-edge-integration", icon: Cpu },
+        { name: "Industrial IoT & Edge Integration", href: "/services/industrial-iot-edge", icon: Cpu },
         { name: "CCTV & Video Analytics Services", href: "/services/cctv-video-analytics", icon: Video },
       ]
     },
