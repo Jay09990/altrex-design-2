@@ -50,8 +50,9 @@ import {
 import { Badge } from "../ui/badge";
 import { gsap } from "gsap";
 import { useTheme } from "@/hooks/useTheme";
-import lightlogo from "@/assets/AltrexLogoTr1.png";
-import darklogo from "@/assets/AltrexLogoTr2.png";
+import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
+import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
+import wilogo from "@/assets/W!_icon_round.png"
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Colour palette
@@ -139,125 +140,354 @@ const services = [
   { icon: Users,             label: "CRM", color: C.source   },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Devices circle dimensions (must be shared with edge logic)
-// ─────────────────────────────────────────────────────────────────────────────
-const CIRCLE_SIZE   = 240;   // outer diameter
-const CIRCLE_RADIUS = CIRCLE_SIZE / 2;  // 120px
-
-// ─────────────────────────────────────────────────────────────────────────────
-// DevicesCircleNode — single draggable unit, four items fixed inside
-// ─────────────────────────────────────────────────────────────────────────────
-function DevicesCircleNode({ data }: NodeProps<any>) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
-
-  const devItems = data.devices as typeof devices;
-
-  // Cardinal offsets from circle centre for each slot
-  const slotOffset: Record<string, { x: number; y: number }> = {
-    top:    { x: 0,    y: -68 },
-    left:   { x: -68, y: 0   },
-    right:  { x: 68,  y: 0   },
-    bottom: { x: 0,   y: 68  },
-  };
+// ── Platform Node ─────────────────────────────────────────────────────────────
+function PlatformNode({ data }: NodeProps<any>) {
+  // const { theme } = useTheme();
+  // const logo = theme === "dark" ? darklogo : lightlogo;
+  const logo = wilogo;
+  const SIZE = 360;
+  const center = SIZE / 2;
+  const RING_R = 125; // Radius for the platform items
 
   return (
     <div
-      className="relative flex items-center justify-center"
+      className="relative flex items-center justify-center rounded-full"
       style={{
-        width:  CIRCLE_SIZE,
-        height: CIRCLE_SIZE,
-        // React Flow needs pointer-events for drag; don't block with overflow:hidden
+        width: SIZE,
+        height: SIZE,
+        background: `${C.platform}07`,
+        border: `1.5px solid ${C.platform}`,
       }}
     >
-      {/* ── Outer glow ring ── */}
+      {/* Center circle background */}
       <div
-        className="absolute inset-0 rounded-full"
-        style={{
-          background: `radial-gradient(circle at center, ${C.device}0a 0%, transparent 72%)`,
-          border: `1.5px solid ${C.device}45`,
-          boxShadow: `0 0 40px ${C.device}18, inset 0 0 30px ${C.device}08`,
-        }}
+        className="absolute rounded-full bg-[var(--bg-surface)]"
+        style={{ width: 150, height: 150, border: `1.5px solid ${C.platform}` }}
       />
 
-      {/* ── Inner hub circle ── */}
-      <div
-        className="absolute rounded-full flex items-center justify-center"
-        style={{
-          width: 68, height: 68,
-          background: isDark
-            ? `radial-gradient(circle, ${C.device}15, ${C.device}05)`
-            : `radial-gradient(circle, ${C.device}10, transparent)`,
-          border: `1.5px solid ${C.device}30`,
-          boxShadow: `0 0 16px ${C.device}20`,
-        }}
-      >
-        {/* Hamburger lines — matches reference image centre */}
-        {/* <div className="flex flex-col items-center gap-[4px]">
-          {[17, 12, 17].map((w, i) => (
-            <div
-              key={i}
-              style={{
-                width: w, height: 2,
-                borderRadius: 99,
-                background: isDark ? "rgba(255,255,255,0.65)" : "rgba(30,30,70,0.55)",
-              }}
-            />
-          ))}
-        </div> */}
-      </div>
+      {/* Company logo — infinite glide up/down */}
+      <motion.img
+        src={logo}
+        alt="Altrex"
+        className="z-10 w-12 drop-shadow-xl"
+        style={{ position: "absolute" }}
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-      {/* ── Four device items at cardinal positions ── */}
-      {devItems.map((item) => {
-        const off = slotOffset[item.slot];
+      {/* Items arranged in a ring */}
+      {data.items.map((item: any, i: number) => {
+        const angle = (i / data.items.length) * Math.PI * 2;
+        const x = center + Math.cos(angle) * RING_R;
+        const y = center + Math.sin(angle) * RING_R;
         const Icon = item.icon;
         return (
           <div
-            key={item.slot}
-            className="absolute flex flex-col items-center gap-[6px]"
-            style={{
-              left: CIRCLE_RADIUS + off.x,
-              top:  CIRCLE_RADIUS + off.y,
-              transform: "translate(-50%, -50%)",
-              pointerEvents: "none",  // items are NOT individually draggable
-            }}
+            key={i}
+            className="absolute z-20 flex flex-col items-center gap-[5px]"
+            style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
           >
             <div
-              className="flex h-[32px] w-[32px] items-center justify-center rounded-[10px] transition-all duration-200"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-md transition-transform hover:scale-110"
               style={{
-                background: isDark ? `${C.device}12` : `${C.device}08`,
-                border: `1px solid ${C.device}35`,
-                boxShadow: `0 2px 10px ${C.device}18`,
+                boxShadow: `0 2px 10px ${C.platform}25, 0 0 0 1px ${C.platform}12`,
               }}
             >
-              <Icon size={15} color={C.device} strokeWidth={2} />
+              <Icon size={22} color={C.platform} strokeWidth={2} />
             </div>
-            <span
-              className="text-center font-bold uppercase tracking-tight text-[var(--text-primary)]"
-              style={{ fontSize: "9.5px", lineHeight: "1.2", maxWidth: 60, whiteSpace: "pre-line" }}
-            >
+            <span className="whitespace-nowrap rounded border border-black/[0.04] bg-[var(--bg-surface)]/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-[var(--text-secondary)]">
               {item.label}
             </span>
           </div>
         );
       })}
 
-      {/* ── Invisible handles — React Flow still needs them for edges ──
-           We place handles around the circumference; the custom edge
-           ignores them and computes its own tangent point anyway.
-           These are just needed so React Flow registers the node as connectable. */}
-      <Handle type="target" position={Position.Left}
-        style={{ opacity: 0, top: "50%", left: 0 }} />
-      <Handle type="source" position={Position.Right}
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{ left: -1, top: "50%", opacity: 0 }}
+      />
+      <Handle
+        type="source"
+        position={Position.Right}
         id="right"
-        style={{ opacity: 0, top: "50%", right: 0 }} />
-      <Handle type="target" position={Position.Top}
+        style={{ right: -1, top: "50%", opacity: 0 }}
+      />
+    </div>
+  );
+}
+
+// ── Item Node ─────────────────────────────────────────────────────────────────
+function ItemNode({ data }: NodeProps<any>) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const color = isDark ? "#ffffff" : "#18181b";
+  const iconColor = (data.color as string) ?? C.source;
+  const Icon = data.icon;
+  return (
+    <div
+      className={`flex min-w-[140px] items-center gap-3.5 rounded-xl bg-[var(--bg-surface)] px-4 py-3.5 transition-all duration-200`}
+      style={{
+        border: `1px solid ${iconColor}`,
+        boxShadow: `0 8px 12px -9px ${iconColor}`,
+      }}
+    >
+      {Icon && <Icon size={20} color={iconColor} strokeWidth={2} />}
+      <span className="text-[13px] font-bold tracking-tight text-[var(--text-primary)]">
+        {data.label}
+      </span>
+      <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
+      <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
+      <Handle
+        type="target"
+        position={Position.Top}
+        style={{ opacity: 0 }}
         id="top"
-        style={{ opacity: 0, left: "50%", top: 0 }} />
-      <Handle type="target" position={Position.Bottom}
+      />
+    </div>
+  );
+}
+
+// ── Block Node ────────────────────────────────────────────────────────────────
+function BlockNode({ data }: NodeProps<any>) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const color = isDark ? "#ffffff" : "#18181b";
+  const iconColor = (data.color as string) ?? C.source;
+  const isDevices = data.title === "Devices";
+  return (
+    <div
+      className="rounded-[20px] bg-[var(--bg-surface)] p-[18px] shadow-sm"
+      style={{
+        width: data.width ?? 240,
+        border: `1px solid ${color}15`,
+        borderTop: `3px solid ${color}`,
+        boxShadow: `0 4px 24px rgba(0,0,0,0.05), 0 0 0 1px ${color}04`,
+        minHeight: isDevices ? 340 : "auto",
+      }}
+    >
+      <p
+        className="mb-3.5 text-center text-[12px] font-bold uppercase tracking-widest"
+        style={{ color }}
+      >
+        {data.title}
+      </p>
+      {data.variant === "connectivity" && (
+        <div className="flex flex-col gap-[6px]">
+          {(data.items as string[]).map((item, i) => (
+            <div
+              key={i}
+              className="rounded-[9px] px-3 py-[6px] text-center text-[13px] font-semibold"
+              style={{
+                color,
+                background: isDark
+                  ? `rgba(255,255,255,0.04)`
+                  : `rgba(0,0,0,0.02)`,
+                border: `1px solid ${color}15`,
+              }}
+            >
+              {item}
+            </div>
+          ))}
+        </div>
+      )}
+      {data.variant === "platform" && (
+        <div
+          className={`grid gap-2 ${isDevices ? "grid-cols-1" : "grid-cols-2"}`}
+        >
+          {(data.items as { icon: any; label: string }[]).map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={i}
+                className="flex flex-col items-center gap-[6px] rounded-[12px] border border-[var(--border-subtle)] bg-[var(--bg-raised)] px-2 py-2.5 shadow-sm"
+              >
+                <div
+                  className="flex h-[28px] w-[28px] items-center justify-center rounded-lg"
+                  style={{
+                    background: `${iconColor}15`,
+                    border: `1px solid ${iconColor}30`,
+                  }}
+                >
+                  <Icon size={15} color={iconColor} strokeWidth={1.8} />
+                </div>
+                <span className="text-center text-[11px] font-semibold leading-tight text-[var(--text-secondary)]">
+                  {item.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      )}
+      <Handle type="target" position={Position.Left} style={{ opacity: 0 }} />
+      <Handle type="source" position={Position.Right} style={{ opacity: 0 }} />
+      <Handle
+        type="source"
+        position={Position.Bottom}
+        style={{ opacity: 0 }}
         id="bottom"
-        style={{ opacity: 0, left: "50%", bottom: 0 }} />
+      />
+    </div>
+  );
+}
+
+// ── Merged Devices & Connectivity Node ────────────────────────────────────────
+function MergedHubNode({ data }: NodeProps<any>) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const color = isDark ? "#ffffff" : "#18181b";
+  const devItems = data.devices as { icon: any; label: string }[];
+  const conItems = data.connectivity as { icon: any; label: string }[];
+
+  const SIZE = 420;
+  const center = SIZE / 2;
+  const INNER_D = 220; // Increased diameter of inner circle
+  const ARC_R = 175; // Increased radius for top and bottom arcs
+
+  return (
+    <div
+      className="relative flex items-center justify-center"
+      style={{
+        width: SIZE,
+        height: SIZE,
+        background: "bg-[(var(--bg-surface))]",
+      }}
+    >
+      {/* SVG Connectors */}
+      <svg
+        className="absolute inset-0 pointer-events-none z-0"
+        width={SIZE}
+        height={SIZE}
+      >
+        {conItems.map((_, i) => {
+          const isTop = i < 4;
+          const angleDeg = isTop ? -150 + i * 40 : 30 + (i - 4) * 40;
+          const rad = (angleDeg * Math.PI) / 180;
+          const x1 = center + Math.cos(rad) * (INNER_D / 2);
+          const y1 = center + Math.sin(rad) * (INNER_D / 2);
+          const x2 = center + Math.cos(rad) * (ARC_R - 36);
+          const y2 = center + Math.sin(rad) * (ARC_R - 36);
+          return (
+            <line
+              key={`line-${i}`}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke={C.connectivity}
+              strokeWidth={1.5}
+              strokeDasharray="4 4"
+            />
+          );
+        })}
+      </svg>
+
+      {/* Center circle */}
+      <div
+        className="absolute rounded-full bg-[var(--bg-surface)] flex items-center justify-center transition-all duration-300"
+        style={{
+          width: INNER_D,
+          height: INNER_D,
+          border: `1px solid ${isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.03)"}`,
+          boxShadow: isDark
+            ? `0 10px 40px rgba(0,0,0,0.4), 0 0 20px ${C.device}15 inset`
+            : `0 10px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.02)`,
+        }}
+      >
+        {/* Device grid 2x2 */}
+        <div className="grid grid-cols-2 grid-rows-2 w-[160px] h-[160px] gap-2.5">
+          {devItems.map((item, i) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={`dev-${i}`}
+                className="flex flex-col items-center justify-center p-1 rounded-xl transition-all duration-200 hover:scale-105"
+              >
+                <div
+                  className="flex h-[42px] w-[42px] items-center justify-center rounded-[14px] bg-[var(--bg-surface)] border"
+                  style={{
+                    borderColor: `${C.device}30`,
+                    background: `${C.device}08`,
+                    boxShadow: `0 2px 8px ${C.device}15`,
+                  }}
+                >
+                  <Icon size={20} color={C.device} strokeWidth={2} />
+                </div>
+                <span
+                  className="mt-1.5 text-center font-bold uppercase tracking-tight text-[var(--text-primary)]"
+                  style={{
+                    fontSize: "9px",
+                    lineHeight: "1.2",
+                    maxWidth: "75px",
+                  }}
+                >
+                  {item.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Items arranged in top and bottom arcs */}
+      {conItems.map((item, i) => {
+        const isTop = i < 4;
+        let angleDeg = 0;
+        if (isTop) {
+          // Top arc: 4 items mapped to angles from -150 to -30
+          angleDeg = -150 + i * 40;
+        } else {
+          // Bottom arc: 4 items mapped to angles from 30 to 150
+          angleDeg = 30 + (i - 4) * 40;
+        }
+        const rad = (angleDeg * Math.PI) / 180;
+        const x = center + Math.cos(rad) * ARC_R;
+        const y = center + Math.sin(rad) * ARC_R;
+        const Icon = item.icon;
+        return (
+          <div
+            key={`con-${i}`}
+            className="absolute z-20"
+            style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
+          >
+            <motion.div
+              className="flex flex-col items-center gap-1.5"
+              animate={{ y: [0, -4, 0] }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: i * 0.2,
+              }}
+            >
+              <div
+                className="flex h-[46px] w-[46px] items-center justify-center rounded-[16px] bg-[var(--bg-surface)] border shadow-sm transition-transform hover:scale-110"
+                style={{
+                  borderColor: `${C.connectivity}30`,
+                  background: `${C.connectivity}08`,
+                  boxShadow: `0 4px 12px ${C.connectivity}15`,
+                }}
+              >
+                <Icon size={22} color={C.connectivity} strokeWidth={1.8} />
+              </div>
+              <span className="text-center text-[10px] font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                {item.label}
+              </span>
+            </motion.div>
+          </div>
+        );
+      })}
+
+      <Handle
+        type="target"
+        position={Position.Left}
+        style={{ opacity: 0, left: center - INNER_D / 2, top: "50%" }}
+      />
+      <Handle
+        type="source"
+        position={Position.Right}
+        style={{ opacity: 0, right: center - INNER_D / 2, top: "50%" }}
+      />
     </div>
   );
 }
@@ -733,8 +963,13 @@ const ArchitectureMobile = () => {
             </h3>
             {step.isPlatform ? (
               <div className="flex flex-col items-center">
-                <motion.img src={logo} alt="Altrex" className="mb-6 w-24"
-                  animate={{ y: [0, -5, 0] }} transition={{ duration: 3, repeat: Infinity }} />
+                <motion.img
+                  src={logo}
+                  alt="Altrex"
+                  className="mb-6 h-10 w-1"
+                  animate={{ y: [0, -5, 0] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                />
                 <div className="grid grid-cols-2 gap-3 w-full">
                   {step.items.slice(0, 4).map((item: any, i) => (
                     <div key={i} className="flex flex-col items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-raised)] p-2">
