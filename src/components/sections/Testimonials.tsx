@@ -260,43 +260,6 @@ const Testimonials = () => {
             ))}
           </div>
         </motion.div>
-
-        {/* Trusted by row */}
-        <motion.div
-          variants={fadeUpVariants}
-          className="mt-16 text-center"
-        >
-          <p className="text-sm font-medium text-[var(--text-muted)]">
-            Trusted by 200+ teams worldwide
-          </p>
-
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-4">
-            {companies.map((co, i) => (
-              <motion.div
-                key={co}
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                whileHover={{
-                  y: -3,
-                  scale: 1.03,
-                }}
-                transition={{
-                  duration: 0.25,
-                  delay: i * 0.06,
-                }}
-                className="rounded-xl border border-black/[0.08] bg-black/5 px-6 py-2.5 text-sm font-semibold text-[var(--text-secondary)] shadow-sm"
-              >
-                {co}
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
       </motion.div>
     </section>
   );
