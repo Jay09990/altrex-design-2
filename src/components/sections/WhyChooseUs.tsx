@@ -307,7 +307,7 @@ const WhyChooseUs = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.35, delay: i * 0.08 }}
-                className={`group flex gap-4 self-start rounded-2xl border border-black/[0.07] bg-[var(--bg-surface)] p-6 shadow-sm transition-all duration-300 ${item.borderHover} hover:bg-[var(--bg-raised)]`}
+                className={`group flex gap-4 self-start rounded-2xl border border-black/[0.07] bg-[var(--bg-surface)] p-6 shadow-sm transition-all duration-300 h-41 ${item.borderHover} hover:bg-[var(--bg-raised)]`}
               >
                 <motion.div
                   whileHover={{ scale: 1.08, rotate: 4 }}

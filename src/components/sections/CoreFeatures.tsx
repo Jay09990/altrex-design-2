@@ -36,7 +36,7 @@ const features = [
     subtitle: "IEC-62443, MFA, role-based access",
     description:
       "Secure industrial infrastructure with IEC-62443 aligned architecture, role-based access control, MFA and encrypted communications.",
-    color: "#06b6d4",
+    color: "#f97316",
     label: "SECURITY",
     industryExample: "steel",
     industryLabel: "Steel",
@@ -54,7 +54,7 @@ const features = [
     subtitle: "Unlimited devices, tags, users, assets",
     description:
       "Manage unlimited devices, tags, assets, users, locations and operational data through a centralized industrial information model",
-    color: "#22c55e",
+    color: "#f97316",
     label: "LIMITLESS",
     industryExample: "wind",
     industryLabel: "Wind",
@@ -74,7 +74,7 @@ const features = [
     subtitle: "Alarms, KPIs, predictive analytics",
     description:
       "Transform operational data into actionable insights through alarms, KPIs, analytics, reporting and predictive intelligence.",
-    color: "#f59e0b",
+    color: "#f97316",
     label: "INTELLIGENCE",
     industryExample: "manufacturing",
     industryLabel: "Manufacturing",
@@ -91,7 +91,7 @@ const features = [
     subtitle: "Dashboards, GIS, asset maps",
     description:
       "Visualize rich operational dashboards with GIS mapping, asset tracking, trend analysis and enterprise reporting.",
-    color: "#3b82f6",
+    color: "#f97316",
     label: "VISUALIZE",
     industryExample: "renewable",
     industryLabel: "Renewable",
