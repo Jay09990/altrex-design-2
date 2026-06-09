@@ -101,7 +101,7 @@ const UseCases = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
-  useScrollScrubHorizontalTrack(sectionRef, trackRef, { minWidth: 1024, endPadding: 240 });
+  useScrollScrubHorizontalTrack(sectionRef, trackRef, { minWidth: 1024, endPadding: 140 });
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-transparent py-28">

@@ -106,12 +106,7 @@ const Home = () => {
       >
         <HeroSection />
 
-        <div id={HOME_CHAPTERS[1].id} className="scroll-mt-28">
-          <CoreFeatures />
-        </div>
-
         <div id={HOME_CHAPTERS[2].id} className="scroll-mt-28">
-          <WhyChooseUs />
           <Architecture />
         </div>
 

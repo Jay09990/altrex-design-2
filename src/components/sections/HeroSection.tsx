@@ -1,28 +1,339 @@
 import { useEffect, useRef } from "react";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight, Play, Wifi, AlertTriangle, TrendingUp, MapPin, Truck, BarChart2, Activity, CheckCircle2 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { gsap } from "gsap";
 import useMagneticButton from "@/hooks/useMagneticButton";
-
-import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import CharReveal from "@/components/CharReveal";
-import TrustedBy from "./TrustedBy";
 
-const fadeUpVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-  visible: {
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (delay = 0) => ({
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.8,
-    },
-  },
+    transition: { duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] },
+  }),
 };
 
+// ── Live metric row ───────────────────────────────────────────────────────────
+function MetricPill({
+  label,
+  value,
+  color,
+  delay,
+}: {
+  label: string;
+  value: string;
+  color: string;
+  delay: number;
+}) {
+  return (
+    <motion.div
+      custom={delay}
+      variants={fadeUp}
+      initial="hidden"
+      animate="visible"
+      className="flex items-center gap-2 rounded-lg border border-white/[0.07] bg-[var(--bg-raised)]/60 px-3 py-2"
+    >
+      <span
+        className="h-1.5 w-1.5 rounded-full animate-pulse shrink-0"
+        style={{ background: color }}
+      />
+      <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+        {label}
+      </span>
+      <span className="ml-auto font-mono text-xs font-bold" style={{ color }}>
+        {value}
+      </span>
+    </motion.div>
+  );
+}
+
+// ── Alarm row ─────────────────────────────────────────────────────────────────
+function AlarmRow({
+  station,
+  type,
+  status,
+  time,
+  isWarning,
+}: {
+  station: string;
+  type: string;
+  status: string;
+  time: string;
+  isWarning: boolean;
+}) {
+  return (
+    <div className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-white/[0.03] transition-colors">
+      <div
+        className={`shrink-0 rounded-md p-1.5 ${isWarning ? "bg-amber-500/15" : "bg-emerald-500/15"
+          }`}
+      >
+        {isWarning ? (
+          <AlertTriangle size={11} className="text-amber-400" />
+        ) : (
+          <CheckCircle2 size={11} className="text-emerald-400" />
+        )}
+      </div>
+      <div className="flex-1 min-w-0">
+        <p className="text-[11px] font-semibold text-[var(--text-primary)] truncate">
+          {station}
+        </p>
+        <p className="text-[10px] text-[var(--text-muted)] truncate">{type}</p>
+      </div>
+      <div className="text-right shrink-0">
+        <p
+          className={`text-[10px] font-bold ${isWarning ? "text-amber-400" : "text-emerald-400"
+            }`}
+        >
+          {status}
+        </p>
+        <p className="text-[9px] font-mono text-[var(--text-muted)]">{time}</p>
+      </div>
+    </div>
+  );
+}
+
+// ── Mini sparkline ─────────────────────────────────────────────────────────────
+function Sparkline({
+  data,
+  color,
+  height = 32,
+}: {
+  data: number[];
+  color: string;
+  height?: number;
+}) {
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const range = max - min || 1;
+  const w = 80;
+  const h = height;
+  const points = data
+    .map(
+      (v, i) =>
+        `${(i / (data.length - 1)) * w},${h - ((v - min) / range) * h}`
+    )
+    .join(" ");
+
+  return (
+    <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`}>
+      <polyline
+        points={points}
+        fill="none"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        opacity="0.8"
+      />
+      {/* Last point dot */}
+      <circle
+        cx={(((data.length - 1) / (data.length - 1)) * w)}
+        cy={h - ((data[data.length - 1] - min) / range) * h}
+        r="2.5"
+        fill={color}
+      />
+    </svg>
+  );
+}
+
+// ── Dashboard Panel ───────────────────────────────────────────────────────────
+function DashboardPreview() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 40 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="relative w-full max-w-[820px] select-none"
+    >
+      {/* Outer glow */}
+      <div className="absolute -inset-4 rounded-3xl bg-orange-500/5 blur-2xl pointer-events-none" />
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-orange-500/10 via-transparent to-violet-500/10 blur-sm pointer-events-none" />
+
+      {/* Main panel */}
+      <div className="relative rounded-2xl border border-white/10 bg-[var(--bg-surface)]/90 backdrop-blur-md overflow-hidden shadow-2xl">
+
+        {/* Terminal bar */}
+        <div className="flex items-center justify-between border-b border-white/[0.06] bg-[var(--bg-void)]/60 px-4 py-2.5">
+          <div className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
+            <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
+            <span className="h-2 w-2 rounded-full bg-[#28c840]" />
+            <span className="ml-2 font-mono text-[10px] text-[var(--text-muted)]">
+              altrex@platform:~${" "}
+              <span className="text-orange-400">W! Platform Live</span>
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-wider">LIVE</span>
+          </div>
+        </div>
+
+        <div className="p-4 space-y-3">
+
+          {/* Top metrics strip */}
+          <div className="grid grid-cols-3 gap-2">
+            <MetricPill label="Devices Online" value="18,240" color="#10b981" delay={0.7} />
+            <MetricPill label="Avg Latency" value="12ms" color="#f97316" delay={0.8} />
+            <MetricPill label="Uptime" value="99.99%" color="#8b5cf6" delay={0.9} />
+          </div>
+
+          {/* Two-column body */}
+          <div className="grid grid-cols-2 gap-3">
+
+            {/* Left: KPI cards */}
+            <div className="space-y-2">
+              {/* ERP sync card */}
+              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <BarChart2 size={12} className="text-orange-400" />
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                      ERP Sync
+                    </span>
+                  </div>
+                  <span className="font-mono text-[9px] text-emerald-400">● ACTIVE</span>
+                </div>
+                <p className="text-xl font-bold text-[var(--text-primary)]">₹4.2Cr</p>
+                <p className="text-[10px] text-[var(--text-muted)]">Today's reconciled value</p>
+                <div className="mt-2 flex justify-end">
+                  <Sparkline data={[38, 45, 42, 55, 48, 62, 58, 70, 65, 72]} color="#f97316" />
+                </div>
+              </div>
+
+              {/* CRM card */}
+              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <TrendingUp size={12} className="text-violet-400" />
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                      CRM Pipeline
+                    </span>
+                  </div>
+                  <span className="font-mono text-[9px] text-violet-400">847 leads</span>
+                </div>
+                <div className="space-y-1.5 mt-1">
+                  {[
+                    { label: "Qualified", pct: 68, color: "#8b5cf6" },
+                    { label: "In Progress", pct: 45, color: "#f97316" },
+                    { label: "Closed", pct: 82, color: "#10b981" },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-2">
+                      <span className="w-14 text-[9px] text-[var(--text-muted)] shrink-0">
+                        {item.label}
+                      </span>
+                      <div className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
+                          style={{ width: `${item.pct}%`, background: item.color }}
+                        />
+                      </div>
+                      <span className="text-[9px] font-mono" style={{ color: item.color }}>
+                        {item.pct}%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Right: VTS + Alarm */}
+            <div className="space-y-2">
+              {/* VTS / Fleet card */}
+              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <Truck size={12} className="text-cyan-400" />
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                      VTS Fleet
+                    </span>
+                  </div>
+                  <span className="font-mono text-[9px] text-cyan-400">214 active</span>
+                </div>
+                {/* Mini map placeholder */}
+                <div className="relative rounded-lg bg-[var(--bg-void)]/60 border border-white/[0.05] h-[110px] overflow-hidden mb-2">
+                  {/* Grid lines */}
+                  <svg className="absolute inset-0 w-full h-full opacity-20">
+                    <defs>
+                      <pattern id="map-grid" width="16" height="16" patternUnits="userSpaceOnUse">
+                        <path d="M 16 0 L 0 0 0 16" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#map-grid)" />
+                  </svg>
+                  {/* Truck dots */}
+                  {[
+                    { x: "22%", y: "30%", color: "#06b6d4" },
+                    { x: "45%", y: "55%", color: "#06b6d4" },
+                    { x: "65%", y: "25%", color: "#10b981" },
+                    { x: "75%", y: "65%", color: "#f97316" },
+                    { x: "35%", y: "70%", color: "#06b6d4" },
+                  ].map((dot, i) => (
+                    <div
+                      key={i}
+                      className="absolute flex items-center justify-center"
+                      style={{ left: dot.x, top: dot.y, transform: "translate(-50%,-50%)" }}
+                    >
+                      <span
+                        className="absolute h-4 w-4 rounded-full animate-ping opacity-40"
+                        style={{ background: dot.color }}
+                      />
+                      <MapPin size={10} style={{ color: dot.color }} className="relative z-10" />
+                    </div>
+                  ))}
+                </div>
+                <div className="flex justify-between text-[9px] font-mono">
+                  <span className="text-emerald-400">● 198 On-Route</span>
+                  <span className="text-amber-400">● 16 Idle</span>
+                </div>
+              </div>
+
+              {/* Alarm feed */}
+              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <Activity size={12} className="text-amber-400" />
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                      Alarm Feed
+                    </span>
+                  </div>
+                  <span className="font-mono text-[9px] text-amber-400">3 active</span>
+                </div>
+                <div className="space-y-0.5">
+                  <AlarmRow station="CGS-Mumbai-04" type="High Pressure" status="WARN" time="0:12s" isWarning={true} />
+                  <AlarmRow station="DRS-Pune-11" type="Flow anomaly" status="OK" time="1:40s" isWarning={false} />
+                  <AlarmRow station="CNG-Surat-07" type="Valve offline" status="WARN" time="3:05s" isWarning={true} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom connectivity status strip */}
+          <div className="flex items-center gap-3 rounded-lg border border-white/[0.05] bg-[var(--bg-void)]/40 px-3 py-2">
+            <Wifi size={11} className="text-emerald-400 shrink-0" />
+            <div className="flex flex-1 gap-2 overflow-hidden">
+              {["MQTT", "OPC-UA", "MODBUS", "REST API", "MQTT-SB"].map((proto) => (
+                <span
+                  key={proto}
+                  className="rounded border border-emerald-400/20 bg-emerald-400/5 px-2 py-0.5 font-mono text-[9px] text-emerald-400 whitespace-nowrap"
+                >
+                  ● {proto}
+                </span>
+              ))}
+            </div>
+            <span className="font-mono text-[9px] text-[var(--text-muted)] shrink-0">
+              [STREAM: ACTIVE]
+            </span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── HeroSection ───────────────────────────────────────────────────────────────
 const HeroSection = () => {
   const metadataRef = useRef<HTMLDivElement>(null);
   const startBtnRef = useRef<HTMLButtonElement>(null);
@@ -33,122 +344,69 @@ const HeroSection = () => {
 
   useEffect(() => {
     if (!metadataRef.current) return;
-
     gsap.fromTo(
       metadataRef.current,
       { opacity: 0, y: 20 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        delay: 1,
-        ease: "power2.out",
-      },
+      { opacity: 1, y: 0, duration: 0.8, delay: 1, ease: "power2.out" }
     );
   }, []);
 
   return (
     <section
       id="chapter-01"
-      className="relative overflow-hidden scroll-mt-28 min-h-screen flex flex-col"
+      className="relative overflow-hidden scroll-mt-28 min-h-screen w-full flex items-center"
     >
-      <div className="flex-1 flex flex-col items-center justify-center">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 mx-auto flex max-w-screen-2xl flex-col items-center justify-center px-6 pt-20 text-center lg:px-8"
-        >
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
-            className="mb-6"
-          >
-            <Badge
-              variant="secondary"
-              className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm"
+      <div className="mx-auto w-full max-w-screen-2xl px-6 lg:px-8 pt-24 pb-16">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.4fr]">
+
+          {/* ── LEFT: text content ── */}
+          <div className="flex flex-col items-start">
+
+            {/* Heading */}
+            <CharReveal
+              as="h1"
+              lines={[
+                "DRIVING INDUSTRIAL",
+                "OPERATIONS",
+                "THROUGH REALTIME INTELLIGENCE",
+              ]}
+              className="text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-6xl leading-[0.95] uppercase text-left"
+              immediate
+              delay={0}
+              stagger={0.028}
+              lineGap="mt-2"
+            />
+
+            {/* Description */}
+            <motion.p
+              custom={1.0}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mt-8 max-w-lg text-base leading-7 text-[var(--text-secondary)] sm:text-lg text-left"
             >
-              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-              </div>
-              <span className="font-mono text-sm text-[var(--text-primary)]">
-                UNIFIED INDUSTRIAL OPERATIONS PLATFORM
-              </span>
-            </Badge>
-          </motion.div>
+              Altrex enables real-time monitoring, industrial connectivity,
+              asset management, GIS visualization, alarm management, fleet
+              tracking and operational intelligence — through a single unified
+              W! Platform.
+            </motion.p>
 
-          {/* Heading — character-by-character reveal */}
-          <CharReveal
-            as="h1"
-            lines={[
-              "DRIVING INDUSTRIAL OPERATIONS",
-              "THROUGH REALTIME",
-              "INTELLIGENCE",
-            ]}
-            className="max-w-9xl text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-7xl mt-8 leading-[0.95] uppercase"
-            immediate
-            delay={0}
-            stagger={0.028}
-            lineGap="mt-6"
-          />
-
-          {/* Metadata Labels */}
-          <div
-            ref={metadataRef}
-            className="mt-12 flex flex-wrap items-center justify-center gap-8 font-mono text-[10px] sm:text-xs tracking-widest text-[var(--text-secondary)] uppercase"
-          >
-            <span>
-              [NODE_COUNT:{" "}
-              <span className="text-[var(--accent-violet)] font-bold">
-                847,291
-              </span>
-              ]
-            </span>
-            <span className="hidden sm:inline text-black/[0.08]">|</span>
-            <span className="hidden sm:inline">
-              [LATENCY: <span className="text-cyan-400 font-bold">11ms</span>]
-            </span>
-            <span className="hidden md:inline text-black/[0.08]">|</span>
-            <span className="hidden md:inline">
-              [UPTIME:{" "}
-              <span className="text-[var(--data-green)] font-bold">99.99%</span>
-              ]
-            </span>
-          </div>
-
-          {/* Description */}
-          <motion.p
-            variants={fadeUpVariants}
-            initial="hidden"
-            animate="visible"
-            transition={{ delay: 1.2 }}
-            className="mt-10 max-w-4xl text-base leading-7 text-[var(--text-secondary)] sm:text-lg"
-          >
-            Altrex enables real-time monitoring, industrial connectivity, asset
-            management, GIS visualization, alarm management, fleet tracking and
-            operational intelligence through a single unified W! Platform.
-          </motion.p>
-
-          {/* Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4, duration: 0.8 }}
-            className="mt-12 mb-20 flex flex-col items-center gap-4 sm:flex-row"
-          >
-            <div className="relative">
+            {/* Buttons */}
+            <motion.div
+              custom={1.3}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mt-10 flex flex-col items-start gap-4 sm:flex-row"
+            >
               <Button
                 ref={startBtnRef}
-                className="gap-2 bg-[var(--accent-violet)] px-8 py-5 text-white hover:bg-[var(--accent-violet)]/90"
+                className="gap-2 bg-orange-500 px-8 py-5 text-white hover:bg-orange-600"
               >
                 Explore Platform
                 <ArrowRight className="h-4 w-4" />
               </Button>
-            </div>
 
-            <div className="relative">
               <Button
                 ref={demoBtnRef}
                 variant="outline"
@@ -157,20 +415,37 @@ const HeroSection = () => {
                 <Play className="h-4 w-4" />
                 Request Demo
               </Button>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
+            </motion.div>
 
-      {/* Logo Loop at the bottom */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.6, duration: 0.8 }}
-        className="w-full pb-10"
-      >
-        <TrustedBy />
-      </motion.div>
+            {/* Bottom stat strip */}
+            <motion.div
+              ref={metadataRef}
+              className="mt-12 flex flex-wrap gap-6 opacity-0"
+            >
+              {[
+                { label: "Industries", value: "9+" },
+                { label: "Protocols", value: "14+" },
+                { label: "Uptime SLA", value: "99.99%" },
+                { label: "Data Points/Day", value: "18B+" },
+              ].map((stat) => (
+                <div key={stat.label} className="flex flex-col gap-0.5">
+                  <span className="text-lg font-bold text-[var(--text-primary)]">
+                    {stat.value}
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+
+          {/* ── RIGHT: dashboard preview ── */}
+          <div className="flex justify-center lg:justify-end w-full">
+            <DashboardPreview />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

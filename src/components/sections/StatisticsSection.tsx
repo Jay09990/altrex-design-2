@@ -13,7 +13,6 @@ import { motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
 import ScrambleCounter from "../ScrambleCounter";
-import SystemDataTicker from "../SystemDataTicker";
 import InViewDecryptedText from "../InViewDecryptedText";
 
 const stats = [
@@ -227,20 +226,6 @@ const StatisticsSection = () => {
             </div>
           </motion.div>
         </div>
-
-        <motion.div variants={fadeUpVariants} className="mt-10">
-          <SystemDataTicker
-            items={[
-              "SYS: OK",
-              "REGIONS: 120 ONLINE",
-              "LATENCY: 11ms P50",
-              "PACKETS: 2.1M/s",
-              "ERROR_RATE: 0.002%",
-              "QUEUE_DEPTH: 14",
-              "UPTIME: 99.99%",
-            ]}
-          />
-        </motion.div>
 
         {/* Top row */}
         <div className="mt-16 flex flex-col divide-y divide-black/[0.06] sm:flex-row sm:divide-x sm:divide-y-0">
