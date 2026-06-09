@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import DecryptedText from "./DecryptedText";
+// import DecryptedText from "./DecryptedText";
 import { useTheme } from "@/hooks/useTheme";
-import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
-import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
+// import darklogo from "@/assets/altrex-logo-bg-black-removebg-blackbg.png";
+// import lightlogo from "@/assets/altrex-logo-bg-white-removebg-whitebg.png";
+import logo from "@/assets/W!_icon_round.png";
 
 interface LoadingScreenProps {
   onComplete?: () => void;
@@ -99,7 +100,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
         {/* Logo Mark */}
         <div className="animate-fade-in mb-4">
           <img
-            src={theme === "dark" ? darklogo : lightlogo}
+            src={logo}
             alt="Altrex Logo"
             className="h-20 w-auto object-contain"
           />
@@ -107,9 +108,6 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
         {/* Wordmark */}
         <div className="text-center">
-          <h1 className="text-6xl font-bold tracking-tighter text-[var(--text-primary)]">
-            <DecryptedText text="ALTREX" speed={50} />
-          </h1>
           <p className="mt-4 font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
             INITIALIZING SYSTEMS
           </p>
