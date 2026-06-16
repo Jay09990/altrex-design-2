@@ -85,21 +85,21 @@ const Testimonials = () => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-black/[0.08] bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+              className="border border-black/[0.08] bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               <InViewDecryptedText
                 text="TESTIMONIALS"
                 speed={60}
                 maxIterations={12}
                 className="text-[var(--data-green)]"
-                encryptedClassName="text-[var(--text-muted)]"
+                encryptedClassName="text-muted-foreground"
               />
             </Badge>
           </motion.div>
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             Trusted by Modern{" "}
 
@@ -125,7 +125,7 @@ const Testimonials = () => {
               duration: 0.25,
             }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative flex-1 overflow-hidden rounded-3xl border border-black/[0.08] bg-[var(--bg-surface)] p-10 shadow-md lg:basis-3/5"
+            className="relative flex-1 overflow-hidden rounded-3xl border border-black/[0.08] bg-card p-10 shadow-md lg:basis-3/5"
           >
             {/* Giant quote mark */}
             <motion.div
@@ -159,7 +159,7 @@ const Testimonials = () => {
             {/* Review */}
             <motion.p
               variants={fadeUpVariants}
-              className="relative z-10 mt-6 text-[14px] leading-relaxed text-[var(--text-secondary)]"
+              className="relative z-10 mt-6 text-[14px] leading-relaxed text-muted-foreground"
             >
               &ldquo;{featured.review}&rdquo;
             </motion.p>
@@ -177,11 +177,11 @@ const Testimonials = () => {
               </motion.div>
 
               <div>
-                <h4 className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                <h4 className="text-xl font-bold uppercase tracking-tight text-foreground">
                   {featured.name}
                 </h4>
 
-                <p className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-muted)]">
+                <p className="font-mono text-[12px] uppercase tracking-wide text-muted-foreground">
                   {featured.role}
                 </p>
               </div>
@@ -203,7 +203,7 @@ const Testimonials = () => {
                   duration: 0.25,
                 }}
                 style={{ transformStyle: "preserve-3d" }}
-                className="group rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] p-7 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
+                className="group rounded-2xl border border-black/[0.08] bg-card p-7 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-1">
@@ -231,7 +231,7 @@ const Testimonials = () => {
                   </motion.div>
                 </div>
 
-                <p className="mt-4 text-[14px] leading-relaxed text-[var(--text-secondary)]">
+                <p className="mt-4 text-[14px] leading-relaxed text-muted-foreground">
                   &ldquo;{item.review}&rdquo;
                 </p>
 
@@ -247,11 +247,11 @@ const Testimonials = () => {
                   </motion.div>
 
                   <div>
-                    <h4 className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                    <h4 className="text-xl font-bold uppercase tracking-tight text-foreground">
                       {item.name}
                     </h4>
 
-                    <p className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-muted)]">
+                    <p className="font-mono text-[12px] uppercase tracking-wide text-muted-foreground">
                       {item.role}
                     </p>
                   </div>

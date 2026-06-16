@@ -17,12 +17,12 @@ export default function SystemDataTicker({
 
   return (
     <div
-      className={`relative overflow-hidden rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] ${className ?? ""}`}
+      className={`relative overflow-hidden rounded-2xl border border-black/[0.08] bg-card ${className ?? ""}`}
     >
       <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-[var(--bg-void)] to-transparent" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-[var(--bg-void)] to-transparent" />
 
-      <div className="ticker-track flex w-max items-center gap-8 px-6 py-3 font-mono text-[10px] tracking-widest text-[var(--text-secondary)]">
+      <div className="ticker-track flex w-max items-center gap-8 px-6 py-3 font-mono text-[10px] tracking-widest text-muted-foreground">
         {loop.map((item, idx) => (
           <span key={`${item}-${idx}`} className="whitespace-nowrap">
             [{item}]

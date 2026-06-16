@@ -98,9 +98,9 @@ const HomeChapterNav = () => {
             animate={{ opacity: 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: 20, scale: 0.96 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="flex items-center gap-2 rounded-full border border-black/[0.08] bg-[var(--bg-surface)]/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-[var(--text-primary)] shadow-[0_24px_80px_rgba(0,0,0,0.12)]"
+            className="flex items-center gap-2 rounded-full border border-black/[0.08] bg-card/80 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-foreground shadow-[0_24px_80px_rgba(0,0,0,0.12)]"
           >
-            <ChevronLeft className="h-3.5 w-3.5 text-[var(--text-muted)]" />
+            <ChevronLeft className="h-3.5 w-3.5 text-muted-foreground" />
             Chapters
           </motion.button>
         ) : (
@@ -110,17 +110,17 @@ const HomeChapterNav = () => {
             animate={{ opacity: 1, x: 0, width: 252 }}
             exit={{ opacity: 0, x: 20, width: 0 }}
             transition={{ duration: 0.28, ease: "easeOut" }}
-            className="overflow-hidden rounded-[28px] border border-black/[0.08] bg-[var(--bg-surface)]/70 p-3 shadow-[0_24px_80px_rgba(0,0,0,0.12)]"
+            className="overflow-hidden rounded-[28px] border border-black/[0.08] bg-card/70 p-3 shadow-[0_24px_80px_rgba(0,0,0,0.12)]"
           >
             <div className="mb-3 flex items-center justify-between px-2 pt-1">
-              <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--text-muted)]">
+              <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">
                 Chapters
               </div>
 
               <button
                 type="button"
                 onClick={() => setIsCollapsed(true)}
-                className="rounded-full border border-black/[0.08] bg-black/[0.04] p-1 text-[var(--text-muted)] transition-colors hover:text-[var(--text-primary)] hover:bg-black/[0.08]"
+                className="rounded-full border border-black/[0.08] bg-black/[0.04] p-1 text-muted-foreground transition-colors hover:text-foreground hover:bg-black/[0.08]"
                 aria-label="Hide chapter navigation"
               >
                 <ChevronRight className="h-3.5 w-3.5" />
@@ -154,7 +154,7 @@ const HomeChapterNav = () => {
                       className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border font-mono text-[11px] font-bold tracking-[0.18em] transition-colors ${
                         isActive
                           ? "border-orange-400/30 bg-orange-500/10 text-orange-600"
-                          : "border-black/[0.06] bg-black/[0.02] text-[var(--text-muted)]"
+                          : "border-black/[0.06] bg-black/[0.02] text-muted-foreground"
                       }`}
                     >
                       {chapter.number}
@@ -164,14 +164,14 @@ const HomeChapterNav = () => {
                       <div
                         className={`text-xs font-semibold uppercase tracking-[0.18em] transition-colors ${
                           isActive
-                            ? "text-[var(--text-primary)]"
-                            : "text-[var(--text-secondary)]"
+                            ? "text-foreground"
+                            : "text-muted-foreground"
                         }`}
                       >
                         {chapter.name}
                       </div>
 
-                      <div className="mt-0.5 text-[11px] text-[var(--text-muted)]">
+                      <div className="mt-0.5 text-[11px] text-muted-foreground">
                         {chapter.description}
                       </div>
                     </div>

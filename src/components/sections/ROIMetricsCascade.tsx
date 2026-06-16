@@ -83,7 +83,7 @@ const ROIMetricsCascade = () => {
                 <div className="mx-auto max-w-3xl text-center">
                     <Badge
                         variant="secondary"
-                        className="border border-white/10 bg-[var(--bg-surface)]/80 p-4 text-sm font-medium text-[var(--data-green)]"
+                        className="border border-white/10 bg-card/80 p-4 text-sm font-medium text-[var(--data-green)]"
                     >
                         <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
                         <InViewDecryptedText
@@ -91,16 +91,16 @@ const ROIMetricsCascade = () => {
                             speed={60}
                             maxIterations={12}
                             className="text-[var(--data-green)]"
-                            encryptedClassName="text-[var(--text-muted)]"
+                            encryptedClassName="text-muted-foreground"
                         />
                     </Badge>
 
-                    <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+                    <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
                         Typical outcomes across industries
                         <span className="block text-[#f97316]">Altrex Platform</span>
                     </h2>
 
-                    <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-[var(--text-secondary)]">
+                    <p className="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted-foreground">
                         Real-world ROI impacts from early adopters in Oil & Gas, Manufacturing, Power, and Healthcare verticals.
                     </p>
                 </div>
@@ -120,7 +120,7 @@ const ROIMetricsCascade = () => {
                                 className="w-full text-left transition-all duration-300"
                             >
                                 <motion.div
-                                    className="overflow-hidden rounded-xl border border-white/10 bg-[var(--bg-surface)] p-6 transition-all duration-300 hover:border-white/20"
+                                    className="overflow-hidden rounded-xl border border-white/10 bg-card p-6 transition-all duration-300 hover:border-white/20"
                                     style={{
                                         boxShadow: isExpanded ? "0 20px 40px -15px rgba(249, 115, 22, 0.1)" : "none",
                                     }}
@@ -140,10 +140,10 @@ const ROIMetricsCascade = () => {
                                                 />
                                             </div>
                                             <div className="flex-1">
-                                                <div className="font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)] mb-1">
+                                                <div className="font-mono text-[10px] tracking-widest uppercase text-muted-foreground mb-1">
                                                     [{metric.id}]
                                                 </div>
-                                                <div className="text-sm font-semibold text-[var(--text-primary)]">
+                                                <div className="text-sm font-semibold text-foreground">
                                                     {metric.label}
                                                 </div>
                                             </div>
@@ -156,7 +156,7 @@ const ROIMetricsCascade = () => {
                                             <motion.div
                                                 animate={{ rotate: isExpanded ? 180 : 0 }}
                                                 transition={{ duration: 0.3 }}
-                                                className="text-[var(--text-muted)]"
+                                                className="text-muted-foreground"
                                             >
                                                 <ChevronDown className="h-5 w-5" />
                                             </motion.div>
@@ -207,7 +207,7 @@ const ROIMetricsCascade = () => {
                                                                     className="mt-2 h-2 w-2 rounded-full flex-shrink-0"
                                                                     style={{ backgroundColor: metric.color }}
                                                                 />
-                                                                <span className="text-sm leading-relaxed text-[var(--text-secondary)]">
+                                                                <span className="text-sm leading-relaxed text-muted-foreground">
                                                                     {bullet}
                                                                 </span>
                                                             </motion.div>
@@ -215,7 +215,7 @@ const ROIMetricsCascade = () => {
                                                     </AnimatePresence>
                                                 </div>
 
-                                                <div className="mt-4 border-t border-white/10 pt-4 font-mono text-[10px] tracking-widest uppercase text-[var(--text-muted)]">
+                                                <div className="mt-4 border-t border-white/10 pt-4 font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
                                                     [ REGION: EU-WEST / INDUSTRY: GLOBAL / SLA: 99.99% ]
                                                 </div>
                                             </motion.div>

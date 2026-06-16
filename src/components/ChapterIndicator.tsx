@@ -67,11 +67,11 @@ const ChapterIndicator = () => {
   return (
     <div className="pointer-events-none fixed bottom-6 left-6 z-40 hidden md:block">
       <div ref={numberRef} className="mb-2">
-        <div className="font-mono text-6xl font-bold text-[var(--text-muted)]">
+        <div className="font-mono text-6xl font-bold text-muted-foreground">
           {chapter.number}
         </div>
       </div>
-      <div ref={nameRef} className="font-mono text-xs tracking-widest text-[var(--text-secondary)] uppercase">
+      <div ref={nameRef} className="font-mono text-xs tracking-widest text-muted-foreground uppercase">
         {chapter.name}
       </div>
     </div>

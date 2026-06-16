@@ -100,7 +100,7 @@ const FAQ = () => {
 
             <motion.h2
               variants={fadeUpVariants}
-              className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+              className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
             >
               Frequently{" "}
 
@@ -111,7 +111,7 @@ const FAQ = () => {
 
             <motion.p
               variants={fadeUpVariants}
-            className="mt-5 text-lg leading-8 text-[var(--text-secondary)]"
+            className="mt-5 text-lg leading-8 text-muted-foreground"
             >
               Can't find what you're looking for? Reach out to our team and
               we'll get back to you within one business day.
@@ -124,7 +124,7 @@ const FAQ = () => {
                 scale: 0.98,
               }}
               href="mailto:support@altrex.dev"
-              className="group mt-8 inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-[var(--bg-surface)]/70 px-6 py-4 text-sm font-semibold text-[var(--text-primary)] shadow-sm transition-all hover:border-violet-400/30 hover:shadow-md"
+              className="group mt-8 inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-card/70 px-6 py-4 text-sm font-semibold text-foreground shadow-sm transition-all hover:border-violet-400/30 hover:shadow-md"
             >
               <motion.div
                 whileHover={{
@@ -137,11 +137,11 @@ const FAQ = () => {
               </motion.div>
 
               <div>
-                <span className="block text-[var(--text-primary)] transition-colors group-hover:text-violet-300">
+                <span className="block text-foreground transition-colors group-hover:text-violet-300">
                   Still have questions?
                 </span>
 
-                <span className="block text-xs font-normal text-[var(--text-secondary)]">
+                <span className="block text-xs font-normal text-muted-foreground">
                   support@altrex.dev
                 </span>
               </div>
@@ -190,7 +190,7 @@ const FAQ = () => {
                     value={`item-${index}`}
                     className="border-b border-white/10 py-1"
                   >
-                    <AccordionTrigger className="py-6 text-left text-lg font-semibold text-[var(--text-primary)]">
+                    <AccordionTrigger className="py-6 text-left text-lg font-semibold text-foreground">
                       <div className="flex w-full items-center justify-between gap-4 pr-1">
                         <span>{faq.question}</span>
 
@@ -198,7 +198,7 @@ const FAQ = () => {
                           whileHover={{
                             scale: 1.08,
                           }}
-                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-raised)] text-[var(--text-secondary)] transition-all group-data-[state=open]/accordion-trigger:border-violet-400/30 group-data-[state=open]/accordion-trigger:bg-violet-500/10 group-data-[state=open]/accordion-trigger:text-violet-300"
+                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-white/10 bg-muted text-muted-foreground transition-all group-data-[state=open]/accordion-trigger:border-violet-400/30 group-data-[state=open]/accordion-trigger:bg-violet-500/10 group-data-[state=open]/accordion-trigger:text-violet-300"
                         >
                           <span className="select-none text-lg font-light leading-none group-data-[state=open]/accordion-trigger:hidden">
                             +
@@ -211,7 +211,7 @@ const FAQ = () => {
                       </div>
                     </AccordionTrigger>
 
-                    <AccordionContent className="pb-6 text-base leading-8 text-[var(--text-secondary)]">
+                    <AccordionContent className="pb-6 text-base leading-8 text-muted-foreground">
                       <motion.div
                         initial={{
                           opacity: 0,

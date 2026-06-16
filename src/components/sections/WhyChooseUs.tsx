@@ -152,7 +152,7 @@ const WhyChooseUs = () => {
               speed={60}
               maxIterations={12}
               className="text-orange-500"
-              encryptedClassName="text-[var(--text-muted)]"
+              encryptedClassName="text-muted-foreground"
             />
           </Badge>
         </motion.div>
@@ -160,7 +160,7 @@ const WhyChooseUs = () => {
         <div className="mt-6 max-w-2xl">
           <motion.h2
             variants={fadeUpVariants}
-            className="text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+            className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             Built for Modern{" "}
             <span className="bg-violet-500 bg-clip-text text-transparent">
@@ -170,7 +170,7 @@ const WhyChooseUs = () => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-4 text-lg text-[var(--text-secondary)]"
+            className="mt-4 text-lg text-muted-foreground"
           >
             Everything required to monitor, manage and optimize
             industrial infrastructure from a single W! Platform.
@@ -186,7 +186,7 @@ const WhyChooseUs = () => {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="relative col-span-1 overflow-hidden rounded-3xl bg-[var(--bg-surface)] p-10 shadow-2xl lg:col-span-2 lg:row-span-2"
+            className="relative col-span-1 overflow-hidden rounded-3xl bg-card p-10 shadow-2xl lg:col-span-2 lg:row-span-2"
           >
             <div className="relative z-10">
               <motion.div
@@ -202,7 +202,7 @@ const WhyChooseUs = () => {
                 Mission-Critical Operations.
               </h3>
 
-              <p className="mt-5 text-lg leading-8 text-[var(--text-secondary)]">
+              <p className="mt-5 text-lg leading-8 text-muted-foreground">
                 Deliver continuous visibility and control across
                 distributed industrial assets with enterprise-grade
                 reliabilit
@@ -214,7 +214,7 @@ const WhyChooseUs = () => {
           <motion.div
             whileHover={{ y: -6 }}
             transition={{ duration: 0.25 }}
-            className="relative overflow-hidden rounded-3xl border border-orange-200/60 bg-[var(--bg-surface)] p-8 shadow-sm lg:row-span-4"
+            className="relative overflow-hidden rounded-3xl border border-orange-200/60 bg-card p-8 shadow-sm lg:row-span-4"
           >
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400">
               <span className="relative flex h-2 w-2">
@@ -271,7 +271,7 @@ const WhyChooseUs = () => {
                   className="stat-animate border-b border-black/[0.06] pb-5"
                 >
                   <p className={`text-4xl font-bold ${m.color}`}>{m.value}</p>
-                  <p className="mt-1 text-sm text-[var(--text-muted)]">
+                  <p className="mt-1 text-sm text-muted-foreground">
                     {m.label}
                   </p>
                   <div className="mt-3 h-1 overflow-hidden rounded-full bg-black/[0.08]">
@@ -307,7 +307,7 @@ const WhyChooseUs = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.35, delay: i * 0.08 }}
-                className={`group flex gap-4 self-start rounded-2xl border border-black/[0.07] bg-[var(--bg-surface)] p-6 shadow-sm transition-all duration-300 h-41 ${item.borderHover} hover:bg-[var(--bg-raised)]`}
+                className={`group flex gap-4 self-start rounded-2xl border border-black/[0.07] bg-card p-6 shadow-sm transition-all duration-300 h-41 ${item.borderHover} hover:bg-muted`}
               >
                 <motion.div
                   whileHover={{ scale: 1.08, rotate: 4 }}
@@ -317,11 +317,11 @@ const WhyChooseUs = () => {
                 </motion.div>
 
                 <div>
-                  <h3 className="font-semibold text-[var(--text-primary)]">
+                  <h3 className="font-semibold text-foreground">
                     {item.title}
                   </h3>
 
-                  <p className="mt-1.5 text-sm leading-6 text-[var(--text-secondary)]">
+                  <p className="mt-1.5 text-sm leading-6 text-muted-foreground">
                     {item.description}
                   </p>
                 </div>

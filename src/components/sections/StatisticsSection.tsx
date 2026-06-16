@@ -71,20 +71,20 @@ function StatCard({ stat }: { stat: RingStat }) {
   const Icon = stat.icon;
 
   return (
-    <div className="group relative flex items-center gap-5 rounded-2xl border border-white/[0.08] bg-[var(--bg-surface)]/40 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-white/[0.15] hover:bg-[var(--bg-surface)]/80 hover:-translate-y-1">
+    <div className="group relative flex items-center gap-5 rounded-2xl border border-white/[0.08] bg-card/40 p-6 shadow-lg backdrop-blur-sm transition-all duration-300 hover:border-white/[0.15] hover:bg-card/80 hover:-translate-y-1">
       <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500 border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.15)] group-hover:bg-orange-500/20 group-hover:scale-110 transition-all duration-300">
         <Icon size={30} />
       </div>
 
       <div className="flex flex-col justify-between h-16 py-0.5">
-        <span className="font-mono text-3xl font-bold leading-none tracking-tight text-[var(--text-primary)]">
+        <span className="font-mono text-3xl font-bold leading-none tracking-tight text-foreground">
           <ScrambleCounter target={stat.scrambleTarget} finalText={stat.display} />
         </span>
-        <h3 className="text-[13px] font-medium leading-none text-[var(--text-secondary)]">
+        <h3 className="text-[13px] font-medium leading-none text-muted-foreground">
           {stat.label}
         </h3>
         {stat.subtitle && (
-          <span className="text-[10px] text-[var(--text-muted)] font-mono uppercase tracking-widest leading-none">
+          <span className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest leading-none">
             {stat.subtitle}
           </span>
         )}
@@ -140,7 +140,7 @@ function ThroughputChart() {
               x2={chartWidth - 12}
               y2={y}
               stroke="currentColor"
-              className="text-[var(--text-muted)] opacity-20"
+              className="text-muted-foreground opacity-20"
               strokeWidth={0.5}
             />
             <text
@@ -149,7 +149,7 @@ function ThroughputChart() {
               textAnchor="end"
               fontSize={10}
               fill="currentColor"
-              className="text-[var(--text-muted)] font-mono"
+              className="text-muted-foreground font-mono"
             >
               {t.toFixed(1)}
             </text>
@@ -173,7 +173,7 @@ function ThroughputChart() {
               width={bw + barPad * 0.5}
               height={innerH}
               fill="currentColor"
-              className="text-[var(--text-muted)] opacity-0 transition-opacity duration-300 group-hover:opacity-10"
+              className="text-muted-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-10"
               rx={6}
             />
             {/* Actual Bar */}
@@ -204,7 +204,7 @@ function ThroughputChart() {
               textAnchor="middle"
               fontSize={10}
               fill="currentColor"
-              className="text-[var(--text-muted)] font-mono transition-colors duration-300 group-hover:text-[var(--text-primary)] group-hover:font-bold"
+              className="text-muted-foreground font-mono transition-colors duration-300 group-hover:text-foreground group-hover:font-bold"
             >
               {months[i]}
             </text>
@@ -215,7 +215,7 @@ function ThroughputChart() {
               textAnchor="middle"
               fontSize={11}
               fill="currentColor"
-              className="text-[var(--text-primary)] font-mono opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+              className="text-foreground font-mono opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             >
               {val.toFixed(1)}M
             </text>
@@ -263,14 +263,14 @@ const StatisticsSection = () => {
                   speed={60}
                   maxIterations={12}
                   className="text-violet-300"
-                  encryptedClassName="text-[var(--text-muted)]"
+                  encryptedClassName="text-muted-foreground"
                 />
               </Badge>
             </motion.div>
 
             <motion.h2
               variants={fadeUp}
-              className="mt-6 max-w-2xl text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+              className="mt-6 max-w-2xl text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
             >
               Unified Industrial Operations{" "}
               <span className="bg-orange-500 bg-clip-text text-transparent">
@@ -291,8 +291,8 @@ const StatisticsSection = () => {
               <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
             </span>
             <div>
-              <p className="text-3xl font-bold tracking-tight text-[var(--text-primary)]">1.2M/s</p>
-              <p className="text-sm text-[var(--text-muted)] font-medium">Live throughput</p>
+              <p className="text-3xl font-bold tracking-tight text-foreground">1.2M/s</p>
+              <p className="text-sm text-muted-foreground font-medium">Live throughput</p>
             </div>
           </motion.div>
         </div>
@@ -313,12 +313,12 @@ const StatisticsSection = () => {
         {/* Throughput chart panel */}
         <motion.div
           variants={fadeUp}
-          className="rounded-3xl border border-white/[0.08] bg-[var(--bg-surface)]/60 p-8 shadow-2xl backdrop-blur-sm"
+          className="rounded-3xl border border-white/[0.08] bg-card/60 p-8 shadow-2xl backdrop-blur-sm"
         >
           {/* Chart header */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
-            <h3 className="text-xl font-bold text-[var(--text-primary)] tracking-tight">
-              Throughput growth <span className="text-[var(--text-muted)] font-normal">— Jan to Dec 2024</span>
+            <h3 className="text-xl font-bold text-foreground tracking-tight">
+              Throughput growth <span className="text-muted-foreground font-normal">— Jan to Dec 2024</span>
             </h3>
             <div className="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-4 py-1.5 shadow-[inset_0_1px_4px_rgba(34,197,94,0.1)]">
               <span className="relative flex h-2 w-2">
@@ -333,7 +333,7 @@ const StatisticsSection = () => {
           <div className="flex flex-wrap items-center gap-6 mb-6">
             <div className="flex items-center gap-2">
               <span className="h-3 w-3 rounded bg-gradient-to-b from-orange-500 to-orange-600 shadow-sm" />
-              <span className="font-mono text-xs text-[var(--text-muted)] uppercase tracking-wider font-semibold">
+              <span className="font-mono text-xs text-muted-foreground uppercase tracking-wider font-semibold">
                 Data throughput <span className="font-normal opacity-70">(M events/s)</span>
               </span>
             </div>

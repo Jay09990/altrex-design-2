@@ -172,14 +172,14 @@ const Pricing = () => {
                 speed={60}
                 maxIterations={12}
                 className="text-violet-200"
-                encryptedClassName="text-[var(--text-muted)]"
+                encryptedClassName="text-muted-foreground"
               />
             </Badge>
           </motion.div>
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             Flexible Pricing for{" "}
 
@@ -190,13 +190,13 @@ const Pricing = () => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-4 text-lg text-[var(--text-secondary)]"
+            className="mt-4 text-lg text-muted-foreground"
           >
             Start free, scale as you grow. No hidden fees.
           </motion.p>
 
           {/* Monthly / Annual toggle */}
-          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-black/[0.08] bg-[var(--bg-surface)] p-1.5 shadow-sm">
+          <div className="mt-8 inline-flex items-center gap-3 rounded-full border border-black/[0.08] bg-card p-1.5 shadow-sm">
             <Button variant="default" className="rounded-full">Monthly</Button>
             <Button variant="outline" className="rounded-full">Annual <span className="ml-1.5 rounded-full bg-green-500/10 px-2 py-0.5 text-[10px] font-bold text-green-400">–20%</span></Button>
           </div>
@@ -218,7 +218,7 @@ const Pricing = () => {
                 duration: 0.25,
               }}
               style={{ transformStyle: "preserve-3d" }}
-              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-[var(--bg-surface)]/75 p-8 transition-all duration-300 ${plan.borderHover}`}
+              className={`relative flex flex-col overflow-hidden rounded-3xl border bg-card/75 p-8 transition-all duration-300 ${plan.borderHover}`}
             >
               {/* Popular badge */}
               {plan.popular && (
@@ -256,12 +256,12 @@ const Pricing = () => {
                 variants={fadeUpVariants}
                 className="mt-5 flex items-end gap-2"
               >
-                <span className="text-6xl font-bold text-[var(--text-primary)]">
+                <span className="text-6xl font-bold text-foreground">
                   {plan.price}
                 </span>
 
                 {plan.price !== "Custom" && (
-                  <span className="mb-2 text-sm text-[var(--text-muted)]">
+                  <span className="mb-2 text-sm text-muted-foreground">
                     / month
                   </span>
                 )}
@@ -270,7 +270,7 @@ const Pricing = () => {
               {/* Description */}
               <motion.p
                 variants={fadeUpVariants}
-                className="mt-4 text-[14px] leading-relaxed text-[var(--text-secondary)]"
+                className="mt-4 text-[14px] leading-relaxed text-muted-foreground"
               >
                 {plan.description}
               </motion.p>
@@ -294,7 +294,7 @@ const Pricing = () => {
                     transition={{
                       delay: j * 0.05,
                     }}
-                    className="flex items-center gap-3 text-[14px] leading-relaxed text-[var(--text-secondary)]"
+                    className="flex items-center gap-3 text-[14px] leading-relaxed text-muted-foreground"
                   >
                     <motion.div
                       whileHover={{
@@ -322,7 +322,7 @@ const Pricing = () => {
                 className={`mt-8 w-full rounded-2xl px-6 py-4 text-sm font-semibold transition-all duration-200 ${
                   plan.popular
                     ? "bg-gradient-to-r from-violet-600 to-fuchsia-500 text-white shadow-md hover:opacity-90"
-                    : "border border-black/[0.08] bg-[var(--bg-surface)] text-[var(--text-primary)] hover:border-[var(--hover-btn-border)]/40 hover:text-[var(--hover-btn-border)]"
+                    : "border border-black/[0.08] bg-card text-foreground hover:border-[var(--hover-btn-border)]/40 hover:text-[var(--hover-btn-border)]"
                 }`}
               >
                 {plan.price === "Custom"
@@ -336,7 +336,7 @@ const Pricing = () => {
         {/* Bottom note */}
         <motion.p
           variants={fadeUpVariants}
-          className="mt-8 text-center text-sm text-[var(--text-muted)]"
+          className="mt-8 text-center text-sm text-muted-foreground"
         >
           All plans include a 14-day free trial. No credit card required.
         </motion.p>

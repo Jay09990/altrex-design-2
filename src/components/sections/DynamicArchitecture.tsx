@@ -166,7 +166,7 @@
     return (
       <div className="flex items-center gap-1.5">
         <div className="h-2 w-2 rounded-full shrink-0" style={{ background: color }} />
-        <span className="text-[11px] text-[var(--text-muted)] font-medium capitalize">{label}</span>
+        <span className="text-[11px] text-muted-foreground font-medium capitalize">{label}</span>
       </div>
     );
   }

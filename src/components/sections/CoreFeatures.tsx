@@ -168,7 +168,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
           <motion.div variants={fadeUpVariants}>
             <Badge
               variant="secondary"
-              className="border border-black/[0.08] bg-[var(--bg-surface)]/80 p-4 text-sm font-medium text-[var(--data-green)]"
+              className="border border-black/[0.08] bg-card/80 p-4 text-sm font-medium text-[var(--data-green)]"
             >
               <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
               <InViewDecryptedText
@@ -176,14 +176,14 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                 speed={60}
                 maxIterations={12}
                 className="text-[var(--data-green)]"
-                encryptedClassName="text-[var(--text-muted)]"
+                encryptedClassName="text-muted-foreground"
               />
             </Badge>
           </motion.div>
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             Enterprise Capabilities for
             <span className="block bg-orange-500 bg-clip-text text-transparent">
@@ -193,7 +193,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
 
           <motion.p
             variants={fadeUpVariants}
-            className="mt-6 text-lg leading-8 text-[var(--text-secondary)]"
+            className="mt-6 text-lg leading-8 text-muted-foreground"
           >
             Built for utility operators, manufacturing facilities, energy infrastructure, smart cities and mission-critical industrial environments.
           </motion.p>
@@ -205,7 +205,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
           onMouseLeave={() => setIsPaused(false)}
         >
           <div className="md:w-[40%]">
-            <div className="hidden md:block rounded-3xl border border-white/10 bg-[var(--bg-surface)] p-4">
+            <div className="hidden md:block rounded-3xl border border-white/10 bg-card p-4">
               {features.map((feature, index) => {
                 const isActive = index === activeIndex;
                 return (
@@ -224,13 +224,13 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                         : "transparent",
                     }}
                   >
-                    <span className="font-mono text-xs uppercase tracking-widest text-[var(--text-muted)]">
+                    <span className="font-mono text-xs uppercase tracking-widest text-muted-foreground">
                       0{index + 1}
                     </span>
-                    <span className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                    <span className="text-xl font-bold uppercase tracking-tight text-foreground">
                       {feature.title}
                     </span>
-                    <span className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-secondary)]">
+                    <span className="font-mono text-[12px] uppercase tracking-wide text-muted-foreground">
                       {feature.subtitle}
                     </span>
                   </button>
@@ -238,7 +238,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
               })}
             </div>
 
-            <div className="flex md:hidden overflow-x-auto rounded-3xl border border-white/10 bg-[var(--bg-surface)] p-4">
+            <div className="flex md:hidden overflow-x-auto rounded-3xl border border-white/10 bg-card p-4">
               <div className="flex gap-3">
                 {features.map((feature, index) => {
                   const isActive = index === activeIndex;
@@ -259,14 +259,14 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                       }}
                     >
                       <div className="flex items-center justify-between gap-3">
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+                        <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                           0{index + 1}
                         </span>
-                        <span className="font-mono text-[12px] uppercase tracking-wide text-[var(--text-secondary)]">
+                        <span className="font-mono text-[12px] uppercase tracking-wide text-muted-foreground">
                           {feature.subtitle}
                         </span>
                       </div>
-                      <p className="mt-3 text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                      <p className="mt-3 text-xl font-bold uppercase tracking-tight text-foreground">
                         {feature.title}
                       </p>
                     </button>
@@ -276,7 +276,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
             </div>
           </div>
 
-          <div className="md:w-[60%] rounded-3xl border border-white/10 bg-[var(--bg-raised)] p-8">
+          <div className="md:w-[60%] rounded-3xl border border-white/10 bg-muted p-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeFeature.label}
@@ -286,7 +286,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col gap-8"
               >
-                <div className="font-mono text-[10px] tracking-widest text-[var(--text-muted)] uppercase">
+                <div className="font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
                   [MODULE: {activeFeature.label} / STATUS: ACTIVE]
                 </div>
 
@@ -306,10 +306,10 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                 </div>
 
                 <div className="space-y-4">
-                  <h3 className="text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
+                  <h3 className="text-xl font-bold uppercase tracking-tight text-foreground">
                     {activeFeature.title}
                   </h3>
-                  <p className="max-w-3xl text-[14px] leading-relaxed text-[var(--text-secondary)]">
+                  <p className="max-w-3xl text-[14px] leading-relaxed text-muted-foreground">
                     {activeFeature.description}
                   </p>
                 </div>
@@ -321,7 +321,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                         className="mt-1 h-2.5 w-2.5 rounded-full"
                         style={{ backgroundColor: activeFeature.color }}
                       />
-                      <p className="text-[14px] leading-relaxed text-[var(--text-secondary)]">
+                      <p className="text-[14px] leading-relaxed text-muted-foreground">
                         {bullet}
                       </p>
                     </div>
@@ -343,7 +343,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                   </div>
                 )}
 
-                <div className="mt-auto text-right font-mono text-[10px] tracking-widest text-[var(--text-muted)] uppercase">
+                <div className="mt-auto text-right font-mono text-[10px] tracking-widest text-muted-foreground uppercase">
                   [SYS: 04 / LAT: 11ms / REG: EU-WEST]
                 </div>
               </motion.div>

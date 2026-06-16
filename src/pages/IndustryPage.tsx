@@ -37,7 +37,7 @@ const cardVariant: Variants = {
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
   return (
-    <span className="font-mono text-xs tracking-[0.2em] uppercase text-[var(--text-muted)]">
+    <span className="font-mono text-xs tracking-[0.2em] uppercase text-muted-foreground">
       {children}
     </span>
   );
@@ -45,7 +45,7 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl">
+    <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
       {children}
     </h2>
   );
@@ -60,13 +60,13 @@ const IndustryPage = () => {
   // ── 404 ──
   if (!industry) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-void)]">
+      <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="text-center">
-          <p className="font-mono text-sm text-[var(--text-muted)] mb-4">
+          <p className="font-mono text-sm text-muted-foreground mb-4">
             404 — INDUSTRY NOT FOUND
           </p>
           <Link to="/">
-            <Button variant="ghost" className="text-[var(--text-primary)]">
+            <Button variant="ghost" className="text-foreground">
               <ArrowRight className="mr-2 h-4 w-4 rotate-180" />
               Back to Home
             </Button>
@@ -77,7 +77,7 @@ const IndustryPage = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-[var(--bg-void)] text-[var(--text-primary)]">
+    <div className="relative min-h-screen bg-background text-foreground">
       {/* ── Background ambient glows ── */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[700px] overflow-hidden">
         <div className="absolute left-[-5%] top-[5%] h-[500px] w-[500px] rounded-full bg-orange-500/8 blur-[120px]" />
@@ -98,16 +98,16 @@ const IndustryPage = () => {
           <motion.div variants={fadeUp} className="mb-6">
             <Badge
               variant="secondary"
-              className="border border-[var(--border-subtle)] bg-[var(--bg-surface)]"
+              className="border border-[var(--border-subtle)] bg-card"
             >
               <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
               </div>
-              <span className="font-mono text-xs text-[var(--text-primary)] tracking-widest uppercase">
+              <span className="font-mono text-xs text-foreground tracking-widest uppercase">
                 Industries
               </span>
-              <ChevronRight className="h-3 w-3 text-[var(--text-muted)]" />
-              <span className="font-mono text-xs text-[var(--text-muted)]">
+              <ChevronRight className="h-3 w-3 text-muted-foreground" />
+              <span className="font-mono text-xs text-muted-foreground">
                 {industry.name}
               </span>
             </Badge>
@@ -124,7 +124,7 @@ const IndustryPage = () => {
           {/* Main heading */}
           <motion.h1
             variants={fadeUp}
-            className="text-4xl font-bold tracking-[-0.03em] text-[var(--text-primary)] sm:text-5xl lg:text-6xl leading-[1.1] uppercase break-normal"
+            className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl leading-[1.1] uppercase break-normal"
           >
             {industry.hero.heading}
           </motion.h1>
@@ -133,7 +133,7 @@ const IndustryPage = () => {
           <motion.p
             variants={fadeUp}
             transition={{ delay: 0.8 }}
-            className="mt-8 max-w-2xl text-base leading-7 text-[var(--text-secondary)] sm:text-lg"
+            className="mt-8 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg"
           >
             {industry.hero.description}
           </motion.p>
@@ -145,7 +145,7 @@ const IndustryPage = () => {
             className="mt-10 flex flex-wrap gap-4"
           >
             <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white h-11 px-6 rounded-lg font-medium">
+              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-6 rounded-lg font-medium">
                 {industry.hero.ctas[0]}
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -153,7 +153,7 @@ const IndustryPage = () => {
             <Link to="/contact">
               <Button
                 variant="ghost"
-                className="h-11 px-6 rounded-lg border border-[var(--border-subtle)] text-[var(--text-primary)] hover:bg-[var(--bg-surface)]"
+                className="h-11 px-6 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
               >
                 {industry.hero.ctas[1]}
               </Button>
@@ -165,7 +165,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           METRICS STRIP
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-y border-[var(--border-subtle)] bg-[var(--bg-surface)]/60 backdrop-blur-sm">
+      <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -185,7 +185,7 @@ const IndustryPage = () => {
                   finalText={metric.value}
                 />
               </div>
-              <div className="mt-1 text-xs text-[var(--text-muted)] font-mono uppercase tracking-wider">
+              <div className="mt-1 text-xs text-muted-foreground font-mono uppercase tracking-wider">
                 {metric.label}
               </div>
             </motion.div>
@@ -210,7 +210,7 @@ const IndustryPage = () => {
           </motion.div>
           <motion.p
             variants={fadeUp}
-            className="text-base leading-8 text-[var(--text-secondary)] lg:text-lg"
+            className="text-base leading-8 text-muted-foreground lg:text-lg"
           >
             {industry.overview}
           </motion.p>
@@ -220,7 +220,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           INDUSTRY CHALLENGES
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-[var(--bg-surface)]/30">
+      <section className="border-t border-[var(--border-subtle)] bg-card/30">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
           <motion.div
             initial="hidden"
@@ -241,7 +241,7 @@ const IndustryPage = () => {
                 <motion.div
                   key={challenge.title}
                   variants={cardVariant}
-                  className="group relative rounded-2xl bg-[var(--bg-surface)] flex flex-col overflow-hidden cursor-default"
+                  className="group relative rounded-2xl bg-card flex flex-col overflow-hidden cursor-default"
                   style={{
                     boxShadow:
                       "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)",
@@ -286,7 +286,7 @@ const IndustryPage = () => {
 
                   {/* Content */}
                   <div className="flex flex-col flex-1 px-6 pt-4 pb-6 gap-3">
-                    <h3 className="text-[15px] font-bold tracking-tight text-[var(--text-primary)] leading-snug group-hover:text-orange-500 transition-colors duration-300">
+                    <h3 className="text-[15px] font-bold tracking-tight text-foreground leading-snug group-hover:text-orange-500 transition-colors duration-300">
                       {challenge.title}
                     </h3>
 
@@ -296,10 +296,10 @@ const IndustryPage = () => {
                       {challenge.items.map((item, itemIdx) => (
                         <li
                           key={item}
-                          className="flex items-center gap-2.5 text-[11.5px] text-[var(--text-muted)]"
+                          className="flex items-center gap-2.5 text-[11.5px] text-muted-foreground"
                         >
                           <span
-                            className="shrink-0 font-mono text-[9px] text-[var(--text-muted)]/60"
+                            className="shrink-0 font-mono text-[9px] text-muted-foreground/60"
                             style={{ minWidth: 14 }}
                           >
                             {String(itemIdx + 1).padStart(2, "0")}
@@ -345,18 +345,18 @@ const IndustryPage = () => {
               <motion.div
                 key={mod.title}
                 variants={cardVariant}
-                className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-surface)]/60 p-8 hover:bg-[var(--bg-surface)] transition-colors duration-300"
+                className="rounded-2xl border border-[var(--border-subtle)] bg-card/60 p-8 hover:bg-card transition-colors duration-300"
               >
                 <div className="flex items-start gap-4 mb-4">
                   <span className="font-mono text-[10px] text-orange-500 border border-orange-500/30 rounded px-1.5 py-0.5 shrink-0 mt-0.5">
                     {String(idx + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="text-lg font-semibold text-[var(--text-primary)]">
+                  <h3 className="text-lg font-semibold text-foreground">
                     {mod.title}
                   </h3>
                 </div>
 
-                <p className="text-sm text-[var(--text-secondary)] leading-6 mb-5">
+                <p className="text-sm text-muted-foreground leading-6 mb-5">
                   {mod.description}
                 </p>
 
@@ -364,14 +364,14 @@ const IndustryPage = () => {
                 <div className="space-y-4">
                   {mod.monitors && mod.monitors.length > 0 && (
                     <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] mb-2">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
                         Monitor
                       </p>
                       <div className="flex flex-wrap gap-1.5">
                         {mod.monitors.map((m) => (
                           <span
                             key={m}
-                            className="rounded-full border border-[var(--border-subtle)] bg-[var(--bg-void)] px-2.5 py-0.5 text-[11px] text-[var(--text-muted)]"
+                            className="rounded-full border border-[var(--border-subtle)] bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground"
                           >
                             {m}
                           </span>
@@ -382,14 +382,14 @@ const IndustryPage = () => {
 
                   {mod.features && mod.features.length > 0 && (
                     <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)] mb-2">
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
                         Features
                       </p>
                       <ul className="space-y-1.5">
                         {mod.features.map((f) => (
                           <li
                             key={f}
-                            className="flex items-center gap-2 text-xs text-[var(--text-secondary)]"
+                            className="flex items-center gap-2 text-xs text-muted-foreground"
                           >
                             <CheckCircle2 className="h-3 w-3 text-orange-400 shrink-0" />
                             {f}
@@ -423,7 +423,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           BUSINESS BENEFITS
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-[var(--bg-surface)]/30">
+      <section className="border-t border-[var(--border-subtle)] bg-card/30">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
           <motion.div
             initial="hidden"
@@ -444,16 +444,16 @@ const IndustryPage = () => {
                 <motion.div
                   key={benefit.title}
                   variants={cardVariant}
-                  className="group flex gap-4 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface)]/40 p-6 hover:border-orange-500/25 hover:bg-[var(--bg-surface)] transition-all duration-300"
+                  className="group flex gap-4 rounded-xl border border-[var(--border-subtle)] bg-card/40 p-6 hover:border-orange-500/25 hover:bg-card transition-all duration-300"
                 >
-                  <span className="font-mono text-[11px] text-[var(--text-muted)] shrink-0 mt-0.5">
+                  <span className="font-mono text-[11px] text-muted-foreground shrink-0 mt-0.5">
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                   <div>
-                    <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-1.5 group-hover:text-orange-400 transition-colors">
+                    <h3 className="text-sm font-semibold text-foreground mb-1.5 group-hover:text-orange-400 transition-colors">
                       {benefit.title}
                     </h3>
-                    <p className="text-xs leading-5 text-[var(--text-muted)]">
+                    <p className="text-xs leading-5 text-muted-foreground">
                       {benefit.description}
                     </p>
                   </div>
@@ -485,7 +485,7 @@ const IndustryPage = () => {
               <motion.li
                 key={point}
                 variants={cardVariant}
-                className="flex items-start gap-3 text-sm text-[var(--text-secondary)]"
+                className="flex items-start gap-3 text-sm text-muted-foreground"
               >
                 <CheckCircle2 className="h-4 w-4 text-orange-400 shrink-0 mt-0.5" />
                 {point}
@@ -510,7 +510,7 @@ const IndustryPage = () => {
               <motion.div variants={fadeUp} className="mb-12 space-y-3">
                 <SectionLabel>Architecture</SectionLabel>
                 <SectionHeading>Typical Deployment Architecture</SectionHeading>
-                <p className="text-sm text-[var(--text-secondary)] max-w-2xl">
+                <p className="text-sm text-muted-foreground max-w-2xl">
                   End-to-end data flow from field devices to operations teams —
                   every layer connected, secured, and orchestrated in real time.
                 </p>
@@ -522,7 +522,7 @@ const IndustryPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-surface)]/60 p-6 lg:p-10"
+              className="rounded-2xl border border-[var(--border-subtle)] bg-card/60 p-6 lg:p-10"
             >
               <DynamicArchitecture nodes={industry.architecture.nodes} />
             </motion.div>
@@ -543,21 +543,21 @@ const IndustryPage = () => {
         >
           <motion.p
             variants={fadeUp}
-            className="font-mono text-xs text-[var(--text-muted)] tracking-[0.25em] uppercase mb-6"
+            className="font-mono text-xs text-muted-foreground tracking-[0.25em] uppercase mb-6"
           >
             [ READY TO START ]
           </motion.p>
 
           <motion.h2
             variants={fadeUp}
-            className="text-3xl font-bold tracking-tight text-[var(--text-primary)] sm:text-4xl lg:text-5xl max-w-3xl mx-auto"
+            className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-3xl mx-auto"
           >
             {industry.cta.heading}
           </motion.h2>
 
           <motion.p
             variants={fadeUp}
-            className="mt-6 max-w-2xl mx-auto text-base text-[var(--text-secondary)] leading-7"
+            className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-7"
           >
             {industry.cta.description}
           </motion.p>
@@ -567,7 +567,7 @@ const IndustryPage = () => {
             className="mt-10 flex flex-wrap gap-4 justify-center"
           >
             <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white h-11 px-8 rounded-lg font-medium">
+              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-8 rounded-lg font-medium">
                 Request Demo
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -575,7 +575,7 @@ const IndustryPage = () => {
             <Link to="/contact">
               <Button
                 variant="ghost"
-                className="h-11 px-8 rounded-lg border border-[var(--border-subtle)] text-[var(--text-primary)] hover:bg-[var(--bg-surface)]"
+                className="h-11 px-8 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
               >
                 Talk to an Expert
               </Button>

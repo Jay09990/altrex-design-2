@@ -167,17 +167,17 @@ function HeroSection() {
         >
           {/* Badge */}
           <motion.div variants={fadeUpVariants}>
-            <Badge variant="secondary" className="border-black/[0.08] bg-[var(--bg-surface)] shadow-sm">
+            <Badge variant="secondary" className="border-black/[0.08] bg-card shadow-sm">
               <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
               </div>
-              <span className="font-mono text-xs sm:text-sm text-[var(--text-primary)]">
+              <span className="font-mono text-xs sm:text-sm text-foreground">
                 <InViewDecryptedText
                   text="OUR STORY"
                   speed={60}
                   maxIterations={12}
-                  className="text-[var(--text-primary)]"
-                  encryptedClassName="text-[var(--text-muted)]"
+                  className="text-foreground"
+                  encryptedClassName="text-muted-foreground"
                 />
               </span>
             </Badge>
@@ -187,7 +187,7 @@ function HeroSection() {
           <CharReveal
             as="h1"
             lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELLIGENCE"]}
-            className="mx-auto max-w-4xl text-2xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-6xl xl:text-7xl mt-8 sm:mt-24 leading-tight sm:leading-[0.95]"
+            className="mx-auto max-w-4xl text-2xl font-bold tracking-[-0.04em] text-foreground sm:text-5xl lg:text-6xl xl:text-7xl mt-8 sm:mt-24 leading-tight sm:leading-[0.95]"
             immediate
             delay={0}
             stagger={0.028}
@@ -197,7 +197,7 @@ function HeroSection() {
           {/* Subtitle */}
           <motion.p
             variants={fadeUpVariants}
-            className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-[var(--text-secondary)] sm:mt-8 sm:text-xl sm:leading-8"
+            className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:mt-8 sm:text-xl sm:leading-8"
           >
             Altrex builds scalable industrial IoT infrastructure powering realtime
             SCADA systems, AI-driven analytics, asset intelligence, and industrial
@@ -216,10 +216,10 @@ function HeroSection() {
             ].map(({ icon: Icon, label }) => (
               <div
                 key={label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-[var(--bg-surface)]/60 px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5 shadow-sm"
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-card/60 px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5 shadow-sm"
               >
                 <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[var(--accent-violet)]" />
-                <span className="text-[11px] font-medium text-[var(--text-primary)] sm:text-sm">{label}</span>
+                <span className="text-[11px] font-medium text-foreground sm:text-sm">{label}</span>
               </div>
             ))}
           </motion.div>
@@ -271,7 +271,7 @@ function MissionSection() {
         >
           <Badge
             variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+            className="border border-white/10 bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
           >
             <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
             <InViewDecryptedText
@@ -279,11 +279,11 @@ function MissionSection() {
               speed={60}
               maxIterations={12}
               className="text-[var(--data-green)]"
-              encryptedClassName="text-[var(--text-muted)]"
+              encryptedClassName="text-muted-foreground"
             />
           </Badge>
 
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+          <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Empowering industries through{" "}
             {/* GradientText gives the key phrase an animated colour sweep */}
             <span
@@ -293,7 +293,7 @@ function MissionSection() {
             </span>
           </h2>
 
-          <p className="mt-8 text-lg leading-8 text-[var(--text-secondary)]">
+          <p className="mt-8 text-lg leading-8 text-muted-foreground">
             We believe industrial operations should be intelligent, connected,
             secure, and data-driven. Our mission is to simplify industrial
             digital transformation through scalable realtime infrastructure and
@@ -315,13 +315,13 @@ function MissionSection() {
                 key={i}
                 variants={cardVariants}
                 whileHover={{ y: -4, boxShadow: "0 20px 40px -12px rgba(124,58,237,0.12)" }}
-                className="rounded-3xl border border-white/10 bg-[var(--bg-surface)]/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+                className="rounded-3xl border border-white/10 bg-card/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
               >
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--accent-violet)]/15 text-[var(--accent-violet)] shadow-lg">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-[var(--text-primary)]">{item.title}</h3>
-                <p className="mt-3 text-[var(--text-secondary)]">{item.description}</p>
+                <h3 className="mt-6 text-xl font-semibold text-foreground">{item.title}</h3>
+                <p className="mt-3 text-muted-foreground">{item.description}</p>
               </motion.div>
             );
           })}
@@ -348,11 +348,11 @@ function StatsSection() {
           initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 divide-x divide-y divide-white/5 rounded-3xl border border-white/10 bg-[var(--bg-surface)]/65 shadow-sm md:grid-cols-4 md:divide-y-0"
+          className="grid grid-cols-2 divide-x divide-y divide-white/5 rounded-3xl border border-white/10 bg-card/65 shadow-sm md:grid-cols-4 md:divide-y-0"
         >
           {stats.map((stat, i) => (
             <div key={i} className="flex flex-col items-center justify-center px-8 py-12">
-              <div className="text-4xl font-bold text-[var(--text-primary)]">
+              <div className="text-4xl font-bold text-foreground">
                 <ScrambleCounter
                   target={Math.max(1, Math.floor(stat.value))}
                   finalText={`${stat.value}${stat.suffix}`}
@@ -360,7 +360,7 @@ function StatsSection() {
                   totalFrames={40}
                 />
               </div>
-              <p className="mt-2 text-center text-sm text-[var(--text-secondary)]">{stat.label}</p>
+              <p className="mt-2 text-center text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}
         </motion.div>
@@ -386,7 +386,7 @@ function TimelineSection() {
         <div className="text-center">
           <Badge
             variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+            className="border border-white/10 bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
           >
             <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
             <InViewDecryptedText
@@ -394,13 +394,13 @@ function TimelineSection() {
               speed={60}
               maxIterations={12}
               className="text-[var(--data-green)]"
-              encryptedClassName="text-[var(--text-muted)]"
+              encryptedClassName="text-muted-foreground"
             />
           </Badge>
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+          <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Digital maturity model
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-[var(--text-secondary)]">
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
             Five levels of industrial intelligence — from raw field data to
             AI-driven predictive operations. Currently operating at{" "}
             <span className="font-semibold text-[var(--accent-violet)]">Level 4</span>.
@@ -439,10 +439,10 @@ function TimelineSection() {
                 {/* Card */}
                 <div
                   className={`ml-12 max-w-sm rounded-3xl border p-8 shadow-sm transition-all duration-300 md:ml-0 ${isCurrent
-                    ? "border-[var(--data-green)]/40 bg-[var(--bg-surface)]/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
+                    ? "border-[var(--data-green)]/40 bg-card/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
                     : isUpcoming
-                      ? "border-white/5 bg-[var(--bg-surface)]/40 opacity-60"
-                      : "border-white/10 bg-[var(--bg-surface)]/75 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+                      ? "border-white/5 bg-card/40 opacity-60"
+                      : "border-white/10 bg-card/75 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
                     }`}
                 >
                   {/* Level pill */}
@@ -462,7 +462,7 @@ function TimelineSection() {
                         revealDirection="start"
                         className={`text-sm font-bold ${isCurrent
                           ? "text-[var(--data-green)]"
-                          : isUpcoming ? "text-[var(--text-muted)]"
+                          : isUpcoming ? "text-muted-foreground"
                             : "text-white"
                           }`}
                         encryptedClassName={`text-sm font-bold ${isCurrent ? "text-[var(--data-green)]/50" : "text-violet-300"
@@ -478,22 +478,22 @@ function TimelineSection() {
                       </span>
                     )}
                     {isUpcoming && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-[var(--text-muted)]">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-muted-foreground">
                         Upcoming
                       </span>
                     )}
                   </div>
 
                   {/* Time label */}
-                  <p className={`mt-3 text-xs font-mono tracking-widest uppercase ${isCurrent ? "text-[var(--data-green)]/70" : "text-[var(--text-muted)]"
+                  <p className={`mt-3 text-xs font-mono tracking-widest uppercase ${isCurrent ? "text-[var(--data-green)]/70" : "text-muted-foreground"
                     }`}>
                     {item.timeLabel}
                   </p>
 
-                  <h3 className="mt-3 text-xl font-semibold text-[var(--text-primary)]">
+                  <h3 className="mt-3 text-xl font-semibold text-foreground">
                     {item.title}
                   </h3>
-                  <p className="mt-3 leading-7 text-[var(--text-secondary)] text-sm">
+                  <p className="mt-3 leading-7 text-muted-foreground text-sm">
                     {item.description}
                   </p>
 
@@ -504,8 +504,8 @@ function TimelineSection() {
                         key={tag}
                         className={`rounded-lg border px-2.5 py-1 text-xs font-medium ${isCurrent
                           ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
-                          : isUpcoming ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-[var(--text-muted)] opacity-60"
-                            : "border-black/8 bg-black/3 text-[var(--text-muted)]"
+                          : isUpcoming ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
+                            : "border-black/8 bg-black/3 text-muted-foreground"
                           }`}
                       >
                         {tag}
@@ -538,7 +538,7 @@ function TeamSection() {
         <div className="text-center">
           <Badge
             variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium ]"
+            className="border border-white/10 bg-card/50 p-4 text-sm font-medium ]"
           >
             <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
             <InViewDecryptedText
@@ -546,10 +546,10 @@ function TeamSection() {
               speed={60}
               maxIterations={12}
               className="text-[var(--data-green)]"
-              encryptedClassName="text-[var(--text-muted)]"
+              encryptedClassName="text-muted-foreground"
             />
           </Badge>
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+          <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             People behind the platform
           </h2>
         </div>
@@ -569,16 +569,16 @@ function TeamSection() {
               whileHover={{ y: -4 }}
               transition={{ duration: 0.25 }}
               style={{ transformStyle: "preserve-3d" }}
-              className="rounded-3xl border border-white/10 bg-[var(--bg-surface)]/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+              className="rounded-3xl border border-white/10 bg-card/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
             >
               {/* Gradient avatar with initials */}
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-violet-500 text-2xl font-bold text-white shadow-lg">
                 {member.initials}
               </div>
 
-              <h3 className="mt-6 text-xl font-semibold text-[var(--text-primary)]">{member.name}</h3>
+              <h3 className="mt-6 text-xl font-semibold text-foreground">{member.name}</h3>
               <p className="mt-1 text-sm font-medium text-[var(--accent-violet)]">{member.role}</p>
-              <p className="mt-4 text-sm leading-7 text-[var(--text-secondary)]">{member.bio}</p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">{member.bio}</p>
 
               <Button size="icon" variant="ghost" aria-label={`LinkedIn ${member.name}`}>
                 <FaLinkedinIn className="h-4 w-4" />
@@ -609,7 +609,7 @@ function ValuesSection() {
         <div className="text-center">
           <Badge
             variant="secondary"
-            className="border border-white/10 bg-[var(--bg-surface)]/50 p-4 text-sm font-medium text-[var(--data-green)]"
+            className="border border-white/10 bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
           >
             <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
             <InViewDecryptedText
@@ -617,10 +617,10 @@ function ValuesSection() {
               speed={60}
               maxIterations={12}
               className="text-[var(--data-green)]"
-              encryptedClassName="text-[var(--text-muted)]"
+              encryptedClassName="text-muted-foreground"
             />
           </Badge>
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl">
+          <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Built on principles that matter
           </h2>
         </div>
@@ -646,14 +646,14 @@ function ValuesSection() {
                 speed="8s"
                 thickness={1}
                 className="w-full cursor-default"
-                innerClassName="border border-white/10 bg-[var(--bg-surface)]/75 p-6 rounded-[18px]"
+                innerClassName="border border-white/10 bg-card/75 p-6 rounded-[18px]"
               >
                 <div className="">
                   <div className="bg-violet-500 bg-clip-text text-6xl font-bold text-transparent">
                     {item.number}
                   </div>
-                  <h3 className="mt-4 text-xl font-semibold text-[var(--text-primary)]">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-[var(--text-secondary)]">{item.description}</p>
+                  <h3 className="mt-4 text-xl font-semibold text-foreground">{item.title}</h3>
+                  <p className="mt-3 leading-7 text-muted-foreground">{item.description}</p>
                 </div>
               </StarBorder>
             </motion.div>
@@ -698,13 +698,13 @@ const CTA = () => {
         }
       `}</style>
 
-      <div className="relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm">
+      <div className="relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-foreground shadow-sm">
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div>
-            <h2 className="font-bold text-4xl text-[var(--text-primary)] leading-snug">
+            <h2 className="font-bold text-4xl text-foreground leading-snug">
               Ready to transform your operations{" "}
             </h2>
-            <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-xl leading-relaxed">
+            <p className="mt-1.5 text-lg text-muted-foreground max-w-xl leading-relaxed">
               Build smarter industrial systems with realtime intelligence, AI-driven analytics, and scalable infrastructure.
             </p>
           </div>
@@ -723,7 +723,7 @@ const CTA = () => {
 
 const About = () => {
   return (
-    <div className="overflow-hidden bg-[var(--bg-void)]">
+    <div className="overflow-hidden bg-background">
       <HeroSection />
       <MissionSection />
       <StatsSection />

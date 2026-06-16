@@ -146,7 +146,7 @@ const ArchitectureMobile = () => {
           )}
 
           <div
-            className="flex w-full flex-col rounded-2xl border bg-[var(--bg-surface)] p-6 shadow-sm"
+            className="flex w-full flex-col rounded-2xl border bg-card p-6 shadow-sm"
             style={{
               borderColor: `${step.color}30`,
               borderTop: `4px solid ${step.color}`,
@@ -172,10 +172,10 @@ const ArchitectureMobile = () => {
                   {step.items.slice(0, 4).map((item: any, i) => (
                     <div
                       key={i}
-                      className="flex flex-col items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-raised)] p-2"
+                      className="flex flex-col items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-muted p-2"
                     >
                       <item.icon size={16} color={step.color} />
-                      <span className="text-[10px] font-bold uppercase tracking-tight text-[var(--text-secondary)]">
+                      <span className="text-[10px] font-bold uppercase tracking-tight text-muted-foreground">
                         {item.label}
                       </span>
                     </div>
@@ -187,10 +187,10 @@ const ArchitectureMobile = () => {
                 {step.items.map((item: any, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-raised)] p-2"
+                    className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-muted p-2"
                   >
                     <item.icon size={14} color={step.color} strokeWidth={2} />
-                    <span className="text-[10px] font-semibold text-[var(--text-primary)]">
+                    <span className="text-[10px] font-semibold text-foreground">
                       {item.label}
                     </span>
                   </div>
@@ -202,10 +202,10 @@ const ArchitectureMobile = () => {
           {/* Arrow connector */}
           {idx < steps.length - 1 && (
             <div
-              className="mt-4 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--bg-surface)] border shadow-sm"
+              className="mt-4 flex h-8 w-8 items-center justify-center rounded-full bg-card border shadow-sm"
               style={{ borderColor: `${step.color}40` }}
             >
-              <ArrowDown size={14} className="text-[var(--text-muted)]" />
+              <ArrowDown size={14} className="text-muted-foreground" />
             </div>
           )}
         </motion.div>

@@ -158,7 +158,7 @@ function DevicesCircleNode({ data }: NodeProps<any>) {
     >
       {/* Inner ring backing */}
       <div
-        className="absolute rounded-full bg-[var(--bg-surface)]"
+        className="absolute rounded-full bg-card"
         style={{ width: 150, height: 150, border: `1.5px solid ${C.device}` }}
       />
 
@@ -168,7 +168,7 @@ function DevicesCircleNode({ data }: NodeProps<any>) {
         style={{ pointerEvents: "none" }}
       >
         <span
-          className="font-black uppercase tracking-widest text-[var(--text-primary)]"
+          className="font-black uppercase tracking-widest text-foreground"
           style={{ fontSize: "11px", letterSpacing: "0.18em" }}
         >
           DEVICES
@@ -194,12 +194,12 @@ function DevicesCircleNode({ data }: NodeProps<any>) {
             style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
           >
             <div
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-md transition-transform hover:scale-110"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-card border border-[var(--border-subtle)] shadow-md transition-transform hover:scale-110"
               style={{ boxShadow: `0 2px 10px ${C.device}25, 0 0 0 1px ${C.device}12` }}
             >
               <Icon size={20} color={C.device} strokeWidth={2} />
             </div>
-            <span className="whitespace-nowrap rounded border border-black/[0.04] bg-[var(--bg-surface)]/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-[var(--text-secondary)]">
+            <span className="whitespace-nowrap rounded border border-black/[0.04] bg-card/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
               {item.label}
             </span>
           </div>
@@ -223,7 +223,7 @@ function ConnectivityNode({ data }: NodeProps<any>) {
   const Icon  = data.icon;
   return (
     <div
-      className="flex items-center gap-2.5 rounded-[10px] bg-[var(--bg-surface)] px-3 py-2.5 transition-all duration-200 hover:scale-105"
+      className="flex items-center gap-2.5 rounded-[10px] bg-card px-3 py-2.5 transition-all duration-200 hover:scale-105"
       style={{
         border:    `1px solid ${color}`,
         boxShadow: `0 6px 10px -8px ${color}, 0 0 0 1px ${color}08`,
@@ -233,7 +233,7 @@ function ConnectivityNode({ data }: NodeProps<any>) {
     >
       <Icon size={15} color={color} strokeWidth={2} />
       <span
-        className="font-bold tracking-tight text-[var(--text-primary)]"
+        className="font-bold tracking-tight text-foreground"
         style={{ fontSize: "11px" }}
       >
         {data.label}
@@ -266,7 +266,7 @@ function PlatformNode({ data }: NodeProps<any>) {
         border: `1.5px solid ${C.platform}`,
       }}
     >
-      <div className="absolute rounded-full bg-[var(--bg-surface)]"
+      <div className="absolute rounded-full bg-card"
         style={{ width: 150, height: 150, border: `1.5px solid ${C.platform}` }} />
       <motion.img
         src={logo} alt="Altrex"
@@ -284,11 +284,11 @@ function PlatformNode({ data }: NodeProps<any>) {
           <div key={i} className="absolute z-20 flex flex-col items-center gap-[5px]"
             style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}>
             <div
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-md transition-transform hover:scale-110"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-card border border-[var(--border-subtle)] shadow-md transition-transform hover:scale-110"
               style={{ boxShadow: `0 2px 10px ${C.platform}25, 0 0 0 1px ${C.platform}12` }}>
               <Icon size={22} color={C.platform} strokeWidth={2} />
             </div>
-            <span className="whitespace-nowrap rounded border border-black/[0.04] bg-[var(--bg-surface)]/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-[var(--text-secondary)]">
+            <span className="whitespace-nowrap rounded border border-black/[0.04] bg-card/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
               {item.label}
             </span>
           </div>
@@ -312,7 +312,7 @@ function GroupNode({ data }: NodeProps<any>) {
   const color  = isDark ? "#ffffff" : "#18181b";
   return (
     <div
-      className="rounded-[18px] bg-[var(--bg-surface)] p-[14px] shadow-sm"
+      className="rounded-[18px] bg-card p-[14px] shadow-sm"
       style={{
         width: 225,
         border: `1px solid ${color}15`,
@@ -329,10 +329,10 @@ function GroupNode({ data }: NodeProps<any>) {
           const itemColor = item.color ?? data.color ?? C.cloud;
           return (
             <div key={i}
-              className="flex min-w-[140px] items-center gap-3.5 rounded-xl bg-[var(--bg-surface)] px-4 py-3.5"
+              className="flex min-w-[140px] items-center gap-3.5 rounded-xl bg-card px-4 py-3.5"
               style={{ border: `1px solid ${itemColor}`, boxShadow: `0 8px 12px -9px ${itemColor}` }}>
               <Icon size={20} color={itemColor} strokeWidth={2} />
-              <span className="text-[13px] font-bold tracking-tight text-[var(--text-primary)]">
+              <span className="text-[13px] font-bold tracking-tight text-foreground">
                 {item.label}
               </span>
             </div>
@@ -563,7 +563,7 @@ const ArchitectureMobile = () => {
           )}
 
           <div
-            className="flex w-full flex-col rounded-2xl border bg-[var(--bg-surface)] p-5 shadow-sm"
+            className="flex w-full flex-col rounded-2xl border bg-card p-5 shadow-sm"
             style={{ borderColor: `${step.color}30`, borderTop: `4px solid ${step.color}` }}
           >
             <h3
@@ -579,9 +579,9 @@ const ArchitectureMobile = () => {
                   animate={{ y: [0, -5, 0] }} transition={{ duration: 3, repeat: Infinity }} />
                 <div className="grid grid-cols-2 gap-2 w-full">
                   {step.items.slice(0, 4).map((item: any, i) => (
-                    <div key={i} className="flex flex-col items-center gap-1 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-raised)] p-2">
+                    <div key={i} className="flex flex-col items-center gap-1 rounded-xl border border-[var(--border-subtle)] bg-muted p-2">
                       <item.icon size={15} color={step.color} />
-                      <span className="text-[9px] font-bold uppercase tracking-tight text-[var(--text-secondary)]">{item.label}</span>
+                      <span className="text-[9px] font-bold uppercase tracking-tight text-muted-foreground">{item.label}</span>
                     </div>
                   ))}
                 </div>
@@ -589,9 +589,9 @@ const ArchitectureMobile = () => {
             ) : (
               <div className="grid grid-cols-2 gap-2">
                 {step.items.map((item: any, i) => (
-                  <div key={i} className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-raised)] p-2">
+                  <div key={i} className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-muted p-2">
                     <item.icon size={13} color={(item.color as string) ?? step.color} strokeWidth={2} />
-                    <span className="text-[10px] font-semibold text-[var(--text-primary)]">{item.label}</span>
+                    <span className="text-[10px] font-semibold text-foreground">{item.label}</span>
                   </div>
                 ))}
               </div>
@@ -599,9 +599,9 @@ const ArchitectureMobile = () => {
           </div>
 
           {idx < steps.length - 1 && (
-            <div className="mt-4 flex h-7 w-7 items-center justify-center rounded-full bg-[var(--bg-surface)] border shadow-sm"
+            <div className="mt-4 flex h-7 w-7 items-center justify-center rounded-full bg-card border shadow-sm"
               style={{ borderColor: `${step.color}40` }}>
-              <ArrowDown size={13} className="text-[var(--text-muted)]" />
+              <ArrowDown size={13} className="text-muted-foreground" />
             </div>
           )}
         </motion.div>
@@ -682,11 +682,11 @@ const Architecture = () => {
               Realtime Architecture
             </Badge>
           </motion.div>
-          <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-[var(--text-primary)] sm:text-5xl">
+          <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-foreground sm:text-5xl">
             BUILT FOR DISTRIBUTED{" "}
             <span className="text-[var(--accent-violet)]">GLOBAL INFRASTRUCTURE</span>
           </h2>
-          <p className="mt-4 text-lg leading-8 text-[var(--text-secondary)]">
+          <p className="mt-4 text-lg leading-8 text-muted-foreground">
             From industrial devices to cloud — every layer connected, secured, and orchestrated in realtime.
           </p>
         </motion.div>
@@ -744,7 +744,7 @@ const Architecture = () => {
 
             {/* Drag hint */}
             <div
-              className="absolute bottom-3 right-5 flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-surface)]/80 px-3 py-1.5 backdrop-blur-sm"
+              className="absolute bottom-3 right-5 flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-card/80 px-3 py-1.5 backdrop-blur-sm"
               style={{ zIndex: 30, fontSize: 11, color: "var(--text-muted)" }}
             >
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">

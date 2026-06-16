@@ -29,7 +29,7 @@ const MainLayout = () => {
     }
   }, [location.pathname]);
   return (
-    <div className="relative flex min-h-screen flex-col overflow-hidden bg-[var(--bg-void)] text-[var(--text-primary)]">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-background text-foreground">
       {/* Custom Cursor */}
       <CustomCursor />
       <Header />

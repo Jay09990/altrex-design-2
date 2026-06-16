@@ -125,7 +125,7 @@ const UseCases = () => {
 
           <motion.h2
             variants={fadeUpVariants}
-            className="mt-6 text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+            className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             Built for Modern{" "}
             <span className="bg-orange-500 bg-clip-text text-transparent">
@@ -133,7 +133,7 @@ const UseCases = () => {
             </span>
           </motion.h2>
 
-          <motion.p variants={fadeUpVariants} className="mt-6 text-lg leading-8 text-[var(--text-secondary)]">
+          <motion.p variants={fadeUpVariants} className="mt-6 text-lg leading-8 text-muted-foreground">
             A horizontal journey through the highest-impact realtime use cases — from industrial telemetry to global
             infrastructure.
           </motion.p>
@@ -155,7 +155,7 @@ const UseCases = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="w-[340px] flex-shrink-0 rounded-3xl border border-black/[0.08] bg-[var(--bg-surface)] p-8 shadow-sm backdrop-blur-sm md:w-[420px]"
+                className="w-[340px] flex-shrink-0 rounded-3xl border border-black/[0.08] bg-card p-8 shadow-sm backdrop-blur-sm md:w-[420px]"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#ff751f] text-white shadow-lg">
@@ -168,12 +168,12 @@ const UseCases = () => {
                   </div>
                 </div>
 
-                <h3 className="mt-6 text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">{item.title}</h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-[var(--text-secondary)]">{item.description}</p>
+                <h3 className="mt-6 text-xl font-bold uppercase tracking-tight text-foreground">{item.title}</h3>
+                <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">{item.description}</p>
 
                 <ul className="mt-6 space-y-3">
                   {item.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-center gap-3 text-sm text-[var(--text-secondary)]">
+                    <li key={bullet} className="flex items-center gap-3 text-sm text-muted-foreground">
                       <div className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-100">
                         <div className="h-1.5 w-1.5 rounded-full bg-violet-600" />
                       </div>

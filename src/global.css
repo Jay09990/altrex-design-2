@@ -57,36 +57,43 @@
   --radius: 0.625rem;
 
   /* Altrex brand — logo-exact (light mode) */
-  --brand-primary: #00336c;             /* Navy — primary brand color */
+  --brand-primary: #00336c;
   --brand-primary-foreground: #ffffff;
-  --brand-secondary: #ff6b01;           /* Orange — secondary brand color */
+  --brand-secondary: #ff6b01;
   --brand-secondary-foreground: #ffffff;
-  --brand-accent: #ff6b01;              /* Orange — accent */
+  --brand-accent: #ff6b01;
   --brand-accent-foreground: #ffffff;
 
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: var(--brand-primary);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: var(--brand-primary);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
+  --popover-foreground: var(--brand-primary);
   --primary: var(--brand-primary);
   --primary-foreground: var(--brand-primary-foreground);
-  --secondary: #fff1e6;                 /* Soft orange-tinted surface */
+  --secondary: #fff1e6;
+  /* Soft orange-tinted surface */
   --secondary-foreground: var(--brand-secondary);
-  --muted: #f3f5f9;                     /* Soft navy-tinted neutral */
-  --muted-foreground: #5b6b85;
+  --muted: #f3f5f9;
+  /* Soft navy-tinted neutral */
+  --muted-foreground: #3f6ea5;
   --accent: var(--brand-accent);
   --accent-foreground: var(--brand-accent-foreground);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: var(--brand-primary);
-  --chart-1: var(--brand-primary);      /* Orange */
-  --chart-2: var(--brand-secondary);    /* Navy */
-  --chart-3: #ffa15c;                   /* Orange, lighter tint */
-  --chart-4: #3f6ea5;                   /* Navy, lighter tint */
-  --chart-5: #7a3b00;                   /* Orange, darker tint */
+  --chart-1: var(--brand-primary);
+  /* Orange */
+  --chart-2: var(--brand-secondary);
+  /* Navy */
+  --chart-3: #ffa15c;
+  /* Orange, lighter tint */
+  --chart-4: #3f6ea5;
+  /* Navy, lighter tint */
+  --chart-5: #7a3b00;
+  /* Orange, darker tint */
   --sidebar: #ffffff;
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: var(--brand-primary);
@@ -99,9 +106,11 @@
 
 .dark {
   /* Altrex brand — logo-exact (dark mode) */
-  --brand-primary: #3f6ea5;             /* Navy lightened for contrast on dark bg */
+  --brand-primary: #3f6ea5;
+  /* Navy lightened for contrast on dark bg */
   --brand-primary-foreground: #ffffff;
-  --brand-secondary: #ff6b01;           /* Orange stays consistent across themes */
+  --brand-secondary: #ff6b01;
+  /* Orange stays consistent across themes */
   --brand-secondary-foreground: #ffffff;
   --brand-accent: #ff6b01;
   --brand-accent-foreground: #ffffff;
@@ -114,7 +123,8 @@
   --popover-foreground: oklch(0.985 0 0);
   --primary: var(--brand-primary);
   --primary-foreground: var(--brand-primary-foreground);
-  --secondary: #2a1c0f;                 /* Dark orange-tinted surface */
+  --secondary: #2a1c0f;
+  /* Dark orange-tinted surface */
   --secondary-foreground: #ffd9b3;
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
@@ -124,11 +134,16 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: var(--brand-primary);
-  --chart-1: var(--brand-primary);      /* Orange */
-  --chart-2: var(--brand-secondary);    /* Navy, lightened */
-  --chart-3: #ffa15c;                   /* Orange, lighter tint */
-  --chart-4: #00336c;                   /* Navy, base (darker than chart-2 here) */
-  --chart-5: #c45400;                   /* Orange, darker tint */
+  --chart-1: var(--brand-primary);
+  /* Orange */
+  --chart-2: var(--brand-secondary);
+  /* Navy, lightened */
+  --chart-3: #ffa15c;
+  /* Orange, lighter tint */
+  --chart-4: #00336c;
+  /* Navy, base (darker than chart-2 here) */
+  --chart-5: #c45400;
+  /* Orange, darker tint */
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
   --sidebar-primary: var(--brand-primary);

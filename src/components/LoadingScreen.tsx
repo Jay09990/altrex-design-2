@@ -82,7 +82,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[var(--bg-void)]"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
       style={{
         transform: isExiting ? "translateY(-100%)" : "translateY(0)",
         transition: "transform 1100ms cubic-bezier(0.85, 0, 0.15, 1)",
@@ -108,27 +108,27 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
         {/* Wordmark */}
         <div className="text-center">
-          <p className="mt-4 font-mono text-xs tracking-widest text-[var(--text-muted)] uppercase">
+          <p className="mt-4 font-mono text-xs tracking-widest text-muted-foreground uppercase">
             INITIALIZING SYSTEMS
           </p>
         </div>
 
         {/* Progress Bar */}
         <div className="w-64 space-y-3">
-          <div className="h-1 w-full overflow-hidden rounded-full bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+          <div className="h-1 w-full overflow-hidden rounded-full bg-card border border-[var(--border-subtle)]">
             <div
               className="h-full bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)] transition-all duration-300 ease-out"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <div className="text-right font-mono text-xs text-[var(--text-secondary)]">
+          <div className="text-right font-mono text-xs text-muted-foreground">
             {Math.floor(progress)}%
           </div>
         </div>
 
         {/* Status Message */}
         <div className="h-6 text-center">
-          <p className="animate-pulse font-mono text-xs text-[var(--text-secondary)] uppercase tracking-widest">
+          <p className="animate-pulse font-mono text-xs text-muted-foreground uppercase tracking-widest">
             {loadingMessages[currentMessage]}
           </p>
         </div>

@@ -38,7 +38,7 @@ const Home = () => {
   };
 
   return (
-    <div className="relative bg-[var(--bg-void)]">
+    <div className="relative bg-background">
       {/* Loading Screen */}
       {showLoading && (
         <LoadingScreen onComplete={handleLoadingComplete} />

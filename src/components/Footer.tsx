@@ -9,7 +9,7 @@ const Footer = () => {
   const { theme } = useTheme();
 
   return (
-    <footer className="border-t border-[var(--border)] bg-[var(--bg-void)] z-10">
+    <footer className="border-t border-[var(--border)] bg-background z-10">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
         {/* Top Section */}
         <div className="grid gap-14 lg:grid-cols-5">
@@ -181,7 +181,7 @@ const Footer = () => {
 
         {/* Bottom */}
         <div className="mt-20 flex flex-col items-start justify-between gap-6 border-t border-black/[0.08] pt-8 md:flex-row md:items-center">
-          <p className="text-sm text-[var(--text-secondary)]">
+          <p className="text-sm text-muted-foreground">
             © 2026 Altrex. All rights reserved.
           </p>
 

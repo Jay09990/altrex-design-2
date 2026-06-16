@@ -98,14 +98,14 @@ const CTA = ({
       `}</style>
 
       <div
-        className={`relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-[var(--text-primary)] shadow-sm ${accentClasses}`}
+        className={`relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-foreground shadow-sm ${accentClasses}`}
       >
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div>
-            <h2 className="font-bold text-4xl text-[var(--text-primary)] leading-snug">
+            <h2 className="font-bold text-4xl text-foreground leading-snug">
               {title}
             </h2>
-            <p className="mt-1.5 text-lg text-[var(--text-secondary)] max-w-md leading-relaxed">
+            <p className="mt-1.5 text-lg text-muted-foreground max-w-md leading-relaxed">
               {description}
             </p>
           </div>

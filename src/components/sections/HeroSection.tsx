@@ -33,13 +33,13 @@ function MetricPill({
       variants={fadeUp}
       initial="hidden"
       animate="visible"
-      className="flex items-center gap-2 rounded-lg border border-white/[0.07] bg-[var(--bg-raised)]/60 px-3 py-2"
+      className="flex items-center gap-2 rounded-lg border border-white/[0.07] bg-muted/60 px-3 py-2"
     >
       <span
         className="h-1.5 w-1.5 rounded-full animate-pulse shrink-0"
         style={{ background: color }}
       />
-      <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+      <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
         {label}
       </span>
       <span className="ml-auto font-mono text-xs font-bold" style={{ color }}>
@@ -76,10 +76,10 @@ function AlarmRow({
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-[11px] font-semibold text-[var(--text-primary)] truncate">
+        <p className="text-[11px] font-semibold text-foreground truncate">
           {station}
         </p>
-        <p className="text-[10px] text-[var(--text-muted)] truncate">{type}</p>
+        <p className="text-[10px] text-muted-foreground truncate">{type}</p>
       </div>
       <div className="text-right shrink-0">
         <p
@@ -88,7 +88,7 @@ function AlarmRow({
         >
           {status}
         </p>
-        <p className="text-[9px] font-mono text-[var(--text-muted)]">{time}</p>
+        <p className="text-[9px] font-mono text-muted-foreground">{time}</p>
       </div>
     </div>
   );
@@ -152,15 +152,15 @@ function DashboardPreview() {
       <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-orange-500/10 via-transparent to-violet-500/10 blur-sm pointer-events-none" />
 
       {/* Main panel */}
-      <div className="relative rounded-2xl border border-white/10 bg-[var(--bg-surface)]/90 backdrop-blur-md overflow-hidden shadow-2xl">
+      <div className="relative rounded-2xl border border-white/10 bg-card/90 backdrop-blur-md overflow-hidden shadow-2xl">
 
         {/* Terminal bar */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] bg-[var(--bg-void)]/60 px-4 py-2.5">
+        <div className="flex items-center justify-between border-b border-white/[0.06] bg-background/60 px-4 py-2.5">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
             <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
             <span className="h-2 w-2 rounded-full bg-[#28c840]" />
-            <span className="ml-2 font-mono text-[10px] text-[var(--text-muted)]">
+            <span className="ml-2 font-mono text-[10px] text-muted-foreground">
               altrex@platform:~${" "}
               <span className="text-orange-400">W! Platform Live</span>
             </span>
@@ -186,29 +186,29 @@ function DashboardPreview() {
             {/* Left: KPI cards */}
             <div className="space-y-2">
               {/* ERP sync card */}
-              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <BarChart2 size={12} className="text-orange-400" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       ERP Sync
                     </span>
                   </div>
                   <span className="font-mono text-[9px] text-emerald-400">● ACTIVE</span>
                 </div>
-                <p className="text-xl font-bold text-[var(--text-primary)]">₹4.2Cr</p>
-                <p className="text-[10px] text-[var(--text-muted)]">Today's reconciled value</p>
+                <p className="text-xl font-bold text-foreground">₹4.2Cr</p>
+                <p className="text-[10px] text-muted-foreground">Today's reconciled value</p>
                 <div className="mt-2 flex justify-end">
                   <Sparkline data={[38, 45, 42, 55, 48, 62, 58, 70, 65, 72]} color="#f97316" />
                 </div>
               </div>
 
               {/* CRM card */}
-              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <TrendingUp size={12} className="text-violet-400" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       CRM Pipeline
                     </span>
                   </div>
@@ -221,7 +221,7 @@ function DashboardPreview() {
                     { label: "Closed", pct: 82, color: "#10b981" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2">
-                      <span className="w-14 text-[9px] text-[var(--text-muted)] shrink-0">
+                      <span className="w-14 text-[9px] text-muted-foreground shrink-0">
                         {item.label}
                       </span>
                       <div className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
@@ -239,11 +239,11 @@ function DashboardPreview() {
               </div>
 
               {/* Network card */}
-              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <Wifi size={12} className="text-blue-400" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       Network I/O
                     </span>
                   </div>
@@ -258,7 +258,7 @@ function DashboardPreview() {
                     { label: "Packets", pct: 70, color: "#10b981" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2">
-                      <span className="w-14 text-[9px] text-[var(--text-muted)] shrink-0">
+                      <span className="w-14 text-[9px] text-muted-foreground shrink-0">
                         {item.label}
                       </span>
                       <div className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
@@ -279,18 +279,18 @@ function DashboardPreview() {
             {/* Right: VTS + Alarm */}
             <div className="space-y-2">
               {/* VTS / Fleet card */}
-              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <Truck size={12} className="text-cyan-400" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       VTS Fleet
                     </span>
                   </div>
                   <span className="font-mono text-[9px] text-cyan-400">214 active</span>
                 </div>
                 {/* Mini map placeholder */}
-                <div className="relative rounded-lg bg-[var(--bg-void)]/60 border border-white/[0.05] h-[110px] overflow-hidden mb-2">
+                <div className="relative rounded-lg bg-background/60 border border-white/[0.05] h-[110px] overflow-hidden mb-2">
                   {/* Grid lines */}
                   <svg className="absolute inset-0 w-full h-full opacity-20">
                     <defs>
@@ -328,11 +328,11 @@ function DashboardPreview() {
               </div>
 
               {/* Alarm feed */}
-              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <Activity size={12} className="text-amber-400" />
-                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       Alarm Feed
                     </span>
                   </div>
@@ -348,7 +348,7 @@ function DashboardPreview() {
           </div>
 
           {/* Bottom connectivity status strip */}
-          <div className="flex items-center gap-3 rounded-lg border border-white/[0.05] bg-[var(--bg-void)]/40 px-3 py-2">
+          <div className="flex items-center gap-3 rounded-lg border border-white/[0.05] bg-background/40 px-3 py-2">
             <Wifi size={11} className="text-emerald-400 shrink-0" />
             <div className="flex flex-1 gap-2 overflow-hidden">
               {["MQTT", "OPC-UA", "MODBUS", "REST API", "MQTT-SB"].map((proto) => (
@@ -360,7 +360,7 @@ function DashboardPreview() {
                 </span>
               ))}
             </div>
-            <span className="font-mono text-[9px] text-[var(--text-muted)] shrink-0">
+            <span className="font-mono text-[9px] text-muted-foreground shrink-0">
               [STREAM: ACTIVE]
             </span>
           </div>
@@ -407,7 +407,7 @@ const HeroSection = () => {
                 "OPERATIONS",
                 "THROUGH REALTIME INTELLIGENCE",
               ]}
-              className="text-3xl font-bold tracking-[-0.04em] text-[var(--text-primary)] sm:text-5xl lg:text-5xl xl:text-6xl leading-[0.95] uppercase text-left"
+              className="text-3xl font-bold tracking-[-0.04em] text-foreground sm:text-5xl lg:text-5xl xl:text-6xl leading-[0.95] uppercase text-left"
               immediate
               delay={0}
               stagger={0.028}
@@ -420,7 +420,7 @@ const HeroSection = () => {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-8 max-w-lg text-base leading-7 text-[var(--text-secondary)] sm:text-lg text-left"
+              className="mt-8 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg text-left"
             >
               Altrex enables real-time monitoring, industrial connectivity,
               asset management, GIS visualization, alarm management, fleet
@@ -438,7 +438,7 @@ const HeroSection = () => {
             >
               <Button
                 ref={startBtnRef}
-                className="gap-2 bg-orange-500 px-8 py-5 text-white hover:bg-orange-600"
+                className="gap-2 bg-orange-500 px-8 py-5 text-white hover:bg-primary"
               >
                 Explore Platform
                 <ArrowRight className="h-4 w-4" />
@@ -466,10 +466,10 @@ const HeroSection = () => {
                 { label: "Data Points/Day", value: "18B+" },
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-0.5">
-                  <span className="text-lg font-bold text-[var(--text-primary)]">
+                  <span className="text-lg font-bold text-foreground">
                     {stat.value}
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-muted)]">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
                     {stat.label}
                   </span>
                 </div>
