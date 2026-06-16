@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import Lenis from "lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import "./global.css";
 import App from "./App";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { LoadingProvider } from "@/context/LoadingContext";

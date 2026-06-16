@@ -1,10 +1,30 @@
 import { useEffect, useRef } from "react";
-import { ArrowRight, Play, Wifi, AlertTriangle, TrendingUp, MapPin, Truck, BarChart2, Activity, CheckCircle2 } from "lucide-react";
+import {
+  ArrowRight,
+  Play,
+  Wifi,
+  AlertTriangle,
+  TrendingUp,
+  MapPin,
+  Truck,
+  BarChart2,
+  Activity,
+  CheckCircle2,
+  Clock,
+  Plug,
+} from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { gsap } from "gsap";
 import useMagneticButton from "@/hooks/useMagneticButton";
 import { Button } from "../ui/button";
 import CharReveal from "@/components/CharReveal";
+import { Badge } from "@/components/ui/badge";
+import InViewDecryptedText from "../InViewDecryptedText";
+
+const fadeUpVariants: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65 } },
+};
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 24 },
@@ -33,7 +53,7 @@ function MetricPill({
       variants={fadeUp}
       initial="hidden"
       animate="visible"
-      className="flex items-center gap-2 rounded-lg border border-white/[0.07] bg-muted/60 px-3 py-2"
+      className="flex items-center gap-2 rounded-lg border border-border bg-muted/60 px-3 py-2"
     >
       <span
         className="h-1.5 w-1.5 rounded-full animate-pulse shrink-0"
@@ -64,15 +84,16 @@ function AlarmRow({
   isWarning: boolean;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-white/[0.03] transition-colors">
+    <div className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-muted/40 transition-colors">
       <div
-        className={`shrink-0 rounded-md p-1.5 ${isWarning ? "bg-amber-500/15" : "bg-emerald-500/15"
-          }`}
+        className={`shrink-0 rounded-md p-1.5 ${
+          isWarning ? "bg-amber-500/15" : "bg-emerald-500/15"
+        }`}
       >
         {isWarning ? (
-          <AlertTriangle size={11} className="text-amber-400" />
+          <AlertTriangle size={11} className="text-amber-500" />
         ) : (
-          <CheckCircle2 size={11} className="text-emerald-400" />
+          <CheckCircle2 size={11} className="text-emerald-500" />
         )}
       </div>
       <div className="flex-1 min-w-0">
@@ -83,8 +104,9 @@ function AlarmRow({
       </div>
       <div className="text-right shrink-0">
         <p
-          className={`text-[10px] font-bold ${isWarning ? "text-amber-400" : "text-emerald-400"
-            }`}
+          className={`text-[10px] font-bold ${
+            isWarning ? "text-amber-500" : "text-emerald-500"
+          }`}
         >
           {status}
         </p>
@@ -111,8 +133,7 @@ function Sparkline({
   const h = height;
   const points = data
     .map(
-      (v, i) =>
-        `${(i / (data.length - 1)) * w},${h - ((v - min) / range) * h}`
+      (v, i) => `${(i / (data.length - 1)) * w},${h - ((v - min) / range) * h}`,
     )
     .join(" ");
 
@@ -125,11 +146,10 @@ function Sparkline({
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        opacity="0.8"
+        opacity="0.85"
       />
-      {/* Last point dot */}
       <circle
-        cx={(((data.length - 1) / (data.length - 1)) * w)}
+        cx={((data.length - 1) / (data.length - 1)) * w}
         cy={h - ((data[data.length - 1] - min) / range) * h}
         r="2.5"
         fill={color}
@@ -147,90 +167,119 @@ function DashboardPreview() {
       transition={{ duration: 0.9, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
       className="relative w-full max-w-[820px] select-none"
     >
-      {/* Outer glow */}
-      <div className="absolute -inset-4 rounded-3xl bg-orange-500/5 blur-2xl pointer-events-none" />
-      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-orange-500/10 via-transparent to-violet-500/10 blur-sm pointer-events-none" />
+      {/* Outer glow — brand accent */}
+      <div className="absolute -inset-4 rounded-3xl bg-accent/5 blur-2xl pointer-events-none" />
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-accent/10 via-transparent to-primary/10 blur-sm pointer-events-none" />
 
       {/* Main panel */}
-      <div className="relative rounded-2xl border border-white/10 bg-card/90 backdrop-blur-md overflow-hidden shadow-2xl">
-
+      <div className="relative rounded-2xl border border-border bg-card/95 backdrop-blur-md overflow-hidden shadow-2xl">
         {/* Terminal bar */}
-        <div className="flex items-center justify-between border-b border-white/[0.06] bg-background/60 px-4 py-2.5">
+        <div className="flex items-center justify-between border-b border-border bg-background/60 px-4 py-2.5">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
             <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
             <span className="h-2 w-2 rounded-full bg-[#28c840]" />
             <span className="ml-2 font-mono text-[10px] text-muted-foreground">
               altrex@platform:~${" "}
-              <span className="text-orange-400">W! Platform Live</span>
+              <span className="text-accent">W! Platform Live</span>
             </span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-[10px] text-emerald-400 uppercase tracking-wider">LIVE</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="font-mono text-[10px] text-emerald-500 uppercase tracking-wider">
+              LIVE
+            </span>
           </div>
         </div>
 
         <div className="p-4 space-y-3">
-
           {/* Top metrics strip */}
           <div className="grid grid-cols-3 gap-2">
-            <MetricPill label="Devices Online" value="18,240" color="#10b981" delay={0.7} />
-            <MetricPill label="Avg Latency" value="12ms" color="#f97316" delay={0.8} />
-            <MetricPill label="Uptime" value="99.99%" color="#8b5cf6" delay={0.9} />
+            <MetricPill
+              label="Devices Online"
+              value="18,240"
+              color="#10b981"
+              delay={0.7}
+            />
+            <MetricPill
+              label="Avg Latency"
+              value="12ms"
+              color="var(--accent)"
+              delay={0.8}
+            />
+            <MetricPill
+              label="Uptime"
+              value="99.99%"
+              color="var(--primary)"
+              delay={0.9}
+            />
           </div>
 
           {/* Two-column body */}
           <div className="grid grid-cols-2 gap-3">
-
             {/* Left: KPI cards */}
             <div className="space-y-2">
               {/* ERP sync card */}
-              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <BarChart2 size={12} className="text-orange-400" />
+                    <BarChart2 size={12} className="text-accent" />
                     <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       ERP Sync
                     </span>
                   </div>
-                  <span className="font-mono text-[9px] text-emerald-400">● ACTIVE</span>
+                  <span className="font-mono text-[9px] text-emerald-500">
+                    ● ACTIVE
+                  </span>
                 </div>
                 <p className="text-xl font-bold text-foreground">₹4.2Cr</p>
-                <p className="text-[10px] text-muted-foreground">Today's reconciled value</p>
+                <p className="text-[10px] text-muted-foreground">
+                  Today's reconciled value
+                </p>
                 <div className="mt-2 flex justify-end">
-                  <Sparkline data={[38, 45, 42, 55, 48, 62, 58, 70, 65, 72]} color="#f97316" />
+                  <Sparkline
+                    data={[38, 45, 42, 55, 48, 62, 58, 70, 65, 72]}
+                    color="var(--accent)"
+                  />
                 </div>
               </div>
 
               {/* CRM card */}
-              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <TrendingUp size={12} className="text-violet-400" />
+                    <TrendingUp size={12} className="text-primary" />
                     <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       CRM Pipeline
                     </span>
                   </div>
-                  <span className="font-mono text-[9px] text-violet-400">847 leads</span>
+                  <span className="font-mono text-[9px] text-primary">
+                    847 leads
+                  </span>
                 </div>
                 <div className="space-y-1.5 mt-1">
                   {[
-                    { label: "Qualified", pct: 68, color: "#8b5cf6" },
-                    { label: "In Progress", pct: 45, color: "#f97316" },
+                    { label: "Qualified", pct: 68, color: "var(--primary)" },
+                    { label: "In Progress", pct: 45, color: "var(--accent)" },
                     { label: "Closed", pct: 82, color: "#10b981" },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center gap-2">
                       <span className="w-14 text-[9px] text-muted-foreground shrink-0">
                         {item.label}
                       </span>
-                      <div className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div className="flex-1 h-1 rounded-full bg-muted overflow-hidden">
                         <div
                           className="h-full rounded-full"
-                          style={{ width: `${item.pct}%`, background: item.color }}
+                          style={{
+                            width: `${item.pct}%`,
+                            background: item.color,
+                          }}
                         />
                       </div>
-                      <span className="text-[9px] font-mono" style={{ color: item.color }}>
+                      <span
+                        className="text-[9px] font-mono"
+                        style={{ color: item.color }}
+                      >
                         {item.pct}%
                       </span>
                     </div>
@@ -239,15 +288,17 @@ function DashboardPreview() {
               </div>
 
               {/* Network card */}
-              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <Wifi size={12} className="text-blue-400" />
+                    <Wifi size={12} className="text-blue-500" />
                     <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       Network I/O
                     </span>
                   </div>
-                  <span className="font-mono text-[9px] text-blue-400">1.2 TB/s</span>
+                  <span className="font-mono text-[9px] text-blue-500">
+                    1.2 TB/s
+                  </span>
                 </div>
                 <div className="space-y-1.5 mt-1">
                   {[
@@ -261,13 +312,19 @@ function DashboardPreview() {
                       <span className="w-14 text-[9px] text-muted-foreground shrink-0">
                         {item.label}
                       </span>
-                      <div className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+                      <div className="flex-1 h-1 rounded-full bg-muted overflow-hidden">
                         <div
                           className="h-full rounded-full"
-                          style={{ width: `${item.pct}%`, background: item.color }}
+                          style={{
+                            width: `${item.pct}%`,
+                            background: item.color,
+                          }}
                         />
                       </div>
-                      <span className="text-[9px] font-mono" style={{ color: item.color }}>
+                      <span
+                        className="text-[9px] font-mono"
+                        style={{ color: item.color }}
+                      >
                         {item.pct}%
                       </span>
                     </div>
@@ -279,86 +336,127 @@ function DashboardPreview() {
             {/* Right: VTS + Alarm */}
             <div className="space-y-2">
               {/* VTS / Fleet card */}
-              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <Truck size={12} className="text-cyan-400" />
+                    <Truck size={12} className="text-cyan-500" />
                     <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       VTS Fleet
                     </span>
                   </div>
-                  <span className="font-mono text-[9px] text-cyan-400">214 active</span>
+                  <span className="font-mono text-[9px] text-cyan-500">
+                    214 active
+                  </span>
                 </div>
                 {/* Mini map placeholder */}
-                <div className="relative rounded-lg bg-background/60 border border-white/[0.05] h-[110px] overflow-hidden mb-2">
-                  {/* Grid lines */}
+                <div className="relative rounded-lg bg-background/60 border border-border h-[110px] overflow-hidden mb-2">
                   <svg className="absolute inset-0 w-full h-full opacity-20">
                     <defs>
-                      <pattern id="map-grid" width="16" height="16" patternUnits="userSpaceOnUse">
-                        <path d="M 16 0 L 0 0 0 16" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="0.5" />
+                      <pattern
+                        id="map-grid"
+                        width="16"
+                        height="16"
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <path
+                          d="M 16 0 L 0 0 0 16"
+                          fill="none"
+                          stroke="currentColor"
+                          className="text-muted-foreground"
+                          strokeWidth="0.5"
+                        />
                       </pattern>
                     </defs>
                     <rect width="100%" height="100%" fill="url(#map-grid)" />
                   </svg>
-                  {/* Truck dots */}
                   {[
                     { x: "22%", y: "30%", color: "#06b6d4" },
                     { x: "45%", y: "55%", color: "#06b6d4" },
                     { x: "65%", y: "25%", color: "#10b981" },
-                    { x: "75%", y: "65%", color: "#f97316" },
+                    { x: "75%", y: "65%", color: "var(--accent)" },
                     { x: "35%", y: "70%", color: "#06b6d4" },
                   ].map((dot, i) => (
                     <div
                       key={i}
                       className="absolute flex items-center justify-center"
-                      style={{ left: dot.x, top: dot.y, transform: "translate(-50%,-50%)" }}
+                      style={{
+                        left: dot.x,
+                        top: dot.y,
+                        transform: "translate(-50%,-50%)",
+                      }}
                     >
                       <span
                         className="absolute h-4 w-4 rounded-full animate-ping opacity-40"
                         style={{ background: dot.color }}
                       />
-                      <MapPin size={10} style={{ color: dot.color }} className="relative z-10" />
+                      <MapPin
+                        size={10}
+                        style={{ color: dot.color }}
+                        className="relative z-10"
+                      />
                     </div>
                   ))}
                 </div>
                 <div className="flex justify-between text-[9px] font-mono">
-                  <span className="text-emerald-400">● 198 On-Route</span>
-                  <span className="text-amber-400">● 16 Idle</span>
+                  <span className="text-emerald-500">● 198 On-Route</span>
+                  <span className="text-amber-500">● 16 Idle</span>
                 </div>
               </div>
 
               {/* Alarm feed */}
-              <div className="rounded-xl border border-white/[0.07] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <Activity size={12} className="text-amber-400" />
+                    <Activity size={12} className="text-amber-500" />
                     <span className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground">
                       Alarm Feed
                     </span>
                   </div>
-                  <span className="font-mono text-[9px] text-amber-400">3 active</span>
+                  <span className="font-mono text-[9px] text-amber-500">
+                    3 active
+                  </span>
                 </div>
                 <div className="space-y-0.5">
-                  <AlarmRow station="CGS-Mumbai-04" type="High Pressure" status="WARN" time="0:12s" isWarning={true} />
-                  <AlarmRow station="DRS-Pune-11" type="Flow anomaly" status="OK" time="1:40s" isWarning={false} />
-                  <AlarmRow station="CNG-Surat-07" type="Valve offline" status="WARN" time="3:05s" isWarning={true} />
+                  <AlarmRow
+                    station="CGS-Mumbai-04"
+                    type="High Pressure"
+                    status="WARN"
+                    time="0:12s"
+                    isWarning={true}
+                  />
+                  <AlarmRow
+                    station="DRS-Pune-11"
+                    type="Flow anomaly"
+                    status="OK"
+                    time="1:40s"
+                    isWarning={false}
+                  />
+                  <AlarmRow
+                    station="CNG-Surat-07"
+                    type="Valve offline"
+                    status="WARN"
+                    time="3:05s"
+                    isWarning={true}
+                  />
                 </div>
               </div>
             </div>
           </div>
 
           {/* Bottom connectivity status strip */}
-          <div className="flex items-center gap-3 rounded-lg border border-white/[0.05] bg-background/40 px-3 py-2">
-            <Wifi size={11} className="text-emerald-400 shrink-0" />
+          <div className="flex items-center gap-3 rounded-lg border border-border bg-background/40 px-3 py-2">
+            <Wifi size={11} className="text-emerald-500 shrink-0" />
             <div className="flex flex-1 gap-2 overflow-hidden">
-              {["MQTT", "OPC-UA", "MODBUS", "REST API", "MQTT-SB"].map((proto) => (
-                <span
-                  key={proto}
-                  className="rounded border border-emerald-400/20 bg-emerald-400/5 px-2 py-0.5 font-mono text-[9px] text-emerald-400 whitespace-nowrap"
-                >
-                  ● {proto}
-                </span>
-              ))}
+              {["MQTT", "OPC-UA", "MODBUS", "REST API", "MQTT-SB"].map(
+                (proto) => (
+                  <span
+                    key={proto}
+                    className="rounded border border-emerald-500/20 bg-emerald-500/5 px-2 py-0.5 font-mono text-[9px] text-emerald-500 whitespace-nowrap"
+                  >
+                    ● {proto}
+                  </span>
+                ),
+              )}
             </div>
             <span className="font-mono text-[9px] text-muted-foreground shrink-0">
               [STREAM: ACTIVE]
@@ -384,7 +482,7 @@ const HeroSection = () => {
     gsap.fromTo(
       metadataRef.current,
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.8, delay: 1, ease: "power2.out" }
+      { opacity: 1, y: 0, duration: 0.8, delay: 1, ease: "power2.out" },
     );
   }, []);
 
@@ -393,25 +491,57 @@ const HeroSection = () => {
       id="chapter-01"
       className="relative overflow-hidden scroll-mt-28 min-h-screen w-full flex items-center"
     >
-      <div className="mx-auto w-full max-w-screen-2xl px-6 lg:px-8 pt-24 pb-16">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1fr_1.4fr]">
+      {/* Ambient brand backdrop */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-32 left-1/4 h-[480px] w-[480px] rounded-full bg-primary/[0.06] blur-[120px]" />
+        <div className="absolute top-1/3 -right-24 h-[420px] w-[420px] rounded-full bg-accent/[0.07] blur-[120px]" />
+      </div>
 
+      <div className="mx-auto w-full max-w-screen-2xl px-6 lg:px-8 pt-24 pb-16">
+        <div className="grid grid-cols-1 items-center gap-16 lg:gap-12 lg:grid-cols-[1fr_1.35fr]">
           {/* ── LEFT: text content ── */}
           <div className="flex flex-col items-start">
+            {/* Badge */}
+            <motion.div variants={fadeUpVariants} initial="hidden" animate="visible">
+              <Badge
+                variant="secondary"
+                className="border-border bg-card shadow-sm mb-8"
+              >
+                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                </div>
+                <span className="font-mono text-xs sm:text-sm text-foreground">
+                  <InViewDecryptedText
+                    text="altrex digital platform"
+                    speed={60}
+                    maxIterations={12}
+                    className="text-foreground uppercase"
+                    encryptedClassName="text-muted-foreground"
+                  />
+                </span>
+              </Badge>
+            </motion.div>
+
+            {/* Eyebrow */}
+            <motion.span
+              custom={0.1}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              className="mb-3 font-mono font-medium text-xs uppercase tracking-[0.1em] text-accent"
+            >
+              Industrial IoT &amp; SCADA, Unified
+            </motion.span>
 
             {/* Heading */}
             <CharReveal
               as="h1"
-              lines={[
-                "DRIVING INDUSTRIAL",
-                "OPERATIONS",
-                "THROUGH REALTIME INTELLIGENCE",
-              ]}
-              className="text-3xl font-bold tracking-[-0.04em] text-foreground sm:text-5xl lg:text-5xl xl:text-6xl leading-[0.95] uppercase text-left"
+              lines={["Digital Platforms for", "Connected Operations"]}
+              className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl leading-[1.02] uppercase text-left"
               immediate
               delay={0}
               stagger={0.028}
-              lineGap="mt-2"
+              lineGap="mt-1.5"
             />
 
             {/* Description */}
@@ -420,12 +550,10 @@ const HeroSection = () => {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-8 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg text-left"
+              className="mt-7 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg text-left"
             >
-              Altrex enables real-time monitoring, industrial connectivity,
-              asset management, GIS visualization, alarm management, fleet
-              tracking and operational intelligence — through a single unified
-              W! Platform.
+              Transform field data into real-time intelligence with Industrial
+              IoT, SCADA, GIS, Asset Management, Fleet Tracking, and Analytics.
             </motion.p>
 
             {/* Buttons */}
@@ -434,11 +562,12 @@ const HeroSection = () => {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-10 flex flex-col items-start gap-4 sm:flex-row"
+              className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             >
               <Button
                 ref={startBtnRef}
-                className="gap-2 bg-orange-500 px-8 py-5 text-white hover:bg-primary"
+                size="lg"
+                className="gap-2 bg-primary px-8 py-6 text-base text-primary-foreground hover:bg-accent shadow-lg shadow-primary/20"
               >
                 Explore Platform
                 <ArrowRight className="h-4 w-4" />
@@ -447,7 +576,8 @@ const HeroSection = () => {
               <Button
                 ref={demoBtnRef}
                 variant="outline"
-                className="gap-2 px-8 py-5"
+                size="lg"
+                className="gap-2 px-8 py-6 text-base"
               >
                 <Play className="h-4 w-4" />
                 Request Demo
@@ -457,21 +587,34 @@ const HeroSection = () => {
             {/* Bottom stat strip */}
             <motion.div
               ref={metadataRef}
-              className="mt-12 flex flex-wrap gap-6 opacity-0"
+              className="mt-14 grid w-full grid-cols-2 gap-x-6 gap-y-8 opacity-0 sm:flex sm:flex-wrap sm:gap-8"
             >
               {[
-                { label: "Industries", value: "9+" },
-                { label: "Protocols", value: "14+" },
-                { label: "Uptime SLA", value: "99.99%" },
-                { label: "Data Points/Day", value: "18B+" },
+                {
+                  label: "Data Points / Minute",
+                  value: "500+",
+                  icon: Activity,
+                },
+                {
+                  label: "Platform Availability",
+                  value: "99.9%",
+                  icon: CheckCircle2,
+                },
+                { label: "Integrations", value: "50+", icon: Plug },
+                { label: "Monitoring", value: "24/7", icon: Clock },
               ].map((stat) => (
-                <div key={stat.label} className="flex flex-col gap-0.5">
-                  <span className="text-lg font-bold text-foreground">
-                    {stat.value}
-                  </span>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-                    {stat.label}
-                  </span>
+                <div key={stat.label} className="flex flex-col gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-muted">
+                    <stat.icon className="h-5 w-5 text-primary" />
+                  </div>
+                  <div className="flex flex-col items-start gap-0.5">
+                    <span className="text-xl font-bold text-foreground">
+                      {stat.value}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+                      {stat.label}
+                    </span>
+                  </div>
                 </div>
               ))}
             </motion.div>
