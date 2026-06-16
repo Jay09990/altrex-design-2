@@ -43,7 +43,6 @@ const Home = () => {
 
       {/* Three.js Node Web Background */}
 
-      
       {/* Progress Line */}
       <ProgressLine />
 

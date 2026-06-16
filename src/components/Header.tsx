@@ -239,9 +239,10 @@ const Header = () => {
                   </Link>
 
                   {solutionsOpen && (
-                    <div className="absolute left-1/2 top-full -translate-x-1/2 w-[760px] rounded-xl border border-[var(--border-subtle)] bg-card p-6 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
-                      <div className="grid grid-cols-3 gap-6">
-                        {solutionCategories.map((category) => (
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-[#121212] shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
+                        <div className="grid grid-cols-3 gap-8">
+                          {solutionCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
                             <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
                               {category.title}
@@ -269,6 +270,7 @@ const Header = () => {
                             </ul>
                           </div>
                         ))}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -296,9 +298,10 @@ const Header = () => {
                   </Link>
 
                   {servicesOpen && (
-                    <div className="absolute left-1/2 top-full -translate-x-1/2 w-[760px] rounded-xl border border-[var(--border-subtle)] bg-card p-6 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
-                      <div className="grid grid-cols-3 gap-6">
-                        {serviceCategories.map((category) => (
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-[#121212] shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
+                        <div className="grid grid-cols-3 gap-8">
+                          {serviceCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
                             <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
                               {category.title}
@@ -326,6 +329,7 @@ const Header = () => {
                             </ul>
                           </div>
                         ))}
+                        </div>
                       </div>
                     </div>
                   )}
@@ -353,9 +357,10 @@ const Header = () => {
                   </Link>
 
                   {industriesOpen && (
-                    <div className="absolute left-1/2 top-full -translate-x-1/2 w-[760px] rounded-xl border border-[var(--border-subtle)] bg-card p-6 shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
-                      <div className="grid grid-cols-3 gap-6">
-                        {industryCategories.map((category) => (
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-[#121212] shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
+                        <div className="grid grid-cols-3 gap-8">
+                          {industryCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
                             <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
                               {category.title}
@@ -383,6 +388,7 @@ const Header = () => {
                             </ul>
                           </div>
                         ))}
+                        </div>
                       </div>
                     </div>
                   )}
