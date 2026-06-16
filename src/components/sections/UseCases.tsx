@@ -24,32 +24,28 @@ const useCases = [
   {
     icon: Factory,
     title: "Industrial IoT",
-    description:
-      "Connect field devices, automate data acquisition, and monitor industrial operations across distributed environments.",
+    description: "Connect devices and field assets.",
     metric: "Processes 50M+ Telemetry events/sec",
     bullets: ["Industrial protocol connectivity", "Real-time telemetry acquisition", "Edge-to-cloud data integration"],
   },
   {
     icon: Shield,
-    title: "Smart Surveillance",
-    description:
-      "Power CCTV systems, live monitoring, and secure realtime video infrastructure.",
+    title: "Video Analytics",
+    description: "AI-powered surveillance and monitoring.",
     metric: "Monitors 10K camera feeds",
     bullets: ["Live stream ingestion", "Secure encrypted transport", "Event-based alerting"],
   },
   {
     icon: Car,
     title: "Fleet Management",
-    description:
-      "Manage connected vehicles, improve operational efficiency, and enhance fleet safety through intelligent tracking and analytics.",
+    description: "Track vehicles and optimize operations.",
     metric: "Tracks 50K+ vehicles in real time",
     bullets: ["Live vehicle tracking and route optimization", "Driver performance and safety monitoring", "Maintenance scheduling and operational reporting"],
   },
   {
     icon: Building2,
-    title: "PIPELINE & GAS NETWORKS",
-    description:
-      "Monitor gas distribution networks, pressure stations, flow parameters, and critical infrastructure assets in real time.",
+    title: "Web SCADA",
+    description: "Real-time monitoring and control.",
     metric: " Monitors 10K+ field assets",
     bullets: ["Remote Monitoring of CNG Stations", "AMR Infrastructure of Gas Meters", "GIS-based Network & Cascade Vehicle Management "],
   },
@@ -63,17 +59,15 @@ const useCases = [
   },
   {
     icon: SquareChartGantt,
-    title: "GIS & ASSET MANAGEMENT",
-    description:
-      "Visualize infrastructure assets geographically and manage lifecycle, maintenance, and operational performance from a unified platform.",
+    title: "GIS & Asset Management",
+    description: "Location intelligence and asset visibility.",
     metric: "Manages 500K+ assets",
     bullets: ["Interactive GIS-based asset visualization", "Asset lifecycle and maintenance management", "Location-based operational intelligence"],
   },
   {
     icon: PlugZap,
-    title: "ENERGY MANAGEMENT",
-    description:
-      "Monitor energy consumption, demand patterns, power quality, and operational efficiency across facilities and infrastructure.",
+    title: "Energy Management",
+    description: "Monitor and optimize energy consumption.",
     metric: "Monitors 50K+ energy points",
     bullets: ["Real-time energy consumption monitoring", "Demand and power quality analytics", "Automated reporting and efficiency insights"],
   },
