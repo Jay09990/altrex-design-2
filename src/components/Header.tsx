@@ -231,11 +231,11 @@ const Header = () => {
                   <Link
                     to={item.href}
                     className={`text-sm font-medium transition-colors flex items-center gap-1 relative z-50 ${
-                      isActive || solutionsOpen ? "text-[var(--accent-violet)]" : "hover:text-[var(--accent-violet)]"
+                      isActive || solutionsOpen ? "text-orange-500" : "hover:text-orange-500"
                     }`}
                   >
                     {item.name}
-                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${solutionsOpen ? "rotate-180 text-[var(--accent-violet)]" : ""}`} />
+                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${solutionsOpen ? "rotate-180 text-orange-500" : ""}`} />
                   </Link>
 
                   {solutionsOpen && (
@@ -254,12 +254,12 @@ const Header = () => {
                                     <Link
                                       to={subItem.href}
                                       onClick={() => setSolutionsOpen(false)}
-                                      className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-[var(--accent-violet)]/5"
+                                      className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-card border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-[var(--accent-violet)]/30 group-hover:text-[var(--accent-violet)] transition-colors shadow-sm">
+                                      <div className="rounded-md bg-card border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
-                                      <span className="text-xs font-medium text-inherit group-hover:text-[var(--accent-violet)] transition-colors leading-snug">
+                                      <span className="text-xs font-medium text-inherit group-hover:text-orange-500 transition-colors leading-snug">
                                         {subItem.name}
                                       </span>
                                     </Link>
@@ -288,11 +288,11 @@ const Header = () => {
                   <Link
                     to={item.href}
                     className={`text-sm font-medium transition-colors flex items-center gap-1 relative z-50 ${
-                      isActive || servicesOpen ? "text-[var(--accent-violet)]" : "hover:text-[var(--accent-violet)]"
+                      isActive || servicesOpen ? "text-orange-500" : "hover:text-orange-500"
                     }`}
                   >
                     {item.name}
-                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${servicesOpen ? "rotate-180 text-[var(--accent-violet)]" : ""}`} />
+                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${servicesOpen ? "rotate-180 text-orange-500" : ""}`} />
                   </Link>
 
                   {servicesOpen && (
@@ -311,12 +311,12 @@ const Header = () => {
                                     <Link
                                       to={subItem.href}
                                       onClick={() => setServicesOpen(false)}
-                                      className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-[var(--accent-violet)]/5"
+                                      className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-card border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-[var(--accent-violet)]/30 group-hover:text-[var(--accent-violet)] transition-colors shadow-sm">
+                                      <div className="rounded-md bg-card border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
-                                      <span className="text-xs font-medium text-inherit group-hover:text-[var(--accent-violet)] transition-colors leading-snug">
+                                      <span className="text-xs font-medium text-inherit group-hover:text-orange-500 transition-colors leading-snug">
                                         {subItem.name}
                                       </span>
                                     </Link>
@@ -345,11 +345,11 @@ const Header = () => {
                   <Link
                     to={item.href}
                     className={`text-sm font-medium transition-colors flex items-center gap-1 relative z-50 ${
-                      isActive || industriesOpen ? "text-[var(--accent-violet)]" : "hover:text-[var(--accent-violet)]"
+                      isActive || industriesOpen ? "text-orange-500" : "hover:text-orange-500"
                     }`}
                   >
                     {item.name}
-                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${industriesOpen ? "rotate-180 text-[var(--accent-violet)]" : ""}`} />
+                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${industriesOpen ? "rotate-180 text-orange-500" : ""}`} />
                   </Link>
 
                   {industriesOpen && (
@@ -368,12 +368,12 @@ const Header = () => {
                                     <Link
                                       to={subItem.href}
                                       onClick={() => setIndustriesOpen(false)}
-                                      className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-[var(--accent-violet)]/5"
+                                      className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-card border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-[var(--accent-violet)]/30 group-hover:text-[var(--accent-violet)] transition-colors shadow-sm">
+                                      <div className="rounded-md bg-card border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
-                                      <span className="text-xs font-medium text-inherit group-hover:text-[var(--accent-violet)] transition-colors leading-snug">
+                                      <span className="text-xs font-medium text-inherit group-hover:text-orange-500 transition-colors leading-snug">
                                         {subItem.name}
                                       </span>
                                     </Link>
@@ -395,7 +395,7 @@ const Header = () => {
                 key={item.name}
                 to={item.href}
                 className={`text-sm font-medium transition-colors ${
-                  isActive ? "text-[var(--accent-violet)]" : "hover:text-[var(--accent-violet)]"
+                  isActive ? "text-orange-500" : "hover:text-orange-500"
                 }`}
               >
                 {item.name}
@@ -442,7 +442,7 @@ const Header = () => {
                     key={item.name}
                     to={item.href}
                     className={`block text-sm font-medium transition-colors ${
-                      isActive ? "text-[var(--accent-violet)]" : "hover:text-[var(--accent-violet)]"
+                      isActive ? "text-orange-500" : "hover:text-orange-500"
                     }`}
                     onClick={() => setMobileMenu(false)}
                   >
