@@ -1,159 +1,299 @@
-import {
-  Activity,
-  ArrowUpRight,
-  Globe,
-  MessagesSquare,
-  ShieldCheck,
-  Timer,
-  Wifi,
-  Zap,
-} from "lucide-react";
-
+import { useEffect, useRef } from "react";
 import { motion, type Variants } from "framer-motion";
-
-import { Badge } from "../ui/badge";
+import { Zap } from "lucide-react";
 import ScrambleCounter from "../ScrambleCounter";
 import InViewDecryptedText from "../InViewDecryptedText";
+import { Badge } from "../ui/badge";
 
-const stats = [
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+interface RingStat {
+  display: string;
+  unit: string;
+  label: string;
+  color: string;
+  // value / max determines how far the arc fills (0–1)
+  value: number;
+  max: number;
+  scrambleTarget: number;
+}
+
+// ── Data ──────────────────────────────────────────────────────────────────────
+
+const ringStats: RingStat[] = [
   {
-    icon: MessagesSquare,
-    target: 2_000,
-    value: "2K+",
+    display: "2K+",
+    unit: "/ 20K",
     label: "Connected Assets",
-    description: "Realtime events and messaging traffic handled globally.",
+    color: "#f97316",
+    value: 2_000,
+    max: 20_000,
+    scrambleTarget: 2_000,
   },
   {
-    icon: Wifi,
-    target: 10_000_000,
-    value: "10M+",
+    display: "10M+",
+    unit: "/ 50M",
     label: "Daily Data Points",
-    description: "Connected devices and live realtime infrastructure.",
+    color: "#8b5cf6",
+    value: 10,
+    max: 50,
+    scrambleTarget: 10,
   },
   {
-    icon: Timer,
-    target: 10,
-    value: "10+",
+    display: "10+",
+    unit: "/ 50",
     label: "Industrial Deployments",
-    description: "Ultra-fast communication optimized for realtime systems.",
+    color: "#06b6d4",
+    value: 10,
+    max: 50,
+    scrambleTarget: 10,
   },
   {
-    icon: Globe,
-    target: 120,
-    value: "120+",
+    display: "120+",
+    unit: "/ 500",
     label: "Operational Sites",
-    description: "Distributed infrastructure deployed worldwide.",
+    color: "#10b981",
+    value: 120,
+    max: 500,
+    scrambleTarget: 120,
   },
   {
-    icon: ShieldCheck,
-    target: 100,
-    value: "99.99%",
-    label: "Plateform Availability",
-    description: "Enterprise-grade reliability for mission-critical systems.",
+    display: "99.99%",
+    unit: "/ 100%",
+    label: "Platform Availability",
+    color: "#f97316",
+    value: 99.99,
+    max: 100,
+    scrambleTarget: 100,
   },
   {
-    icon: Activity,
-    target: 1_200_000,
-    value: "24x7",
+    display: "24×7",
+    unit: "always",
     label: "Operational Monitoring",
-    description: "High-performance event streaming at massive scale.",
+    color: "#8b5cf6",
+    value: 100,
+    max: 100,
+    scrambleTarget: 24,
   },
 ];
 
+const throughputData = [0.6, 0.8, 1.0, 0.75, 1.2, 0.9, 1.4, 1.1, 1.7, 1.3, 1.9, 1.5];
+const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const BASELINE = 1.0;
+const CHART_MAX = 2.1;
+
+// ── Arc ring ──────────────────────────────────────────────────────────────────
+
+const RADIUS = 64;
+const CX = 75;
+const CY = 75;
+const STROKE = 9;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
+function ArcRing({ stat, animate }: { stat: RingStat; animate: boolean }) {
+  const pct = Math.min(stat.value / stat.max, 1);
+  const dash = CIRCUMFERENCE * pct;
+
+  return (
+    <div className="flex flex-col items-center gap-3">
+      <div className="relative" style={{ width: 150, height: 150 }}>
+        <svg
+          width={150}
+          height={150}
+          viewBox="0 0 150 150"
+          style={{ transform: "rotate(-90deg)" }}
+          aria-hidden="true"
+        >
+          {/* Track */}
+          <circle
+            cx={CX}
+            cy={CY}
+            r={RADIUS}
+            fill="none"
+            stroke="rgba(255,255,255,0.07)"
+            strokeWidth={STROKE}
+          />
+          {/* Fill arc */}
+          <circle
+            cx={CX}
+            cy={CY}
+            r={RADIUS}
+            fill="none"
+            stroke={stat.color}
+            strokeWidth={STROKE}
+            strokeLinecap="round"
+            strokeDasharray={animate ? `${dash} ${CIRCUMFERENCE}` : `0 ${CIRCUMFERENCE}`}
+            style={{
+              transition: animate
+                ? "stroke-dasharray 1.3s cubic-bezier(0.16, 1, 0.3, 1)"
+                : "none",
+            }}
+          />
+        </svg>
+
+        {/* Center label */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <span className="font-mono text-[18px] font-bold text-[var(--text-primary)] leading-none">
+            <ScrambleCounter target={stat.scrambleTarget} finalText={stat.display} />
+          </span>
+          <span className="font-mono text-[9px] text-[var(--text-muted)] mt-0.5">
+            {stat.unit}
+          </span>
+        </div>
+      </div>
+
+      <span className="text-center text-[11px] leading-snug text-[var(--text-secondary)] max-w-[130px]">
+        {stat.label}
+      </span>
+    </div>
+  );
+}
+
+// ── Throughput bar chart (custom SVG, no lib dependency) ──────────────────────
+
+function ThroughputChart() {
+  const chartWidth = 600;
+  const chartHeight = 160;
+  const paddingLeft = 36;
+  const paddingBottom = 24;
+  const paddingTop = 8;
+  const innerW = chartWidth - paddingLeft - 8;
+  const innerH = chartHeight - paddingBottom - paddingTop;
+
+  const barWidth = innerW / months.length;
+  const barPad = barWidth * 0.25;
+
+  function yPos(val: number) {
+    return paddingTop + innerH - (val / CHART_MAX) * innerH;
+  }
+
+  const baselineY = yPos(BASELINE);
+
+  // Y axis ticks
+  const ticks = [0, 0.5, 1.0, 1.5, 2.0];
+
+  return (
+    <svg
+      viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+      width="100%"
+      preserveAspectRatio="xMidYMid meet"
+      role="img"
+      aria-label="Bar chart showing monthly throughput from Jan to Dec 2024, rising from 0.6M to 1.9M events per second with a 1.0M baseline."
+    >
+      {/* Y ticks + grid lines */}
+      {ticks.map((t) => {
+        const y = yPos(t);
+        return (
+          <g key={t}>
+            <line
+              x1={paddingLeft}
+              y1={y}
+              x2={chartWidth - 8}
+              y2={y}
+              stroke="rgba(255,255,255,0.06)"
+              strokeWidth={0.5}
+            />
+            <text
+              x={paddingLeft - 6}
+              y={y + 4}
+              textAnchor="end"
+              fontSize={9}
+              fill="rgba(255,255,255,0.35)"
+              fontFamily="monospace"
+            >
+              {t.toFixed(1)}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* Baseline dashed line */}
+      <line
+        x1={paddingLeft}
+        y1={baselineY}
+        x2={chartWidth - 8}
+        y2={baselineY}
+        stroke="#8b5cf6"
+        strokeWidth={1}
+        strokeDasharray="4 4"
+        opacity={0.7}
+      />
+
+      {/* Bars */}
+      {throughputData.map((val, i) => {
+        const x = paddingLeft + i * barWidth + barPad / 2;
+        const barH = (val / CHART_MAX) * innerH;
+        const y = paddingTop + innerH - barH;
+        const bw = barWidth - barPad;
+
+        return (
+          <g key={i}>
+            <rect
+              x={x}
+              y={y}
+              width={bw}
+              height={barH}
+              fill="#f97316"
+              opacity={0.85}
+              rx={2}
+            />
+            {/* Month label */}
+            <text
+              x={x + bw / 2}
+              y={chartHeight - 6}
+              textAnchor="middle"
+              fontSize={9}
+              fill="rgba(255,255,255,0.35)"
+              fontFamily="monospace"
+            >
+              {months[i]}
+            </text>
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+// ── Variants ──────────────────────────────────────────────────────────────────
+
 const containerVariants: Variants = {
   hidden: {},
-
-  visible: {
-    transition: {
-      staggerChildren: 0.12,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const fadeUpVariants: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 40,
-  },
-
-  visible: {
-    opacity: 1,
-    y: 0,
-
-    transition: {
-      duration: 0.7,
-    },
-  },
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } },
 };
+
+// ── StatisticsSection ─────────────────────────────────────────────────────────
 
 const StatisticsSection = () => {
+  // Trigger arc animation when section enters viewport
+  const sectionRef = useRef<HTMLElement>(null);
+  const hasAnimated = useRef(false);
+  const arcRefs = useRef<(SVGCircleElement | null)[]>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          // Re-trigger by forcing a reflow — arcs already handle this via state
+        }
+      },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="relative overflow-hidden bg-transparent py-28">
-      <style>{`
-        @keyframes gradient-sweep {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        .bg-sweep {
-          background: linear-gradient(
-            135deg,
-            #ede9fe 0%,
-            #f5f3ff 30%,
-            #e0e7ff 60%,
-            #f5f3ff 100%
-          );
-
-          background-size: 300% 300%;
-
-          animation: gradient-sweep 10s ease infinite;
-          opacity: 0.42;
-        }
-
-        @keyframes fade-up {
-          from {
-            opacity: 0;
-            transform: translateY(16px);
-          }
-
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        .fade-up {
-          animation: fade-up 0.6s ease both;
-        }
-      `}</style>
-
-      {/* Animated gradient background */}
-      <div className="absolute inset-0 -z-10" />
-
-      {/* Ambient glows */}
-      <motion.div
-        animate={{
-          opacity: [0.25, 0.45, 0.25],
-          scale: [1, 1.08, 1],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-        }}
-      />
-
-      <motion.div
-        animate={{
-          opacity: [0.2, 0.4, 0.2],
-          scale: [1, 1.1, 1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-        }}
-      />
-
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-transparent py-28"
+    >
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -162,9 +302,9 @@ const StatisticsSection = () => {
         className="mx-auto max-w-7xl px-6 lg:px-8"
       >
         {/* Header */}
-        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-16">
           <div>
-            <motion.div variants={fadeUpVariants}>
+            <motion.div variants={fadeUp}>
               <Badge
                 variant="secondary"
                 className="border border-orange-500/30 bg-orange-500/10 p-4 text-sm font-medium text-orange-400"
@@ -180,272 +320,94 @@ const StatisticsSection = () => {
             </motion.div>
 
             <motion.h2
-              variants={fadeUpVariants}
-            className="mt-6 max-w-xl text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
+              variants={fadeUp}
+              className="mt-6 max-w-xl text-4xl font-bold tracking-tight text-[var(--text-primary)] sm:text-5xl"
             >
-              Unified Industrial Operations Platform{" "}
-
+              Unified Industrial Operations{" "}
               <span className="bg-orange-500 bg-clip-text text-transparent">
                 at Enterprise Scale
               </span>
             </motion.h2>
-
-            <motion.p
-              variants={fadeUpVariants}
-              className="mt-4 max-w-lg text-lg text-[var(--text-secondary)]"
-            >
-             Connect, monitor, and optimize assets, facilities, fleets, energy systems, and critical infrastructure through a secure, real-time platform built for industrial operations.
-            </motion.p>
           </div>
 
-          {/* Live badge */}
+          {/* Live throughput badge */}
           <motion.div
-            variants={fadeUpVariants}
-            whileHover={{
-              y: -3,
-            }}
-            transition={{
-              duration: 0.25,
-            }}
-            className="flex flex-shrink-0 items-center gap-3 rounded-2xl border border-1 border-orange-500/30 bg-orange-600/30 px-6 py-4"
+            variants={fadeUp}
+            whileHover={{ y: -3 }}
+            transition={{ duration: 0.25 }}
+            className="flex flex-shrink-0 items-center gap-3 rounded-2xl border border-orange-500/30 bg-orange-600/20 px-6 py-4"
           >
             <span className="relative flex h-3 w-3">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-
               <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
             </span>
-
             <div>
-              <p className="text-2xl font-bold text-[var(--text-primary)]">
-                1.2M/s
-              </p>
-
-              <p className="text-xs text-[var(--text-muted)]">
-                Live throughput
-              </p>
+              <p className="text-2xl font-bold text-[var(--text-primary)]">1.2M/s</p>
+              <p className="text-xs text-[var(--text-muted)]">Live throughput</p>
             </div>
           </motion.div>
         </div>
 
-        {/* Top row */}
-        <div className="mt-16 flex flex-col divide-y divide-black/[0.06] sm:flex-row sm:divide-x sm:divide-y-0">
-          {stats.slice(0, 3).map((item, i) => {
-            const Icon = item.icon;
-
-            return (
-              <motion.div
-                key={i}
-                variants={fadeUpVariants}
-                whileHover={{
-                  y: -4,
-                }}
-                transition={{
-                  duration: 0.25,
-                }}
-                className="fade-up flex-1 px-4 py-8 sm:px-10 sm:py-4"
-                style={{
-                  animationDelay: `${i * 0.12}s`,
-                }}
-              >
-                <motion.div
-                  whileHover={{
-                    rotate: 4,
-                    scale: 1.06,
-                  }}
-                  className="flex h-11 w-11 items-center justify-center rounded-xl bg-orange-500 text-white shadow-lg"
-                >
-                  <Icon className="h-5 w-5" />
-                </motion.div>
-
-                <p className="mt-6 text-7xl font-bold tracking-tight text-[var(--text-primary)]">
-                  <ScrambleCounter target={item.target} finalText={item.value} />
-                </p>
-
-                <p className="mt-3 text-xl font-bold uppercase tracking-tight text-[var(--text-primary)]">
-                  {item.label}
-                </p>
-
-                <p className="mt-2 text-[14px] leading-relaxed text-[var(--text-muted)]">
-                  {item.description}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
+        {/* Arc rings grid */}
+        <motion.div
+          variants={fadeUp}
+          className="grid grid-cols-3 gap-8 sm:grid-cols-6 mb-16"
+        >
+          {ringStats.map((stat, i) => (
+            <ArcRing key={i} stat={stat} animate={true} />
+          ))}
+        </motion.div>
 
         {/* Divider */}
-        <div className="my-6 h-px bg-black/[0.06]" />
+        <div className="h-px bg-white/[0.06] mb-12" />
 
-        {/* Bottom row */}
-        <div className="grid gap-6 sm:grid-cols-3">
-          {stats.slice(3).map((item, i) => {
-            const Icon = item.icon;
-
-            return (
-              <motion.div
-                key={i}
-                variants={fadeUpVariants}
-                whileHover={{
-                  y: -4,
-                }}
-                transition={{
-                  duration: 0.25,
-                }}
-                className="flex items-start gap-4 rounded-2xl border border-black/[0.08] p-5 shadow-sm bg-[var(--bg-surface)]"
-              >
-                <motion.div
-                  whileHover={{
-                    scale: 1.08,
-                    rotate: 4,
-                  }}
-                  className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-black/5 text-[var(--text-muted)]"
-                >
-                  <Icon className="h-4.5 w-4.5" />
-                </motion.div>
-
-                <div>
-                  <div className="flex items-center gap-2">
-                    <p className="text-3xl font-bold text-[var(--text-primary)]">
-                      <ScrambleCounter target={item.target} finalText={item.value} />
-                    </p>
-
-                    <div className="flex items-center gap-0.5 text-xs font-medium text-green-400">
-                      <ArrowUpRight className="h-3 w-3" />
-                      +12%
-                    </div>
-                  </div>
-
-                  <p className="mt-1 font-mono text-[12px] uppercase tracking-wide text-[var(--text-muted)]">
-                    {item.label}
-                  </p>
-
-                  <p className="mt-1 text-[14px] leading-relaxed text-[var(--text-secondary)]">
-                    {item.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Bottom analytics section */}
+        {/* Throughput chart panel */}
         <motion.div
-          variants={fadeUpVariants}
-          whileHover={{
-            y: -4,
-          }}
-          transition={{
-            duration: 0.25,
-          }}
-          className="mt-16 grid gap-8 overflow-hidden rounded-3xl p-8 lg:grid-cols-2"
+          variants={fadeUp}
+          className="rounded-2xl border border-white/[0.07] bg-[var(--bg-surface)]/60 p-6"
         >
-          <div>
-            <div className="inline-flex items-center rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-400">
-              Live Realtime Analytics
-            </div>
-
-            <h3 className="mt-6 text-3xl font-bold text-[var(--text-primary)]">
-              Transform Operational Data into Actionable Intelligence
-            </h3>
-
-            <p className="mt-4 text-base leading-8 text-[var(--text-secondary)]">
-              Monitor assets, alarms, KPIs and operational trends through powerful analytics and reporting tools.
+          {/* Chart header */}
+          <div className="flex items-center justify-between mb-4">
+            <p className="text-sm font-semibold text-[var(--text-primary)]">
+              Throughput growth — Jan to Dec 2024
             </p>
-
-            <div className="mt-8 grid grid-cols-2 gap-4">
-              {[
-                {
-                  label: "Data Points Processed Monthly",
-                  value: "100M+",
-                },
-
-                {
-                  label: "Concurrent Asset Update",
-                  value: "50K+",
-                },
-              ].map((m, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{
-                    y: -3,
-                  }}
-                  transition={{
-                    duration: 0.2,
-                  }}
-                  className="rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] p-5 shadow-sm"
-                >
-                  <p className="text-3xl font-bold text-[var(--text-primary)]">
-                    {m.value}
-                  </p>
-
-                  <p className="mt-1 text-sm text-[var(--text-muted)]">
-                    {m.label}
-                  </p>
-                </motion.div>
-              ))}
+            <div className="flex items-center gap-1.5 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+              </span>
+              <span className="text-xs text-green-400">Live</span>
             </div>
           </div>
 
-          {/* Fake chart panel */}
-          <motion.div
-            whileHover={{
-              y: -3,
-            }}
-            transition={{
-              duration: 0.2,
-            }}
-            className="overflow-hidden rounded-2xl border border-black/[0.08] bg-[var(--bg-surface)] p-6 shadow-sm"
-          >
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-[var(--text-muted)]">
-                Throughput Growth
-              </p>
-
-              <div className="flex items-center gap-1.5 text-xs text-green-400">
-                <Zap className="h-3 w-3" />
-                +128% this year
-              </div>
+          {/* Legend */}
+          <div className="flex items-center gap-5 mb-5">
+            <div className="flex items-center gap-2">
+              <span className="h-2.5 w-2.5 rounded-sm bg-orange-500 opacity-85" />
+              <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
+                Data throughput (M events/s)
+              </span>
             </div>
-
-            <div className="mt-6 flex h-40 items-end gap-2">
-              {[60, 80, 100, 75, 120, 90, 140, 110, 170, 130, 190, 150].map(
-                (h, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{
-                      height: 0,
-                    }}
-                    whileInView={{
-                      height: `${(h / 190) * 100}%`,
-                    }}
-                    transition={{
-                      duration: 0.5,
-                      delay: i * 0.05,
-                    }}
-                    className="flex-1 rounded-t bg-orange-500"
-                  />
-                )
-              )}
+            <div className="flex items-center gap-2">
+              <svg width={18} height={2} aria-hidden="true">
+                <line
+                  x1={0} y1={1} x2={18} y2={1}
+                  stroke="#8b5cf6"
+                  strokeWidth={1.5}
+                  strokeDasharray="4 3"
+                />
+              </svg>
+              <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-wider">
+                Target baseline (1.0M)
+              </span>
             </div>
-
-            <div className="mt-6 flex items-center justify-between">
-              <p className="text-sm text-[var(--text-muted)]">
-                Jan — Dec 2024
-              </p>
-
-              <div className="flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-                </span>
-
-                <span className="text-xs text-green-400">
-                  Live
-                </span>
-              </div>
+            <div className="ml-auto flex items-center gap-1.5">
+              <Zap size={11} className="text-green-400" />
+              <span className="font-mono text-[10px] text-green-400">+128% this year</span>
             </div>
-          </motion.div>
+          </div>
+
+          <ThroughputChart />
         </motion.div>
       </motion.div>
     </section>
