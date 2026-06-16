@@ -48,8 +48,8 @@ import {
 import { Badge } from "../ui/badge";
 import { gsap } from "gsap";
 import { useTheme } from "@/hooks/useTheme";
-import lightlogo from "@/assets/AltrexLogoTr1.png";
-import darklogo from "@/assets/AltrexLogoTr2.png";
+import lightlogo from "@/assets/W!Platform Logo.png";
+import darklogo from "@/assets/W!Platform-Logo-dark.png";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Colour palette
@@ -270,7 +270,7 @@ function PlatformNode({ data }: NodeProps<any>) {
         style={{ width: 150, height: 150, border: `1.5px solid ${C.platform}` }} />
       <motion.img
         src={logo} alt="Altrex"
-        className="z-10 w-24 drop-shadow-xl"
+        className="z-10 w-26 drop-shadow-xl"
         style={{ position: "absolute" }}
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
@@ -395,26 +395,21 @@ const edgeTypes: any = {
 // ─────────────────────────────────────────────────────────────────────────────
 // Layout constants
 // ─────────────────────────────────────────────────────────────────────────────
-// Canvas: 1580 × 780
-// Column X positions (left edge of node):
-//   Devices circle   :  60   (width 360 → right edge 420)
-//   Connectivity col : 530   (cards ~120px wide)
-//   Platform circle  : 760   (width 360 → right edge 1120)
-//   Hosting/Services : 1190  (width 225)
-//
-// Vertical centre of Devices / Platform circles: 210  (360/2 = 180 → top 30)
+// Canvas: 1580 × 600 (Moderate height for comfort without being too tall)
+const CANVAS_WIDTH  = 1580;
+const CANVAS_HEIGHT = 600;
 
-const COL_DEV  =  60;
-const COL_CON  = 530;
-const COL_PLAT = 760;
-const COL_RIGHT= 1190;
+const COL_DEV  =  80;
+const COL_CON  = 520;
+const COL_PLAT = 780;
+const COL_RIGHT= 1220;
 
-const CIRCLE_TOP   = 30;   // top of both circles → centre at 30+180=210
+const CIRCLE_TOP   = (CANVAS_HEIGHT - DEV_CIRCLE_SIZE) / 2; // ~120
 const CIRCLE_HALF  = DEV_CIRCLE_SIZE / 2; // 180
 
-// Connectivity column: 8 nodes, evenly spaced vertically, centred on circle centre (210)
+// Connectivity column: 8 nodes, evenly spaced vertically, centred on circle centre
 const CON_NODE_H   = 36;   // approximate card height
-const CON_GAP      = 12;   // gap between cards
+const CON_GAP      = 10;   // gap between cards
 const CON_TOTAL_H  = connectivity.length * CON_NODE_H + (connectivity.length - 1) * CON_GAP;
 const CON_START_Y  = CIRCLE_TOP + CIRCLE_HALF - CON_TOTAL_H / 2;
 
@@ -460,28 +455,28 @@ const STATIC_NODES: Node[] = [
     type:      "devices-circle" as const,
     position:  { x: COL_DEV, y: CIRCLE_TOP },
     data:      { devices },
-    draggable: false,
+    draggable: true,
   },
   {
     id:        "platform",
     type:      "platform" as const,
     position:  { x: COL_PLAT, y: CIRCLE_TOP },
     data:      { items: platform },
-    draggable: false,
+    draggable: true,
   },
   {
     id:        "hosting",
     type:      "list-group" as const,
-    position:  { x: COL_RIGHT, y: 60 },
+    position:  { x: COL_RIGHT, y: (CANVAS_HEIGHT / 2) - 235 }, // Centered pair
     data:      { items: hosting, title: "Hosting", color: C.cloud },
-    draggable: false,
+    draggable: true,
   },
   {
     id:        "services",
     type:      "list-group" as const,
-    position:  { x: COL_RIGHT, y: 330 },
+    position:  { x: COL_RIGHT, y: (CANVAS_HEIGHT / 2) + 25 }, // Centered pair
     data:      { items: services, title: "Enterprise Services", color: C.platform },
-    draggable: false,
+    draggable: true,
   },
 ];
 
@@ -703,7 +698,7 @@ const Architecture = () => {
           <motion.div
             ref={canvasRef}
             className="relative mt-16 overflow-hidden"
-            style={{ y: cardY, height: 440 }}
+            style={{ y: cardY, height: CANVAS_HEIGHT }}
           >
             <ReactFlow
               className="arch-flow"
@@ -726,7 +721,7 @@ const Architecture = () => {
               nodesConnectable={false}
               elementsSelectable={false}
               autoPanOnNodeDrag={false}
-              nodeExtent={[[0, 0], [1580, 440]]}
+              nodeExtent={[[0, 0], [CANVAS_WIDTH, CANVAS_HEIGHT]]}
               proOptions={{ hideAttribution: true }}
             />
 
