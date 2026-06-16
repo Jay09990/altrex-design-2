@@ -237,6 +237,43 @@ function DashboardPreview() {
                   ))}
                 </div>
               </div>
+
+              {/* Network card */}
+              <div className="rounded-xl border border-white/[0.07] bg-[var(--bg-raised)]/60 p-3">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <Wifi size={12} className="text-blue-400" />
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--text-muted)]">
+                      Network I/O
+                    </span>
+                  </div>
+                  <span className="font-mono text-[9px] text-blue-400">1.2 TB/s</span>
+                </div>
+                <div className="space-y-1.5 mt-1">
+                  {[
+                    { label: "Inbound", pct: 75, color: "#60a5fa" },
+                    { label: "Outbound", pct: 42, color: "#22d3ee" },
+                    { label: "Latency", pct: 89, color: "#ef4444" },
+                    { label: "Spike", pct: 45, color: "#f59e0b" },
+                    { label: "Packets", pct: 70, color: "#10b981" },
+                  ].map((item) => (
+                    <div key={item.label} className="flex items-center gap-2">
+                      <span className="w-14 text-[9px] text-[var(--text-muted)] shrink-0">
+                        {item.label}
+                      </span>
+                      <div className="flex-1 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+                        <div
+                          className="h-full rounded-full"
+                          style={{ width: `${item.pct}%`, background: item.color }}
+                        />
+                      </div>
+                      <span className="text-[9px] font-mono" style={{ color: item.color }}>
+                        {item.pct}%
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Right: VTS + Alarm */}
