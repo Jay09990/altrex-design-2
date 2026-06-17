@@ -50,17 +50,24 @@ import { gsap } from "gsap";
 import { useTheme } from "@/hooks/useTheme";
 import lightlogo from "@/assets/W!Platform Logo.png";
 import darklogo from "@/assets/W!Platform-Logo-dark.png";
+import InViewDecryptedText from "../InViewDecryptedText";
+
+
+const fadeUpVariants: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65 } },
+};
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Colour palette
 // ─────────────────────────────────────────────────────────────────────────────
 const C = {
-  device:       "#3b82f6",   // blue  — Devices circle
+  device:       "#00336c",   // blue  — Devices circle
   connectivity: "#d946ef",   // fuchsia — fallback
-  platform:     "#ff6b00",   // orange — Platform circle
+  platform:     "#ff6b01",   // orange — Platform circle
   cloud:        "#06b6d4",   // cyan
   system:       "#6366f1",   // indigo
-  edge:         "#ff6b00",
+  edge:         "#ff6b01",
 } as const;
 
 // Per-protocol accent colours
@@ -154,6 +161,7 @@ function DevicesCircleNode({ data }: NodeProps<any>) {
         background: `${C.device}07`,
         border: `1.5px solid ${C.device}`,
         boxShadow: `0 0 48px ${C.device}14`,
+        cursor:    "grab",
       }}
     >
       {/* Inner ring backing */}
@@ -194,12 +202,12 @@ function DevicesCircleNode({ data }: NodeProps<any>) {
             style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}
           >
             <div
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-card border border-[var(--border-subtle)] shadow-md transition-transform hover:scale-110"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-card border shadow-md"
               style={{ boxShadow: `0 2px 10px ${C.device}25, 0 0 0 1px ${C.device}12` }}
             >
               <Icon size={20} color={C.device} strokeWidth={2} />
             </div>
-            <span className="whitespace-nowrap rounded border border-black/[0.04] bg-card/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
+            <span className="whitespace-nowrap rounded border bg-card/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
               {item.label}
             </span>
           </div>
@@ -223,7 +231,7 @@ function ConnectivityNode({ data }: NodeProps<any>) {
   const Icon  = data.icon;
   return (
     <div
-      className="flex items-center gap-2.5 rounded-[10px] bg-card px-3 py-2.5 transition-all duration-200 hover:scale-105"
+      className="flex items-center gap-2.5 rounded-[10px] bg-card px-3 py-2.5"
       style={{
         border:    `1px solid ${color}`,
         boxShadow: `0 6px 10px -8px ${color}, 0 0 0 1px ${color}08`,
@@ -263,7 +271,8 @@ function PlatformNode({ data }: NodeProps<any>) {
       style={{
         width: SIZE, height: SIZE,
         background: `${C.platform}07`,
-        border: `1.5px solid ${C.platform}`,
+        border: `1px solid ${C.platform}`,
+        cursor:    "grab",
       }}
     >
       <div className="absolute rounded-full bg-card"
@@ -284,11 +293,11 @@ function PlatformNode({ data }: NodeProps<any>) {
           <div key={i} className="absolute z-20 flex flex-col items-center gap-[5px]"
             style={{ left: x, top: y, transform: "translate(-50%, -50%)" }}>
             <div
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-card border border-[var(--border-subtle)] shadow-md transition-transform hover:scale-110"
+              className="flex h-11 w-11 items-center justify-center rounded-xl bg-card border shadow-md"
               style={{ boxShadow: `0 2px 10px ${C.platform}25, 0 0 0 1px ${C.platform}12` }}>
               <Icon size={22} color={C.platform} strokeWidth={2} />
             </div>
-            <span className="whitespace-nowrap rounded border border-black/[0.04] bg-card/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
+            <span className="whitespace-nowrap rounded border bg-card/90 px-1 py-[3px] text-[10px] font-bold uppercase tracking-tighter text-muted-foreground">
               {item.label}
             </span>
           </div>
@@ -318,6 +327,7 @@ function GroupNode({ data }: NodeProps<any>) {
         border: `1px solid ${color}15`,
         borderTop: `3px solid ${color}`,
         boxShadow: `0 4px 24px rgba(0,0,0,0.05), 0 0 0 1px ${color}04`,
+        cursor:    "grab",
       }}
     >
       <p className="mb-3 text-center text-[12px] font-bold uppercase tracking-widest" style={{ color }}>
@@ -329,7 +339,7 @@ function GroupNode({ data }: NodeProps<any>) {
           const itemColor = item.color ?? data.color ?? C.cloud;
           return (
             <div key={i}
-              className="flex min-w-[140px] items-center gap-3.5 rounded-xl bg-card px-4 py-3.5"
+              className="flex min-w-[10px] items-center gap-3.5 rounded-xl bg-card px-4 py-3"
               style={{ border: `1px solid ${itemColor}`, boxShadow: `0 8px 12px -9px ${itemColor}` }}>
               <Icon size={20} color={itemColor} strokeWidth={2} />
               <span className="text-[13px] font-bold tracking-tight text-foreground">
@@ -399,17 +409,17 @@ const edgeTypes: any = {
 const CANVAS_WIDTH  = 1580;
 const CANVAS_HEIGHT = 600;
 
-const COL_DEV  =  80;
+const COL_DEV  =  60;
 const COL_CON  = 520;
 const COL_PLAT = 780;
-const COL_RIGHT= 1220;
+const COL_RIGHT= 1270;
 
 const CIRCLE_TOP   = (CANVAS_HEIGHT - DEV_CIRCLE_SIZE) / 2; // ~120
 const CIRCLE_HALF  = DEV_CIRCLE_SIZE / 2; // 180
 
 // Connectivity column: 8 nodes, evenly spaced vertically, centred on circle centre
 const CON_NODE_H   = 36;   // approximate card height
-const CON_GAP      = 10;   // gap between cards
+const CON_GAP      = 24;   // gap between cards
 const CON_TOTAL_H  = connectivity.length * CON_NODE_H + (connectivity.length - 1) * CON_GAP;
 const CON_START_Y  = CIRCLE_TOP + CIRCLE_HALF - CON_TOTAL_H / 2;
 
@@ -676,17 +686,29 @@ const Architecture = () => {
           className="mx-auto max-w-3xl text-center"
           initial="hidden" animate={isInView ? "visible" : "hidden"} variants={headerVariants}
         >
-          <motion.div whileHover={{ scale: 1.03 }} className="inline-block">
-            <Badge variant="secondary"
-              className="border border-[var(--accent-violet)]/20 bg-[var(--accent-violet)]/10 text-[var(--accent-violet)]">
-              Realtime Architecture
-            </Badge>
-          </motion.div>
+          <motion.div variants={fadeUpVariants} initial="hidden" animate="visible">
+              <Badge
+                variant="secondary"
+                className="border-border bg-card shadow-sm mb-6"
+              >
+                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
+                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
+                </div>
+                <span className="font-mono text-xs sm:text-sm text-foreground">
+                  <InViewDecryptedText
+                    text="Realtime Architecture"
+                    speed={60}
+                    maxIterations={12}
+                    className="text-foreground uppercase"
+                    encryptedClassName="text-muted-foreground"
+                  />
+                </span>
+              </Badge>
+            </motion.div>
           <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-foreground sm:text-5xl">
-            BUILT FOR DISTRIBUTED{" "}
-            <span className="text-[var(--accent-violet)]">GLOBAL INFRASTRUCTURE</span>
+            BUILT FOR DISTRIBUTED GLOBAL INFRASTRUCTURE
           </h2>
-          <p className="mt-4 text-lg leading-8 text-muted-foreground">
+          <p className="mt-4 text-lg leading-8 text-muted-foreground font-semibold">
             From industrial devices to cloud — every layer connected, secured, and orchestrated in realtime.
           </p>
         </motion.div>
@@ -741,17 +763,6 @@ const Architecture = () => {
               </defs>
               <rect width="100%" height="100%" fill="url(#arch-grid)" />
             </svg>
-
-            {/* Drag hint */}
-            <div
-              className="absolute bottom-3 right-5 flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-card/80 px-3 py-1.5 backdrop-blur-sm"
-              style={{ zIndex: 30, fontSize: 11, color: "var(--text-muted)" }}
-            >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M6 2v8M2 6h8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-              Drag connectivity nodes to reposition
-            </div>
           </motion.div>
         )}
       </div>

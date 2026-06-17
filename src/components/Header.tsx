@@ -195,7 +195,7 @@ const Header = () => {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${isScrolled
-          ? "border-b border-[var(--border-subtle)] bg-card/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-md"
+          ? "border-b bg-card/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-md"
           : "bg-transparent"
         }`}
     >

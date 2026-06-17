@@ -471,11 +471,6 @@ function DashboardPreview() {
 // ── HeroSection ───────────────────────────────────────────────────────────────
 const HeroSection = () => {
   const metadataRef = useRef<HTMLDivElement>(null);
-  const startBtnRef = useRef<HTMLButtonElement>(null);
-  const demoBtnRef = useRef<HTMLButtonElement>(null);
-
-  useMagneticButton(startBtnRef, 0.3, 50);
-  useMagneticButton(demoBtnRef, 0.3, 50);
 
   useEffect(() => {
     if (!metadataRef.current) return;
@@ -491,11 +486,6 @@ const HeroSection = () => {
       id="chapter-01"
       className="relative overflow-hidden scroll-mt-28 min-h-screen w-full flex items-center"
     >
-      {/* Ambient brand backdrop */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 left-1/4 h-[480px] w-[480px] rounded-full bg-primary/[0.06] blur-[120px]" />
-        <div className="absolute top-1/3 -right-24 h-[420px] w-[420px] rounded-full bg-accent/[0.07] blur-[120px]" />
-      </div>
 
       <div className="mx-auto w-full max-w-screen-2xl px-6 lg:px-8 pt-24 pb-16">
         <div className="grid grid-cols-1 items-center gap-16 lg:gap-12 lg:grid-cols-[1fr_1.35fr]">
@@ -550,7 +540,7 @@ const HeroSection = () => {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mt-7 max-w-lg text-base leading-7 text-muted-foreground sm:text-lg text-left"
+              className="mt-7 max-w-lg text-base font-semibold leading-7 text-muted-foreground sm:text-lg text-left"
             >
               Transform field data into real-time intelligence with Industrial
               IoT, SCADA, GIS, Asset Management, Fleet Tracking, and Analytics.
@@ -565,7 +555,6 @@ const HeroSection = () => {
               className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             >
               <Button
-                ref={startBtnRef}
                 size="lg"
                 className="gap-2 bg-primary px-8 py-6 text-base text-primary-foreground hover:bg-accent shadow-lg shadow-primary/20"
               >
@@ -574,7 +563,6 @@ const HeroSection = () => {
               </Button>
 
               <Button
-                ref={demoBtnRef}
                 variant="outline"
                 size="lg"
                 className="gap-2 px-8 py-6 text-base"
@@ -604,11 +592,9 @@ const HeroSection = () => {
                 { label: "Monitoring", value: "24/7", icon: Clock },
               ].map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-muted">
                     <stat.icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <div className="flex flex-col items-start gap-0.5">
-                    <span className="text-xl font-bold text-foreground">
+                  <div className="flex flex-col font-bold items-start gap-0.5">
+                    <span className="text-xl text-foreground">
                       {stat.value}
                     </span>
                     <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">

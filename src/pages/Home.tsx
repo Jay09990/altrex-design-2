@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Architecture from "@/components/sections/Architecture"
-import CoreFeatures from "@/components/sections/CoreFeatures"
 import CTA from "@/components/sections/CTA"
 import FAQ from "@/components/sections/FAQ"
 import HeroSection from "@/components/sections/HeroSection"
 import StatisticsSection from "@/components/sections/StatisticsSection"
 import Testimonials from "@/components/sections/Testimonials"
 import UseCases from "@/components/sections/UseCases"
-import WhyChooseUs from "@/components/sections/WhyChooseUs"
 import ProgressLine from "@/components/ProgressLine"
 import LoadingScreen from "@/components/LoadingScreen"
 import { HOME_CHAPTERS } from "@/data/homeChapters"
 
 import { useLoading } from "@/context/LoadingContext"
+import WhatWeDo from "@/components/sections/WhatWeDo";
+import PlatformOverview from "@/components/sections/Platformoverview ";
 
 const Home = () => {
   const { isInitialLoadComplete, setInitialLoadComplete } = useLoading();
@@ -38,7 +38,7 @@ const Home = () => {
   };
 
   return (
-    <div className="relative bg-background">
+    <div className="relative">
       {/* Loading Screen */}
       {showLoading && (
         <LoadingScreen onComplete={handleLoadingComplete} />
@@ -109,6 +109,8 @@ const Home = () => {
         <div id={HOME_CHAPTERS[2].id} className="scroll-mt-28">
           <Architecture />
         </div>
+          <WhatWeDo />
+          <PlatformOverview />
 
         <div id={HOME_CHAPTERS[3].id} className="scroll-mt-28">
           <UseCases />
