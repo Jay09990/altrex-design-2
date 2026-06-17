@@ -40,9 +40,9 @@ const Header = () => {
   const [industriesOpen, setIndustriesOpen] = useState(false);
   const location = useLocation(); 
   
-  const solutionsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const servicesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const industriesTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const solutionsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const servicesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const industriesTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {

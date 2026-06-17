@@ -16,15 +16,25 @@
         initial={{ opacity: 0, scaleY: 0 }}
         animate={{ opacity: 1, scaleY: 1 }}
         transition={{ duration: 0.35, delay, ease: "easeOut" }}
-        className="flex flex-col items-center my-1"
+        className="flex flex-col items-center my-1 relative"
         style={{ originY: 0 }}
       >
-        <div className="w-px h-6" style={{ background: `linear-gradient(to bottom, ${color}60, ${color})` }} />
+        <div className="w-[2px] h-8 relative overflow-hidden rounded-full" style={{ background: `linear-gradient(to bottom, ${color}20, ${color}80)` }}>
+          <motion.div 
+            className="w-full h-4 absolute top-0 left-0"
+            style={{
+               background: `linear-gradient(to bottom, transparent, ${color}, transparent)`,
+            }}
+            animate={{ y: [-16, 32] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "linear", delay: delay + 0.3 }}
+          />
+        </div>
         <div style={{
           width: 0, height: 0,
-          borderLeft: "4px solid transparent",
-          borderRight: "4px solid transparent",
+          borderLeft: "5px solid transparent",
+          borderRight: "5px solid transparent",
           borderTop: `6px solid ${color}`,
+          marginTop: "-1px"
         }} />
       </motion.div>
     );
@@ -188,7 +198,6 @@
             // calculate base delay for this row
             const nodesBefore = rows.slice(0, rowIdx).reduce((acc, r) => acc + r.length, 0);
             const rowDelay = isInView ? nodesBefore * 0.08 : 0;
-            const connectorColor = COLORS[row[0].type].border;
 
             return (
               <div key={rowIdx} className="flex flex-col items-center w-full">

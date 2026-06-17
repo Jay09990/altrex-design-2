@@ -1,11 +1,9 @@
-import { useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
 
 import { getIndustryBySlug } from "@/data/industriesRegistry";

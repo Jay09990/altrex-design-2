@@ -1,7 +1,5 @@
 import { Quote, Star } from "lucide-react";
-
 import { motion, type Variants } from "framer-motion";
-
 import { Badge } from "../ui/badge";
 import InViewDecryptedText from "../InViewDecryptedText";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
@@ -14,7 +12,6 @@ const testimonials = [
     review:
       "The infrastructure performance and realtime scalability completely transformed our IoT platform.",
   },
-
   {
     name: "Emily Carter",
     role: "Lead Engineer, CloudSync",
@@ -22,7 +19,6 @@ const testimonials = [
     review:
       "Developer experience is exceptional. APIs are clean, fast, and production-ready from day one.",
   },
-
   {
     name: "Daniel Kim",
     role: "Platform Architect, Voltix",
@@ -32,17 +28,8 @@ const testimonials = [
   },
 ];
 
-const companies = [
-  "Nexora",
-  "CloudSync",
-  "Voltix",
-  "Infrastack",
-  "DataPulse",
-];
-
 const containerVariants: Variants = {
   hidden: {},
-
   visible: {
     transition: {
       staggerChildren: 0.12,
@@ -55,11 +42,9 @@ const fadeUpVariants: Variants = {
     opacity: 0,
     y: 40,
   },
-
   visible: {
     opacity: 1,
     y: 0,
-
     transition: {
       duration: 0.7,
     },
@@ -72,7 +57,6 @@ const Testimonials = () => {
 
   return (
     <section className="relative overflow-hidden bg-transparent py-28">
-
       <motion.div
         variants={containerVariants}
         initial="hidden"
@@ -102,7 +86,6 @@ const Testimonials = () => {
             className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             Trusted by Modern{" "}
-
             <span className="text-[var(--accent-violet)]">
               Engineering Teams
             </span>

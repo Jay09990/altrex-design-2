@@ -14,7 +14,6 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
   const [currentMessage, setCurrentMessage] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const [canExit, setCanExit] = useState(false);
-  const { theme } = useTheme();
 
   const loadingMessages = [
     "CONNECTING TO EDGE NETWORK...",
