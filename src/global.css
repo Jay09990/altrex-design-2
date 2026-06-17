@@ -94,7 +94,7 @@
   /* Navy, lighter tint */
   --chart-5: #7a3b00;
   /* Orange, darker tint */
-  --sidebar: #ffffff;
+  --sidebar: #ffffff; 
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: var(--brand-primary);
   --sidebar-primary-foreground: var(--brand-primary-foreground);

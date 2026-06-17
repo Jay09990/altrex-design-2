@@ -1,6 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+import { 
+  ArrowRight, Activity, Zap, Database, LayoutDashboard, 
+  Settings, Network, Factory, Flame, Droplet, Truck, 
+  BarChart3, Cpu, Layers, Share2, TrendingUp, CheckCircle2,
+  Clock, ShieldCheck, Workflow
+} from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,6 +14,7 @@ import ScrambleCounter from "@/components/ScrambleCounter";
 
 import { getSolutionBySlug } from "@/data/solutionsData";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
+import LiveSystemPanel from "@/components/sections/LiveSystemPanel";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -28,8 +34,8 @@ const staggerFast: Variants = {
 };
 
 const cardVariant: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hidden: { opacity: 0, scale: 0.95, y: 15 },
+  visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.4 } },
 };
 
 // ─── Sub-Components ───────────────────────────────────────────────────────────
@@ -50,13 +56,42 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
+const getCapabilityIcon = (idx: number) => {
+  const icons = [Layers, Cpu, Database, Network, Share2, Workflow];
+  return icons[idx % icons.length];
+};
+
+const getIndustryIcon = (name: string) => {
+  const nameLower = name.toLowerCase();
+  if (nameLower.includes("gas") || nameLower.includes("oil")) return Flame;
+  if (nameLower.includes("water")) return Droplet;
+  if (nameLower.includes("manufactur") || nameLower.includes("factory")) return Factory;
+  if (nameLower.includes("renewab") || nameLower.includes("solar") || nameLower.includes("energy")) return Zap;
+  if (nameLower.includes("utilit") || nameLower.includes("power")) return Activity;
+  if (nameLower.includes("fleet") || nameLower.includes("mobil") || nameLower.includes("vehicle")) return Truck;
+  if (nameLower.includes("building") || nameLower.includes("commercial")) return LayoutDashboard;
+  if (nameLower.includes("iot")) return Network;
+  return Settings;
+};
+
+const getBenefitVisual = (title: string, description: string) => {
+  const text = (title + " " + description).toLowerCase();
+  
+  if (text.match(/reduce|minimize|lower|save|cost/)) return { icon: TrendingUp, color: "text-green-500", bg: "bg-green-500/10", animate: "reduce" };
+  if (text.match(/accelerate|speed|fast|quick|time/)) return { icon: Clock, color: "text-blue-500", bg: "bg-blue-500/10", animate: "pulse" };
+  if (text.match(/increase|maximize|improve|efficiency|growth/)) return { icon: BarChart3, color: "text-orange-500", bg: "bg-orange-500/10", animate: "grow" };
+  if (text.match(/security|reliable|safe|secure|protect/)) return { icon: ShieldCheck, color: "text-indigo-500", bg: "bg-indigo-500/10", animate: "shield" };
+  if (text.match(/digital|transform|modern|future/)) return { icon: Zap, color: "text-fuchsia-500", bg: "bg-fuchsia-500/10", animate: "spark" };
+  
+  return { icon: CheckCircle2, color: "text-orange-500", bg: "bg-orange-500/10", animate: "fade" };
+};
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const SolutionPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const solution = getSolutionBySlug(slug ?? "");
 
-  // 404 state — keeps layout consistent with rest of site
   if (!solution) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-background">
@@ -76,85 +111,73 @@ const SolutionPage = () => {
   }
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
-      {/* ── Background ambient glows ── */}
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
+      {/* Background ambient glows */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[700px] overflow-hidden">
         <div className="absolute left-[-5%] top-[5%] h-[500px] w-[500px] rounded-full bg-orange-500/8 blur-[120px]" />
         <div className="absolute right-[-5%] top-[15%] h-[400px] w-[400px] rounded-full bg-fuchsia-500/8 blur-[120px]" />
       </div>
 
       {/* ══════════════════════════════════════════════════════════
-          HERO
+          HERO & EXECUTIVE OVERVIEW
       ══════════════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-7xl px-6 pt-32 pb-24 lg:px-8">
+      <section className="mx-auto max-w-7xl px-6 pt-32 pb-16 lg:px-8">
         <motion.div
           initial="hidden"
           animate="visible"
           variants={stagger}
-          className="max-w-4xl"
+          className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-16 items-center"
         >
-          {/* Status badge */}
-          <motion.div variants={fadeUp} className="mb-6">
-            <Badge
-              variant="secondary"
-              className="border border-[var(--border-subtle)] bg-card"
+          <div className="max-w-3xl">
+            <motion.div variants={fadeUp} className="mb-6 flex">
+              <Badge
+                variant="secondary"
+                className="border border-[var(--border-subtle)] bg-card flex gap-2 items-center"
+              >
+                <div className="flex h-2.5 w-2.5 items-center justify-center rounded-full bg-orange-500/20">
+                  <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse" />
+                </div>
+                <span className="font-mono text-[10px] text-muted-foreground tracking-widest uppercase">
+                  Solution / {solution.name}
+                </span>
+              </Badge>
+            </motion.div>
+
+            <motion.h1
+              variants={fadeUp}
+              className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl leading-[1.1]"
             >
-              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-              </div>
-              <span className="font-mono text-xs text-foreground tracking-widest uppercase">
-                Solutions
-              </span>
-              <ChevronRight className="h-3 w-3 text-muted-foreground" />
-              <span className="font-mono text-xs text-muted-foreground">
-                {solution.name}
-              </span>
-            </Badge>
-          </motion.div>
+              {solution.hero.heading}
+            </motion.h1>
 
-          {/* Tagline */}
-          <motion.p
-            variants={fadeUp}
-            className="font-mono text-sm tracking-[0.2em] uppercase text-[var(--accent-violet)] mb-4"
-          >
-            {solution.hero.tagline}
-          </motion.p>
+            <motion.p
+              variants={fadeUp}
+              className="mt-6 text-lg leading-8 text-muted-foreground"
+            >
+              {solution.hero.description}
+            </motion.p>
 
-          {/* Main heading */}
-          <motion.h1
-            variants={fadeUp}
-            className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl leading-[1.1] uppercase break-normal"
-          >
-            {solution.hero.heading}
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            transition={{ delay: 0.8 }}
-            className="mt-8 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg"
-          >
-            {solution.hero.description}
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div
-            variants={fadeUp}
-            transition={{ delay: 1 }}
-            className="mt-10 flex flex-wrap gap-4"
-          >
-            <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-6 rounded-lg font-medium">
-                {solution.hero.ctas[0]}
-                <ArrowRight className="ml-2 h-4 w-4" />
+            <motion.div
+              variants={fadeUp}
+              className="mt-8 flex flex-wrap gap-4"
+            >
+              <Link to="/contact">
+                <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-6 rounded-lg font-medium shadow-md">
+                  {solution.hero.ctas[0]}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Button
+                variant="ghost"
+                className="h-11 px-6 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
+              >
+                {solution.hero.ctas[1]}
               </Button>
-            </Link>
-            <Button
-              variant="ghost"
-              className="h-11 px-6 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
-            >
-              {solution.hero.ctas[1]}
-            </Button>
+            </motion.div>
+          </div>
+
+          <motion.div variants={fadeUp} className="hidden lg:block w-full h-full">
+            <LiveSystemPanel solution={solution} />
           </motion.div>
         </motion.div>
       </section>
@@ -168,21 +191,21 @@ const SolutionPage = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={staggerFast}
-          className="mx-auto max-w-7xl px-6 lg:px-8 py-10 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6"
+          className="mx-auto max-w-7xl px-6 lg:px-8 py-8 grid grid-cols-2 gap-6 sm:grid-cols-4"
         >
-          {solution.metrics.map((metric) => (
+          {solution.metrics.slice(0, 4).map((metric) => (
             <motion.div
               key={metric.label}
               variants={cardVariant}
-              className="text-center"
+              className="flex flex-col items-center justify-center text-center p-4 border-r last:border-r-0 border-[var(--border-subtle)]"
             >
-              <div className="text-2xl font-bold text-orange-400 font-mono">
+              <div className="text-3xl font-bold text-orange-500 font-mono tracking-tight">
                 <ScrambleCounter
                   target={Number(metric.value.replace(/[^0-9.]+/g, "")) || 0}
                   finalText={metric.value}
                 />
               </div>
-              <div className="mt-1 text-xs text-muted-foreground font-mono uppercase tracking-wider">
+              <div className="mt-2 text-[11px] text-muted-foreground font-mono uppercase tracking-[0.1em]">
                 {metric.label}
               </div>
             </motion.div>
@@ -191,382 +214,255 @@ const SolutionPage = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          OVERVIEW
+          PLATFORM CAPABILITIES (Horizontal Flow)
       ══════════════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={stagger}
-          className="grid gap-12 lg:grid-cols-[1fr_1.6fr] lg:gap-20 items-start"
-        >
-          <motion.div variants={fadeUp} className="space-y-3">
-            <SectionLabel>Overview</SectionLabel>
-            <SectionHeading>Platform Overview</SectionHeading>
-          </motion.div>
-          <motion.p
-            variants={fadeUp}
-            className="text-base leading-8 text-muted-foreground lg:text-lg"
-          >
-            {solution.overview}
-          </motion.p>
-        </motion.div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          KEY CAPABILITIES
-      ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-card/30">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
+      <section className="bg-card/20 py-24 overflow-hidden">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.15 }}
             variants={stagger}
           >
-            <motion.div variants={fadeUp} className="mb-14 space-y-3">
-              <SectionLabel>Capabilities</SectionLabel>
-              <SectionHeading>Key Capabilities</SectionHeading>
+            <motion.div variants={fadeUp} className="mb-16 space-y-3 text-center">
+              <SectionLabel>Core Engine</SectionLabel>
+              <SectionHeading>Platform Capabilities</SectionHeading>
+              <p className="text-muted-foreground max-w-2xl mx-auto mt-4 text-sm">
+                Built for scale and resilience. Explore the core technological modules driving our infrastructure.
+              </p>
             </motion.div>
 
-            <motion.div
-              variants={stagger}
-              className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              {solution.capabilities.map((cap, idx) => (
-                <motion.div
-                  key={cap.title}
-                  variants={cardVariant}
-                  whileHover="hover"
-                  className="group relative rounded-2xl bg-card flex flex-col overflow-hidden cursor-default"
-                  style={{
-                    boxShadow:
-                      "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)",
-                  }}
-                >
-                  {/* Animated border via gradient overlay */}
-                  <div className="absolute inset-0 rounded-2xl border border-[var(--border-subtle)] group-hover:border-transparent transition-colors duration-300 pointer-events-none z-10" />
-                  <motion.div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
-                    style={{
-                      border: "1px solid rgba(255,107,0,0.28)",
-                    }}
-                  />
-
-                  {/* Top bar — number + colored rule */}
-                  <div className="flex items-center justify-between px-6 pt-5 pb-0">
-                    <div className="flex items-center gap-2.5">
-                      <span
-                        className="font-mono text-[10px] font-bold tracking-[0.15em] px-1.5 py-0.5 rounded"
-                        style={{
-                          color: "#ff6b00",
-                          background: "rgba(255,107,0,0.10)",
-                          border: "1px solid rgba(255,107,0,0.20)",
-                        }}
-                      >
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
-                      {/* Decorative tick marks */}
-                      <div className="flex gap-0.5 items-center">
-                        {[...Array(4)].map((_, i) => (
-                          <div
-                            key={i}
-                            className="bg-[var(--border-subtle)] group-hover:bg-orange-500/20 transition-colors duration-500"
-                            style={{
-                              width: i === 3 ? 2 : 2,
-                              height: i % 2 === 0 ? 10 : 6,
-                              borderRadius: 1,
-                            }}
-                          />
-                        ))}
+            <div className="relative flex flex-col lg:flex-row gap-8 lg:gap-0">
+              {solution.capabilities.map((cap, idx) => {
+                const Icon = getCapabilityIcon(idx);
+                const isLast = idx === solution.capabilities.length - 1;
+                return (
+                  <div key={cap.title} className="relative flex-1 flex flex-col items-center text-center lg:px-4">
+                    {/* Connector Line (Desktop) */}
+                    {!isLast && (
+                      <div className="hidden lg:block absolute top-12 left-[calc(50%+40px)] w-[calc(100%-80px)] h-px bg-[var(--border-subtle)] -z-10">
+                        <motion.div
+                          className="h-full bg-orange-500 shadow-[0_0_8px_2px_rgba(249,115,22,0.6)]"
+                          initial={{ x: "-100%" }}
+                          whileInView={{ x: "100%" }}
+                          viewport={{ once: false, amount: 0.1 }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "linear", delay: idx * 0.5 }}
+                        />
                       </div>
-                    </div>
-                    {/* Corner status dot */}
-                    <div className="h-1.5 w-1.5 rounded-full bg-[var(--border-active)] group-hover:bg-orange-400 transition-colors duration-300" />
+                    )}
+                    
+                    {/* Connector Line (Mobile) */}
+                    {!isLast && (
+                      <div className="lg:hidden absolute top-[100%] left-1/2 w-px h-8 bg-[var(--border-subtle)] -translate-x-1/2 z-0">
+                        <motion.div
+                          className="w-full bg-orange-500 shadow-[0_0_8px_2px_rgba(249,115,22,0.6)]"
+                          initial={{ height: "0%", opacity: 0 }}
+                          whileInView={{ height: "100%", opacity: [0, 1, 0] }}
+                          viewport={{ once: false, amount: 0.1 }}
+                          transition={{ duration: 2, repeat: Infinity, delay: idx * 0.5 }}
+                        />
+                      </div>
+                    )}
+
+                    <motion.div variants={cardVariant} className="flex flex-col items-center bg-card/80 backdrop-blur-sm p-6 rounded-2xl border border-[var(--border-subtle)] w-full h-full relative z-10 shadow-sm hover:shadow-md transition-shadow group/cap">
+                      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500/10 text-orange-500 ring-1 ring-inset ring-orange-500/20 group-hover/cap:bg-orange-500/20 transition-colors">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <h3 className="text-lg font-bold text-foreground mb-3">
+                        {cap.title}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-6 flex-1">
+                        {cap.description}
+                      </p>
+                      
+                      {/* Staggered Chips */}
+                      <motion.div 
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                        variants={{
+                          visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+                        }}
+                        className="flex flex-wrap justify-center gap-1.5 mt-auto"
+                      >
+                        {cap.items.slice(0, 4).map((item) => (
+                          <motion.span 
+                            key={item} 
+                            variants={{
+                              hidden: { opacity: 0, scale: 0.8 },
+                              visible: { opacity: 1, scale: 1, transition: { type: "spring" } }
+                            }}
+                            className="inline-flex items-center rounded-md bg-muted/50 px-2 py-0.5 text-[9px] font-medium text-muted-foreground border border-[var(--border-subtle)]"
+                          >
+                            {item}
+                          </motion.span>
+                        ))}
+                        {cap.items.length > 4 && (
+                          <motion.span 
+                            variants={{
+                              hidden: { opacity: 0, scale: 0.8 },
+                              visible: { opacity: 1, scale: 1 }
+                            }}
+                            className="inline-flex items-center rounded-md bg-orange-500/10 text-orange-500 px-2 py-0.5 text-[9px] font-medium border border-orange-500/20"
+                          >
+                            +{cap.items.length - 4}
+                          </motion.span>
+                        )}
+                      </motion.div>
+                    </motion.div>
                   </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-                  {/* Content */}
-                  <div className="flex flex-col flex-1 px-6 pt-4 pb-6 gap-3">
-                    <h3 className="text-[15px] font-bold tracking-tight text-foreground leading-snug group-hover:text-orange-500 transition-colors duration-300">
-                      {cap.title}
-                    </h3>
+      {/* ══════════════════════════════════════════════════════════
+          INDUSTRIES & APPLICATIONS
+      ══════════════════════════════════════════════════════════ */}
+      <section className="border-t border-[var(--border-subtle)] bg-card/30 py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={stagger}
+            className="flex flex-col"
+          >
+            <motion.div variants={fadeUp} className="mb-12 space-y-3 text-center">
+              <SectionLabel>Ecosystem</SectionLabel>
+              <SectionHeading>Industries & Applications</SectionHeading>
+              <p className="text-muted-foreground text-sm max-w-2xl mx-auto mt-4">
+                Tailored infrastructure built for mission-critical deployments across key operational domains.
+              </p>
+            </motion.div>
 
-                    <p className="text-sm text-muted-foreground leading-[1.65]">
-                      {cap.description}
+            <motion.div 
+              variants={stagger} 
+              className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
+            >
+              {solution.industries.map((industry) => {
+                const IndIcon = getIndustryIcon(industry.name);
+                return (
+                  <motion.div 
+                    key={industry.name} 
+                    variants={cardVariant} 
+                    className="group rounded-xl border border-[var(--border-subtle)] bg-card p-5 hover:border-orange-500/30 transition-all hover:shadow-lg flex flex-col"
+                  >
+                    <div className="mb-4 h-10 w-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground group-hover:text-orange-500 group-hover:bg-orange-500/10 transition-colors">
+                      <IndIcon className="h-5 w-5" />
+                    </div>
+                    <h4 className="text-sm font-bold text-foreground mb-4 flex items-center gap-2 leading-tight">
+                       <InViewDecryptedText text={industry.name} speed={50} />
+                    </h4>
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                      {industry.items.slice(0, 2).map((item) => (
+                         <span key={item} className="inline-flex rounded-md px-2 py-0.5 text-[9px] font-medium bg-background border border-[var(--border-subtle)] text-muted-foreground truncate max-w-full">
+                           {item}
+                         </span>
+                      ))}
+                      {industry.items.length > 2 && (
+                        <span className="inline-flex rounded-md px-2 py-0.5 text-[9px] font-medium bg-muted text-muted-foreground">
+                          +{industry.items.length - 2}
+                        </span>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          BUSINESS VALUE (Programmatic Visuals)
+      ══════════════════════════════════════════════════════════ */}
+      <section className="border-t border-[var(--border-subtle)] bg-background py-24">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={stagger}
+            className="flex flex-col"
+          >
+            <motion.div variants={fadeUp} className="mb-16 space-y-3 text-center">
+              <SectionLabel>Value Proposition</SectionLabel>
+              <SectionHeading>Business Value</SectionHeading>
+              <p className="text-muted-foreground text-sm max-w-2xl mx-auto mt-4">
+                Quantifiable impact and strategic advantages delivered by the Altrex infrastructure.
+              </p>
+            </motion.div>
+
+            <motion.div 
+              variants={stagger} 
+              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {solution.benefits.map((benefit) => {
+                const visual = getBenefitVisual(benefit.title, benefit.description);
+                const Icon = visual.icon;
+                
+                return (
+                  <motion.div 
+                    key={benefit.title} 
+                    variants={cardVariant} 
+                    className="group relative rounded-2xl border border-[var(--border-subtle)] bg-card p-6 flex flex-col gap-5 hover:border-orange-500/20 transition-all overflow-hidden"
+                  >
+                    {/* Background Visual Accent */}
+                    <div className={`absolute top-0 right-0 h-24 w-24 -mr-8 -mt-8 rounded-full ${visual.bg} blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`} />
+
+                    <div className="flex items-center gap-4">
+                      <div className={`flex shrink-0 h-12 w-12 items-center justify-center rounded-xl ${visual.bg} ${visual.color}`}>
+                        <motion.div
+                          animate={
+                            visual.animate === "pulse" ? { scale: [1, 1.2, 1] } :
+                            visual.animate === "reduce" ? { y: [0, 4, 0] } :
+                            visual.animate === "grow" ? { y: [0, -4, 0] } :
+                            visual.animate === "shield" ? { opacity: [0.6, 1, 0.6] } :
+                            visual.animate === "spark" ? { rotate: [0, 15, -15, 0] } : {}
+                          }
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                        >
+                          <Icon className="h-6 w-6" />
+                        </motion.div>
+                      </div>
+                      <h4 className="text-base font-bold text-foreground group-hover:text-orange-500 transition-colors">
+                        {benefit.title}
+                      </h4>
+                    </div>
+                    
+                    <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+                      {benefit.description}
                     </p>
 
-                    {/* Divider */}
-                    <div className="h-px bg-[var(--border-subtle)] group-hover:bg-orange-500/15 transition-colors duration-300 mt-1" />
-
-                    {/* Items list */}
-                    <ul className="mt-1 space-y-2">
-                      {cap.items.map((item, itemIdx) => (
-                        <li
-                          key={item}
-                          className="flex items-center gap-2.5 text-[11.5px] text-muted-foreground"
-                        >
-                          <span
-                            className="shrink-0 font-mono text-[9px] text-muted-foreground/60"
-                            style={{ minWidth: 14 }}
-                          >
-                            {String(itemIdx + 1).padStart(2, "0")}
-                          </span>
-                          <span className="h-px flex-1 bg-[var(--border-subtle)] max-w-[10px] shrink-0" />
-                          <span className="leading-4">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Bottom strip */}
-                  <div
-                    className="h-[3px] w-0 group-hover:w-full transition-all duration-500 ease-out mt-auto"
-                    style={{
-                      background: "linear-gradient(to right, #ff6b00, #ff9a50)",
-                    }}
-                  />
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          FEATURES / FUNCTIONAL MODULES
-      ══════════════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={stagger}
-        >
-          <motion.div variants={fadeUp} className="mb-14 space-y-3">
-            <SectionLabel>Modules</SectionLabel>
-            <SectionHeading>Functional Modules</SectionHeading>
-          </motion.div>
-
-          <motion.div variants={stagger} className="grid gap-6 sm:grid-cols-2">
-            {solution.features.map((feat, idx) => (
-              <motion.div
-                key={feat.title}
-                variants={cardVariant}
-                className="rounded-2xl border border-[var(--border-subtle)] bg-card/60 p-8 hover:bg-card transition-colors duration-300"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <span className="font-mono text-[10px] text-orange-500 border border-orange-500/30 rounded px-1.5 py-0.5 shrink-0 mt-0.5">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {feat.title}
-                  </h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-6 mb-5">
-                  {feat.description}
-                </p>
-                <ul className="space-y-2">
-                  {feat.benefits.map((b) => (
-                    <li
-                      key={b}
-                      className="flex items-center gap-2.5 text-sm text-muted-foreground"
-                    >
-                      <CheckCircle2 className="h-3.5 w-3.5 text-orange-400 shrink-0" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          INDUSTRIES SERVED
-      ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-card/30">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={stagger}
-          >
-            <motion.div variants={fadeUp} className="mb-14 space-y-3">
-              <SectionLabel>Applications</SectionLabel>
-              <SectionHeading>Industries Served</SectionHeading>
-            </motion.div>
-
-            <motion.div
-              variants={stagger}
-              className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
-            >
-              {solution.industries.map((industry, idx) => (
-                <motion.div
-                  key={industry.name}
-                  variants={cardVariant}
-                  className="group relative rounded-xl bg-card overflow-hidden flex flex-col"
-                  style={{
-                    boxShadow:
-                      "0 1px 2px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.04)",
-                  }}
-                >
-                  {/* Border ring */}
-                  <div className="absolute inset-0 rounded-xl border border-[var(--border-subtle)] group-hover:border-orange-500/25 transition-colors duration-400 pointer-events-none z-10" />
-
-                  {/* Header band */}
-                  <div
-                    className="relative flex items-center justify-between px-5 py-4"
-                    style={{
-                      background: "var(--bg-raised)",
-                      borderBottom: "1px solid var(--border-subtle)",
-                    }}
-                  >
-                    {/* Left: index pill + name */}
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span
-                        className="font-mono text-[9px] font-bold tracking-widest shrink-0 rounded-sm px-1.5 py-0.5"
-                        style={{
-                          color: "rgba(255,107,0,0.8)",
-                          background: "rgba(255,107,0,0.08)",
-                          border: "1px solid rgba(255,107,0,0.15)",
-                        }}
-                      >
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
-                      <h3 className="text-[13px] font-bold tracking-tight text-foreground truncate">
-                        <InViewDecryptedText text={industry.name} speed={50} />
-                      </h3>
+                    {/* Tiny inline visual based on benefit type */}
+                    <div className="pt-4 border-t border-[var(--border-subtle)] mt-auto flex items-center justify-between">
+                       <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Efficiency Module</span>
+                       {visual.animate === "reduce" && (
+                         <div className="flex items-end gap-0.5 h-3">
+                            {[10, 8, 6, 4].map((h, j) => <div key={j} className="w-1 bg-green-500/40 rounded-full" style={{ height: `${h}px` }} />)}
+                         </div>
+                       )}
+                       {visual.animate === "grow" && (
+                         <div className="flex items-end gap-0.5 h-3">
+                            {[4, 6, 8, 10].map((h, j) => <div key={j} className="w-1 bg-orange-500/40 rounded-full" style={{ height: `${h}px` }} />)}
+                         </div>
+                       )}
+                       {visual.animate === "pulse" && (
+                         <div className="flex items-center gap-1">
+                            <motion.div animate={{ opacity: [0, 1, 0] }} transition={{ duration: 1, repeat: Infinity }} className="h-1.5 w-1.5 rounded-full bg-blue-500" />
+                            <div className="h-1 w-8 bg-muted rounded-full overflow-hidden">
+                               <motion.div animate={{ x: ["-100%", "100%"] }} transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }} className="h-full w-1/2 bg-blue-500" />
+                            </div>
+                         </div>
+                       )}
                     </div>
-
-                    {/* Right: item count badge */}
-                    <span
-                      className="shrink-0 ml-2 font-mono text-[9px] text-muted-foreground rounded-full px-2 py-0.5"
-                      style={{ background: "var(--border-subtle)" }}
-                    >
-                      {industry.items.length}
-                    </span>
-                  </div>
-
-                  {/* Items */}
-                  <div className="flex flex-col px-5 py-4 gap-0 flex-1">
-                    {industry.items.map((item, itemIdx) => (
-                      <div
-                        key={item}
-                        className="flex items-center gap-3 py-[7px] group/item"
-                        style={{
-                          borderBottom:
-                            itemIdx < industry.items.length - 1
-                              ? "1px solid var(--border-subtle)"
-                              : "none",
-                        }}
-                      >
-                        {/* Animated bullet */}
-                        <div className="relative shrink-0 flex items-center">
-                          <span
-                            className="block h-px bg-orange-500/40 group-hover/item:bg-orange-500 transition-all duration-300"
-                            style={{ width: 12 }}
-                          />
-                          <span
-                            className="absolute right-0 block h-[5px] w-[5px] rounded-full bg-orange-500/40 group-hover/item:bg-orange-500 transition-colors duration-300"
-                            style={{ transform: "translateX(2px)" }}
-                          />
-                        </div>
-                        <span className="text-[11.5px] text-muted-foreground group-hover/item:text-foreground transition-colors duration-200 leading-4">
-                          {item}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Bottom accent line — slides in on hover */}
-                  <div
-                    className="h-[2px] w-0 group-hover:w-full transition-all duration-500 ease-out"
-                    style={{
-                      background:
-                        "linear-gradient(to right, #ff6b00cc, transparent)",
-                    }}
-                  />
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          BUSINESS BENEFITS
-      ══════════════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.15 }}
-          variants={stagger}
-        >
-          <motion.div variants={fadeUp} className="mb-14 space-y-3">
-            <SectionLabel>Value</SectionLabel>
-            <SectionHeading>Business Benefits</SectionHeading>
-          </motion.div>
-
-          <motion.div
-            variants={stagger}
-            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
-          >
-            {solution.benefits.map((benefit, idx) => (
-              <motion.div
-                key={benefit.title}
-                variants={cardVariant}
-                className="group flex gap-4 rounded-xl border border-[var(--border-subtle)] bg-card/40 p-6 hover:border-orange-500/25 hover:bg-card transition-all duration-300"
-              >
-                <span className="font-mono text-[11px] text-muted-foreground shrink-0 mt-0.5">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-sm font-semibold text-foreground mb-1.5 group-hover:text-orange-400 transition-colors">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-xs leading-5 text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════
-          WHY ALTREX
-      ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-card/30">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-            className="grid gap-12 lg:grid-cols-[1fr_1.8fr] lg:gap-20 items-start"
-          >
-            <motion.div variants={fadeUp} className="space-y-3">
-              <SectionLabel>Differentiators</SectionLabel>
-              <SectionHeading>Why Altrex</SectionHeading>
-            </motion.div>
-
-            <motion.ul variants={stagger} className="grid gap-3 sm:grid-cols-2">
-              {solution.whyAltrex.map((point) => (
-                <motion.li
-                  key={point}
-                  variants={cardVariant}
-                  className="flex items-center gap-3 text-sm text-muted-foreground"
-                >
-                  <CheckCircle2 className="h-4 w-4 text-orange-400 shrink-0" />
-                  {point}
-                </motion.li>
-              ))}
-            </motion.ul>
           </motion.div>
         </div>
       </section>
@@ -575,7 +471,7 @@ const SolutionPage = () => {
           ARCHITECTURE
       ══════════════════════════════════════════════════════════ */}
       {solution.architecture && (
-        <section className="border-t border-[var(--border-subtle)]">
+        <section className="border-t border-[var(--border-subtle)] bg-card/10">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
             <motion.div
               initial="hidden"
@@ -583,13 +479,11 @@ const SolutionPage = () => {
               viewport={{ once: true, amount: 0.15 }}
               variants={stagger}
             >
-              <motion.div variants={fadeUp} className="mb-12 space-y-3">
+              <motion.div variants={fadeUp} className="mb-12 space-y-3 text-center">
                 <SectionLabel>Architecture</SectionLabel>
                 <SectionHeading>Platform Architecture</SectionHeading>
-                <p className="text-sm text-muted-foreground max-w-2xl">
-                  End-to-end data flow from field devices to enterprise systems
-                  — every layer connected, secured, and orchestrated in real
-                  time.
+                <p className="text-sm text-muted-foreground max-w-2xl mx-auto mt-4">
+                  End-to-end data flow from field devices to enterprise systems — secured and orchestrated in real time.
                 </p>
               </motion.div>
             </motion.div>
@@ -599,7 +493,7 @@ const SolutionPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-2xl border border-[var(--border-subtle)] bg-card/60 p-6 lg:p-10"
+              className="rounded-2xl border border-[var(--border-subtle)] bg-card p-6 lg:p-10 shadow-sm"
             >
               <DynamicArchitecture nodes={solution.architecture.nodes} />
             </motion.div>
@@ -610,51 +504,48 @@ const SolutionPage = () => {
       {/* ══════════════════════════════════════════════════════════
           CTA FOOTER
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)]">
+      <section className="border-t border-[var(--border-subtle)] bg-card/20 relative overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-500/5 blur-[120px] pointer-events-none" />
         
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           variants={stagger}
-          className="mx-auto max-w-7xl px-6 lg:px-8 py-24 text-center"
+          className="mx-auto max-w-4xl px-6 lg:px-8 py-24 text-center relative z-10"
         >
-          {/* Decorative mono label */}
           <motion.p
             variants={fadeUp}
-            className="font-mono text-xs text-muted-foreground tracking-[0.25em] uppercase mb-6"
+            className="font-mono text-[10px] text-muted-foreground tracking-[0.25em] uppercase mb-4"
           >
-            [ READY TO START ]
+            [ Take Action ]
           </motion.p>
-
           <motion.h2
             variants={fadeUp}
-            className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-3xl mx-auto"
+            className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
           >
             {solution.ctaHeading}
           </motion.h2>
-
           <motion.p
             variants={fadeUp}
-            className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-7"
+            className="mt-6 text-base text-muted-foreground leading-relaxed"
           >
             {solution.ctaDescription}
           </motion.p>
-
           <motion.div
             variants={fadeUp}
             className="mt-10 flex flex-wrap gap-4 justify-center"
           >
             <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-8 rounded-lg font-medium">
+              <Button className="bg-orange-500 hover:bg-primary text-white h-12 px-8 rounded-lg font-medium shadow-lg shadow-orange-500/20">
                 Request Demo
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
             <Link to="/contact">
               <Button
-                variant="ghost"
-                className="h-11 px-8 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
+                variant="outline"
+                className="h-12 px-8 rounded-lg text-foreground hover:bg-muted border-[var(--border-subtle)]"
               >
                 Talk to an Expert
               </Button>

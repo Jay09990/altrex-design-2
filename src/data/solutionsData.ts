@@ -84,11 +84,11 @@ export const SOLUTIONS: Solution[] = [
       tagline: "Connect Any Device. Collect Any Data.",
       heading: "Unified Industrial Connectivity for Real-Time Operations",
       description:
-        "Altrex provides secure and scalable connectivity across industrial assets, field devices, SCADA systems, PLCs, RTUs, flow computers, analyzers, energy meters, and enterprise applications. Connect, collect, normalize, and distribute operational data from edge to cloud through a single platform.",
+        "Altrex provides secure and scalable connectivity across industrial assets, field devices, SCADA systems, PLCs, RTUs, flow computers, analyzers, energy meters, and enterprise applications.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Modern industrial operations rely on data from thousands of distributed devices and systems. Altrex simplifies connectivity by providing a unified framework for collecting, processing, and distributing data across operational technology (OT) and information technology (IT) environments. Whether deployed in City Gas Distribution networks, manufacturing plants, renewable energy facilities, utilities, or transportation systems, Altrex enables seamless data acquisition from any source.",
+      "Modern industrial operations rely on data from thousands of distributed devices and systems.",
     capabilities: [
       {
         title: "Industrial Protocol Support",
@@ -266,11 +266,11 @@ export const SOLUTIONS: Solution[] = [
       tagline: "Connect. Monitor. Optimize. Scale.",
       heading: "Industrial IoT Platform for Connected Operations",
       description:
-        "Altrex Industrial IoT Platform enables organizations to connect industrial assets, collect real-time telemetry, monitor operations, and transform operational data into actionable intelligence. From field devices to enterprise systems, Altrex provides a secure and scalable foundation for digital transformation initiatives.",
+        "Altrex Industrial IoT Platform enables organizations to connect industrial assets, collect real-time telemetry, monitor operations, and transform operational data into actionable intelligence.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Industrial organizations generate vast amounts of data from machines, sensors, PLCs, RTUs, meters, analyzers, and operational systems. Altrex Industrial IoT Platform bridges the gap between operational technology (OT) and information technology (IT), providing seamless connectivity, real-time monitoring, analytics, and enterprise-wide visibility. Whether deployed in City Gas Distribution, Manufacturing, Utilities, Renewable Energy, Oil & Gas, or Smart Infrastructure, Altrex enables organizations to build connected, intelligent, and data-driven operations.",
+      "Industrial organizations generate vast amounts of data from machines, sensors, PLCs, RTUs, meters, analyzers, and operational systems.",
     capabilities: [
       {
         title: "Device Connectivity",
@@ -519,11 +519,11 @@ export const SOLUTIONS: Solution[] = [
       tagline: "Operational Visibility Without Boundaries",
       heading: "Web-Based SCADA for Real-Time Industrial Operations",
       description:
-        "Altrex Web-SCADA provides centralized monitoring, control, visualization, and operational intelligence across distributed industrial assets. Access real-time process data, alarms, trends, GIS maps, reports, and dashboards from anywhere through a secure web-based platform.",
+        "Altrex Web-SCADA provides centralized monitoring, control, visualization, and operational intelligence across distributed industrial assets.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Modern industrial operations require instant access to operational data across geographically distributed assets and facilities. Altrex Web-SCADA enables organizations to monitor, visualize, and analyze real-time information from field devices, PLCs, RTUs, SCADA systems, and enterprise applications through a unified browser-based interface. Whether managing gas distribution networks, manufacturing plants, energy assets, utility infrastructure, or transportation systems, Altrex delivers complete operational awareness from edge to enterprise.",
+      "Modern industrial operations require instant access to operational data across geographically distributed assets and facilities.",
     capabilities: [
       {
         title: "Real-Time Monitoring",
@@ -763,11 +763,11 @@ export const SOLUTIONS: Solution[] = [
       tagline: "Visualize Assets. Optimize Operations.",
       heading: "GIS & Asset Management for Intelligent Infrastructure Operations",
       description:
-        "Altrex GIS & Asset Management provides a unified view of geographically distributed infrastructure, enabling organizations to visualize, monitor, maintain, and optimize assets throughout their lifecycle. Combine geospatial intelligence, operational data, maintenance workflows, and asset analytics within a single platform.",
+        "Altrex GIS & Asset Management provides a unified view of geographically distributed infrastructure, enabling organizations to visualize, monitor, maintain, and optimize assets throughout their lifecycle.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Modern industrial and utility operations depend on thousands of distributed assets including pipelines, stations, equipment, vehicles, facilities, and field infrastructure. Managing these assets efficiently requires real-time visibility, accurate location intelligence, maintenance planning, and operational insights. Altrex integrates GIS mapping, asset lifecycle management, maintenance operations, work order management, and real-time monitoring to help organizations maximize asset performance and operational reliability.",
+      "Modern industrial and utility operations depend on thousands of distributed assets including pipelines, stations, equipment, vehicles, facilities, and field infrastructure.",
     capabilities: [
       {
         title: "GIS-Based Asset Visualization",
@@ -1023,11 +1023,11 @@ export const SOLUTIONS: Solution[] = [
       heading:
         "Fleet Management & Vehicle Tracking System (VTS) for Real-Time Operational Visibility",
       description:
-        "Altrex Fleet Management & VTS enables organizations to monitor vehicle movements, optimize fleet utilization, improve driver safety, and gain complete visibility across transportation and field operations. Track vehicles, mobile assets, fuel consumption, route performance, and operational efficiency through a unified platform.",
+        "Altrex Fleet Management & VTS enables organizations to monitor vehicle movements, optimize fleet utilization, improve driver safety, and gain complete visibility across transportation and field operations.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Managing vehicle fleets across large geographical areas requires continuous visibility into vehicle locations, driver behavior, fuel usage, route performance, and operational efficiency. Altrex Fleet Management & VTS combines GPS tracking, telematics, route analytics, geofencing, driver monitoring, fuel management, and fleet intelligence into a centralized operational platform. Whether managing CNG cascades, fuel transportation, utility service vehicles, logistics fleets, field technicians, or industrial transport operations, Altrex provides complete fleet visibility from a single dashboard.",
+      "Managing vehicle fleets across large geographical areas requires continuous visibility into vehicle locations, driver behavior, fuel usage, route performance, and operational efficiency.",
     capabilities: [
       {
         title: "Real-Time Vehicle Tracking",
@@ -1285,11 +1285,11 @@ export const SOLUTIONS: Solution[] = [
       heading:
         "Automated Meter Reading (AMR) for Smart Utility & Energy Operations",
       description:
-        "Altrex AMR enables utilities, industrial facilities, and infrastructure operators to automatically collect, monitor, and analyze consumption data from gas, water, electricity, steam, and utility meters. Eliminate manual meter reading, improve billing accuracy, detect losses, and gain real-time visibility into resource consumption across distributed operations.",
+        "Altrex AMR enables utilities, industrial facilities, and infrastructure operators to automatically collect, monitor, and analyze consumption data from gas, water, electricity, steam, and utility meters.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Traditional meter reading processes are labor-intensive, error-prone, and often provide limited visibility into consumption patterns. Altrex AMR automates data collection from utility meters and delivers real-time consumption intelligence through a centralized platform. The solution supports smart metering initiatives across City Gas Distribution, Water Utilities, Commercial Buildings, Industrial Facilities, and Smart Infrastructure projects.",
+      "Traditional meter reading processes are labor-intensive, error-prone, and often provide limited visibility into consumption patterns.",
     capabilities: [
       {
         title: "Automated Meter Data Collection",
@@ -1557,11 +1557,11 @@ export const SOLUTIONS: Solution[] = [
       tagline: "Measure. Optimize. Sustain.",
       heading: "Enterprise Energy Management for Smarter Operations",
       description:
-        "Altrex Energy Management empowers organizations to monitor, analyze, and optimize energy consumption across facilities, industrial plants, utilities, and infrastructure assets. Gain real-time visibility into energy performance, reduce operational costs, improve efficiency, and support sustainability initiatives through a unified energy intelligence platform.",
+        "Altrex Energy Management empowers organizations to monitor, analyze, and optimize energy consumption across facilities, industrial plants, utilities, and infrastructure assets.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Energy is one of the largest operational expenses for industrial and commercial organizations. Managing energy effectively requires real-time visibility into consumption patterns, demand peaks, equipment performance, and operational inefficiencies. Altrex Energy Management integrates energy meters, power quality analyzers, SCADA systems, utilities, and operational assets into a centralized platform that transforms energy data into actionable insights. Whether managing manufacturing plants, CGD networks, commercial facilities, renewable energy assets, or utility infrastructure, Altrex helps organizations maximize efficiency while reducing energy costs.",
+      "Energy is one of the largest operational expenses for industrial and commercial organizations.",
     capabilities: [
       {
         title: "Real-Time Energy Monitoring",
@@ -1823,11 +1823,11 @@ export const SOLUTIONS: Solution[] = [
       heading:
         "Intelligent Alarm & Event Management for Critical Operations",
       description:
-        "Altrex Alarm & Event Management helps organizations detect operational anomalies, prioritize critical events, automate notifications, and accelerate response times. Gain complete visibility into alarms, incidents, system events, and operational conditions through a centralized platform designed for mission-critical environments.",
+        "Altrex Alarm & Event Management helps organizations detect operational anomalies, prioritize critical events, automate notifications, and accelerate response times.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Industrial operations generate thousands of events and alarms daily across equipment, processes, infrastructure, and communication networks. Without a structured alarm management strategy, critical events can be overlooked, resulting in downtime, safety risks, and operational inefficiencies. Altrex Alarm & Event Management provides a centralized framework for monitoring, classifying, correlating, escalating, and analyzing alarms and operational events, ensuring that the right information reaches the right people at the right time.",
+      "Industrial operations generate thousands of events and alarms daily across equipment, processes, infrastructure, and communication networks.",
     capabilities: [
       {
         title: "Real-Time Alarm Monitoring",
@@ -2094,11 +2094,11 @@ export const SOLUTIONS: Solution[] = [
       heading:
         "Operational Analytics & Reporting for Data-Driven Decisions",
       description:
-        "Altrex Analytics & Reporting empowers organizations to convert operational data into meaningful insights through real-time dashboards, KPI monitoring, advanced analytics, and automated reporting. Gain complete visibility into operational performance, asset utilization, energy consumption, production efficiency, and business outcomes from a single platform.",
+        "Altrex Analytics & Reporting empowers organizations to convert operational data into meaningful insights through real-time dashboards, KPI monitoring, advanced analytics, and automated reporting.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Industrial organizations generate massive volumes of operational data every day. The challenge is not collecting data — it's transforming that data into actionable intelligence that drives operational excellence. Altrex Analytics & Reporting centralizes data from SCADA systems, IoT devices, GIS platforms, fleet systems, energy meters, asset management systems, and enterprise applications to deliver comprehensive operational visibility and business intelligence.",
+      "Industrial organizations generate massive volumes of operational data every day.",
     capabilities: [
       {
         title: "Real-Time Operational Dashboards",
@@ -2369,11 +2369,11 @@ export const SOLUTIONS: Solution[] = [
       heading:
         "Cybersecurity & Access Control for Critical Industrial Infrastructure",
       description:
-        "Altrex Cybersecurity & Access Control provides comprehensive protection for industrial operations, critical infrastructure, and enterprise systems. Secure assets, users, communications, and operational data through a multi-layered security architecture designed for Industrial IoT, SCADA, GIS, Fleet Management, and enterprise applications.",
+        "Altrex Cybersecurity & Access Control provides comprehensive protection for industrial operations, critical infrastructure, and enterprise systems.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "As industrial operations become increasingly connected, cybersecurity has become a critical business requirement. Organizations must protect operational technology (OT), information technology (IT), field devices, cloud services, and user access against evolving cyber threats. Altrex delivers enterprise-grade cybersecurity controls, role-based access management, secure communications, audit trails, and compliance-ready governance frameworks that help organizations maintain operational continuity and protect critical assets.",
+      "As industrial operations become increasingly connected, cybersecurity has become a critical business requirement.",
     capabilities: [
       {
         title: "Identity & Access Management (IAM)",
@@ -2634,11 +2634,11 @@ export const SOLUTIONS: Solution[] = [
       heading:
         "Intelligent CCTV & Video Surveillance for Operational Security",
       description:
-        "Altrex CCTV & Video Surveillance Management enables organizations to monitor facilities, assets, operations, and critical infrastructure through a centralized video management platform. Integrate IP cameras, NVRs, video analytics, alarms, GIS, and operational systems to enhance security, safety, and situational awareness across distributed environments.",
+        "Altrex CCTV & Video Surveillance Management enables organizations to monitor facilities, assets, operations, and critical infrastructure through a centralized video management platform.",
       ctas: ["Request Demo", "Explore Platform"],
     },
     overview:
-      "Modern industrial and infrastructure operations require more than traditional surveillance. Organizations need real-time video monitoring integrated with operational data, alarms, GIS maps, and asset management systems. Altrex provides a unified video surveillance platform that combines CCTV monitoring, intelligent video analytics, event management, and remote access to improve security, operational visibility, and incident response. Whether managing CGD stations, manufacturing facilities, fuel depots, renewable energy plants, utility infrastructure, or transportation networks, Altrex delivers centralized video intelligence from a single platform.",
+      "Modern industrial and infrastructure operations require more than traditional surveillance.",
     capabilities: [
       {
         title: "Centralized Video Monitoring",

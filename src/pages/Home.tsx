@@ -10,7 +10,6 @@ import UseCases from "@/components/sections/UseCases"
 import ProgressLine from "@/components/ProgressLine"
 import LoadingScreen from "@/components/LoadingScreen"
 import { HOME_CHAPTERS } from "@/data/homeChapters"
-
 import { useLoading } from "@/context/LoadingContext"
 import WhatWeDo from "@/components/sections/WhatWeDo";
 import PlatformOverview from "@/components/sections/Platformoverview ";
@@ -45,52 +44,7 @@ const Home = () => {
       )}
 
       {/* Three.js Node Web Background */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
-        {/* Background Grid Overlay */}
-        <div id="bg-grid-overlay" className="absolute inset-0 bg-grid opacity-80" />
 
-        <motion.div
-          aria-hidden="true"
-          animate={{
-            x: [0, 40, 0],
-            y: [0, -24, 0],
-            opacity: [0.45, 0.8, 0.45],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        <motion.div
-          aria-hidden="true"
-          animate={{
-            x: [0, -32, 0],
-            y: [0, 28, 0],
-            opacity: [0.28, 0.55, 0.28],
-          }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-
-        <motion.div
-          aria-hidden="true"
-          animate={{
-            opacity: [0.14, 0.28, 0.14],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-white/5 to-transparent"
-        />
-      </div>
-      
       {/* Progress Line */}
       <ProgressLine />
 
