@@ -38,7 +38,7 @@ const Footer = () => {
 
                 <Input placeholder="Enter your email" className="p-5" />
 
-                <Button className="p-5">
+                <Button className="p-5 bg-accent">
                   Subscribe
                 </Button>
               </div>

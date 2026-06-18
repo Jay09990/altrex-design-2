@@ -70,7 +70,7 @@ const Testimonials = () => {
               title="TESTIMONIALS"
               dot={true}
               dotColor="bg-emerald-500"
-              className="mb-8"
+              className="mb-6"
             />
           </motion.div>
 
@@ -101,7 +101,7 @@ const Testimonials = () => {
               duration: 0.25,
             }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative flex-1 overflow-hidden rounded-3xl border border-black/[0.08] bg-card p-10 shadow-md lg:basis-3/5"
+            className="relative flex-1 overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-md lg:basis-3/5"
           >
             {/* Giant quote mark */}
             <motion.div
@@ -135,7 +135,7 @@ const Testimonials = () => {
             {/* Review */}
             <motion.p
               variants={fadeUpVariants}
-              className="relative z-10 mt-6 text-[14px] leading-relaxed text-muted-foreground"
+              className="relative z-10 mt-6 text-lg font-semibold leading-relaxed text-muted-foreground"
             >
               &ldquo;{featured.review}&rdquo;
             </motion.p>
@@ -147,7 +147,7 @@ const Testimonials = () => {
                   scale: 1.08,
                   rotate: 4,
                 }}
-                className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500 text-sm font-bold text-white"
+                className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-sm font-bold text-white"
               >
                 {featured.initials}
               </motion.div>
@@ -157,7 +157,7 @@ const Testimonials = () => {
                   {featured.name}
                 </h4>
 
-                <p className="font-mono text-[12px] uppercase tracking-wide text-muted-foreground">
+                <p className="font-mono text-xs font-medium uppercase tracking-wide text-muted-foreground">
                   {featured.role}
                 </p>
               </div>
@@ -172,14 +172,11 @@ const Testimonials = () => {
                 variants={fadeUpVariants}
                 onMouseMove={tilt.onMouseMove}
                 onMouseLeave={tilt.onMouseLeave}
-                whileHover={{
-                  y: -4,
-                }}
                 transition={{
                   duration: 0.25,
                 }}
                 style={{ transformStyle: "preserve-3d" }}
-                className="group rounded-2xl border border-black/[0.08] bg-card p-7 shadow-sm transition-all duration-300 hover:border-violet-400/30 hover:shadow-md"
+                className="group rounded-2xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-1">
@@ -207,7 +204,7 @@ const Testimonials = () => {
                   </motion.div>
                 </div>
 
-                <p className="mt-4 text-[14px] leading-relaxed text-muted-foreground">
+                <p className="mt-4 text-sm font-semibold leading-relaxed text-muted-foreground">
                   &ldquo;{item.review}&rdquo;
                 </p>
 
@@ -217,17 +214,17 @@ const Testimonials = () => {
                       scale: 1.08,
                       rotate: 4,
                     }}
-                    className="flex h-9 w-9 items-center justify-center rounded-full  bg-orange-500 text-xs font-bold text-white"
+                    className="flex h-9 w-9 items-center justify-center rounded-full  bg-primary text-xs font-bold text-white"
                   >
                     {item.initials}
                   </motion.div>
 
                   <div>
-                    <h4 className="text-xl font-bold uppercase tracking-tight text-foreground">
+                    <h4 className="text-xl font-bold uppercase tracking-tight text-accent">
                       {item.name}
                     </h4>
 
-                    <p className="font-mono text-[12px] uppercase tracking-wide text-muted-foreground">
+                    <p className="font-mono text-xs uppercase tracking-wide text-muted-foreground">
                       {item.role}
                     </p>
                   </div>
