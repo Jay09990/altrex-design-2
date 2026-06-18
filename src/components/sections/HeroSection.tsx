@@ -514,7 +514,7 @@ const HeroSection = () => {
             {/* Heading */}
             <CharReveal
               as="h1"
-              lines={["Digital Platforms for", "Connected Operations"]}
+              lines={["DIGITAL PLATFORMS FOR", "CONNECTED OPERATIONS"]}
               className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl leading-[1.02] uppercase text-left"
               immediate
               delay={0}
@@ -530,8 +530,7 @@ const HeroSection = () => {
               animate="visible"
               className="mt-7 max-w-lg text-base font-semibold leading-7 text-muted-foreground sm:text-lg text-left"
             >
-              Transform field data into real-time intelligence with Industrial
-              IoT, SCADA, GIS, Asset Management, Fleet Tracking, and Analytics.
+              Transform field data into real-time intelligence with Industrial IoT, SCADA, GIS, Asset Management, Fleet Tracking, and Analytics.
             </motion.p>
 
             {/* Buttons */}
@@ -545,19 +544,19 @@ const HeroSection = () => {
               <Button
                 size="lg"
                 className="gap-2 bg-primary px-8 py-6 text-base text-primary-foreground hover:bg-accent shadow-lg shadow-primary/20"
-              >
-                Explore Platform
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+                >
+                  Request Demo
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
 
               <Button
                 variant="outline"
                 size="lg"
                 className="gap-2 px-8 py-6 text-base"
-              >
-                <Play className="h-4 w-4" />
-                Request Demo
-              </Button>
+                >
+                  <Play className="h-4 w-4" />
+                  Explore Solutions
+                </Button>
             </motion.div>
 
             {/* Bottom stat strip */}
@@ -565,20 +564,20 @@ const HeroSection = () => {
               ref={metadataRef}
               className="mt-14 grid w-full grid-cols-2 gap-x-6 gap-y-8 opacity-0 sm:flex sm:flex-wrap sm:gap-8"
             >
-              {[
-                {
-                  label: "Data Points / Minute",
-                  value: "500+",
-                  icon: Activity,
-                },
-                {
-                  label: "Platform Availability",
-                  value: "99.9%",
-                  icon: CheckCircle2,
-                },
-                { label: "Integrations", value: "50+", icon: Plug },
-                { label: "Monitoring", value: "24/7", icon: Clock },
-              ].map((stat) => (
+                {[
+                  {
+                    label: "Data Points / Minute",
+                    value: "500K+",
+                    icon: Activity,
+                  },
+                  {
+                    label: "Platform Availability",
+                    value: "99.9%",
+                    icon: CheckCircle2,
+                  },
+                  { label: "Integrations", value: "50+", icon: Plug },
+                  { label: "Monitoring", value: "24×7", icon: Clock },
+                ].map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-3">
                     <stat.icon className="h-5 w-5 text-primary" />
                   <div className="flex flex-col font-bold items-start gap-0.5">
