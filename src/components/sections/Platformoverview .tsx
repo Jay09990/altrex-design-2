@@ -19,9 +19,8 @@ import {
   Sparkles,
   Activity,
 } from "lucide-react";
-import { Badge } from "../ui/badge";
+import { SectionBadge } from "../ui/section-badge";
 import { useTheme } from "@/hooks/useTheme";
-import InViewDecryptedText from "../InViewDecryptedText";
 import { Button } from "../ui/button";
 
 // ─── Brand tokens ──────────────────────────────────────────────────────────
@@ -1154,23 +1153,11 @@ const PlatformOverview = () => {
         >
           <div>
             <motion.div variants={fadeUpVariants} initial="hidden" animate="visible">
-              <Badge
-                variant="secondary"
-                className="border-border bg-card shadow-sm mb-8"
-              >
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                </div>
-                <span className="font-mono text-xs sm:text-sm text-foreground">
-                  <InViewDecryptedText
-                    text="Platform Overview"
-                    speed={60}
-                    maxIterations={12}
-                    className="text-foreground uppercase"
-                    encryptedClassName="text-muted-foreground"
-                  />
-                </span>
-              </Badge>
+              <SectionBadge
+                title="Platform Overview"
+                dot={true}
+                className="mb-8"
+              />
             </motion.div>
             <h2 className="mt-4 text-4xl font-bold uppercase text-primary sm:text-5xl">
               Altrex Digital Platform

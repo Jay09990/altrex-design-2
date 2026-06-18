@@ -17,7 +17,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
-import InViewDecryptedText from "../InViewDecryptedText";
+import { SectionBadge } from "../ui/section-badge";
 
 const barHeights = [38, 52, 70, 48, 82, 60, 110, 88, 130, 100, 150, 120];
 const linePoints = [38, 52, 70, 48, 82, 60, 110, 88, 130, 100, 150, 120];
@@ -79,18 +79,11 @@ const ProductShowcase = () => {
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
           <motion.div variants={fadeUpVariants}>
-            <Badge
-              variant="secondary"
+            <SectionBadge
+              title="PRODUCT SHOWCASE"
               className="border border-black/[0.08] bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
-            >
-              <InViewDecryptedText
-                text="PRODUCT SHOWCASE"
-                speed={60}
-                maxIterations={12}
-                className="text-[var(--data-green)]"
-                encryptedClassName="text-muted-foreground"
-              />
-            </Badge>
+              decryptedTextClassName="text-[var(--data-green)]"
+            />
           </motion.div>
 
           <motion.h2

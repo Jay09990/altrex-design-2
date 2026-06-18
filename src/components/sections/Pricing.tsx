@@ -2,9 +2,8 @@ import { Check } from "lucide-react";
 
 import { motion, type Variants } from "framer-motion";
 
-import { Badge } from "../ui/badge";
+import { SectionBadge } from "../ui/section-badge";
 import { Button } from "../ui/button";
-import InViewDecryptedText from "../InViewDecryptedText";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 const pricingPlans = [
@@ -163,18 +162,11 @@ const Pricing = () => {
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
           <motion.div variants={fadeUpVariants}>
-            <Badge
-              variant="secondary"
+            <SectionBadge
+              title="PRICING"
               className="border border-violet-500/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-300"
-            >
-              <InViewDecryptedText
-                text="PRICING"
-                speed={60}
-                maxIterations={12}
-                className="text-violet-200"
-                encryptedClassName="text-muted-foreground"
-              />
-            </Badge>
+              decryptedTextClassName="text-violet-200"
+            />
           </motion.div>
 
           <motion.h2

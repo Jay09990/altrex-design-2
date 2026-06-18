@@ -8,6 +8,7 @@ import ScrambleCounter from "@/components/ScrambleCounter";
 
 import { getIndustryBySlug } from "@/data/industriesRegistry";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
+import { SectionBadge } from "@/components/ui/section-badge";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -94,21 +95,12 @@ const IndustryPage = () => {
         >
           {/* Breadcrumb badge */}
           <motion.div variants={fadeUp} className="mb-6">
-            <Badge
-              variant="secondary"
-              className="border border-[var(--border-subtle)] bg-card"
-            >
-              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-              </div>
-              <span className="font-mono text-xs text-foreground tracking-widest uppercase">
-                Industries
-              </span>
-              <ChevronRight className="h-3 w-3 text-muted-foreground" />
-              <span className="font-mono text-xs text-muted-foreground">
-                {industry.name}
-              </span>
-            </Badge>
+            <SectionBadge
+              title={`${industry.name} — Digital Platform`}
+              dot={true}
+              dotColor="bg-emerald-500"
+              className="mb-8"
+            />
           </motion.div>
 
           {/* Tagline */}

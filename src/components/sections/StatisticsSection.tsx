@@ -1,8 +1,7 @@
 import { motion, type Variants } from "framer-motion";
 import { Zap, Activity, Database, Server, Radio, ShieldCheck, MapPin } from "lucide-react";
 import ScrambleCounter from "../ScrambleCounter";
-import InViewDecryptedText from "../InViewDecryptedText";
-import { Badge } from "../ui/badge";
+import { SectionBadge } from "../ui/section-badge";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -254,18 +253,12 @@ const StatisticsSection = () => {
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between mb-16">
           <div>
             <motion.div variants={fadeUp}>
-              <Badge
-                variant="secondary"
-                className="border border-orange-500/30 bg-orange-500/10 p-4 text-sm font-medium text-orange-400"
-              >
-                <InViewDecryptedText
-                  text="STATISTICS & METRICS"
-                  speed={60}
-                  maxIterations={12}
-                  className="text-violet-300"
-                  encryptedClassName="text-muted-foreground"
-                />
-              </Badge>
+              <SectionBadge
+                title="STATISTICS AND METRICS"
+                dot={true}
+                dotColor="bg-emerald-500"
+                className="mb-8"
+              />
             </motion.div>
 
             <motion.h2

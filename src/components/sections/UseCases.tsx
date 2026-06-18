@@ -17,9 +17,9 @@ import {
 } from "lucide-react";
 
 import { Badge } from "../ui/badge";
+import { SectionBadge } from "../ui/section-badge";
 import { Button } from "../ui/button";
 import { useScrollScrubHorizontalTrack } from "@/hooks/useScrollScrubHorizontalTrack";
-import InViewDecryptedText from "../InViewDecryptedText";
 
 const useCases = [
   {
@@ -153,20 +153,11 @@ const UseCases = () => {
             initial="hidden"
             animate="visible"
           >
-            <Badge
-              variant="secondary"
+            <SectionBadge
+              title="use cases"
+              dot={true}
               className="mb-6"
-            >
-              <span className="font-mono text-xs sm:text-sm text-foreground">
-                <InViewDecryptedText
-                  text="use cases"
-                  speed={60}
-                  maxIterations={12}
-                  className="text-foreground uppercase"
-                  encryptedClassName="text-muted-foreground"
-                />
-              </span>
-            </Badge>
+            />
           </motion.div>
 
           <motion.h2

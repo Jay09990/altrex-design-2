@@ -18,8 +18,7 @@ import { gsap } from "gsap";
 import useMagneticButton from "@/hooks/useMagneticButton";
 import { Button } from "../ui/button";
 import CharReveal from "@/components/CharReveal";
-import { Badge } from "@/components/ui/badge";
-import InViewDecryptedText from "../InViewDecryptedText";
+import { SectionBadge } from "@/components/ui/section-badge";
 
 const fadeUpVariants: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -493,21 +492,12 @@ const HeroSection = () => {
           <div className="flex flex-col items-start">
             {/* Badge */}
             <motion.div variants={fadeUpVariants} initial="hidden" animate="visible">
-              <Badge
-                variant="secondary"
-                dot="bg-emerald-500"
+              <SectionBadge
+                title="altrex digital platform"
+                dot={true}
+                dotColor="bg-emerald-500"
                 className="mb-8"
-              >
-                <span className="font-mono text-xs sm:text-sm text-foreground">
-                  <InViewDecryptedText
-                    text="altrex digital platform"
-                    speed={60}
-                    maxIterations={12}
-                    className="text-foreground uppercase"
-                    encryptedClassName="text-muted-foreground"
-                  />
-                </span>
-              </Badge>
+              />
             </motion.div>
 
             {/* Eyebrow */}

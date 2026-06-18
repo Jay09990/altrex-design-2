@@ -1,7 +1,6 @@
 import { Quote, Star } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
-import { Badge } from "../ui/badge";
-import InViewDecryptedText from "../InViewDecryptedText";
+import { SectionBadge } from "../ui/section-badge";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 
 const testimonials = [
@@ -67,18 +66,12 @@ const Testimonials = () => {
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
           <motion.div variants={fadeUpVariants}>
-            <Badge
-              variant="secondary"
-              className="border border-black/[0.08] bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
-            >
-              <InViewDecryptedText
-                text="TESTIMONIALS"
-                speed={60}
-                maxIterations={12}
-                className="text-[var(--data-green)]"
-                encryptedClassName="text-muted-foreground"
-              />
-            </Badge>
+            <SectionBadge
+              title="TESTIMONIALS"
+              dot={true}
+              dotColor="bg-emerald-500"
+              className="mb-8"
+            />
           </motion.div>
 
           <motion.h2
