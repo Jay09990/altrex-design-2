@@ -5,6 +5,7 @@ import About from "./pages/About";
 import MainLayout from "./layout/MainLayout";
 import Contact from "./pages/Contact";
 import SolutionPage from "./pages/SolutionPage";
+import SolutionsOverview from "./pages/SolutionsOverview";
 import { ServicePage } from "./pages/ServicePage";
 import IndustryPage from "./pages/IndustryPage";
 
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/about", element: <About /> },
       { path: "/contact", element: <Contact /> },
+      { path: "/solutions", element: <SolutionsOverview /> },
       { path: "/solutions/:slug", element: <SolutionPageWithKey /> },
       {
         path: 'services/:slug',
