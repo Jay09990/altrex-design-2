@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import CustomCursor from "@/components/CustomCursor";
+import ScrollToTop from "@/components/ui/ScrollToTop";
 
 const MainLayout = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const MainLayout = () => {
       </main>
 
       <Footer />
+      <ScrollToTop />
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Play,
@@ -542,20 +543,26 @@ const HeroSection = () => {
               className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             >
               <Button
+                asChild
                 size="lg"
                 className="gap-2 bg-primary px-8 py-6 text-base text-primary-foreground hover:bg-accent shadow-lg shadow-primary/20"
                 >
-                  Request Demo
-                  <ArrowRight className="h-4 w-4" />
+                  <Link to="/contact">
+                    Request Demo
+                    <ArrowRight className="h-4 w-4" />
+                  </Link>
                 </Button>
 
               <Button
+                asChild
                 variant="outline"
                 size="lg"
                 className="gap-2 px-8 py-6 text-base"
                 >
-                  <Play className="h-4 w-4" />
-                  Explore Solutions
+                  <Link to="/solutions">
+                    <Play className="h-4 w-4" />
+                    Explore Solutions
+                  </Link>
                 </Button>
             </motion.div>
 
