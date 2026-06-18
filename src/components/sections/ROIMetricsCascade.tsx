@@ -82,15 +82,14 @@ const ROIMetricsCascade = () => {
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
                 <div className="mx-auto max-w-3xl text-center">
                     <Badge
-                        variant="secondary"
-                        className="border border-white/10 bg-card/80 p-4 text-sm font-medium text-[var(--data-green)]"
+                        variant="success"
+                        dot
                     >
-                        <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
                         <InViewDecryptedText
                             text="ROI & BUSINESS OUTCOMES"
                             speed={60}
                             maxIterations={12}
-                            className="text-[var(--data-green)]"
+                            className="text-emerald-500"
                             encryptedClassName="text-muted-foreground"
                         />
                     </Badge>

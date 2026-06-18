@@ -1176,7 +1176,7 @@ const PlatformOverview = () => {
               Altrex Digital Platform
             </h2>
             <p
-              className="mt-2 max-w-md font-semibold text-muted-foreground"
+              className="mt-2 max-w-md font-semibold text-lg text-muted-foreground"
             >
               A single platform to manage assets, operations, alarms, analytics,
               and field infrastructure.

@@ -141,17 +141,17 @@ const WhyChooseUs = () => {
         viewport={{ once: true, amount: 0.15 }}
         className="mx-auto max-w-7xl px-6 lg:px-8"
       >
-        {/* Section label */}
         <motion.div variants={fadeUpVariants}>
           <Badge
             variant="secondary"
-            className="border border-orange-500/30 bg-orange-500/10 p-4 text-sm font-medium text-orange-500"
+            size="lg"
+            className="mb-6"
           >
             <InViewDecryptedText
               text="WHY CHOOSE US"
               speed={60}
               maxIterations={12}
-              className="text-orange-500"
+              className="text-secondary-foreground"
               encryptedClassName="text-muted-foreground"
             />
           </Badge>
@@ -216,13 +216,9 @@ const WhyChooseUs = () => {
             transition={{ duration: 0.25 }}
             className="relative overflow-hidden rounded-3xl border border-orange-200/60 bg-card p-8 shadow-sm lg:row-span-4"
           >
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-green-500/30 bg-green-500/10 px-3 py-1 text-xs font-medium text-green-400">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-              </span>
+            <Badge variant="success" dot className="mb-6">
               Live Metrics
-            </div>
+            </Badge>
 
             <div className="space-y-6">
               {[

@@ -495,11 +495,9 @@ const HeroSection = () => {
             <motion.div variants={fadeUpVariants} initial="hidden" animate="visible">
               <Badge
                 variant="secondary"
-                className="border-border bg-card shadow-sm mb-8"
+                dot="bg-emerald-500"
+                className="mb-8"
               >
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                </div>
                 <span className="font-mono text-xs sm:text-sm text-foreground">
                   <InViewDecryptedText
                     text="altrex digital platform"
