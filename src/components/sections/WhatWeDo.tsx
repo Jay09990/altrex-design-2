@@ -405,14 +405,9 @@ function ContentPanel({
         {STATS.map((s) => (
           <div
             key={s.label}
-            className="flex flex-col items-center gap-1 rounded-xl border py-4"
-            style={{
-              boxShadow: isDark
-                ? "0 2px 12px rgba(0,0,0,0.2)"
-                : "0 2px 12px rgba(0,0,0,0.05)",
-            }}
+            className="flex flex-col items-center gap-1 rounded-xl border border-border py-4"
           >
-            <span className="text-2xl font-black tracking-tight text-secondary-foreground">
+            <span className="text-2xl font-black tracking-tight text-accent">
               {s.value}
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">

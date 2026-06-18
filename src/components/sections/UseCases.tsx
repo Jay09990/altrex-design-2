@@ -192,7 +192,7 @@ const UseCases = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="flex w-[340px] flex-shrink-0 flex-col rounded-3xl border border-black/[0.08] bg-card p-8 shadow-sm backdrop-blur-sm md:w-[420px]"
+                className="flex w-[340px] flex-shrink-0 flex-col rounded-2xl border border-border bg-card p-8 md:w-[420px]"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white shadow-lg">
