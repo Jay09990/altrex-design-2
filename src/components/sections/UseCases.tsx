@@ -192,42 +192,44 @@ const UseCases = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="w-[340px] flex-shrink-0 rounded-3xl border border-black/[0.08] bg-card p-8 shadow-sm backdrop-blur-sm md:w-[420px]"
+                className="flex w-[340px] flex-shrink-0 flex-col rounded-3xl border border-black/[0.08] bg-card p-8 shadow-sm backdrop-blur-sm md:w-[420px]"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white shadow-lg">
                     <Icon className="h-7 w-7" />
                   </div>
 
-                  <Badge variant="outline">
+                  <Badge variant="outline" className="text-green-600 p-3">
                     {item.metric}
                   </Badge>
                 </div>
 
-                <h3 className="mt-6 text-xl font-bold uppercase tracking-tight text-foreground">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-muted-foreground">
-                  {item.description}
-                </p>
+                <div className="flex flex-1 flex-col">
+                  <h3 className="mt-6 text-xl font-bold uppercase tracking-tight text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-md leading-relaxed text-muted-foreground font-semibold">
+                    {item.description}
+                  </p>
 
-                <ul className="mt-6 space-y-3">
-                  {item.bullets.map((bullet) => (
-                    <li
-                      key={bullet}
-                      className="flex items-center gap-3 text-sm text-muted-foreground"
-                    >
-                      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-100">
-                        <div className="h-1.5 w-1.5 rounded-full bg-violet-600" />
-                      </div>
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
+                  <ul className="mt-6 flex-1 space-y-3">
+                    {item.bullets.map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="flex items-center gap-3 text-sm font-medium text-muted-foreground"
+                      >
+                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-100">
+                          <div className="h-1.5 w-1.5 rounded-full bg-violet-600" />
+                        </div>
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
 
-                <div className="mt-8 flex gap-3">
-                  <Button variant="default">Start Building</Button>
-                  <Button variant="outline">Book Demo</Button>
+                  <div className="mt-8 flex gap-3">
+                    <Button className="bg-accent">Start Building</Button>
+                    <Button variant="outline">Book Demo</Button>
+                  </div>
                 </div>
               </motion.div>
             );
