@@ -9,8 +9,7 @@ import {
 
 import { motion, type Variants } from "framer-motion";
 
-import { Badge } from "../ui/badge";
-import InViewDecryptedText from "../InViewDecryptedText";
+import { SectionBadge } from "../ui/section-badge";
 
 const benefits = [
   {
@@ -142,19 +141,11 @@ const WhyChooseUs = () => {
         className="mx-auto max-w-7xl px-6 lg:px-8"
       >
         <motion.div variants={fadeUpVariants}>
-          <Badge
-            variant="secondary"
-            size="lg"
-            className="mb-6"
-          >
-            <InViewDecryptedText
-              text="WHY CHOOSE US"
-              speed={60}
-              maxIterations={12}
-              className="text-secondary-foreground"
-              encryptedClassName="text-muted-foreground"
-            />
-          </Badge>
+          <SectionBadge
+            title="WHY CHOOSE US"
+            className="mb-6 p-2"
+            decryptedTextClassName="text-secondary-foreground"
+          />
         </motion.div>
 
         <div className="mt-6 max-w-2xl">
@@ -216,9 +207,9 @@ const WhyChooseUs = () => {
             transition={{ duration: 0.25 }}
             className="relative overflow-hidden rounded-3xl border border-orange-200/60 bg-card p-8 shadow-sm lg:row-span-4"
           >
-            <Badge variant="success" dot className="mb-6">
+            <SectionBadge dot={true} dotColor="bg-emerald-500" className="mb-6">
               Live Metrics
-            </Badge>
+            </SectionBadge>
 
             <div className="space-y-6">
               {[

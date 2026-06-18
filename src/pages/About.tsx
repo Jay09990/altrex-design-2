@@ -15,6 +15,7 @@ import { motion, useInView, type Variants } from "framer-motion";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SectionBadge } from "@/components/ui/section-badge";
 
 // React Bits components — installed at src/components/
 // Install commands (run once in project root):
@@ -167,20 +168,12 @@ function HeroSection() {
         >
           {/* Badge */}
           <motion.div variants={fadeUpVariants}>
-            <Badge variant="secondary" className="border-black/[0.08] bg-card shadow-sm">
-              <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-              </div>
-              <span className="font-mono text-xs sm:text-sm text-foreground">
-                <InViewDecryptedText
-                  text="OUR STORY"
-                  speed={60}
-                  maxIterations={12}
-                  className="text-foreground"
-                  encryptedClassName="text-muted-foreground"
-                />
-              </span>
-            </Badge>
+            <SectionBadge
+              title="OUR STORY"
+              dot={true}
+              dotColor="bg-emerald-500"
+              className="mb-8"
+            />
           </motion.div>
 
           {/* H1 — BlurText animates each word in on mount */}
@@ -269,19 +262,12 @@ function MissionSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <Badge
-            variant="secondary"
-            className="border border-white/10 bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
-          >
-            <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-            <InViewDecryptedText
-              text="MISSION"
-              speed={60}
-              maxIterations={12}
-              className="text-[var(--data-green)]"
-              encryptedClassName="text-muted-foreground"
-            />
-          </Badge>
+          <SectionBadge
+            title="MISSION"
+            dot={true}
+            dotColor="bg-emerald-500"
+            className="mb-8"
+          />
 
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Empowering industries through{" "}
@@ -384,19 +370,12 @@ function TimelineSection() {
       <div className="mx-auto max-w-6xl px-6 lg:px-8">
         {/* Header */}
         <div className="text-center">
-          <Badge
-            variant="secondary"
-            className="border border-white/10 bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
-          >
-            <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-            <InViewDecryptedText
-              text="OUR MODEL"
-              speed={60}
-              maxIterations={12}
-              className="text-[var(--data-green)]"
-              encryptedClassName="text-muted-foreground"
-            />
-          </Badge>
+          <SectionBadge
+            title="OUR MODEL"
+            dot={true}
+            dotColor="bg-emerald-500"
+            className="mb-8"
+          />
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Digital maturity model
           </h2>
@@ -536,19 +515,12 @@ function TeamSection() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
-          <Badge
-            variant="secondary"
-            className="border border-white/10 bg-card/50 p-4 text-sm font-medium ]"
-          >
-            <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-            <InViewDecryptedText
-              text="THE TEAM"
-              speed={60}
-              maxIterations={12}
-              className="text-[var(--data-green)]"
-              encryptedClassName="text-muted-foreground"
-            />
-          </Badge>
+          <SectionBadge
+            title="THE TEAM"
+            dot={true}
+            dotColor="bg-emerald-500"
+            className="mb-8"
+          />
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             People behind the platform
           </h2>
@@ -607,19 +579,12 @@ function ValuesSection() {
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
-          <Badge
-            variant="secondary"
-            className="border border-white/10 bg-card/50 p-4 text-sm font-medium text-[var(--data-green)]"
-          >
-            <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-            <InViewDecryptedText
-              text="WHAT DRIVES US"
-              speed={60}
-              maxIterations={12}
-              className="text-[var(--data-green)]"
-              encryptedClassName="text-muted-foreground"
-            />
-          </Badge>
+          <SectionBadge
+            title="WHAT DRIVES US"
+            dot={true}
+            dotColor="bg-emerald-500"
+            className="mb-8"
+          />  
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Built on principles that matter
           </h2>
@@ -710,8 +675,8 @@ const CTA = () => {
           </div>
           <div className="flex gap-2.5">
             <Button className="gap-2 bg-violet-500 text-white border-none">
-                <Contact className="h-3.5 w-3.5" /> Contact Us
-              </Button>
+              <Contact className="h-3.5 w-3.5" /> Contact Us
+            </Button>
           </div>
         </div>
       </div>

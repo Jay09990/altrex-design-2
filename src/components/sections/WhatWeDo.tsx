@@ -8,11 +8,10 @@ import {
   Shield,
   PlugZap,
 } from "lucide-react";
-import { Badge } from "../ui/badge";
+import { SectionBadge } from "../ui/section-badge";
 import { useTheme } from "@/hooks/useTheme";
 import darklogo from "@/assets/W!Platform-Logo-dark.png";
 import lightlogo from "@/assets/W!Platform Logo.png";
-import InViewDecryptedText from "../InViewDecryptedText";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Data
@@ -285,23 +284,11 @@ function ContentPanel({
           initial="hidden"
           animate="visible"
         >
-          <Badge
-            variant="secondary"
-            className="border-border bg-card shadow-sm mb-6"
-          >
-            <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-              <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-            </div>
-            <span className="font-mono text-xs sm:text-sm text-foreground">
-              <InViewDecryptedText
-                text="What We Do"
-                speed={60}
-                maxIterations={12}
-                className="text-foreground uppercase"
-                encryptedClassName="text-muted-foreground"
-              />
-            </span>
-          </Badge>
+          <SectionBadge
+            title="What We Do"
+            dot={true}
+            className="mb-6"
+          />
         </motion.div>
 
         <h2 className="mt-5 text-4xl font-bold uppercase text-primary sm:text-5xl">
@@ -591,23 +578,11 @@ const WhatWeDo = () => {
               initial="hidden"
               animate="visible"
             >
-              <Badge
-                variant="secondary"
-                className="border-border bg-card shadow-sm mb-8"
-              >
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                </div>
-                <span className="font-mono text-xs sm:text-sm text-foreground">
-                  <InViewDecryptedText
-                    text="What We Do"
-                    speed={60}
-                    maxIterations={12}
-                    className="text-foreground uppercase"
-                    encryptedClassName="text-muted-foreground"
-                  />
-                </span>
-              </Badge>
+              <SectionBadge
+                title="What We Do"
+                dot={true}
+                className="mb-8"
+              />
             </motion.div>
             <h2 className="mt-4 text-3xl font-bold uppercase tracking-tighter text-primary">
               One Platform. Endless Possibilities.

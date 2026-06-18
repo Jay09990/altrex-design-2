@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
+import { SectionBadge } from "@/components/ui/section-badge";
 import { Button } from "@/components/ui/button";
 import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
@@ -130,18 +131,13 @@ const SolutionPage = () => {
         >
           <div className="max-w-3xl">
             <motion.div variants={fadeUp} className="mb-6 flex">
-              <Badge
-                variant="secondary"
-                className="border border-[var(--border-subtle)] bg-card flex gap-2 items-center"
-              >
-                <div className="flex h-2.5 w-2.5 items-center justify-center rounded-full bg-orange-500/20">
-                  <span className="h-1.5 w-1.5 rounded-full bg-orange-500 animate-pulse" />
-                </div>
-                <span className="font-mono text-[10px] text-muted-foreground tracking-widest uppercase">
-                  Solution / {solution.name}
-                </span>
-              </Badge>
-            </motion.div>
+              <SectionBadge
+                title={`SOLUTION / ${solution.name.toUpperCase()}`}
+                dot={true}
+                dotColor="bg-emerald-500"
+                className="mb-8"
+              />
+            </motion.div> 
 
             <motion.h1
               variants={fadeUp}

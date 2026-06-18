@@ -2,16 +2,16 @@ import type { ReactNode } from "react";
 import { useEffect, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
-import { 
-  ArrowRight, 
-  ChevronRight, 
-  Eye, 
-  Brain, 
-  AlertTriangle, 
-  ScanLine, 
-  HardHat, 
-  Bell, 
-  Network, 
+import {
+  ArrowRight,
+  ChevronRight,
+  Eye,
+  Brain,
+  AlertTriangle,
+  ScanLine,
+  HardHat,
+  Bell,
+  Network,
   CheckCircle2,
   AlertCircle,
   Cpu,
@@ -39,6 +39,7 @@ import { Button } from "@/components/ui/button";
 import { servicesRegistry } from "@/data/servicesRegistry";
 import type { ServiceData } from "@/types/service";
 import { Badge } from "@/components/ui/badge";
+import { SectionBadge } from "@/components/ui/section-badge";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -95,62 +96,62 @@ const getIconForText = (text: string) => {
 };
 
 const LivePanel = ({ service }: { service: ServiceData }) => {
-    const seed = useMemo(() => service.slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0), [service.slug]);
-    const systemLoad = (seed % 15) + 70; // 70-85
-    const metric1 = service.whatWeDeliver?.length ?? service.keyBenefits.length;
-    const metric2 = service.industries.length;
-    const capabilities = service.whatWeDeliver?.map(d => d.title) ?? service.keyBenefits;
+  const seed = useMemo(() => service.slug.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0), [service.slug]);
+  const systemLoad = (seed % 15) + 70; // 70-85
+  const metric1 = service.whatWeDeliver?.length ?? service.keyBenefits.length;
+  const metric2 = service.industries.length;
+  const capabilities = service.whatWeDeliver?.map(d => d.title) ?? service.keyBenefits;
 
-    return (
-        <div className="rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 backdrop-blur-md p-6 shadow-xl w-full max-w-xl">
-          {/* Chrome */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
-                <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
-                <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
-                <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
-                <div className="h-4 w-px bg-white/10 mx-1" />
-                <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">ALTREX PLATFORM — LIVE</span>
-            </div>
-            <div className="flex items-center gap-2">
-                <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-[10px] text-[var(--data-green)] font-mono">LIVE</span>
-            </div>
-          </div>
-          {/* Load */}
-          <div className="mb-6">
-            <div className="flex justify-between items-center mb-2">
-                <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase">SYSTEM LOAD</span>
-                <span className="text-[10px] text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded">OPTIMAL</span>
-            </div>
-            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-                <motion.div className="h-full bg-gradient-to-r from-orange-600 to-orange-400" initial={{width: 0}} animate={{width: `${systemLoad}%`}} transition={{duration: 1.2, ease: "easeOut"}} />
-            </div>
-          </div>
-          {/* Metrics */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
-             <div className="rounded-xl border border-white/10 p-4 bg-background">
-                <div className="h-1.5 w-1.5 rounded-full bg-[var(--data-green)] mb-2" />
-                <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">ACTIVE CAPABILITIES</div>
-                <div className="text-xl font-bold">{metric1}</div>
-             </div>
-             <div className="rounded-xl border border-white/10 p-4 bg-background">
-                <div className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] mb-2" />
-                <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">INDUSTRIES</div>
-                <div className="text-xl font-bold">{metric2}</div>
-             </div>
-          </div>
-          {/* Modules */}
-          <div>
-            <div className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-3">ACTIVE MODULES</div>
-            <div className="flex flex-wrap gap-2">
-                {capabilities.slice(0, 6).map((cap, i) => (
-                    <span key={cap} className={`rounded-md border border-white/10 px-2.5 py-1 text-[10px] font-mono ${i === (seed % 6) ? 'border-orange-500/40 bg-orange-500/10 text-orange-300' : 'text-muted-foreground'}`}>{cap}</span>
-                ))}
-            </div>
-          </div>
+  return (
+    <div className="rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 backdrop-blur-md p-6 shadow-xl w-full max-w-xl">
+      {/* Chrome */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2">
+          <div className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+          <div className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+          <div className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+          <div className="h-4 w-px bg-white/10 mx-1" />
+          <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest">ALTREX PLATFORM — LIVE</span>
         </div>
-    );
+        <div className="flex items-center gap-2">
+          <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+          <span className="text-[10px] text-[var(--data-green)] font-mono">LIVE</span>
+        </div>
+      </div>
+      {/* Load */}
+      <div className="mb-6">
+        <div className="flex justify-between items-center mb-2">
+          <span className="font-mono text-[10px] text-[var(--text-muted)] uppercase">SYSTEM LOAD</span>
+          <span className="text-[10px] text-orange-400 bg-orange-500/10 border border-orange-500/20 px-2 py-0.5 rounded">OPTIMAL</span>
+        </div>
+        <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
+          <motion.div className="h-full bg-gradient-to-r from-orange-600 to-orange-400" initial={{ width: 0 }} animate={{ width: `${systemLoad}%` }} transition={{ duration: 1.2, ease: "easeOut" }} />
+        </div>
+      </div>
+      {/* Metrics */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="rounded-xl border border-white/10 p-4 bg-background">
+          <div className="h-1.5 w-1.5 rounded-full bg-[var(--data-green)] mb-2" />
+          <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">ACTIVE CAPABILITIES</div>
+          <div className="text-xl font-bold">{metric1}</div>
+        </div>
+        <div className="rounded-xl border border-white/10 p-4 bg-background">
+          <div className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] mb-2" />
+          <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">INDUSTRIES</div>
+          <div className="text-xl font-bold">{metric2}</div>
+        </div>
+      </div>
+      {/* Modules */}
+      <div>
+        <div className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-3">ACTIVE MODULES</div>
+        <div className="flex flex-wrap gap-2">
+          {capabilities.slice(0, 6).map((cap, i) => (
+            <span key={cap} className={`rounded-md border border-white/10 px-2.5 py-1 text-[10px] font-mono ${i === (seed % 6) ? 'border-orange-500/40 bg-orange-500/10 text-orange-300' : 'text-muted-foreground'}`}>{cap}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export const ServicePage: React.FC = () => {
@@ -192,14 +193,12 @@ export const ServicePage: React.FC = () => {
         <motion.div initial="hidden" animate="visible" variants={stagger} className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="max-w-4xl">
             <motion.div variants={fadeUp} className="mb-6">
-              <Badge variant="secondary" className="border border-[var(--border-subtle)] bg-card">
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--data-green)]">
-                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                </div>
-                <span className="font-mono text-xs text-foreground tracking-widest uppercase ml-2">Services</span>
-                <ChevronRight className="h-3 w-3 text-muted-foreground ml-1" />
-                <span className="font-mono text-xs text-muted-foreground ml-1">{service.title}</span>
-              </Badge>
+              <SectionBadge
+                title={`${service.title} — Digital Platform`}
+                dot={true}
+                dotColor="bg-emerald-500"
+                className="mb-8"
+              />
             </motion.div>
             <motion.p variants={fadeUp} className="font-mono text-sm tracking-[0.2em] uppercase text-[var(--accent-violet)] mb-4">{service.hero.subtitle}</motion.p>
             <motion.h1 variants={fadeUp} className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl leading-[1.1] uppercase">{service.title}</motion.h1>
@@ -227,8 +226,8 @@ export const ServicePage: React.FC = () => {
           {service.keyBenefits.map((benefit, idx) => {
             const Icon = getIconForText(benefit);
             return (
-              <motion.div 
-                key={benefit} 
+              <motion.div
+                key={benefit}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: idx * 0.15, duration: 0.5 }}
@@ -256,18 +255,18 @@ export const ServicePage: React.FC = () => {
 
           <motion.div variants={fadeUp} className="grid md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
             <div className="rounded-xl bg-[var(--bg-raised)] border border-[var(--border-subtle)] p-8 h-full">
-               <div className="flex items-center gap-2 mb-4 text-[var(--text-muted)] font-mono text-xs uppercase"><AlertCircle className="h-4 w-4"/>THE CHALLENGE</div>
-               <p className="text-sm leading-relaxed line-clamp-3">{service.overview.paragraphs[0]}</p>
+              <div className="flex items-center gap-2 mb-4 text-[var(--text-muted)] font-mono text-xs uppercase"><AlertCircle className="h-4 w-4" />THE CHALLENGE</div>
+              <p className="text-sm leading-relaxed line-clamp-3">{service.overview.paragraphs[0]}</p>
             </div>
-            
+
             <div className="flex justify-center items-center">
               <ArrowRight className="h-8 w-8 text-orange-500 hidden md:block" />
               <ArrowRight className="h-8 w-8 text-orange-500 rotate-90 md:hidden" />
             </div>
-            
+
             <div className="rounded-xl border border-[rgba(249,115,22,0.25)] p-8 shadow-[0_0_20px_rgba(249,115,22,0.08)] h-full">
-               <div className="flex items-center gap-2 mb-4 text-[#f97316] font-mono text-xs uppercase"><CheckCircle2 className="h-4 w-4"/>THE ALTREX SOLUTION</div>
-               <p className="text-sm leading-relaxed line-clamp-3">{service.overview.paragraphs[1]}</p>
+              <div className="flex items-center gap-2 mb-4 text-[#f97316] font-mono text-xs uppercase"><CheckCircle2 className="h-4 w-4" />THE ALTREX SOLUTION</div>
+              <p className="text-sm leading-relaxed line-clamp-3">{service.overview.paragraphs[1]}</p>
             </div>
           </motion.div>
         </motion.div>
@@ -289,13 +288,13 @@ export const ServicePage: React.FC = () => {
                     <h3 className="mb-4 flex items-center gap-2 text-base font-semibold text-foreground"><span className="h-3 w-1 rounded-full bg-orange-400" />{group.title}</h3>
                     <div className="space-y-2">
                       {group.items.map((item) => {
-                         const Icon = getIconForText(item);
-                         return (
-                            <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
-                               <Icon className="h-3.5 w-3.5 text-[#f97316]" />
-                               <span>{item}</span>
-                            </div>
-                         );
+                        const Icon = getIconForText(item);
+                        return (
+                          <div key={item} className="flex items-center gap-2 text-xs text-muted-foreground">
+                            <Icon className="h-3.5 w-3.5 text-[#f97316]" />
+                            <span>{item}</span>
+                          </div>
+                        );
                       })}
                     </div>
                   </motion.div>
@@ -324,7 +323,7 @@ export const ServicePage: React.FC = () => {
                     <span className="font-mono text-[11px] text-orange-500 block">{String(idx + 1).padStart(2, "0")}</span>
                     <h3 className="text-lg font-semibold text-foreground">{title}</h3>
                     <div className="flex items-center gap-1 text-[10px] font-mono text-muted-foreground border border-[var(--border-subtle)] p-2 rounded bg-[var(--bg-raised)]">
-                        {idx === 0 ? <><div className="flex-1 text-center bg-[var(--bg-surface)] p-1 rounded">Input</div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-orange-500 text-white p-1 rounded">ALTREX</div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-[var(--bg-surface)] p-1 rounded">Outcome</div></> : <><div className="flex flex-col gap-1"><div className="bg-[var(--bg-surface)] p-1 rounded">In 1</div><div className="bg-[var(--bg-surface)] p-1 rounded">In 2</div></div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-orange-500 text-white p-1 rounded flex items-center justify-center">Unified View</div></>}
+                      {idx === 0 ? <><div className="flex-1 text-center bg-[var(--bg-surface)] p-1 rounded">Input</div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-orange-500 text-white p-1 rounded">ALTREX</div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-[var(--bg-surface)] p-1 rounded">Outcome</div></> : <><div className="flex flex-col gap-1"><div className="bg-[var(--bg-surface)] p-1 rounded">In 1</div><div className="bg-[var(--bg-surface)] p-1 rounded">In 2</div></div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-orange-500 text-white p-1 rounded flex items-center justify-center">Unified View</div></>}
                     </div>
                     <p className="text-xs leading-6 text-muted-foreground line-clamp-1">{desc}</p>
                   </motion.div>

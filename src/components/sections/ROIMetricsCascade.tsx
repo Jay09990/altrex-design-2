@@ -2,8 +2,7 @@ import { useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown, DollarSign, Zap, Clock, Shield, Layers } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import InViewDecryptedText from "@/components/InViewDecryptedText";
+import { SectionBadge } from "@/components/ui/section-badge";
 
 const metrics = [
     {
@@ -81,18 +80,12 @@ const ROIMetricsCascade = () => {
         <section className="relative overflow-hidden bg-transparent py-28">
             <div className="mx-auto max-w-6xl px-6 lg:px-8">
                 <div className="mx-auto max-w-3xl text-center">
-                    <Badge
-                        variant="success"
-                        dot
-                    >
-                        <InViewDecryptedText
-                            text="ROI & BUSINESS OUTCOMES"
-                            speed={60}
-                            maxIterations={12}
-                            className="text-emerald-500"
-                            encryptedClassName="text-muted-foreground"
-                        />
-                    </Badge>
+                    <SectionBadge
+                        title="ROI & BUSINESS OUTCOMES"
+                        dot={true}
+                        dotColor="bg-emerald-500"
+                        decryptedTextClassName="text-emerald-500"
+                    />
 
                     <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
                         Typical outcomes across industries

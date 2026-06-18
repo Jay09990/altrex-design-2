@@ -15,7 +15,7 @@ import {
   type Variants,
 } from "framer-motion";
 
-import { Badge } from "../ui/badge";
+import { SectionBadge } from "../ui/section-badge";
 
 const faqs = [
   {
@@ -90,12 +90,12 @@ const FAQ = () => {
             className="lg:w-2/5 lg:sticky lg:top-24 lg:self-start"
           >
             <motion.div variants={fadeUpVariants}>
-              <Badge
-                variant="secondary"
-              className="border border-violet-400/20 bg-violet-500/10 p-4 text-sm font-medium text-violet-200"
-              >
-                FAQ
-              </Badge>
+               <SectionBadge
+                title="FAQ"
+                dot={true}
+                dotColor="bg-emerald-500"
+                className="mb-8"
+              />
             </motion.div>
 
             <motion.h2

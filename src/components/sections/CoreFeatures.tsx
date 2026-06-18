@@ -11,7 +11,7 @@ import {
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 
 import { Badge } from "../ui/badge";
-import InViewDecryptedText from "../InViewDecryptedText";
+import { SectionBadge } from "../ui/section-badge";
 
 const features = [
   {
@@ -166,19 +166,14 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
       >
         <div className="mx-auto max-w-3xl text-center">
           <motion.div variants={fadeUpVariants}>
-            <Badge
-              variant="secondary"
+            <SectionBadge
+              title="W! PLATFORM"
+              dot={true}
+              pulse={false}
+              dotColor="bg-[var(--data-green)]"
               className="border border-black/[0.08] bg-card/80 p-4 text-sm font-medium text-[var(--data-green)]"
-            >
-              <span className="h-2 w-2 rounded-full bg-[var(--data-green)] inline-block mr-2" />
-              <InViewDecryptedText
-                text="W! PLATFORM"
-                speed={60}
-                maxIterations={12}
-                className="text-[var(--data-green)]"
-                encryptedClassName="text-muted-foreground"
-              />
-            </Badge>
+              decryptedTextClassName="text-[var(--data-green)]"
+            />
           </motion.div>
 
           <motion.h2

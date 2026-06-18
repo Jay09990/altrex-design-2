@@ -45,12 +45,11 @@ import {
   Gauge,
   HardDrive,
 } from "lucide-react";
-import { Badge } from "../ui/badge";
+import { SectionBadge } from "../ui/section-badge";
 import { gsap } from "gsap";
 import { useTheme } from "@/hooks/useTheme";
 import lightlogo from "@/assets/W!Platform Logo.png";
 import darklogo from "@/assets/W!Platform-Logo-dark.png";
-import InViewDecryptedText from "../InViewDecryptedText";
 
 
 const fadeUpVariants: Variants = {
@@ -687,23 +686,11 @@ const Architecture = () => {
           initial="hidden" animate={isInView ? "visible" : "hidden"} variants={headerVariants}
         >
           <motion.div variants={fadeUpVariants} initial="hidden" animate="visible">
-              <Badge
-                variant="secondary"
-                className="border-border bg-card shadow-sm mb-6"
-              >
-                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-emerald-500">
-                  <span className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-                </div>
-                <span className="font-mono text-xs sm:text-sm text-foreground">
-                  <InViewDecryptedText
-                    text="Realtime Architecture"
-                    speed={60}
-                    maxIterations={12}
-                    className="text-foreground uppercase"
-                    encryptedClassName="text-muted-foreground"
-                  />
-                </span>
-              </Badge>
+              <SectionBadge
+                title="Realtime Architecture"
+                dot={true}
+                className="mb-6"
+              />
             </motion.div>
           <h2 className="mt-6 text-4xl font-bold uppercase tracking-tighter text-foreground sm:text-5xl">
             BUILT FOR DISTRIBUTED GLOBAL INFRASTRUCTURE
