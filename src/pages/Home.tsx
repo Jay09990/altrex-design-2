@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import Architecture from "@/components/sections/Architecture"
-import CTA from "@/components/sections/CTA"
-import FAQ from "@/components/sections/FAQ"
-import HeroSection from "@/components/sections/HeroSection"
-import StatisticsSection from "@/components/sections/StatisticsSection"
-import Testimonials from "@/components/sections/Testimonials"
-import UseCases from "@/components/sections/UseCases"
-import ProgressLine from "@/components/ProgressLine"
-import LoadingScreen from "@/components/LoadingScreen"
-import { HOME_CHAPTERS } from "@/data/homeChapters"
-import { useLoading } from "@/context/LoadingContext"
+import Architecture from "@/components/sections/Architecture";
+import CTA from "@/components/sections/CTA";
+import FAQ from "@/components/sections/FAQ";
+import HeroSection from "@/components/sections/HeroSection";
+import StatisticsSection from "@/components/sections/StatisticsSection";
+import Testimonials from "@/components/sections/Testimonials";
+import UseCases from "@/components/sections/UseCases";
+import ProgressLine from "@/components/ProgressLine";
+import LoadingScreen from "@/components/LoadingScreen";
+import { HOME_CHAPTERS } from "@/data/homeChapters";
+import { useLoading } from "@/context/LoadingContext";
 import WhatWeDo from "@/components/sections/WhatWeDo";
 import PlatformOverview from "@/components/sections/PlatformOverview";
 import IndustriesTeaser from "@/components/sections/IndustriesTeaser";
 import WhyChooseUs from "@/components/sections/WhyChooseUs";
+import CTASection from "@/components/CTASection";
 
 const Home = () => {
   const { isInitialLoadComplete, setInitialLoadComplete } = useLoading();
@@ -41,9 +42,7 @@ const Home = () => {
   return (
     <div className="relative">
       {/* Loading Screen */}
-      {showLoading && (
-        <LoadingScreen onComplete={handleLoadingComplete} />
-      )}
+      {showLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
       {/* Three.js Node Web Background */}
 
@@ -61,7 +60,7 @@ const Home = () => {
         }}
       >
         <HeroSection />
-        
+
         <div id={HOME_CHAPTERS[2].id} className="scroll-mt-28">
           <Architecture />
         </div>
@@ -81,12 +80,18 @@ const Home = () => {
         </div>
 
         <div id={HOME_CHAPTERS[5].id} className="scroll-mt-28">
-          <CTA />
+          {/* <CTA /> */}
+          <CTASection
+            title="Ready to Modernize Your Operations?"
+            description="See how Altrex can help you connect assets, visualize operations, and make smarter decisions."
+            primaryButton={{ label: "Explore Solutions", href: "#" }}
+            secondaryButton={{ label: "Schedule a Demo", href: "#" }}
+          />
           <FAQ />
         </div>
       </motion.div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

@@ -215,7 +215,7 @@ export default function IndustriesTeaser() {
               title="INDUSTRIES WE SERVE"
               dot={true}
               dotColor="bg-emerald-500"
-              className="mb-8"
+              className="mb-6"
             />
           </motion.div>
 
@@ -234,7 +234,7 @@ export default function IndustriesTeaser() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="mt-4 text-base text-muted-foreground"
+            className="mt-4 text-lg text-muted-foreground font-semibold" 
           >
             Hover to preview. Click any card to explore what we deliver.
           </motion.p>
