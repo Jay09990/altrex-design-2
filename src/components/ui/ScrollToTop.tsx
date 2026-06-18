@@ -39,15 +39,12 @@ const ScrollToTop = () => {
           className="fixed bottom-8 right-8 z-[100]"
         >
           <Button
-            size="icon"
-            className={cn(
-              "h-12 w-12 rounded-full bg-violet-500 text-white shadow-lg shadow-violet-500/25 transition-all hover:bg-violet-400 hover:shadow-violet-500/40",
-              "border-none"
-            )}
+            size="icon-lg"
+            className="h-11 w-11 rounded-full"
             onClick={scrollToTop}
             aria-label="Scroll to top"
           >
-            <ArrowUp className="h-6 w-6" />
+            <ArrowUp />
           </Button>
         </motion.div>
       )}
