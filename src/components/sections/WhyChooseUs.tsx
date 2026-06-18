@@ -10,6 +10,7 @@ import {
 import { motion, type Variants } from "framer-motion";
 
 import { SectionBadge } from "../ui/section-badge";
+import { Button } from "../ui/button";
 
 const benefits = [
   {
@@ -153,9 +154,9 @@ const WhyChooseUs = () => {
             variants={fadeUpVariants}
             className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
-            Built for Modern{" "}
+            Ready to Modernize Your{" "}
             <span className="bg-violet-500 bg-clip-text text-transparent">
-              Realtime Infrastructure
+              Operations?
             </span>
           </motion.h2>
 
@@ -163,9 +164,21 @@ const WhyChooseUs = () => {
             variants={fadeUpVariants}
             className="mt-4 text-lg text-muted-foreground"
           >
-            Everything required to monitor, manage and optimize
-            industrial infrastructure from a single W! Platform.
+            See how Altrex can help you connect assets, visualize operations,
+            and make smarter decisions.
           </motion.p>
+
+          <motion.div
+            variants={fadeUpVariants}
+            className="mt-8 flex flex-col gap-4 sm:flex-row"
+          >
+            <Button className="gap-2 bg-violet-500 text-white border-none hover:bg-violet-400">
+              Schedule Demo
+            </Button>
+            <Button variant="outline" className="gap-2">
+              Contact Sales
+            </Button>
+          </motion.div>
         </div>
 
         {/* Bento Grid */}

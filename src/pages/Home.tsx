@@ -12,7 +12,9 @@ import LoadingScreen from "@/components/LoadingScreen"
 import { HOME_CHAPTERS } from "@/data/homeChapters"
 import { useLoading } from "@/context/LoadingContext"
 import WhatWeDo from "@/components/sections/WhatWeDo";
-import PlatformOverview from "@/components/sections/Platformoverview ";
+import PlatformOverview from "@/components/sections/PlatformOverview";
+import IndustriesTeaser from "@/components/sections/IndustriesTeaser";
+import WhyChooseUs from "@/components/sections/WhyChooseUs";
 
 const Home = () => {
   const { isInitialLoadComplete, setInitialLoadComplete } = useLoading();
@@ -59,17 +61,20 @@ const Home = () => {
         }}
       >
         <HeroSection />
-
+        
         <div id={HOME_CHAPTERS[2].id} className="scroll-mt-28">
           <Architecture />
         </div>
-          <WhatWeDo />
-          <PlatformOverview />
+        <WhatWeDo />
+        <PlatformOverview />
 
         <div id={HOME_CHAPTERS[3].id} className="scroll-mt-28">
           <UseCases />
           <StatisticsSection />
         </div>
+
+        <IndustriesTeaser />
+        <WhyChooseUs />
 
         <div id={HOME_CHAPTERS[4].id} className="scroll-mt-28">
           <Testimonials />

@@ -139,7 +139,7 @@ function OrbitDiagram({
           const x1 = center + Math.cos(angle) * 72;
           const y1 = center + Math.sin(angle) * 72;
           const isActive = activeIdx === i;
-          
+
           // Sequential Pipeline Animation:
           // We want a "stream" effect where pulses follow each other.
           // With 6 nodes and a 0.4s stagger, the 6th node starts at 2.0s.

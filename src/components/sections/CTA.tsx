@@ -21,20 +21,24 @@ type CTAProps = {
 };
 
 const CTA = ({
-  title = "Start building with Altrex today",
-  description = "Deploy realtime infrastructure in minutes. No credit card required for the free tier.",
+  title = "Ready to Modernize Your Operations?",
+  description = "See how Altrex can help you connect assets, visualize operations, and make smarter decisions.",
   primaryAction,
   secondaryAction,
   accent = "orange",
 }: CTAProps) => {
   const primary = primaryAction ?? {
-    label: "Contact Us",
+    label: "Schedule Demo",
     href: "#contact",
     icon: <Contact className="h-3.5 w-3.5" />,
     variant: "default",
   };
 
-  const secondary = secondaryAction ?? null;
+  const secondary = secondaryAction ?? {
+    label: "Contact Sales",
+    href: "#contact",
+    variant: "outline",
+  };
 
   const accentClasses = accent === "teal" ? "border-teal-500/20" : "border";
 
