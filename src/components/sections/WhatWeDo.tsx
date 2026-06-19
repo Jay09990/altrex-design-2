@@ -291,7 +291,7 @@ function ContentPanel({
           />
         </motion.div>
 
-        <h2 className="mt-5 text-4xl font-bold uppercase text-primary sm:text-5xl">
+        <h2 className="mt-5 text-4xl font-bold uppercase text-foreground sm:text-5xl">
           One Platform. Endless Possibilities.
         </h2>
 

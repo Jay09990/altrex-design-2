@@ -86,9 +86,8 @@ function AlarmRow({
   return (
     <div className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-muted/40 transition-colors">
       <div
-        className={`shrink-0 rounded-md p-1.5 ${
-          isWarning ? "bg-amber-500/15" : "bg-emerald-500/15"
-        }`}
+        className={`shrink-0 rounded-md p-1.5 ${isWarning ? "bg-amber-500/15" : "bg-emerald-500/15"
+          }`}
       >
         {isWarning ? (
           <AlertTriangle size={11} className="text-amber-500" />
@@ -104,9 +103,8 @@ function AlarmRow({
       </div>
       <div className="text-right shrink-0">
         <p
-          className={`text-[10px] font-bold ${
-            isWarning ? "text-amber-500" : "text-emerald-500"
-          }`}
+          className={`text-[10px] font-bold ${isWarning ? "text-amber-500" : "text-emerald-500"
+            }`}
         >
           {status}
         </p>
@@ -507,7 +505,7 @@ const HeroSection = () => {
               variants={fadeUp}
               initial="hidden"
               animate="visible"
-              className="mb-3 font-mono font-medium text-xs uppercase tracking-[0.1em] text-accent"
+              className="mb-3 font-mono text-xs uppercase tracking-[0.1em] text-accent font-bold"
             >
               Industrial IoT &amp; SCADA, Unified
             </motion.span>
@@ -542,28 +540,26 @@ const HeroSection = () => {
               animate="visible"
               className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
             >
-              <Button
-                asChild
-                size="lg"
-                className="gap-2 bg-primary px-8 py-6 text-base text-primary-foreground hover:bg-accent shadow-lg shadow-primary/20"
+              <Link to="/contact">
+                <Button
+                  size="lg"
+                  className="gap-2 bg-primary px-8 py-6 text-base text-primary-foreground hover:bg-accent  shadow-primary/20"
                 >
-                  <Link to="/contact">
-                    Request Demo
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
+                  Request Demo
+                  <ArrowRight />
                 </Button>
-
+              </Link>
               <Button
                 asChild
                 variant="outline"
                 size="lg"
                 className="gap-2 px-8 py-6 text-base"
-                >
-                  <Link to="/solutions">
-                    <Play className="h-4 w-4" />
-                    Explore Solutions
-                  </Link>
-                </Button>
+              >
+                <Link to="/solutions">
+                  <Play className="h-4 w-4" />
+                  Explore Solutions
+                </Link>
+              </Button>
             </motion.div>
 
             {/* Bottom stat strip */}
@@ -571,22 +567,22 @@ const HeroSection = () => {
               ref={metadataRef}
               className="mt-14 grid w-full grid-cols-2 gap-x-6 gap-y-8 opacity-0 sm:flex sm:flex-wrap sm:gap-8"
             >
-                {[
-                  {
-                    label: "Data Points / Minute",
-                    value: "500K+",
-                    icon: Activity,
-                  },
-                  {
-                    label: "Platform Availability",
-                    value: "99.9%",
-                    icon: CheckCircle2,
-                  },
-                  { label: "Integrations", value: "50+", icon: Plug },
-                  { label: "Monitoring", value: "24×7", icon: Clock },
-                ].map((stat) => (
+              {[
+                {
+                  label: "Data Points / Minute",
+                  value: "500K+",
+                  icon: Activity,
+                },
+                {
+                  label: "Platform Availability",
+                  value: "99.9%",
+                  icon: CheckCircle2,
+                },
+                { label: "Integrations", value: "50+", icon: Plug },
+                { label: "Monitoring", value: "24×7", icon: Clock },
+              ].map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-3">
-                    <stat.icon className="h-5 w-5 text-primary" />
+                  <stat.icon className="h-5 w-5 text-primary" />
                   <div className="flex flex-col font-bold items-start gap-0.5">
                     <span className="text-xl text-foreground">
                       {stat.value}

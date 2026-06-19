@@ -84,8 +84,8 @@ const Home = () => {
           <CTASection
             title="Ready to Modernize Your Operations?"
             description="See how Altrex can help you connect assets, visualize operations, and make smarter decisions."
-            primaryButton={{ label: "Explore Solutions", href: "#" }}
-            secondaryButton={{ label: "Schedule a Demo", href: "#" }}
+            primaryButton={{ label: "Explore Solutions", href: "/solutions" }}
+            secondaryButton={{ label: "Schedule a Demo", href: "/contact" }}
           />
           <FAQ />
         </div>

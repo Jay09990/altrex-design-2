@@ -38,8 +38,11 @@ const ScrollToTop = () => {
           className="fixed bottom-8 right-8 z-[100]"
         >
           <Button
-            size="icon-lg"
-            className="h-11 w-11 rounded-full"
+            size="icon"
+            className={cn(
+              "h-12 w-12 rounded-full bg-accent text-white shadow-lg shadow-violet-500/25 transition-all",
+              "border-none"
+            )}
             onClick={scrollToTop}
             aria-label="Scroll to top"
           >
