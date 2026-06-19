@@ -162,12 +162,12 @@ const Contact = () => {
               transition={{ delay: 1.4 }}
               className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
             >
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 px-8 py-6 text-base">
+              <Button className="bg-primary text-primary-foreground px-8 py-6 text-base hover:bg-accent cursor-pointer">
                 Schedule a Demo
               </Button>
               <Button
                 variant="outline"
-                className="px-8 py-6 text-base border-black/10"
+                className="px-8 py-6 text-base cursor-pointer"
               >
                 Contact Sales
               </Button>
