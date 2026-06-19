@@ -5,7 +5,7 @@ interface CTAData {
   title: string;
   description: string;
   primaryButton: { label: string; href: string };
-  secondaryButton: { label: string; href: string };
+  secondaryButton?: { label: string; href: string };
 }
 
 const CTASection = ({
