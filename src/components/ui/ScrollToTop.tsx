@@ -41,7 +41,7 @@ const ScrollToTop = () => {
           <Button
             size="icon"
             className={cn(
-              "h-12 w-12 rounded-full bg-violet-500 text-white shadow-lg shadow-violet-500/25 transition-all hover:bg-violet-400 hover:shadow-violet-500/40",
+              "h-12 w-12 rounded-full bg-accent text-white shadow-lg shadow-violet-500/25 transition-all",
               "border-none"
             )}
             onClick={scrollToTop}

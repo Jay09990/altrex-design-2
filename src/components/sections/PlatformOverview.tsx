@@ -316,7 +316,7 @@ export default function PlatformOverview() {
         >
           <Button
             size="lg"
-            className="gap-2 bg-primary px-8 py-6 text-base text-primary-foreground hover:bg-accent shadow-lg shadow-primary/20"
+            className="gap-2 bg-accent px-8 py-6 text-base text-primary-foreground  shadow-lg shadow-primary/20"
           >
             Explore Platform
             <ArrowRight className="h-4 w-4" />

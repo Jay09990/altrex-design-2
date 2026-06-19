@@ -143,7 +143,7 @@ const WhyChooseUs = () => {
       >
         <motion.div variants={fadeUpVariants}>
           <SectionBadge
-            title="WHY CHOOSE US"
+            title="WHY CHOOSE US" 
             className="mb-6 p-2"
             decryptedTextClassName="text-secondary-foreground"
           />
@@ -155,7 +155,7 @@ const WhyChooseUs = () => {
             className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl"
           >
             Ready to Modernize Your{" "}
-            <span className="bg-violet-500 bg-clip-text text-transparent">
+            <span className="bg-foreground bg-clip-text text-transparent">
               Operations?
             </span>
           </motion.h2>
@@ -172,7 +172,7 @@ const WhyChooseUs = () => {
             variants={fadeUpVariants}
             className="mt-8 flex flex-col gap-4 sm:flex-row"
           >
-            <Button className="gap-2 bg-violet-500 text-white border-none hover:bg-violet-400">
+            <Button className="gap-2 bg-accent text-white border-none">
               Schedule Demo
             </Button>
             <Button variant="outline" className="gap-2">

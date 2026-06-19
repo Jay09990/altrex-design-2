@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 
 interface CTAData {
@@ -25,8 +26,12 @@ const CTASection = ({
           </p>
         </div>
         <div className="flex flex-wrap gap-2.5">
-          <Button className="bg-accent cursor-pointer">{primaryButton.label}</Button>
-          <Button variant="outline" className="cursor-pointer">{secondaryButton.label}</Button>
+          <Link to={primaryButton.href}>
+            <Button className="bg-accent cursor-pointer">{primaryButton.label}</Button>
+          </Link>
+          <Link to={secondaryButton.href}>
+            <Button variant="outline" className="cursor-pointer">{secondaryButton.label}</Button>
+          </Link>
         </div>
       </div>
     </section>
