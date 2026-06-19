@@ -142,10 +142,7 @@ const WhyChooseUs = () => {
         className="mx-auto max-w-7xl px-6 lg:px-8"
       >
         <motion.div variants={fadeUpVariants}>
-          <SectionBadge
-            title="WHY CHOOSE US" 
-            className="mb-6 p-2"
-            decryptedTextClassName="text-secondary-foreground"
+          <SectionBadge title="WHY CHOOSE US" dot={true} dotColor="bg-emerald-500" className="mb-6"
           />
         </motion.div>
 
