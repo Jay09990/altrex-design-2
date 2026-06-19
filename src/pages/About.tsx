@@ -609,7 +609,7 @@ function HeroSection() {
             <CharReveal
               as="h1"
               lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELLIGENCE"]}
-              className="mx-auto max-w-5xl text-2xl font-bold tracking-[-0.04em] text-primary sm:text-3xl lg:mx-0 lg:text-4xl xl:text-5xl mt-8 sm:mt-16 leading-tight sm:leading-[0.95]"
+              className="mx-auto max-w-5xl text-2xl font-bold tracking-[-0.04em] text-foreground sm:text-3xl lg:mx-0 lg:text-4xl xl:text-5xl mt-8 sm:mt-16 leading-tight sm:leading-[0.95]"
               immediate
               delay={0}
               stagger={0.028}
