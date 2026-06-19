@@ -47,7 +47,7 @@ const ScrollToTop = () => {
             onClick={scrollToTop}
             aria-label="Scroll to top"
           >
-            <ArrowUp className="h-6 w-6" />
+            <ArrowUp />
           </Button>
         </motion.div>
       )}
