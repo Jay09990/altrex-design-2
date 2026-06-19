@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { Button } from "./button";
+import { cn } from "@/lib/utils";
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
