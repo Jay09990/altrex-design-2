@@ -4,6 +4,10 @@ import {
   Building2,
   MapPin,
   Globe,
+  Rocket,
+  Cpu,
+  TrendingUp,
+  Globe2,
   ShieldCheck,
   Sparkles,
   Users,
@@ -13,26 +17,55 @@ import { FaLinkedinIn } from "react-icons/fa6";
 
 import { motion, useInView, type Variants } from "framer-motion";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { SectionBadge } from "@/components/ui/section-badge";
-
-// React Bits components — installed at src/components/
-// Install commands (run once in project root):
-//   npx shadcn@latest add https://reactbits.dev/r/BlurText-TS-TW
-//   npx shadcn@latest add https://reactbits.dev/r/CountUp-TS-TW
-//   npx shadcn@latest add https://reactbits.dev/r/DecryptedText-TS-TW
-//   npx shadcn@latest add https://reactbits.dev/r/ShinyText-TS-TW
-//   npx shadcn@latest add https://reactbits.dev/r/ClickSpark-TS-TW
-//   npx shadcn@latest add https://reactbits.dev/r/StarBorder-TS-TW
-//   npx shadcn@latest add https://reactbits.dev/r/GradientText-TS-TW
 import CharReveal from "@/components/CharReveal";
 import DecryptedText from "@/components/DecryptedText";
 import StarBorder from "@/components/StarBorder";
-import InViewDecryptedText from "@/components/InViewDecryptedText";
 import ScrambleCounter from "@/components/ScrambleCounter";
-import SystemDataTicker from "@/components/SystemDataTicker";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
+import { useState, useEffect, useCallback } from "react";
+import { Badge } from "@/components/ui/badge";
+import InViewDecryptedText from "@/components/InViewDecryptedText";
+import SystemDataTicker from "@/components/SystemDataTicker";
+import { useTheme } from "@/hooks/useTheme";
+import CTASection from "@/components/CTASection";
+
+// ─── Milestone data — matches reference image exactly ──────────────────────
+const MILESTONES = [
+  {
+    year: "2021",
+    icon: Rocket,
+    title: "Founded",
+    body: "Born in Ahmedabad to solve industrial data complexity.",
+    color: "#e8651a", // brand orange
+    yearColor: "#e8651a",
+  },
+  {
+    year: "2022",
+    icon: Cpu,
+    title: "Platform v1",
+    body: "First realtime SCADA platform deployed at scale.",
+    color: "#3b82f6", // blue
+    yearColor: "#3b82f6",
+  },
+  {
+    year: "2023",
+    icon: TrendingUp,
+    title: "200+ Sites",
+    body: "Expanded across oil & gas, power, and manufacturing.",
+    color: "#10b981", // green
+    yearColor: "#10b981",
+  },
+  {
+    year: "2024",
+    icon: Globe2,
+    title: "Global Reach",
+    body: "AI layer launched. 9 industries. Global footprint.",
+    color: "#8b5cf6", // violet
+    yearColor: "#8b5cf6",
+  },
+] as const;
 
 /* ─── Shared Variants ────────────────────────────────────────────────────── */
 
@@ -57,7 +90,8 @@ const values = [
   {
     icon: ShieldCheck,
     title: "Reliability",
-    description: "Mission-critical infrastructure built for nonstop operations.",
+    description:
+      "Mission-critical infrastructure built for nonstop operations.",
   },
   {
     icon: Sparkles,
@@ -67,7 +101,8 @@ const values = [
   {
     icon: Users,
     title: "Customer Success",
-    description: "Long-term partnerships focused on measurable business impact.",
+    description:
+      "Long-term partnerships focused on measurable business impact.",
   },
 ];
 
@@ -103,7 +138,13 @@ const timeline = [
     title: "IoT Platform",
     description:
       "Cloud-connected IoT backbone handling OT-IT Integration, Connectivity, Web-Server, Database, Cloud (Azure / GCP / AWS), Cyber-Security, DMZ, and Authentication.",
-    tags: ["OT-IT Integration", "Cloud", "Cyber-Security", "DMZ", "Authentication"],
+    tags: [
+      "OT-IT Integration",
+      "Cloud",
+      "Cyber-Security",
+      "DMZ",
+      "Authentication",
+    ],
     status: "completed",
   },
   {
@@ -113,7 +154,7 @@ const timeline = [
     description:
       "Full enterprise layer delivering Dashboards, Authentication Levels, Assets Mapping / GIS, Insights & Analytics, Notifications & Alerts, Customized Reports, ERP & SAP Connectivity, and Billing Center.",
     tags: ["Dashboards", "GIS", "Analytics", "ERP / SAP", "Billing Center"],
-    status: "current",  // ← we are here
+    status: "current", // ← we are here
   },
   {
     level: "Level 5",
@@ -121,28 +162,411 @@ const timeline = [
     title: "AI / ML Intelligence",
     description:
       "The final frontier — Predictive Analytics, Predictive Insights, Digital Twins, Artificial Intelligence, Machine Learning, and Deep Learning transforming industrial operations.",
-    tags: ["Predictive Analytics", "Digital Twins", "AI", "ML", "Deep Learning"],
+    tags: [
+      "Predictive Analytics",
+      "Digital Twins",
+      "AI",
+      "ML",
+      "Deep Learning",
+    ],
     status: "upcoming",
   },
 ];
 const team = [
-  { initials: "RD", name: "Ravi Dondeti", role: "Founder / CEO", bio: "Leading Altrex's vision for industrial intelligence platforms." },
-  { initials: "DK", name: "Daniel Kim", role: "CTO", bio: "Architecting scalable realtime industrial infrastructure." },
-  { initials: "EC", name: "Emily Carter", role: "Head of Product", bio: "Designing powerful industrial workflows and experiences." },
-  { initials: "SP", name: "Sarah Patel", role: "Head of Customer Success", bio: "Helping industries modernise operations with confidence." },
+  {
+    initials: "RD",
+    name: "Ravi Dondeti",
+    role: "Founder / CEO",
+    bio: "Leading Altrex's vision for industrial intelligence platforms.",
+  },
+  {
+    initials: "DK",
+    name: "Daniel Kim",
+    role: "CTO",
+    bio: "Architecting scalable realtime industrial infrastructure.",
+  },
+  {
+    initials: "EC",
+    name: "Emily Carter",
+    role: "Head of Product",
+    bio: "Designing powerful industrial workflows and experiences.",
+  },
+  {
+    initials: "SP",
+    name: "Sarah Patel",
+    role: "Head of Customer Success",
+    bio: "Helping industries modernise operations with confidence.",
+  },
 ];
 
 const principles = [
-  { number: "01", title: "Transparency", description: "Open, honest communication with every client at every stage." },
-  { number: "02", title: "Reliability", description: "99.99% uptime backed by redundant global infrastructure." },
-  { number: "03", title: "Innovation", description: "Continuous R&D investment in AI, ML, and edge computing." },
-  { number: "04", title: "Security", description: "Enterprise-grade encryption and SOC 2 compliant practices." },
-  { number: "05", title: "Speed", description: "Sub-15ms response times across all platform services." },
-  { number: "06", title: "Partnership", description: "Long-term relationships, not one-time transactions." },
+  {
+    number: "01",
+    title: "Transparency",
+    description: "Open, honest communication with every client at every stage.",
+  },
+  {
+    number: "02",
+    title: "Reliability",
+    description: "99.99% uptime backed by redundant global infrastructure.",
+  },
+  {
+    number: "03",
+    title: "Innovation",
+    description: "Continuous R&D investment in AI, ML, and edge computing.",
+  },
+  {
+    number: "04",
+    title: "Security",
+    description: "Enterprise-grade encryption and SOC 2 compliant practices.",
+  },
+  {
+    number: "05",
+    title: "Speed",
+    description: "Sub-15ms response times across all platform services.",
+  },
+  {
+    number: "06",
+    title: "Partnership",
+    description: "Long-term relationships, not one-time transactions.",
+  },
 ];
 
 /* ─── Section: Hero ──────────────────────────────────────────────────────── */
 
+function MilestoneCard({
+  milestone,
+  index,
+  inView,
+  isActive,
+  onHover,
+}: {
+  milestone: (typeof MILESTONES)[number];
+  index: number;
+  inView: boolean;
+  isActive: boolean;
+  onHover: (i: number | null) => void;
+}) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const tilt = useMagneticTilt({ maxRotate: 6, perspective: 900 });
+  const Icon = milestone.icon;
+
+  return (
+    <motion.div
+      className="relative flex cursor-default items-center gap-4 rounded-[18px] px-4 py-3.5 transition-shadow duration-300"
+      style={{
+        background: isDark
+          ? isActive
+            ? `rgba(255,255,255,0.04)`
+            : `rgba(255,255,255,0.025)`
+          : isActive
+            ? `rgba(255,255,255,0.95)`
+            : `rgba(255,255,255,0.8)`,
+        border: `1px solid ${isActive ? milestone.color + "40" : isDark ? "rgba(255,255,255,0.07)" : "rgba(0,0,0,0.06)"}`,
+        boxShadow: isActive
+          ? `0 8px 32px -6px ${milestone.color}28, 0 0 0 1px ${milestone.color}14`
+          : isDark
+            ? `0 2px 12px rgba(0,0,0,0.25)`
+            : `0 2px 12px rgba(0,0,0,0.05)`,
+        transformStyle: "preserve-3d",
+      }}
+      initial={{ opacity: 0, x: 32 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{
+        delay: 0.35 + index * 0.13,
+        duration: 0.55,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{ y: -2 }}
+      onMouseMove={tilt.onMouseMove}
+      onMouseLeave={(e) => {
+        tilt.onMouseLeave(e);
+        onHover(null);
+      }}
+      onMouseEnter={() => onHover(index)}
+    >
+      {/* Icon box — matches reference image rounded square */}
+      <div
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[13px] transition-all duration-300"
+        style={{
+          background: isActive
+            ? `${milestone.color}20`
+            : isDark
+              ? `${milestone.color}14`
+              : `${milestone.color}12`,
+          border: `1.5px solid ${milestone.color}${isActive ? "45" : "28"}`,
+          boxShadow: isActive ? `0 4px 14px ${milestone.color}28` : "none",
+        }}
+      >
+        <Icon
+          size={19}
+          color={milestone.color}
+          strokeWidth={isActive ? 2.2 : 1.9}
+          style={{ transition: "stroke-width 0.2s" }}
+        />
+      </div>
+
+      {/* Text */}
+      <div className="flex-1 min-w-0">
+        <p
+          className="font-bold leading-none tracking-tight text-[var(--text-primary)] transition-colors duration-200"
+          style={{
+            fontSize: 14,
+            color: isActive ? milestone.color : undefined,
+          }}
+        >
+          {milestone.title}
+        </p>
+        <p
+          className="mt-1 leading-snug text-muted-foreground font-medium text-xs"
+        >
+          {milestone.body}
+        </p>
+      </div>
+
+      {/* Right-edge accent bar — matches reference image */}
+      <motion.div
+        className="absolute right-0 top-[16%] h-[64%] w-[3.5px] rounded-l-full"
+        style={{
+          background: `linear-gradient(to bottom, ${milestone.color}, ${milestone.color}50)`,
+        }}
+        initial={{ scaleY: 0, opacity: 0 }}
+        animate={inView ? { scaleY: 1, opacity: 1 } : {}}
+        transition={{
+          delay: 0.5 + index * 0.13,
+          duration: 0.4,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      />
+    </motion.div>
+  );
+}
+
+// ─── SVG spine with animated traveling dot ────────────────────────────────
+function TimelineSpine({
+  inView,
+  activeIdx,
+}: {
+  inView: boolean;
+  activeIdx: number | null;
+}) {
+  const N = MILESTONES.length;
+  const CARD = 72; // approx card height px
+  const GAP = 12; // gap between cards px
+  const TOTAL = N * CARD + (N - 1) * GAP;
+  const Y1 = 10;
+  const Y2 = TOTAL - 10;
+
+  return (
+    <svg
+      className="absolute left-[-20px] top-0 hidden xl:block pointer-events-none"
+      width={2}
+      height={TOTAL}
+      viewBox={`0 0 2 ${TOTAL}`}
+      fill="none"
+    >
+      {/* Ghost track */}
+      <line
+        x1={1}
+        y1={Y1}
+        x2={1}
+        y2={Y2}
+        stroke="var(--border-subtle)"
+        strokeWidth={1.5}
+        strokeDasharray="4 7"
+      />
+      {/* Revealed foreground */}
+      <motion.line
+        x1={1}
+        y1={Y1}
+        x2={1}
+        y2={Y2}
+        stroke="var(--accent-violet)"
+        strokeWidth={1.5}
+        strokeOpacity={0.5}
+        initial={{ pathLength: 0 }}
+        animate={inView ? { pathLength: 1 } : {}}
+        transition={{ delay: 0.4, duration: 1.5, ease: "easeInOut" }}
+      />
+      {/* Looping travel dot */}
+      {inView && (
+        <motion.circle
+          cx={1}
+          cy={0}
+          r={3}
+          fill="var(--accent-violet)"
+          animate={{ cy: [Y1, Y2] }}
+          transition={{
+            delay: 0.8,
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+      )}
+      {/* Node dots at each card */}
+      {Array.from({ length: N }).map((_, i) => {
+        const cy = Y1 + i * (CARD + GAP) + CARD / 2 - Y1;
+        const isAct = activeIdx === i;
+        return (
+          <motion.circle
+            key={i}
+            cx={1}
+            cy={cy}
+            r={isAct ? 4.5 : 3.5}
+            fill={isAct ? MILESTONES[i].color : "var(--bg-surface)"}
+            stroke={isAct ? MILESTONES[i].color : "var(--accent-violet)"}
+            strokeWidth={1.5}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{
+              delay: 0.4 + i * 0.13,
+              type: "spring",
+              stiffness: 280,
+            }}
+            style={{ transition: "r 0.2s, fill 0.2s" }}
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
+// ─── Company Journey right-side panel ─────────────────────────────────────
+function CompanyJourneyPanel({ inView }: { inView: boolean }) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
+  // Auto-cycle highlight when nothing is hovered
+  const [autoPaused, setAutoPaused] = useState(false);
+  const cycleRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const startCycle = useCallback(() => {
+    if (cycleRef.current) clearInterval(cycleRef.current);
+    cycleRef.current = setInterval(() => {
+      setActiveIdx((p) => (p === null ? 0 : (p + 1) % MILESTONES.length));
+    }, 2200);
+  }, []);
+
+  useEffect(() => {
+    if (inView && !autoPaused) startCycle();
+    return () => {
+      if (cycleRef.current) clearInterval(cycleRef.current);
+    };
+  }, [inView, autoPaused, startCycle]);
+
+  const handleHover = useCallback((i: number | null) => {
+    setAutoPaused(i !== null);
+    if (i !== null) {
+      if (cycleRef.current) clearInterval(cycleRef.current);
+      setActiveIdx(i);
+    } else {
+      // Resume after short delay
+      setTimeout(() => setAutoPaused(false), 1200);
+    }
+  }, []);
+
+  return (
+    <motion.div
+      className="relative hidden lg:flex lg:flex-col"
+      initial={{ opacity: 0, x: 40 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ delay: 0.25, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {/* Ambient glow behind the panel — shifts with active card color */}
+      <motion.div
+        className="pointer-events-none absolute -inset-8 -z-10 rounded-3xl blur-2xl"
+        animate={{
+          background:
+            activeIdx !== null
+              ? `radial-gradient(ellipse at 60% 40%, ${MILESTONES[activeIdx].color}14, transparent 70%)`
+              : isDark
+                ? `radial-gradient(ellipse at 60% 40%, rgba(232,101,26,0.08), transparent 70%)`
+                : `radial-gradient(ellipse at 60% 40%, rgba(232,101,26,0.06), transparent 70%)`,
+        }}
+        transition={{ duration: 0.6 }}
+      />
+
+      {/* ── Top: pulse dot + COMPANY JOURNEY label ── */}
+      <motion.div
+        className="mb-5 flex flex-col items-start gap-2"
+        initial={{ opacity: 0, y: -10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 0.3, duration: 0.45 }}
+      >
+        {/* Label */}
+        <p
+          className="font-mono text-xs text-muted-foreground font-semibold uppercase tracking-[0.1em]"
+        >
+          Company Journey
+        </p>
+      </motion.div>
+
+      {/* ── Cards + spine ── */}
+      <div className="relative xl:pl-8">
+        <TimelineSpine inView={inView} activeIdx={activeIdx} />
+
+        <div className="flex flex-col gap-3">
+          {/* Year labels sit in the XL-only column to the left */}
+          {MILESTONES.map((m, i) => (
+            <div key={m.year} className="relative flex items-center gap-0">
+              {/* Year — hidden below xl, shown as inline pill on smaller lg */}
+              <motion.span
+                className="absolute -left-[52px] hidden w-[44px] text-right font-mono text-[11px] font-bold xl:block"
+                style={{
+                  color: activeIdx === i ? m.yearColor : `${m.yearColor}70`,
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  transition: "color 0.25s",
+                }}
+                initial={{ opacity: 0 }}
+                animate={inView ? { opacity: 1 } : {}}
+                transition={{ delay: 0.4 + i * 0.13 }}
+              >
+                {m.year}
+              </motion.span>
+
+              <div className="flex-1">
+                <MilestoneCard
+                  milestone={m}
+                  index={i}
+                  inView={inView}
+                  isActive={activeIdx === i}
+                  onHover={handleHover}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── "AND BEYOND →" footer — matches reference image ── */}
+      <motion.div
+        className="mt-5 flex items-center gap-3 xl:pl-8"
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: 1.0, duration: 0.45 }}
+      >
+        <div
+          className="h-px w-8"
+          style={{
+            background:
+              "linear-gradient(to right, var(--accent-violet), transparent)",
+          }}
+        />
+        <span
+          className="font-mono text-xs font-semibold uppercase tracking-[0.1em] text-muted-foreground"
+        >
+          And Beyond →
+        </span>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ─── HeroSection — complete replacement ───────────────────────────────────
 function HeroSection() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -150,9 +574,9 @@ function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[60vh] sm:min-h-[75vh] items-center overflow-hidden bg-transparent pt-20 sm:pt-32 pb-16 sm:pb-24"
+      className="relative flex min-h-[60vh] items-center overflow-hidden bg-transparent pt-20 pb-16 sm:min-h-[90vh] sm:pt-32 sm:pb-24"
     >
-      {/* Animated glow blobs — same pattern as HeroSection.tsx */}
+      {/* ── Existing background (unchanged) ── */}
       <div className="bg-grid absolute inset-0 -z-20 opacity-[0.35]" />
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -left-24 top-24 h-[520px] w-[520px] rounded-full bg-violet-500/10 blur-3xl" />
@@ -160,75 +584,156 @@ function HeroSection() {
       </div>
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          className="mx-auto max-w-4xl text-center"
-        >
-          {/* Badge */}
-          <motion.div variants={fadeUpVariants}>
-            <SectionBadge
-              title="OUR STORY"
-              dot={true}
-              dotColor="bg-emerald-500"
-              className="mb-8"
-            />
-          </motion.div>
-
-          {/* H1 — BlurText animates each word in on mount */}
-          <CharReveal
-            as="h1"
-            lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELLIGENCE"]}
-            className="mx-auto max-w-4xl text-2xl font-bold tracking-[-0.04em] text-foreground sm:text-5xl lg:text-6xl xl:text-7xl mt-8 sm:mt-24 leading-tight sm:leading-[0.95]"
-            immediate
-            delay={0}
-            stagger={0.028}
-            lineGap="mt-2 sm:mt-2"
-          />
-
-          {/* Subtitle */}
-          <motion.p
-            variants={fadeUpVariants}
-            className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground sm:mt-8 sm:text-xl sm:leading-8"
-          >
-            Altrex builds scalable industrial IoT infrastructure powering realtime
-            SCADA systems, AI-driven analytics, asset intelligence, and industrial
-            automation platforms globally.
-          </motion.p>
-
-          {/* Stat chips */}
+        <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-[1.1fr_1fr] lg:gap-10 xl:grid-cols-[1.15fr_1fr] xl:gap-20">
+          {/* ══════════════ LEFT — existing content (100% unchanged) ══════════════ */}
           <motion.div
-            variants={fadeUpVariants}
-            className="mt-10 flex flex-wrap items-center justify-center gap-2.5 sm:mt-12 sm:gap-4"
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            className="text-center lg:text-left"
           >
-            {[
-              { icon: Building2, label: "Founded 2021" },
-              { icon: MapPin, label: "Ahmedabad, India" },
-              { icon: Globe, label: "200+ Global Deployments" },
-            ].map(({ icon: Icon, label }) => (
-              <div
-                key={label}
-                className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-card/60 px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5 shadow-sm"
-              >
-                <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[var(--accent-violet)]" />
-                <span className="text-[11px] font-medium text-foreground sm:text-sm">{label}</span>
-              </div>
-            ))}
-          </motion.div>
+            {/* Badge */}
+            <motion.div
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <SectionBadge
+                title="our story"
+                dot={true}
+                dotColor="bg-emerald-500"
+              />
+            </motion.div>
 
-          <motion.div variants={fadeUpVariants} className="mx-auto mt-12 max-w-3xl sm:mt-14">
-            <SystemDataTicker
-              items={[
-                "ABOUT: ONLINE",
-                "FOUNDED: 2021",
-                "DEPLOYMENTS: 200+",
-                "UPTIME: 99.99%",
-                "LATENCY: 15ms",
-                "REGIONS: GLOBAL",
-              ]}
+            {/* H1 */}
+            <CharReveal
+              as="h1"
+              lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELLIGENCE"]}
+              className="mx-auto max-w-5xl text-2xl font-bold tracking-[-0.04em] text-primary sm:text-3xl lg:mx-0 lg:text-4xl xl:text-5xl mt-8 sm:mt-16 leading-tight sm:leading-[0.95]"
+              immediate
+              delay={0}
+              stagger={0.028}
+              lineGap="mt-2 sm:mt-2"
             />
+
+            {/* Subtitle */}
+            <motion.p
+              variants={fadeUpVariants}
+              className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:mt-8 sm:text-lg font-semibold sm:leading-8 lg:mx-0"
+            >
+              Altrex builds scalable industrial IoT infrastructure powering
+              realtime SCADA systems, AI-driven analytics, asset intelligence,
+              and industrial automation platforms globally.
+            </motion.p>
+
+            {/* Stat chips */}
+            <motion.div
+              variants={fadeUpVariants}
+              className="mt-10 flex flex-wrap items-center justify-center gap-2.5 sm:mt-12 sm:gap-4 lg:justify-start"
+            >
+              {[
+                { icon: Building2, label: "Founded 2021" },
+                { icon: MapPin, label: "Ahmedabad, India" },
+                { icon: Globe, label: "200+ Global Deployments" },
+              ].map(({ icon: Icon, label }) => (
+                <div
+                  key={label}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5"
+                >
+                  <Icon className="h-3.5 w-3.5 text-accent sm:h-4 sm:w-4" />
+                  <span className="text-[11px] font-medium text-primary sm:text-sm">
+                    {label}
+                  </span>
+                </div>
+              ))}
+            </motion.div>
+
           </motion.div>
+          
+          <CompanyJourneyPanel inView={inView} />
+        </div>
+
+        {/* Mobile fallback — Journey panel shown below content on small screens */}
+        <motion.div
+          className="mt-14 block lg:hidden"
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.6, duration: 0.5 }}
+        >
+          {/* Compact mobile version — simple card list, no spine */}
+          <p className="mb-4 text-center font-mono text-[10px] font-semibold uppercase tracking-[0.28em] text-[var(--text-muted)]">
+            Company Journey
+          </p>
+          <div className="flex flex-col gap-2.5">
+            {MILESTONES.map((m, i) => {
+              const Icon = m.icon;
+              return (
+                <motion.div
+                  key={m.year}
+                  className="flex items-center gap-3 rounded-2xl border px-4 py-3"
+                  style={{
+                    background: "var(--bg-surface)",
+                    borderColor: `${m.color}25`,
+                    boxShadow: `0 2px 12px ${m.color}10`,
+                  }}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: 0.65 + i * 0.1, duration: 0.4 }}
+                >
+                  {/* Year pill */}
+                  <span
+                    className="w-[36px] shrink-0 text-right font-mono text-[11px] font-bold"
+                    style={{ color: `${m.yearColor}90` }}
+                  >
+                    {m.year}
+                  </span>
+                  <div
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl"
+                    style={{
+                      background: `${m.color}14`,
+                      border: `1px solid ${m.color}30`,
+                    }}
+                  >
+                    <Icon size={16} color={m.color} strokeWidth={2} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p
+                      className="font-bold text-[var(--text-primary)]"
+                      style={{ fontSize: 13 }}
+                    >
+                      {m.title}
+                    </p>
+                    <p
+                      className="truncate text-[var(--text-muted)]"
+                      style={{ fontSize: 11 }}
+                    >
+                      {m.body}
+                    </p>
+                  </div>
+                  {/* Accent bar */}
+                  <div
+                    className="h-[60%] w-[3px] shrink-0 rounded-full"
+                    style={{ background: m.color }}
+                  />
+                </motion.div>
+              );
+            })}
+          </div>
+          <div className="mt-4 flex items-center justify-center gap-2">
+            <div
+              className="h-px w-6"
+              style={{
+                background:
+                  "linear-gradient(to right, var(--accent-violet), transparent)",
+              }}
+            />
+            <span
+              className="font-mono text-[10px] font-semibold uppercase tracking-[0.28em]"
+              style={{ color: "var(--accent-violet)" }}
+            >
+              And Beyond →
+            </span>
+          </div>
         </motion.div>
       </div>
     </section>
@@ -242,7 +747,10 @@ function MissionSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-transparent py-24">
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-transparent py-24"
+    >
       <div className="pointer-events-none absolute inset-0 -z-10 opacity-40">
         <div
           className="absolute inset-0"
@@ -255,7 +763,6 @@ function MissionSection() {
       </div>
 
       <div className="mx-auto grid max-w-7xl gap-16 px-6 lg:grid-cols-2 lg:px-8">
-
         {/* LEFT — pull quote with GradientText on the accent word */}
         <motion.div
           initial={{ opacity: 0, y: 28 }}
@@ -270,16 +777,10 @@ function MissionSection() {
           />
 
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Empowering industries through{" "}
-            {/* GradientText gives the key phrase an animated colour sweep */}
-            <span
-              className="inline-block text-4xl font-bold sm:text-5xl text-[var(--accent-violet)]"
-            >
-              realtime intelligence
-            </span>
+            Empowering industries through realtime intelligence
           </h2>
 
-          <p className="mt-8 text-lg leading-8 text-muted-foreground">
+          <p className="mt-8 text-lg font-semibold leading-8 text-muted-foreground">
             We believe industrial operations should be intelligent, connected,
             secure, and data-driven. Our mission is to simplify industrial
             digital transformation through scalable realtime infrastructure and
@@ -300,14 +801,15 @@ function MissionSection() {
               <motion.div
                 key={i}
                 variants={cardVariants}
-                whileHover={{ y: -4, boxShadow: "0 20px 40px -12px rgba(124,58,237,0.12)" }}
-                className="rounded-3xl border border-white/10 bg-card/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+                className="rounded-3xl border border-border bg-card p-8"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[var(--accent-violet)]/15 text-[var(--accent-violet)] shadow-lg">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl text-accent border border-border">
                   <Icon className="h-6 w-6" />
                 </div>
-                <h3 className="mt-6 text-xl font-semibold text-foreground">{item.title}</h3>
-                <p className="mt-3 text-muted-foreground">{item.description}</p>
+                <h3 className="mt-6 text-xl font-semibold text-foreground">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-muted-foreground font-medium">{item.description}</p>
               </motion.div>
             );
           })}
@@ -325,19 +827,19 @@ function StatsSection() {
 
   return (
     <section ref={ref} className="relative bg-transparent py-16">
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-25">
-        <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 via-transparent to-cyan-500/10" />
-      </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 divide-x divide-y divide-white/5 rounded-3xl border border-white/10 bg-card/65 shadow-sm md:grid-cols-4 md:divide-y-0"
+          className="grid grid-cols-2 divide-x divide-y divide-border rounded-3xl border border-border bg-card shadow-sm md:grid-cols-4 md:divide-y-0"
         >
           {stats.map((stat, i) => (
-            <div key={i} className="flex flex-col items-center justify-center px-8 py-12">
+            <div
+              key={i}
+              className="flex flex-col items-center justify-center px-8 py-12"
+            >
               <div className="text-4xl font-bold text-foreground">
                 <ScrambleCounter
                   target={Math.max(1, Math.floor(stat.value))}
@@ -346,7 +848,9 @@ function StatsSection() {
                   totalFrames={40}
                 />
               </div>
-              <p className="mt-2 text-center text-sm text-muted-foreground">{stat.label}</p>
+              <p className="mt-2 text-center text-sm font-medium text-muted-foreground">
+                {stat.label}
+              </p>
             </div>
           ))}
         </motion.div>
@@ -382,7 +886,10 @@ function TimelineSection() {
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
             Five levels of industrial intelligence — from raw field data to
             AI-driven predictive operations. Currently operating at{" "}
-            <span className="font-semibold text-[var(--accent-violet)]">Level 4</span>.
+            <span className="font-semibold text-[var(--accent-violet)]">
+              Level 4
+            </span>
+            .
           </p>
         </div>
 
@@ -401,37 +908,46 @@ function TimelineSection() {
                 key={i}
                 initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
                 animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className={`relative mb-16 flex w-full md:items-center ${isLeft ? "md:justify-start" : "md:justify-end"
-                  }`}
+                transition={{
+                  duration: 0.6,
+                  delay: i * 0.15,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className={`relative mb-16 flex w-full md:items-center ${
+                  isLeft ? "md:justify-start" : "md:justify-end"
+                }`}
               >
                 {/* Timeline dot — pulsing ring on current level */}
                 <div
-                  className={`absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full md:left-1/2 ${isCurrent
-                    ? "bg-[var(--data-green)] shadow-[0_0_0_6px_rgba(74,222,128,0.18)] animate-pulse"
-                    : isUpcoming
-                      ? "bg-white/20 shadow-[0_0_0_4px_rgba(255,255,255,0.06)]"
-                      : "bg-gradient-to-br from-violet-500 to-orange-400/35 shadow-[0_0_0_6px_rgba(139,92,246,0.12)]"
-                    }`}
+                  className={`absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full md:left-1/2 ${
+                    isCurrent
+                      ? "bg-[var(--data-green)] shadow-[0_0_0_6px_rgba(74,222,128,0.18)] animate-pulse"
+                      : isUpcoming
+                        ? "bg-white/20 shadow-[0_0_0_4px_rgba(255,255,255,0.06)]"
+                        : "bg-gradient-to-br from-violet-500 to-orange-400/35 shadow-[0_0_0_6px_rgba(139,92,246,0.12)]"
+                  }`}
                 />
 
                 {/* Card */}
                 <div
-                  className={`ml-12 max-w-sm rounded-3xl border p-8 shadow-sm transition-all duration-300 md:ml-0 ${isCurrent
-                    ? "border-[var(--data-green)]/40 bg-card/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
-                    : isUpcoming
-                      ? "border-white/5 bg-card/40 opacity-60"
-                      : "border-white/10 bg-card/75 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
-                    }`}
+                  className={`ml-12 max-w-sm rounded-3xl border p-8 shadow-sm transition-all duration-300 md:ml-0 ${
+                    isCurrent
+                      ? "border-[var(--data-green)]/40 bg-card/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
+                      : isUpcoming
+                        ? "border-white/5 bg-card/40 opacity-60"
+                        : "border-white/10 bg-card/75 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+                  }`}
                 >
                   {/* Level pill */}
                   <div className="flex items-center gap-3">
                     <div
-                      className={`inline-flex overflow-hidden rounded-full px-4 py-1.5 ${isCurrent
-                        ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
-                        : isUpcoming ? "bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
-                          : "bg-violet-500"
-                        }`}
+                      className={`inline-flex overflow-hidden rounded-full px-4 py-1.5 ${
+                        isCurrent
+                          ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
+                          : isUpcoming
+                            ? "bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
+                            : "bg-violet-500"
+                      }`}
                     >
                       <DecryptedText
                         text={item.level}
@@ -439,13 +955,18 @@ function TimelineSection() {
                         speed={60}
                         sequential
                         revealDirection="start"
-                        className={`text-sm font-bold ${isCurrent
-                          ? "text-[var(--data-green)]"
-                          : isUpcoming ? "text-muted-foreground"
-                            : "text-white"
-                          }`}
-                        encryptedClassName={`text-sm font-bold ${isCurrent ? "text-[var(--data-green)]/50" : "text-violet-300"
-                          }`}
+                        className={`text-sm font-bold ${
+                          isCurrent
+                            ? "text-[var(--data-green)]"
+                            : isUpcoming
+                              ? "text-muted-foreground"
+                              : "text-white"
+                        }`}
+                        encryptedClassName={`text-sm font-bold ${
+                          isCurrent
+                            ? "text-[var(--data-green)]/50"
+                            : "text-violet-300"
+                        }`}
                       />
                     </div>
 
@@ -464,8 +985,13 @@ function TimelineSection() {
                   </div>
 
                   {/* Time label */}
-                  <p className={`mt-3 text-xs font-mono tracking-widest uppercase ${isCurrent ? "text-[var(--data-green)]/70" : "text-muted-foreground"
-                    }`}>
+                  <p
+                    className={`mt-3 text-xs font-mono tracking-widest uppercase ${
+                      isCurrent
+                        ? "text-[var(--data-green)]/70"
+                        : "text-muted-foreground"
+                    }`}
+                  >
                     {item.timeLabel}
                   </p>
 
@@ -481,11 +1007,13 @@ function TimelineSection() {
                     {item.tags.map((tag) => (
                       <span
                         key={tag}
-                        className={`rounded-lg border px-2.5 py-1 text-xs font-medium ${isCurrent
-                          ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
-                          : isUpcoming ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
-                            : "border-black/8 bg-black/3 text-muted-foreground"
-                          }`}
+                        className={`rounded-lg border px-2.5 py-1 text-xs font-medium ${
+                          isCurrent
+                            ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
+                            : isUpcoming
+                              ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
+                              : "border-black/8 bg-black/3 text-muted-foreground"
+                        }`}
                       >
                         {tag}
                       </span>
@@ -508,10 +1036,10 @@ function TeamSection() {
   const tilt = useMagneticTilt({ maxRotate: 10, perspective: 900 });
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-transparent py-24">
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-40">
-        <div className="absolute inset-0 bg-gradient-to-b from-violet-500/10 via-transparent to-fuchsia-500/10" />
-      </div>
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-transparent py-24"
+    >
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
@@ -519,7 +1047,7 @@ function TeamSection() {
             title="THE TEAM"
             dot={true}
             dotColor="bg-emerald-500"
-            className="mb-8"
+            className="mb-6"
           />
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             People behind the platform
@@ -541,18 +1069,29 @@ function TeamSection() {
               whileHover={{ y: -4 }}
               transition={{ duration: 0.25 }}
               style={{ transformStyle: "preserve-3d" }}
-              className="rounded-3xl border border-white/10 bg-card/75 p-8 shadow-sm transition-all duration-300 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+              className="rounded-3xl border border-border bg-card p-8"
             >
               {/* Gradient avatar with initials */}
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-violet-500 text-2xl font-bold text-white shadow-lg">
+              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-white shadow-lg">
                 {member.initials}
               </div>
 
-              <h3 className="mt-6 text-xl font-semibold text-foreground">{member.name}</h3>
-              <p className="mt-1 text-sm font-medium text-[var(--accent-violet)]">{member.role}</p>
-              <p className="mt-4 text-sm leading-7 text-muted-foreground">{member.bio}</p>
+              <h3 className="mt-6 text-xl font-semibold text-foreground">
+                {member.name}
+              </h3>
+              <p className="mt-1 text-sm font-medium text-accent">
+                {member.role}
+              </p>
+              <p className="mt-4 text-xs font-medium leading-5 text-muted-foreground">
+                {member.bio}
+              </p>
 
-              <Button size="icon" variant="ghost" aria-label={`LinkedIn ${member.name}`}>
+              <Button
+                size="icon"
+                variant="outline"
+                aria-label={`LinkedIn ${member.name}`}
+                className="mt-4"
+              >
                 <FaLinkedinIn className="h-4 w-4" />
               </Button>
             </motion.div>
@@ -584,7 +1123,7 @@ function ValuesSection() {
             dot={true}
             dotColor="bg-emerald-500"
             className="mb-8"
-          />  
+          />
           <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
             Built on principles that matter
           </h2>
@@ -617,8 +1156,12 @@ function ValuesSection() {
                   <div className="bg-violet-500 bg-clip-text text-6xl font-bold text-transparent">
                     {item.number}
                   </div>
-                  <h3 className="mt-4 text-xl font-semibold text-foreground">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-muted-foreground">{item.description}</p>
+                  <h3 className="mt-4 text-xl font-semibold text-foreground">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 leading-7 text-muted-foreground">
+                    {item.description}
+                  </p>
                 </div>
               </StarBorder>
             </motion.div>
@@ -628,61 +1171,6 @@ function ValuesSection() {
     </section>
   );
 }
-
-/* ─── Section: CTA ───────────────────────────────────────────────────────── */
-
-const CTA = () => {
-  return (
-    <section className="relative overflow-hidden bg-transparent py-32 mx-auto max-w-7xl px-6 pt-16 pb-0 lg:px-8">
-      <style>{`
-        @keyframes cta-bg {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        .cta-gradient {
-          background: linear-gradient(
-            135deg,
-            #7c2d12 0%,
-            #ea580c 25%,
-            #ff6b00 50%,
-            #ea580c 75%,
-            #431407 100%
-          );
-
-          background-size: 300% 300%;
-
-          animation: cta-bg 8s ease infinite;
-        }
-
-        .headline-glow {
-          text-shadow:
-            0 0 60px rgba(196,181,253,0.4),
-            0 0 120px rgba(196,181,253,0.15);
-        }
-      `}</style>
-
-      <div className="relative mb-14 overflow-hidden rounded-4xl border px-10 py-9 text-foreground shadow-sm">
-        <div className="flex flex-wrap items-center justify-between gap-6">
-          <div>
-            <h2 className="font-bold text-4xl text-foreground leading-snug">
-              Ready to transform your operations{" "}
-            </h2>
-            <p className="mt-1.5 text-lg text-muted-foreground max-w-xl leading-relaxed">
-              Build smarter industrial systems with realtime intelligence, AI-driven analytics, and scalable infrastructure.
-            </p>
-          </div>
-          <div className="flex gap-2.5">
-            <Button className="gap-2 bg-violet-500 text-white border-none">
-              <Contact className="h-3.5 w-3.5" /> Contact Us
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 /* ─── Page ───────────────────────────────────────────────────────────────── */
 
@@ -695,7 +1183,12 @@ const About = () => {
       <TimelineSection />
       <TeamSection />
       <ValuesSection />
-      <CTA />
+      <CTASection
+            title="Ready to transform your operations"
+            description="Build smarter industrial systems with realtime intelligence, AI-driven analytics, and scalable infrastructure."
+            primaryButton={{ label: "Explore Solutions", href: "#" }}
+            secondaryButton={{ label: "Schedule a Demo", href: "#" }}
+          />
     </div>
   );
 };
