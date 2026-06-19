@@ -1,10 +1,14 @@
 import { useParams, Link } from "react-router-dom";
-import { motion, type Variants } from "framer-motion";
-import { ArrowRight, CheckCircle2, ChevronRight } from "lucide-react";
+import { motion, type Variants, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import {
+  ArrowRight, CheckCircle2,
+} from "lucide-react";
+import {
+  ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar,
+} from "recharts";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import ScrambleCounter from "@/components/ScrambleCounter";
 
 import { getIndustryBySlug } from "@/data/industriesRegistry";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
@@ -50,11 +54,34 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
+// ─── Radar custom tick ────────────────────────────────────────────────────────
+
+const RadarTick = ({ x, y, payload }: { x?: number; y?: number; payload?: { value: string } }) => {
+  if (!payload) return null;
+  const label = payload.value.length > 14 ? payload.value.slice(0, 13) + "…" : payload.value;
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="middle"
+      dominantBaseline="central"
+      fontSize={11}
+      fill="var(--muted-foreground)"
+    >
+      {label}
+    </text>
+  );
+};
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 const IndustryPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const industry = getIndustryBySlug(slug ?? "");
+
+  // Section-local state (lifted to page to avoid re-mount issues)
+  const [activeChallenge, setActiveChallenge] = useState<number | null>(null);
+  const [selectedModule, setSelectedModule] = useState<number>(0);
 
   // ── 404 ──
   if (!industry) {
@@ -74,6 +101,24 @@ const IndustryPage = () => {
       </div>
     );
   }
+
+  // Derive bar widths — clamp between 10% and 95%
+  const metricMaxes = [1000, 100, 24, 5];
+  const getBarWidth = (value: string, idx: number) => {
+    const num = Number(value.replace(/[^0-9.]+/g, "")) || 0;
+    const max = metricMaxes[idx] ?? 100;
+    const raw = (num / max) * 100;
+    return Math.min(95, Math.max(10, raw));
+  };
+
+  // Radar data
+  const radarData = industry.challenges.map((c, idx) => ({
+    subject: c.title.length > 20 ? c.title.slice(0, 19) + "…" : c.title,
+    score: 75 + (idx * 7) % 25,
+    fullTitle: c.title,
+  }));
+
+  const activeModule = industry.modules[selectedModule];
 
   return (
     <div className="relative min-h-screen bg-background text-foreground">
@@ -153,33 +198,54 @@ const IndustryPage = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          METRICS STRIP
+          METRICS STRIP — Animated fill bars
       ══════════════════════════════════════════════════════════ */}
       <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          variants={staggerFast}
-          className="mx-auto max-w-7xl px-6 lg:px-8 py-10 grid grid-cols-2 gap-6 sm:grid-cols-4"
+          variants={stagger}
+          className="mx-auto max-w-7xl px-6 lg:px-8 flex flex-col gap-6 py-10"
         >
-          {industry.metrics.map((metric) => (
-            <motion.div
-              key={metric.label}
-              variants={cardVariant}
-              className="text-center"
-            >
-              <div className="text-2xl font-bold text-orange-400 font-mono">
-                <ScrambleCounter
-                  target={Number(metric.value.replace(/[^0-9.]+/g, "")) || 0}
-                  finalText={metric.value}
-                />
-              </div>
-              <div className="mt-1 text-xs text-muted-foreground font-mono uppercase tracking-wider">
-                {metric.label}
-              </div>
-            </motion.div>
-          ))}
+          {industry.metrics.map((metric, idx) => {
+            const targetPct = getBarWidth(metric.value, idx);
+            return (
+              <motion.div
+                key={metric.label}
+                variants={fadeUp}
+                transition={{ delay: idx * 0.15 }}
+                className="flex items-center gap-4"
+              >
+                {/* Label */}
+                <span className="font-mono text-xs uppercase tracking-wider text-muted-foreground w-36 shrink-0">
+                  {metric.label}
+                </span>
+
+                {/* Bar track */}
+                <div className="relative flex-1 h-[2px] bg-muted/30 rounded-full overflow-visible">
+                  <motion.div
+                    className="absolute left-0 top-0 h-full bg-orange-500 rounded-full"
+                    initial={{ width: 0 }}
+                    whileInView={{ width: `${targetPct}%` }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 1.2, ease: "easeOut", delay: idx * 0.15 }}
+                  >
+                    {/* Glowing tip */}
+                    <span
+                      className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 h-[6px] w-[6px] rounded-full bg-orange-400"
+                      style={{ boxShadow: "0 0 8px 4px rgba(249,115,22,0.6)" }}
+                    />
+                  </motion.div>
+                </div>
+
+                {/* Value */}
+                <span className="font-mono text-sm font-bold text-orange-400 w-20 text-right shrink-0">
+                  {metric.value}
+                </span>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </section>
 
@@ -208,7 +274,7 @@ const IndustryPage = () => {
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          INDUSTRY CHALLENGES
+          INDUSTRY CHALLENGES — Radar chart + collapsible pills
       ══════════════════════════════════════════════════════════ */}
       <section className="border-t border-[var(--border-subtle)] bg-card/30">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
@@ -223,100 +289,80 @@ const IndustryPage = () => {
               <SectionHeading>Industry Challenges</SectionHeading>
             </motion.div>
 
+            {/* Radar chart */}
             <motion.div
-              variants={stagger}
-              className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
             >
-              {industry.challenges.map((challenge, idx) => (
-                <motion.div
-                  key={challenge.title}
-                  variants={cardVariant}
-                  className="group relative rounded-2xl bg-card flex flex-col overflow-hidden cursor-default"
-                  style={{
-                    boxShadow:
-                      "0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04)",
-                  }}
-                >
-                  {/* Border ring */}
-                  <div className="absolute inset-0 rounded-2xl border border-[var(--border-subtle)] group-hover:border-transparent transition-colors duration-300 pointer-events-none z-10" />
-                  <div
-                    className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10"
-                    style={{ border: "1px solid rgba(255,107,0,0.28)" }}
+              <ResponsiveContainer width="100%" height={420}>
+                <RadarChart data={radarData} margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
+                  <PolarGrid stroke="var(--border-subtle)" strokeDasharray="3 3" />
+                  <PolarAngleAxis
+                    dataKey="subject"
+                    tick={RadarTick as React.ComponentType<unknown>}
                   />
+                  <Radar
+                    name="Challenge Intensity"
+                    dataKey="score"
+                    stroke="#f97316"
+                    fill="#f97316"
+                    fillOpacity={0.12}
+                    strokeWidth={1.5}
+                  />
+                </RadarChart>
+              </ResponsiveContainer>
+            </motion.div>
 
-                  {/* Top bar */}
-                  <div className="flex items-center justify-between px-6 pt-5 pb-0">
-                    <div className="flex items-center gap-2.5">
-                      <span
-                        className="font-mono text-[10px] font-bold tracking-[0.15em] px-1.5 py-0.5 rounded"
-                        style={{
-                          color: "#ff6b00",
-                          background: "rgba(255,107,0,0.10)",
-                          border: "1px solid rgba(255,107,0,0.20)",
-                        }}
+            {/* Challenge pills + collapsible items */}
+            <motion.div variants={fadeUp} className="mt-10">
+              {/* Pill row */}
+              <div className="flex flex-wrap gap-2 mb-4">
+                {industry.challenges.map((c, idx) => (
+                  <button
+                    key={c.title}
+                    onClick={() => setActiveChallenge(activeChallenge === idx ? null : idx)}
+                    className={`rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
+                      activeChallenge === idx
+                        ? "border-orange-500/50 bg-orange-500/10 text-orange-400"
+                        : "border-[var(--border-subtle)] text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {c.title}
+                  </button>
+                ))}
+              </div>
+
+              {/* Expandable items list */}
+              <AnimatePresence mode="wait">
+                {activeChallenge !== null && (
+                  <motion.ul
+                    key={activeChallenge}
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-card/40"
+                  >
+                    {industry.challenges[activeChallenge].items.map((item) => (
+                      <li
+                        key={item}
+                        className="border-l-2 border-orange-500 pl-4 py-2.5 mx-4 my-1 text-xs text-muted-foreground"
                       >
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
-                      <div className="flex gap-0.5 items-center">
-                        {[...Array(4)].map((_, i) => (
-                          <div
-                            key={i}
-                            className="bg-[var(--border-subtle)] group-hover:bg-orange-500/20 transition-colors duration-500"
-                            style={{
-                              width: 2,
-                              height: i % 2 === 0 ? 10 : 6,
-                              borderRadius: 1,
-                            }}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                    <div className="h-1.5 w-1.5 rounded-full bg-[var(--border-active)] group-hover:bg-orange-400 transition-colors duration-300" />
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex flex-col flex-1 px-6 pt-4 pb-6 gap-3">
-                    <h3 className="text-[15px] font-bold tracking-tight text-foreground leading-snug group-hover:text-orange-500 transition-colors duration-300">
-                      {challenge.title}
-                    </h3>
-
-                    <div className="h-px bg-[var(--border-subtle)] group-hover:bg-orange-500/15 transition-colors duration-300" />
-
-                    <ul className="mt-1 space-y-2">
-                      {challenge.items.map((item, itemIdx) => (
-                        <li
-                          key={item}
-                          className="flex items-center gap-2.5 text-[11.5px] text-muted-foreground"
-                        >
-                          <span
-                            className="shrink-0 font-mono text-[9px] text-muted-foreground/60"
-                            style={{ minWidth: 14 }}
-                          >
-                            {String(itemIdx + 1).padStart(2, "0")}
-                          </span>
-                          <span className="h-px flex-1 bg-[var(--border-subtle)] max-w-[10px] shrink-0" />
-                          <span className="leading-4">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {/* Bottom accent */}
-                  <div
-                    className="h-[3px] w-0 group-hover:w-full transition-all duration-500 ease-out mt-auto"
-                    style={{
-                      background: "linear-gradient(to right, #ff6b00, #ff9a50)",
-                    }}
-                  />
-                </motion.div>
-              ))}
+                        {item}
+                      </li>
+                    ))}
+                  </motion.ul>
+                )}
+              </AnimatePresence>
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          PLATFORM MODULES
+          PLATFORM MODULES — Left-rail navigator
       ══════════════════════════════════════════════════════════ */}
       <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
         <motion.div
@@ -330,88 +376,178 @@ const IndustryPage = () => {
             <SectionHeading>Platform Modules</SectionHeading>
           </motion.div>
 
-          <motion.div variants={stagger} className="grid gap-6 sm:grid-cols-2">
+          {/* Mobile: horizontal tab strip */}
+          <div className="lg:hidden flex overflow-x-auto gap-1 mb-4 pb-2 border-b border-[var(--border-subtle)]">
             {industry.modules.map((mod, idx) => (
-              <motion.div
+              <button
                 key={mod.title}
-                variants={cardVariant}
-                className="rounded-2xl border border-[var(--border-subtle)] bg-card/60 p-8 hover:bg-card transition-colors duration-300"
+                onClick={() => setSelectedModule(idx)}
+                className={`shrink-0 px-3 py-1.5 text-xs rounded-full border transition-colors duration-200 ${
+                  selectedModule === idx
+                    ? "border-orange-500/50 bg-orange-500/10 text-orange-400"
+                    : "border-[var(--border-subtle)] text-muted-foreground hover:text-foreground"
+                }`}
               >
-                <div className="flex items-start gap-4 mb-4">
-                  <span className="font-mono text-[10px] text-orange-500 border border-orange-500/30 rounded px-1.5 py-0.5 shrink-0 mt-0.5">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="text-lg font-semibold text-foreground">
-                    {mod.title}
+                {mod.title}
+              </button>
+            ))}
+          </div>
+
+          {/* Desktop: split layout */}
+          <motion.div
+            variants={cardVariant}
+            className="hidden lg:flex rounded-2xl border border-[var(--border-subtle)] overflow-hidden bg-card/40"
+          >
+            {/* Left rail */}
+            <div className="w-64 shrink-0 border-r border-[var(--border-subtle)] bg-card/60 flex flex-col py-4">
+              {industry.modules.map((mod, idx) => (
+                <button
+                  key={mod.title}
+                  onClick={() => setSelectedModule(idx)}  
+                  className={`text-left px-5 py-3.5 text-sm font-medium transition-colors duration-200 relative ${
+                    selectedModule === idx
+                      ? "text-foreground bg-orange-500/8"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/30"
+                  }`}
+                >
+                  {selectedModule === idx && (
+                    <motion.span
+                      layoutId="module-indicator"
+                      className="absolute left-0 top-0 h-full w-0.5 bg-orange-500"
+                    />
+                  )}
+                  {mod.title}
+                </button>
+              ))}
+            </div>
+
+            {/* Right pane */}
+            <div className="flex-1 p-8 overflow-y-auto max-h-[600px]">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedModule}
+                  initial={{ opacity: 0, x: 16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -16 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <h3 className="text-xl font-bold text-foreground mb-2">
+                    {activeModule.title}
                   </h3>
-                </div>
+                  <p className="text-sm text-muted-foreground leading-6 mb-6">
+                    {activeModule.description}
+                  </p>
 
+                  <div className="space-y-5">
+                    {activeModule.monitors && activeModule.monitors.length > 0 && (
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
+                          Monitor
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {activeModule.monitors.map((m) => (
+                            <span
+                              key={m}
+                              className="rounded-full border border-[var(--border-subtle)] bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground"
+                            >
+                              {m}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {activeModule.features && activeModule.features.length > 0 && (
+                      <div>
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
+                          Features
+                        </p>
+                        <ul className="space-y-1.5">
+                          {activeModule.features.map((f) => (
+                            <li key={f} className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <CheckCircle2 className="h-3 w-3 text-orange-400 shrink-0" />
+                              {f}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {activeModule.benefits && activeModule.benefits.length > 0 && (
+                      <div className="pt-2 border-t border-[var(--border-subtle)]">
+                        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
+                          Benefits
+                        </p>
+                        <div className="flex flex-wrap gap-1.5">
+                          {activeModule.benefits.map((b) => (
+                            <span
+                              key={b}
+                              className="rounded-full border border-orange-500/20 bg-orange-500/5 px-2.5 py-0.5 text-[11px] text-orange-400"
+                            >
+                              {b}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          </motion.div>
+
+          {/* Mobile pane content */}
+          <div className="lg:hidden mt-4 rounded-2xl border border-[var(--border-subtle)] bg-card/40 p-6">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedModule}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                <h3 className="text-lg font-bold text-foreground mb-2">
+                  {activeModule.title}
+                </h3>
                 <p className="text-sm text-muted-foreground leading-6 mb-5">
-                  {mod.description}
+                  {activeModule.description}
                 </p>
-
-                {/* Monitors / Features / Benefits — show whichever are populated */}
                 <div className="space-y-4">
-                  {mod.monitors && mod.monitors.length > 0 && (
+                  {activeModule.monitors && activeModule.monitors.length > 0 && (
                     <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                        Monitor
-                      </p>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">Monitor</p>
                       <div className="flex flex-wrap gap-1.5">
-                        {mod.monitors.map((m) => (
-                          <span
-                            key={m}
-                            className="rounded-full border border-[var(--border-subtle)] bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground"
-                          >
-                            {m}
-                          </span>
+                        {activeModule.monitors.map((m) => (
+                          <span key={m} className="rounded-full border border-[var(--border-subtle)] bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">{m}</span>
                         ))}
                       </div>
                     </div>
                   )}
-
-                  {mod.features && mod.features.length > 0 && (
-                    <div>
-                      <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
-                        Features
-                      </p>
-                      <ul className="space-y-1.5">
-                        {mod.features.map((f) => (
-                          <li
-                            key={f}
-                            className="flex items-center gap-2 text-xs text-muted-foreground"
-                          >
-                            <CheckCircle2 className="h-3 w-3 text-orange-400 shrink-0" />
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                  {activeModule.features && activeModule.features.length > 0 && (
+                    <ul className="space-y-1.5">
+                      {activeModule.features.map((f) => (
+                        <li key={f} className="flex items-center gap-2 text-xs text-muted-foreground">
+                          <CheckCircle2 className="h-3 w-3 text-orange-400 shrink-0" />{f}
+                        </li>
+                      ))}
+                    </ul>
                   )}
-
-                  {mod.benefits && mod.benefits.length > 0 && (
-                    <div className="pt-2 border-t border-[var(--border-subtle)]">
-                      <div className="flex flex-wrap gap-1.5">
-                        {mod.benefits.map((b) => (
-                          <span
-                            key={b}
-                            className="rounded-full border border-orange-500/20 bg-orange-500/5 px-2.5 py-0.5 text-[11px] text-orange-400"
-                          >
-                            {b}
-                          </span>
-                        ))}
-                      </div>
+                  {activeModule.benefits && activeModule.benefits.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {activeModule.benefits.map((b) => (
+                        <span key={b} className="rounded-full border border-orange-500/20 bg-orange-500/5 px-2.5 py-0.5 text-[11px] text-orange-400">{b}</span>
+                      ))}
                     </div>
                   )}
                 </div>
               </motion.div>
-            ))}
-          </motion.div>
+            </AnimatePresence>
+          </div>
         </motion.div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          BUSINESS BENEFITS
+          BUSINESS BENEFITS — Masonry with SVG draw-on-scroll
       ══════════════════════════════════════════════════════════ */}
       <section className="border-t border-[var(--border-subtle)] bg-card/30">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
@@ -428,34 +564,58 @@ const IndustryPage = () => {
 
             <motion.div
               variants={stagger}
-              className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+              className="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5"
             >
-              {industry.benefits.map((benefit, idx) => (
-                <motion.div
-                  key={benefit.title}
-                  variants={cardVariant}
-                  className="group flex gap-4 rounded-xl border border-[var(--border-subtle)] bg-card/40 p-6 hover:border-orange-500/25 hover:bg-card transition-all duration-300"
-                >
-                  <span className="font-mono text-[11px] text-muted-foreground shrink-0 mt-0.5">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-foreground mb-1.5 group-hover:text-orange-400 transition-colors">
+              {industry.benefits.map((benefit, idx) => {
+                return (
+                  <motion.div
+                    key={benefit.title}
+                    variants={cardVariant}
+                    className="group break-inside-avoid rounded-xl border border-[var(--border-subtle)] bg-card/40 p-6 hover:border-orange-500/25 hover:bg-card transition-all duration-300"
+                  >
+                    {/* Animated SVG icon — strokeDashoffset draw effect */}
+                    <motion.svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="h-8 w-8 text-orange-500 mb-4 stroke-[1.5]"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      initial={{ strokeDashoffset: 100 }}
+                      whileInView={{ strokeDashoffset: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: idx * 0.1 }}
+                      style={{ strokeDasharray: 100 }}
+                    >
+                      {/* Render the icon path by temporarily using IconComponent for its path data */}
+                      {idx % 6 === 0 && <><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></>}
+                      {idx % 6 === 1 && <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></>}
+                      {idx % 6 === 2 && <><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></>}
+                      {idx % 6 === 3 && <><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></>}
+                      {idx % 6 === 4 && <><circle cx="12" cy="12" r="3" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14M5.93 19.07a10 10 0 0 1 0-14.14M15.54 8.46a5 5 0 0 1 0 7.07M8.46 15.54a5 5 0 0 1 0-7.07" /></>}
+                      {idx % 6 === 5 && <><polyline points="9 11 12 14 22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></>}
+                    </motion.svg>
+
+                    <p className="font-mono text-[10px] text-muted-foreground mb-1">
+                      {String(idx + 1).padStart(2, "0")}
+                    </p>
+                    <h3 className="text-sm font-semibold text-foreground mb-2 group-hover:text-orange-400 transition-colors duration-300">
                       {benefit.title}
                     </h3>
                     <p className="text-xs leading-5 text-muted-foreground">
                       {benefit.description}
                     </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </motion.div>
           </motion.div>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════
-          WHY ALTREX
+          WHY ALTREX — Two-column comparison table
       ══════════════════════════════════════════════════════════ */}
       <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
         <motion.div
@@ -470,18 +630,76 @@ const IndustryPage = () => {
             <SectionHeading>Why Altrex Tech</SectionHeading>
           </motion.div>
 
-          <motion.ul variants={stagger} className="grid gap-3 sm:grid-cols-2">
-            {industry.whyAltrex.map((point) => (
-              <motion.li
-                key={point}
-                variants={cardVariant}
-                className="flex items-start gap-3 text-sm text-muted-foreground"
+          {/* Comparison table */}
+          <div className="overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-card/40">
+            {/* Headers */}
+            <div className="grid grid-cols-2 border-b border-[var(--border-subtle)]">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="px-5 py-3 border-r border-[var(--border-subtle)]"
               >
-                <CheckCircle2 className="h-4 w-4 text-orange-400 shrink-0 mt-0.5" />
-                {point}
-              </motion.li>
-            ))}
-          </motion.ul>
+                <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground/60">
+                  Without Altrex
+                </span>
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="px-5 py-3"
+              >
+                <span className="text-xs font-mono uppercase tracking-wider text-orange-400">
+                  With Altrex
+                </span>
+              </motion.div>
+            </div>
+
+            {/* Rows */}
+            {industry.whyAltrex.map((point, idx) => {
+              const withoutPhrase =
+                "No " + point.split(" ").slice(0, 4).join(" ").replace(/[,;]$/, "");
+              return (
+                <motion.div
+                  key={point}
+                  className="grid grid-cols-2 border-b border-[var(--border-subtle)] last:border-b-0"
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={stagger}
+                >
+                  {/* Left cell */}
+                  <motion.div
+                    className="flex items-start gap-2 px-5 py-3 border-r border-[var(--border-subtle)]"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.06 }}
+                  >
+                    <span className="text-red-400/60 text-xs mt-0.5 shrink-0">✗</span>
+                    <span className="text-xs text-muted-foreground/50 line-through decoration-muted-foreground/30 leading-5">
+                      {withoutPhrase}
+                    </span>
+                  </motion.div>
+
+                  {/* Right cell */}
+                  <motion.div
+                    className="flex items-start gap-2 px-5 py-3"
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: idx * 0.06 + 0.3 }}
+                  >
+                    <span className="text-orange-400 text-xs mt-0.5 shrink-0">✓</span>
+                    <span className="text-xs text-foreground leading-5">{point}</span>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
         </motion.div>
       </section>
 
