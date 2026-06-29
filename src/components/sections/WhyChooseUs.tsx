@@ -67,11 +67,10 @@ function Slide1({ mobile }: { mobile: boolean }) {
     "No unified asset visibility",
   ];
   return (
-    <div className={`relative flex flex-col items-center justify-center text-center px-8 ${
-      mobile
+    <div className={`relative flex flex-col items-center justify-center text-center px-8 ${mobile
         ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]"
         : "w-[100vw] h-full flex-shrink-0"
-    }`}>
+      }`}>
       {/* Background glyph */}
       <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none overflow-hidden">
         <span className="text-[30vw] font-black text-muted-foreground/[0.04] leading-none">?</span>
@@ -117,9 +116,8 @@ function Slide1({ mobile }: { mobile: boolean }) {
 function Slide2({ mobile }: { mobile: boolean }) {
   const chips = ["IEC-62443 Aligned", "Multi-Factor Auth", "Role-Based Access"];
   return (
-    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-blue-950/10 ${
-      mobile ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]" : "w-[100vw] h-full flex-shrink-0"
-    }`}>
+    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-blue-950/10 ${mobile ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]" : "w-[100vw] h-full flex-shrink-0"
+      }`}>
       <div className="max-w-xl text-center">
         <div className="flex justify-center mb-8">
           <svg viewBox="0 0 24 24" className="h-24 w-24 text-blue-400" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -180,9 +178,8 @@ function Slide3({ mobile }: { mobile: boolean }) {
   const startX = (300 - totalW) / 2;
 
   return (
-    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-orange-950/10 ${
-      mobile ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]" : "w-[100vw] h-full flex-shrink-0"
-    }`}>
+    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-orange-950/10 ${mobile ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]" : "w-[100vw] h-full flex-shrink-0"
+      }`}>
       <div className="max-w-xl text-center">
         <div className="flex justify-center mb-8">
           <svg viewBox="0 0 24 24" className="h-24 w-24 text-orange-400" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -386,16 +383,15 @@ function Slide4({ mobile }: { mobile: boolean }) {
 
 function Slide5({ mobile }: { mobile: boolean }) {
   const metrics = [
-    { label: "Connected Devices", value: "2K+",   color: "text-orange-400", bar: "bg-orange-500", pct: "72%" },
-    { label: "Events / Day",      value: "10M+",  color: "text-violet-400", bar: "bg-violet-500", pct: "99%" },
-    { label: "Availability",      value: "99.9%", color: "text-cyan-400",   bar: "bg-cyan-500",   pct: "95%" },
-    { label: "Facilities",        value: "10+",   color: "text-teal-400",   bar: "bg-teal-500",   pct: "40%" },
+    { label: "Connected Devices", value: "2K+", color: "text-orange-400", bar: "bg-orange-500", pct: "72%" },
+    { label: "Events / Day", value: "10M+", color: "text-violet-400", bar: "bg-violet-500", pct: "99%" },
+    { label: "Availability", value: "99.9%", color: "text-cyan-400", bar: "bg-cyan-500", pct: "95%" },
+    { label: "Facilities", value: "10+", color: "text-teal-400", bar: "bg-teal-500", pct: "40%" },
   ];
 
   return (
-    <div className={`relative flex flex-col items-center justify-center px-8 ${
-      mobile ? "min-h-[70vh] py-16" : "w-[100vw] h-full flex-shrink-0"
-    }`}>
+    <div className={`relative flex flex-col items-center justify-center px-8 ${mobile ? "min-h-[70vh] py-16" : "w-[100vw] h-full flex-shrink-0"
+      }`}>
       <div className="w-full max-w-lg mx-auto">
         <motion.p
           initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}

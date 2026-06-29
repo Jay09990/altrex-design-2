@@ -25,7 +25,7 @@ export function SectionBadge({
   return (
     <Badge
       variant={variant}
-      className={cn("border-border bg-card shadow-sm p-3", className)}
+      className={cn("border-[var(--border-subtle)] bg-card shadow-sm p-3", className)}
       {...props}
     >
       {dot && pulse && (

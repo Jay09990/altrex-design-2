@@ -103,7 +103,7 @@ const LivePanel = ({ service }: { service: ServiceData }) => {
   const capabilities = service.whatWeDeliver?.map(d => d.title) ?? service.keyBenefits;
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[var(--bg-surface)]/80 backdrop-blur-md p-6 shadow-xl w-full max-w-xl">
+    <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-surface)]/80 backdrop-blur-md p-6 shadow-xl w-full max-w-xl">
       {/* Chrome */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
@@ -130,12 +130,12 @@ const LivePanel = ({ service }: { service: ServiceData }) => {
       </div>
       {/* Metrics */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="rounded-xl border border-white/10 p-4 bg-background">
+        <div className="rounded-xl border border-[var(--border-subtle)] p-4 bg-background">
           <div className="h-1.5 w-1.5 rounded-full bg-[var(--data-green)] mb-2" />
           <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">ACTIVE CAPABILITIES</div>
           <div className="text-xl font-bold">{metric1}</div>
         </div>
-        <div className="rounded-xl border border-white/10 p-4 bg-background">
+        <div className="rounded-xl border border-[var(--border-subtle)] p-4 bg-background">
           <div className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] mb-2" />
           <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">INDUSTRIES</div>
           <div className="text-xl font-bold">{metric2}</div>
@@ -146,7 +146,7 @@ const LivePanel = ({ service }: { service: ServiceData }) => {
         <div className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-3">ACTIVE MODULES</div>
         <div className="flex flex-wrap gap-2">
           {capabilities.slice(0, 6).map((cap, i) => (
-            <span key={cap} className={`rounded-md border border-white/10 px-2.5 py-1 text-[10px] font-mono ${i === (seed % 6) ? 'border-orange-500/40 bg-orange-500/10 text-orange-300' : 'text-muted-foreground'}`}>{cap}</span>
+            <span key={cap} className={`rounded-md border border-[var(--border-subtle)] px-2.5 py-1 text-[10px] font-mono ${i === (seed % 6) ? 'border-orange-500/40 bg-orange-500/10 text-orange-300' : 'text-muted-foreground'}`}>{cap}</span>
           ))}
         </div>
       </div>

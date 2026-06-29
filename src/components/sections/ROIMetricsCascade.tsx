@@ -112,7 +112,7 @@ const ROIMetricsCascade = () => {
                                 className="w-full text-left transition-all duration-300"
                             >
                                 <motion.div
-                                    className="overflow-hidden rounded-xl border border-white/10 bg-card p-6 transition-all duration-300 hover:border-white/20"
+                                    className="overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-card p-6 transition-all duration-300 hover:border-[var(--border-subtle)]"
                                     style={{
                                         boxShadow: isExpanded ? "0 20px 40px -15px rgba(249, 115, 22, 0.1)" : "none",
                                     }}
@@ -178,7 +178,7 @@ const ROIMetricsCascade = () => {
                                                     duration: 0.4,
                                                     ease: [0.16, 1, 0.3, 1],
                                                 }}
-                                                className="mt-6 overflow-hidden border-t border-white/10 pt-6"
+                                                className="mt-6 overflow-hidden border-t border-[var(--border-subtle)] pt-6"
                                             >
                                                 <div className="space-y-3">
                                                     <AnimatePresence>
@@ -207,7 +207,7 @@ const ROIMetricsCascade = () => {
                                                     </AnimatePresence>
                                                 </div>
 
-                                                <div className="mt-4 border-t border-white/10 pt-4 font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
+                                                <div className="mt-4 border-t border-[var(--border-subtle)] pt-4 font-mono text-[10px] tracking-widest uppercase text-muted-foreground">
                                                     [ REGION: EU-WEST / INDUSTRY: GLOBAL / SLA: 99.99% ]
                                                 </div>
                                             </motion.div>

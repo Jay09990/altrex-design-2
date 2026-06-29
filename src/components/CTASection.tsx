@@ -15,7 +15,7 @@ const CTASection = ({
   secondaryButton,
 }: CTAData) => {
   return (
-    <section className="relative mb-14 overflow-hidden rounded-3xl border border-border px-10 py-9 text-foreground max-w-7xl mx-auto">
+    <section className="relative mb-14 overflow-hidden rounded-3xl border border-[var(--border-subtle)] px-10 py-9 text-foreground max-w-7xl mx-auto">
       <div className="flex flex-wrap items-center justify-between gap-6">
         <div>
           <h2 className="font-bold text-4xl text-foreground leading-snug">

@@ -239,12 +239,12 @@ const Header = () => {
                   </Link>
 
                   {solutionsOpen && (
-                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-border bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
                         <div className="grid grid-cols-3 gap-8">
                           {solutionCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
-                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-border pb-2">
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
                               {category.title}
                             </h4>
                             <ul className="flex flex-col gap-1">
@@ -257,7 +257,7 @@ const Header = () => {
                                       onClick={() => setSolutionsOpen(false)}
                                       className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
+                                      <div className="rounded-md bg-muted border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
                                       <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
@@ -298,12 +298,12 @@ const Header = () => {
                   </Link>
 
                   {servicesOpen && (
-                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-border bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
                         <div className="grid grid-cols-3 gap-8">
                           {serviceCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
-                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-border pb-2">
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
                               {category.title}
                             </h4>
                             <ul className="flex flex-col gap-1">
@@ -316,7 +316,7 @@ const Header = () => {
                                       onClick={() => setServicesOpen(false)}
                                       className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
+                                      <div className="rounded-md bg-muted border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
                                       <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
@@ -357,12 +357,12 @@ const Header = () => {
                   </Link>
 
                   {industriesOpen && (
-                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-border bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
                         <div className="grid grid-cols-3 gap-8">
                           {industryCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
-                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-border pb-2">
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
                               {category.title}
                             </h4>
                             <ul className="flex flex-col gap-1">
@@ -375,7 +375,7 @@ const Header = () => {
                                       onClick={() => setIndustriesOpen(false)}
                                       className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
+                                      <div className="rounded-md bg-muted border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
                                       <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
