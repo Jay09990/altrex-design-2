@@ -210,7 +210,7 @@ const Contact = () => {
             const Icon = card.icon;
             const content = (
               <>
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--border-subtle)] text-accent">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border text-accent">
                   <Icon className="h-5 w-5" />
                 </div>
                 <p className="mt-5 text-sm font-medium text-muted-foreground">
@@ -233,7 +233,7 @@ const Contact = () => {
                     : undefined
                 }
                 variants={fadeUpVariants}
-                className="group rounded-2xl border border-[var(--border-subtle)] bg-card p-6"
+                className="group rounded-2xl border border-border bg-card p-6"
               >
                 {content}
               </motion.a>
@@ -241,7 +241,7 @@ const Contact = () => {
               <motion.div
                 key={card.label}
                 variants={fadeUpVariants}
-                className="group rounded-2xl border border-[var(--border-subtle)] bg-card p-6"
+                className="group rounded-2xl border border-border bg-card p-6"
               >
                 {content}
               </motion.div>
@@ -259,7 +259,7 @@ const Contact = () => {
         >
           <motion.section
             variants={fadeUpVariants}
-            className="rounded-2xl border border-[var(--border-subtle)] bg-card p-8 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.16)] sm:p-10"
+            className="rounded-2xl border border-border bg-card p-8 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.16)] sm:p-10"
           >
             {status === "success" ? (
               <div className="flex h-full min-h-[480px] flex-col items-center justify-center text-center">
@@ -275,7 +275,7 @@ const Contact = () => {
                 </p>
                 <Button
                   variant="outline"
-                  className="mt-8 border-[var(--border-subtle)]"
+                  className="mt-8 border-border"
                   onClick={() => setStatus("idle")}
                 >
                   Send another message
@@ -353,7 +353,7 @@ const Contact = () => {
                       />
                     </button>
                     {industryOpen && (
-                      <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-card shadow-[0_30px_80px_-30px_rgba(15,23,42,0.25)]">
+                      <div className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-border bg-card shadow-[0_30px_80px_-30px_rgba(15,23,42,0.25)]">
                         {INDUSTRIES.map((option) => (
                           <button
                             key={option}
@@ -409,7 +409,7 @@ const Contact = () => {
 
           <motion.aside
             variants={fadeUpVariants}
-            className="space-y-5 rounded-2xl border border-[var(--border-subtle)] bg-card p-8 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.16)] sm:p-10"
+            className="space-y-5 rounded-2xl border border-border bg-card p-8 shadow-[0_30px_80px_-40px_rgba(15,23,42,0.16)] sm:p-10"
           >
             <div className="rounded-xl bg-gradient-to-r from-orange-500/10 via-transparent to-fuchsia-500/10 p-7">
               <div className="flex items-center gap-2">
@@ -436,7 +436,7 @@ const Contact = () => {
                 return (
                   <div
                     key={stat.label}
-                    className="flex items-center justify-between rounded-xl border border-[var(--border-subtle)] bg-card p-5"
+                    className="flex items-center justify-between rounded-xl border border-border bg-card p-5"
                   >
                     <div className="flex items-center gap-3">
                       <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-orange-500/15 to-fuchsia-500/15">
@@ -466,7 +466,7 @@ const Contact = () => {
         >
           <motion.div
             variants={fadeUpVariants}
-            className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)] shadow-[0_30px_80px_-40px_rgba(15,23,42,0.16)]"
+            className="relative overflow-hidden rounded-2xl border border-border shadow-[0_30px_80px_-40px_rgba(15,23,42,0.16)]"
           >
             <div className="relative h-[380px] w-full bg-gradient-to-br from-slate-100 via-slate-50 to-slate-100 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900">
               <div
@@ -488,7 +488,7 @@ const Contact = () => {
             </div>
 
             <div className="absolute bottom-6 left-6 right-6 sm:left-8 sm:right-auto sm:max-w-sm">
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-card/95 p-6 backdrop-blur-md shadow-[0_30px_80px_-30px_rgba(15,23,42,0.3)]">
+              <div className="rounded-xl border border-border bg-card/95 p-6 backdrop-blur-md shadow-[0_30px_80px_-30px_rgba(15,23,42,0.3)]">
                 <p className="text-sm font-semibold uppercase tracking-[0.1em] text-muted-foreground">
                   Visit our office
                 </p>
@@ -546,9 +546,9 @@ const Contact = () => {
                 <motion.div
                   key={item.title}
                   variants={fadeUpVariants}
-                  className="rounded-2xl border border-[var(--border-subtle)] bg-card p-7"
+                  className="rounded-2xl border border-border bg-card p-7"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--border-subtle)] text-accent">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border text-accent">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="mt-5 text-base font-semibold text-foreground">

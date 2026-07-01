@@ -95,7 +95,7 @@ function StatCard({ stat }: { stat: RingStat }) {
   const Icon = stat.icon;
 
   return (
-    <div className="group relative flex items-center gap-5 rounded-2xl border border-[var(--border-subtle)] bg-card/40 p-6 transition-all duration-300 hover:bg-card/80 hover:-translate-y-1">
+    <div className="group relative flex items-center gap-5 rounded-2xl border border-border bg-card/40 p-6 transition-all duration-300 hover:bg-card/80 hover:-translate-y-1">
       <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-secondary text-accent border border-accent">
         <Icon size={30} />
       </div>
@@ -293,7 +293,7 @@ function ThroughputChart() {
             exit={{ opacity: 0, y: 10, scale: 0.95 }}
             className="absolute pointer-events-none -translate-x-1/2 z-50"
           >
-            <div className="bg-popover/90 backdrop-blur-xl border border-[var(--border-subtle)] rounded-xl p-3 shadow-2xl min-w-[120px]">
+            <div className="bg-popover/90 backdrop-blur-xl border border-border rounded-xl p-3 shadow-2xl min-w-[120px]">
               <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-mono mb-1">
                 {months[hoverIndex]} 2024
               </div>
@@ -309,7 +309,7 @@ function ThroughputChart() {
               </div>
             </div>
             {/* Arrow */}
-            <div className="w-3 h-3 bg-popover/90 border-r border-b border-[var(--border-subtle)] rotate-45 absolute -bottom-1.5 left-1/2 -translate-x-1/2" />
+            <div className="w-3 h-3 bg-popover/90 border-r border-b border-border rotate-45 absolute -bottom-1.5 left-1/2 -translate-x-1/2" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -370,7 +370,7 @@ const StatisticsSection = () => {
             variants={fadeUp}
             whileHover={{ y: -3 }}
             transition={{ duration: 0.25 }}
-            className="flex flex-shrink-0 items-center gap-4 rounded-2xl border border-[var(--border-subtle)] px-6 py-4 shadow-lg backdrop-blur-md"
+            className="flex flex-shrink-0 items-center gap-4 rounded-2xl border border-border px-6 py-4 shadow-lg backdrop-blur-md"
           >
             <span className="relative flex h-3.5 w-3.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
@@ -403,7 +403,7 @@ const StatisticsSection = () => {
         {/* Throughput chart panel */}
         <motion.div
           variants={fadeUp}
-          className="rounded-3xl border border-[var(--border-subtle)] bg-card/60 p-8"
+          className="rounded-3xl border border-border bg-card/60 p-8"
         >
           {/* Chart header */}
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">

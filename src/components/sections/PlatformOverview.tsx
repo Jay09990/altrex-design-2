@@ -246,7 +246,7 @@ export default function PlatformOverview() {
   return (
     <section
       ref={sectionRef}
-      className="relative overflow-hidden bg-[var(--bg-void)] py-28 border-y border-[var(--border-subtle)]"
+      className="relative overflow-hidden bg-[var(--bg-void)] py-28 border-y border-border"
     >
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
 
@@ -286,7 +286,7 @@ export default function PlatformOverview() {
                 key={i}
                 variants={dealVariants}
                 whileHover={{ y: -4 }}
-                className="group flex flex-col items-center justify-center rounded-2xl border border-[var(--border-subtle)] bg-orange-400/5 p-6 transition-colors duration-300 hover:border-orange-500/20 hover:bg-white/[0.04]"
+                className="group flex flex-col items-center justify-center rounded-2xl border border-border bg-orange-400/5 p-6 transition-colors duration-300 hover:border-orange-500/20 hover:bg-white/[0.04]"
               >
                 {/* Live preview replaces the static icon */}
                 <div

@@ -53,7 +53,7 @@ function MetricPill({
       variants={fadeUp}
       initial="hidden"
       animate="visible"
-      className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-muted/60 px-3 py-2"
+      className="flex items-center gap-2 rounded-lg border border-border bg-muted/60 px-3 py-2"
     >
       <span
         className="h-1.5 w-1.5 rounded-full animate-pulse shrink-0"
@@ -170,9 +170,9 @@ function DashboardPreview() {
       <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-accent/10 via-transparent to-primary/10 blur-sm pointer-events-none" />
 
       {/* Main panel */}
-      <div className="relative rounded-2xl border border-[var(--border-subtle)] bg-card/95 backdrop-blur-md overflow-hidden shadow-2xl">
+      <div className="relative rounded-2xl border border-border bg-card/95 backdrop-blur-md overflow-hidden shadow-2xl">
         {/* Terminal bar */}
-        <div className="flex items-center justify-between border-b border-[var(--border-subtle)] bg-background/60 px-4 py-2.5">
+        <div className="flex items-center justify-between border-b border-border bg-background/60 px-4 py-2.5">
           <div className="flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
             <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
@@ -218,7 +218,7 @@ function DashboardPreview() {
             {/* Left: KPI cards */}
             <div className="space-y-2">
               {/* ERP sync card */}
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <BarChart2 size={12} className="text-accent" />
@@ -243,7 +243,7 @@ function DashboardPreview() {
               </div>
 
               {/* CRM card */}
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <TrendingUp size={12} className="text-primary" />
@@ -286,7 +286,7 @@ function DashboardPreview() {
               </div>
 
               {/* Network card */}
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <Wifi size={12} className="text-blue-500" />
@@ -334,7 +334,7 @@ function DashboardPreview() {
             {/* Right: VTS + Alarm */}
             <div className="space-y-2">
               {/* VTS / Fleet card */}
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <Truck size={12} className="text-cyan-500" />
@@ -347,7 +347,7 @@ function DashboardPreview() {
                   </span>
                 </div>
                 {/* Mini map placeholder */}
-                <div className="relative rounded-lg bg-background/60 border border-[var(--border-subtle)] h-[110px] overflow-hidden mb-2">
+                <div className="relative rounded-lg bg-background/60 border border-border h-[110px] overflow-hidden mb-2">
                   <svg className="absolute inset-0 w-full h-full opacity-20">
                     <defs>
                       <pattern
@@ -402,7 +402,7 @@ function DashboardPreview() {
               </div>
 
               {/* Alarm feed */}
-              <div className="rounded-xl border border-[var(--border-subtle)] bg-muted/60 p-3">
+              <div className="rounded-xl border border-border bg-muted/60 p-3">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
                     <Activity size={12} className="text-amber-500" />
@@ -442,7 +442,7 @@ function DashboardPreview() {
           </div>
 
           {/* Bottom connectivity status strip */}
-          <div className="flex items-center gap-3 rounded-lg border border-[var(--border-subtle)] bg-background/40 px-3 py-2">
+          <div className="flex items-center gap-3 rounded-lg border border-border bg-background/40 px-3 py-2">
             <Wifi size={11} className="text-emerald-500 shrink-0" />
             <div className="flex flex-1 gap-2 overflow-hidden">
               {["MQTT", "OPC-UA", "MODBUS", "REST API", "MQTT-SB"].map(

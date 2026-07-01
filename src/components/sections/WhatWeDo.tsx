@@ -121,7 +121,7 @@ function OrbitDiagram({
           height: RADIUS * 2 + 56,
           top: center - RADIUS - 28,
           left: center - RADIUS - 28,
-          border: "1px dashed var(--border-subtle)",
+          border: "1px dashed var(--border-border)",
           opacity: 0.5,
         }}
       />
@@ -405,7 +405,7 @@ function ContentPanel({
         {STATS.map((s) => (
           <div
             key={s.label}
-            className="flex flex-col items-center gap-1 rounded-xl border border-[var(--border-subtle)] py-4"
+            className="flex flex-col items-center gap-1 rounded-xl border border-border py-4"
           >
             <span className="text-2xl font-black tracking-tight text-accent">
               {s.value}
@@ -455,7 +455,7 @@ function SpineDiagram() {
         className="w-px h-6"
         style={{
           background:
-            "linear-gradient(to bottom, var(--accent-violet), var(--border-subtle))",
+            "linear-gradient(to bottom, var(--accent-violet), var(--border-border))",
         }}
       />
 

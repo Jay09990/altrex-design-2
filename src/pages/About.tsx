@@ -372,7 +372,7 @@ function TimelineSpine({
         y1={Y1}
         x2={1}
         y2={Y2}
-        stroke="var(--border-subtle)"
+        stroke="var(--border-border)"
         strokeWidth={1.5}
         strokeDasharray="4 7"
       />
@@ -638,7 +638,7 @@ function HeroSection() {
               ].map(({ icon: Icon, label }) => (
                 <div
                   key={label}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5"
                 >
                   <Icon className="h-3.5 w-3.5 text-accent sm:h-4 sm:w-4" />
                   <span className="text-[11px] font-medium text-primary sm:text-sm">
@@ -801,9 +801,9 @@ function MissionSection() {
               <motion.div
                 key={i}
                 variants={cardVariants}
-                className="rounded-3xl border border-[var(--border-subtle)] bg-card p-8"
+                className="rounded-3xl border border-border bg-card p-8"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl text-accent border border-[var(--border-subtle)]">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl text-accent border border-border">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-foreground">
@@ -833,7 +833,7 @@ function StatsSection() {
           initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 divide-x divide-y divide-border rounded-3xl border border-[var(--border-subtle)] bg-card shadow-sm md:grid-cols-4 md:divide-y-0"
+          className="grid grid-cols-2 divide-x divide-y divide-border rounded-3xl border border-border bg-card shadow-sm md:grid-cols-4 md:divide-y-0"
         >
           {stats.map((stat, i) => (
             <div
@@ -934,8 +934,8 @@ function TimelineSection() {
                     isCurrent
                       ? "border-[var(--data-green)]/40 bg-card/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
                       : isUpcoming
-                        ? "border-[var(--border-subtle)] bg-card/40 opacity-60"
-                        : "border-[var(--border-subtle)] bg-card/75 hover:border-[var(--border-subtle)] hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+                        ? "border-border bg-card/40 opacity-60"
+                        : "border-border bg-card/75 hover:border-border hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
                   }`}
                 >
                   {/* Level pill */}
@@ -945,7 +945,7 @@ function TimelineSection() {
                         isCurrent
                           ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
                           : isUpcoming
-                            ? "bg-black/5 dark:bg-white/5 border border-[var(--border-subtle)] dark:border-[var(--border-subtle)]"
+                            ? "bg-black/5 dark:bg-white/5 border border-border dark:border-border"
                             : "bg-violet-500"
                       }`}
                     >
@@ -978,7 +978,7 @@ function TimelineSection() {
                       </span>
                     )}
                     {isUpcoming && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] dark:border-[var(--border-subtle)] bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-muted-foreground">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-border dark:border-border bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-muted-foreground">
                         Upcoming
                       </span>
                     )}
@@ -1011,8 +1011,8 @@ function TimelineSection() {
                           isCurrent
                             ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
                             : isUpcoming
-                              ? "border-[var(--border-subtle)] dark:border-[var(--border-subtle)] bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
-                              : "border-[var(--border-subtle)] bg-black/3 text-muted-foreground"
+                              ? "border-border dark:border-border bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
+                              : "border-border bg-black/3 text-muted-foreground"
                         }`}
                       >
                         {tag}
@@ -1069,7 +1069,7 @@ function TeamSection() {
               whileHover={{ y: -4 }}
               transition={{ duration: 0.25 }}
               style={{ transformStyle: "preserve-3d" }}
-              className="rounded-3xl border border-[var(--border-subtle)] bg-card p-8"
+              className="rounded-3xl border border-border bg-card p-8"
             >
               {/* Gradient avatar with initials */}
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-white shadow-lg">
@@ -1150,7 +1150,7 @@ function ValuesSection() {
                 speed="8s"
                 thickness={1}
                 className="w-full cursor-default"
-                innerClassName="border border-[var(--border-subtle)] bg-card/75 p-6 rounded-[18px]"
+                innerClassName="border border-border bg-card/75 p-6 rounded-[18px]"
               >
                 <div className="">
                   <div className="bg-violet-500 bg-clip-text text-6xl font-bold text-transparent">

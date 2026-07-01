@@ -160,7 +160,7 @@ function IndustryFlipCard({ industry }: { industry: any }) {
               transform: "rotateY(180deg)",
             }}
           >
-            <div className="flex items-center gap-2 border-b border-[var(--border-subtle)] pb-3">
+            <div className="flex items-center gap-2 border-b border-border pb-3">
               <Icon size={16} className="text-white shrink-0" strokeWidth={2} />
               <h3 className="text-sm font-bold text-white leading-tight">
                 {industry.name}

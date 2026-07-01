@@ -169,7 +169,7 @@ function PlatformCapabilities({ capabilities }: { capabilities: Capability[] }) 
                       style={{
                         backgroundColor: connectorEnergized
                           ? "rgba(251,191,36,0.4)" // amber-300/40 track
-                          : "var(--border-subtle)",
+                          : "var(--border-border)",
                       }}
                     >
                       <motion.div
@@ -195,7 +195,7 @@ function PlatformCapabilities({ capabilities }: { capabilities: Capability[] }) 
 
                   {/* ── Connector Line (Mobile) ───────────────────────── */}
                   {!isLast && (
-                    <div className="lg:hidden absolute top-[100%] left-1/2 w-px h-8 bg-[var(--border-subtle)] -translate-x-1/2 z-0">
+                    <div className="lg:hidden absolute top-[100%] left-1/2 w-px h-8 bg-[var(--border-border)] -translate-x-1/2 z-0">
                       <motion.div
                         className="w-full bg-orange-500 shadow-[0_0_8px_2px_rgba(249,115,22,0.6)]"
                         initial={{ height: "0%", opacity: 0 }}
@@ -213,7 +213,7 @@ function PlatformCapabilities({ capabilities }: { capabilities: Capability[] }) 
                     style={{
                       borderColor: isActive
                         ? "rgba(249,115,22,0.60)"   // orange-500/60
-                        : "var(--border-subtle)",
+                        : "var(--border-border)",
                     }}
                   >
                     {/* Faint ordinal label */}
@@ -267,7 +267,7 @@ function PlatformCapabilities({ capabilities }: { capabilities: Capability[] }) 
                             hidden: { opacity: 0, scale: 0.8 },
                             visible: { opacity: 1, scale: 1, transition: { type: "spring" } },
                           }}
-                          className="inline-flex items-center rounded-md bg-muted/50 px-2 py-0.5 text-[9px] font-medium text-muted-foreground border border-[var(--border-subtle)]"
+                          className="inline-flex items-center rounded-md bg-muted/50 px-2 py-0.5 text-[9px] font-medium text-muted-foreground border border-border"
                         >
                           {item}
                         </motion.span>
@@ -373,7 +373,7 @@ const SolutionPage = () => {
               </Link>
               <Button
                 variant="ghost"
-                className="h-11 px-6 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
+                className="h-11 px-6 rounded-lg border border-border text-foreground hover:bg-card"
               >
                 {solution.hero.ctas[1]}
               </Button>
@@ -389,7 +389,7 @@ const SolutionPage = () => {
       {/* ══════════════════════════════════════════════════════════
           METRICS STRIP
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+      <section className="border-y border-border bg-card/60 backdrop-blur-sm">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -401,7 +401,7 @@ const SolutionPage = () => {
             <motion.div
               key={metric.label}
               variants={cardVariant}
-              className="flex flex-col items-center justify-center text-center p-4 border-r last:border-r-0 border-[var(--border-subtle)]"
+              className="flex flex-col items-center justify-center text-center p-4 border-r last:border-r-0 border-border"
             >
               <div className="text-3xl font-bold text-orange-500 font-mono tracking-tight">
                 <ScrambleCounter
@@ -425,7 +425,7 @@ const SolutionPage = () => {
       {/* ══════════════════════════════════════════════════════════
           INDUSTRIES & APPLICATIONS
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-card/30 py-24">
+      <section className="border-t border-border bg-card/30 py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -452,7 +452,7 @@ const SolutionPage = () => {
                   <motion.div 
                     key={industry.name} 
                     variants={cardVariant} 
-                    className="group rounded-xl border border-[var(--border-subtle)] bg-card p-5 hover:border-orange-500/30 transition-all hover:shadow-lg flex flex-col"
+                    className="group rounded-xl border border-border bg-card p-5 hover:border-orange-500/30 transition-all hover:shadow-lg flex flex-col"
                   >
                     <div className="mb-4 h-10 w-10 rounded-lg bg-muted flex items-center justify-center text-muted-foreground group-hover:text-orange-500 group-hover:bg-orange-500/10 transition-colors">
                       <IndIcon className="h-5 w-5" />
@@ -462,7 +462,7 @@ const SolutionPage = () => {
                     </h4>
                     <div className="flex flex-wrap gap-1.5 mt-auto">
                       {industry.items.slice(0, 2).map((item) => (
-                         <span key={item} className="inline-flex rounded-md px-2 py-0.5 text-[9px] font-medium bg-background border border-[var(--border-subtle)] text-muted-foreground truncate max-w-full">
+                         <span key={item} className="inline-flex rounded-md px-2 py-0.5 text-[9px] font-medium bg-background border border-border text-muted-foreground truncate max-w-full">
                            {item}
                          </span>
                       ))}
@@ -483,7 +483,7 @@ const SolutionPage = () => {
       {/* ══════════════════════════════════════════════════════════
           BUSINESS VALUE (Programmatic Visuals)
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-background py-24">
+      <section className="border-t border-border bg-background py-24">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -512,7 +512,7 @@ const SolutionPage = () => {
                   <motion.div 
                     key={benefit.title} 
                     variants={cardVariant} 
-                    className="group relative rounded-2xl border border-[var(--border-subtle)] bg-card p-6 flex flex-col gap-5 hover:border-orange-500/20 transition-all overflow-hidden"
+                    className="group relative rounded-2xl border border-border bg-card p-6 flex flex-col gap-5 hover:border-orange-500/20 transition-all overflow-hidden"
                   >
                     {/* Background Visual Accent */}
                     <div className={`absolute top-0 right-0 h-24 w-24 -mr-8 -mt-8 rounded-full ${visual.bg} blur-2xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none`} />
@@ -542,7 +542,7 @@ const SolutionPage = () => {
                     </p>
 
                     {/* Tiny inline visual based on benefit type */}
-                    <div className="pt-4 border-t border-[var(--border-subtle)] mt-auto flex items-center justify-between">
+                    <div className="pt-4 border-t border-border mt-auto flex items-center justify-between">
                        <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-widest">Efficiency Module</span>
                        {visual.animate === "reduce" && (
                          <div className="flex items-end gap-0.5 h-3">
@@ -575,7 +575,7 @@ const SolutionPage = () => {
           ARCHITECTURE
       ══════════════════════════════════════════════════════════ */}
       {solution.architecture && (
-        <section className="border-t border-[var(--border-subtle)] bg-card/10">
+        <section className="border-t border-border bg-card/10">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
             <motion.div
               initial="hidden"
@@ -597,7 +597,7 @@ const SolutionPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-2xl border border-[var(--border-subtle)] bg-card p-6 lg:p-10 shadow-sm"
+              className="rounded-2xl border border-border bg-card p-6 lg:p-10 shadow-sm"
             >
               <DynamicArchitecture nodes={solution.architecture.nodes} />
             </motion.div>
@@ -608,7 +608,7 @@ const SolutionPage = () => {
       {/* ══════════════════════════════════════════════════════════
           CTA FOOTER
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-card/20 relative overflow-hidden">
+      <section className="border-t border-border bg-card/20 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-500/5 blur-[120px] pointer-events-none" />
         
         <motion.div
@@ -649,7 +649,7 @@ const SolutionPage = () => {
             <Link to="/contact">
               <Button
                 variant="outline"
-                className="h-12 px-8 rounded-lg text-foreground hover:bg-muted border-[var(--border-subtle)]"
+                className="h-12 px-8 rounded-lg text-foreground hover:bg-muted border-border"
               >
                 Talk to an Expert
               </Button>

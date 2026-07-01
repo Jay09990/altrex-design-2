@@ -230,7 +230,7 @@
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: nodes.length * 0.08 + 0.2 }}
-            className="flex flex-wrap justify-center gap-4 mt-2 pt-4 border-t border-[var(--border-subtle)]"
+            className="flex flex-wrap justify-center gap-4 mt-2 pt-4 border-t border-border"
           >
             <LegendDot color={COLORS.source.text} label="Source" />
             <LegendDot color={COLORS.layer.text} label="Platform Layer" />

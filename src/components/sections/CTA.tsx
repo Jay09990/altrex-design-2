@@ -50,7 +50,7 @@ const CTA = ({
   const secondaryClass =
     accent === "teal"
       ? "gap-2 border border-teal-500/30 bg-transparent text-teal-100 hover:bg-teal-500/10"
-      : "gap-2 border border-[var(--border-subtle)] bg-transparent text-white/80 hover:bg-white/10";
+      : "gap-2 border border-border bg-transparent text-white/80 hover:bg-white/10";
 
   const renderAction = (action: CTAAction, className: string) => {
     return action.href ? (

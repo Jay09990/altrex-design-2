@@ -101,7 +101,7 @@ const Testimonials = () => {
               duration: 0.25,
             }}
             style={{ transformStyle: "preserve-3d" }}
-            className="relative flex-1 overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-card p-10 shadow-md lg:basis-3/5"
+            className="relative flex-1 overflow-hidden rounded-2xl border border-border bg-card p-10 shadow-md lg:basis-3/5"
           >
             {/* Giant quote mark */}
             <motion.div
@@ -176,7 +176,7 @@ const Testimonials = () => {
                   duration: 0.25,
                 }}
                 style={{ transformStyle: "preserve-3d" }}
-                className="group rounded-2xl border border-[var(--border-subtle)] bg-card p-7 shadow-sm transition-all duration-300 hover:shadow-md"
+                className="group rounded-2xl border border-border bg-card p-7 shadow-sm transition-all duration-300 hover:shadow-md"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-1">

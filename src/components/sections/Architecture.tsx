@@ -588,7 +588,7 @@ const ArchitectureMobile = () => {
                   animate={{ y: [0, -5, 0] }} transition={{ duration: 3, repeat: Infinity }} />
                 <div className="grid grid-cols-2 gap-2 w-full">
                   {step.items.slice(0, 4).map((item: any, i) => (
-                    <div key={i} className="flex flex-col items-center gap-1 rounded-xl border border-[var(--border-subtle)] bg-muted p-2">
+                    <div key={i} className="flex flex-col items-center gap-1 rounded-xl border border-border bg-muted p-2">
                       <item.icon size={15} color={step.color} />
                       <span className="text-[9px] font-bold uppercase tracking-tight text-muted-foreground">{item.label}</span>
                     </div>
@@ -598,7 +598,7 @@ const ArchitectureMobile = () => {
             ) : (
               <div className="grid grid-cols-2 gap-2">
                 {step.items.map((item: any, i) => (
-                  <div key={i} className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-muted p-2">
+                  <div key={i} className="flex items-center gap-2 rounded-lg border border-border bg-muted p-2">
                     <item.icon size={13} color={(item.color as string) ?? step.color} strokeWidth={2} />
                     <span className="text-[10px] font-semibold text-foreground">{item.label}</span>
                   </div>
@@ -673,7 +673,7 @@ const Architecture = () => {
       <motion.div style={{ y: bgY }}
         className="pointer-events-none absolute inset-0 -z-10 opacity-60">
         <div className="absolute inset-0" style={{
-          backgroundImage: "radial-gradient(circle, var(--border-subtle) 1px, transparent 1px)",
+          backgroundImage: "radial-gradient(circle, var(--border-border) 1px, transparent 1px)",
           backgroundSize: "32px 32px",
         }} />
       </motion.div>
