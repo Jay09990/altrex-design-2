@@ -140,7 +140,7 @@ const FAQ = () => {
                 </span>
 
                 <span className="block text-xs font-medium text-muted-foreground">
-                  support@altrex.dev
+                  info@altrextech.com
                 </span>
               </div>
             </motion.a>

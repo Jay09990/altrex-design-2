@@ -6,110 +6,119 @@
 import { useRef } from "react";
 import { motion, type Variants } from "framer-motion";
 import {
-  Building2,
-  Car,
-  Factory,
-  MapPinned,
-  Shield,
-  Smartphone,
-  SquareChartGantt,
-  PlugZap,
+  Cloud,
+  Briefcase,
+  Wrench,
+  Sliders,
+  Cpu,
+  Video,
+  Settings,
+  MapPin,
+  GraduationCap,
 } from "lucide-react";
 
-import { Badge } from "../ui/badge";
 import { SectionBadge } from "../ui/section-badge";
-import { Button } from "../ui/button";
 import { useScrollScrubHorizontalTrack } from "@/hooks/useScrollScrubHorizontalTrack";
+import { Card } from "../ui/card";
 
 const useCases = [
   {
-    icon: Factory,
-    title: "Industrial IoT",
-    description: "Connect devices and field assets.",
-    metric: "Processes 50M+ Telemetry events/sec",
+    icon: Cloud,
+    title: "SaaS Platform Services",
+    description: "Subscription-based access to enterprise-grade platform capabilities.",
+    metric: "99.9% platform uptime",
     bullets: [
-      "Industrial protocol connectivity",
-      "Real-time telemetry acquisition",
-      "Edge-to-cloud data integration",
+      "Multi-tenant architecture with role-based access",
+      "Elastic scaling across users and workloads",
+      "Continuous updates with zero-downtime releases",
     ],
   },
   {
-    icon: Shield,
-    title: "Video Analytics",
-    description: "AI-powered surveillance and monitoring.",
-    metric: "Monitors 10K camera feeds",
+    icon: Briefcase,
+    title: "Turnkey Project Implementation",
+    description: "End-to-end delivery from design through go-live.",
+    metric: "200+ projects delivered",
     bullets: [
-      "Live stream ingestion",
-      "Secure encrypted transport",
-      "Event-based alerting",
+      "Requirement scoping and solution architecture",
+      "On-site deployment and system commissioning",
+      "Post-go-live handover and documentation",
     ],
   },
   {
-    icon: Car,
-    title: "Fleet Management",
-    description: "Track vehicles and optimize operations.",
-    metric: "Tracks 50K+ vehicles in real time",
+    icon: Wrench,
+    title: "Managed Services & AMC",
+    description: "Ongoing support to keep deployed systems running reliably.",
+    metric: "24/7 support coverage",
     bullets: [
-      "Live vehicle tracking and route optimization",
-      "Driver performance and safety monitoring",
-      "Maintenance scheduling and operational reporting",
+      "Scheduled preventive maintenance",
+      "Priority incident response and resolution",
+      "Annual maintenance contracts with SLA guarantees",
     ],
   },
   {
-    icon: Building2,
-    title: "Web SCADA",
-    description: "Real-time monitoring and control.",
-    metric: " Monitors 10K+ field assets",
+    icon: Sliders,
+    title: "System Integration Services",
+    description: "Connect disparate platforms into a unified operational view.",
+    metric: "40+ systems integrated",
     bullets: [
-      "Remote Monitoring of CNG Stations",
-      "AMR Infrastructure of Gas Meters",
-      "GIS-based Network & Cascade Vehicle Management ",
+      "API and middleware-based system connectivity",
+      "Legacy system and third-party platform integration",
+      "Unified data flow across business applications",
     ],
   },
   {
-    icon: Smartphone,
-    title: "Realtime Applications",
-    description:
-      "Create modern messaging apps, live collaboration platforms, and realtime experiences.",
-    metric: "Supports 100K concurrent users",
+    icon: Cpu,
+    title: "Industrial IoT & Edge Integration",
+    description: "Bring field devices and edge hardware onto a connected network.",
+    metric: "15K+ devices connected",
     bullets: [
-      "Low-latency pub/sub channels",
-      "Presence & typing indicators",
-      "Push notification delivery",
+      "Sensor and PLC connectivity at the edge",
+      "Local edge processing with cloud sync",
+      "Protocol translation for legacy industrial hardware",
     ],
   },
   {
-    icon: SquareChartGantt,
-    title: "GIS & Asset Management",
-    description: "Location intelligence and asset visibility.",
-    metric: "Manages 500K+ assets",
+    icon: Video,
+    title: "CCTV & Video Analytics Services",
+    description: "Camera network deployment with AI-driven video intelligence.",
+    metric: "5K+ cameras deployed",
     bullets: [
-      "Interactive GIS-based asset visualization",
-      "Asset lifecycle and maintenance management",
-      "Location-based operational intelligence",
+      "CCTV network design and installation",
+      "AI-based object and behavior detection",
+      "Centralized video management and archival",
     ],
   },
   {
-    icon: PlugZap,
-    title: "Energy Management",
-    description: "Monitor and optimize energy consumption.",
-    metric: "Monitors 50K+ energy points",
+    icon: Settings,
+    title: "Cloud & Infrastructure Services",
+    description: "Design and manage resilient cloud and on-prem infrastructure.",
+    metric: "99.95% infrastructure availability",
     bullets: [
-      "Real-time energy consumption monitoring",
-      "Demand and power quality analytics",
-      "Automated reporting and efficiency insights",
+      "Cloud architecture design and migration",
+      "Hybrid and on-premise infrastructure setup",
+      "Infrastructure monitoring and capacity planning",
     ],
   },
   {
-    icon: MapPinned,
-    title: "Global Infrastructure",
-    description:
-      "Deploy distributed systems worldwide with ultra-low latency and high availability.",
-    metric: "120+ global edge regions",
+    icon: MapPin,
+    title: "GIS & Asset Digitization",
+    description: "Map and digitize physical assets for spatial visibility.",
+    metric: "1M+ assets digitized",
     bullets: [
-      "Multi-region failover",
-      "Edge-close data routing",
-      "99.99% SLA guaranteed",
+      "Field survey and GPS-based asset mapping",
+      "GIS layer creation and spatial data modeling",
+      "Digital asset registry with searchable records",
+    ],
+  },
+  {
+    icon: GraduationCap,
+    title: "Training & Consulting",
+    description: "Build internal capability through guided training and advisory.",
+    metric: "500+ professionals trained",
+    bullets: [
+      "Platform onboarding and hands-on training",
+      "Process and workflow consulting",
+      "Certification programs for technical teams",
     ],
   },
 ];
@@ -147,17 +156,12 @@ const UseCases = () => {
       >
         {/* Header */}
         <div className="mx-auto max-w-3xl text-center">
-          {/* Badge */}
           <motion.div
             variants={fadeUpVariants}
             initial="hidden"
             animate="visible"
           >
-            <SectionBadge
-              title="use cases"
-              dot={true}
-              className="mb-6"
-            />
+            <SectionBadge title="use cases" dot={true} className="mb-6" />
           </motion.div>
 
           <motion.h2
@@ -171,73 +175,67 @@ const UseCases = () => {
             variants={fadeUpVariants}
             className="mt-6 text-lg leading-8 text-muted-foreground font-semibold"
           >
-            A horizontal journey through the highest-impact realtime use cases —
-            from industrial telemetry to global infrastructure.
+            A horizontal journey through the highest-impact realtime use
+            cases — from industrial telemetry to global infrastructure.
           </motion.p>
         </div>
       </motion.div>
 
       {/* Horizontal track */}
-      <div className="relative mt-14 overflow-x-auto scrollbar-hide">
+      <div className="use-cases-scroll relative mt-14 overflow-x-auto pb-12 pt-2">
         <div
           ref={trackRef}
-          className="flex w-max gap-6 px-6 lg:px-16 will-change-transform"
+          className="flex w-max gap-7 px-6 lg:px-16 will-change-transform"
         >
-          {useCases.map((item, index) => {
+          {useCases.map((item) => {
             const Icon = item.icon;
             return (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.45, delay: index * 0.05 }}
-                className="flex w-[340px] flex-shrink-0 flex-col rounded-2xl border border-border bg-card p-8 md:w-[420px]"
+              <Card
+                className="group relative flex h-[460px] w-[340px] flex-shrink-0 flex-col overflow-hidden md:w-[420px]"
               >
-                <div className="flex items-start justify-between">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white shadow-lg">
-                    <Icon className="h-7 w-7" />
+
+                {/* Content zone */}
+                <div className="relative flex flex-1 flex-col p-9">
+                  {/* Icon */}
+                  <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-primary text-white">
+                    <Icon className="h-6.5 w-6.5" strokeWidth={2} />
                   </div>
 
-                  <Badge variant="outline" className="text-green-600 p-3">
-                    {item.metric}
-                  </Badge>
-                </div>
-
-                <div className="flex flex-1 flex-col">
-                  <h3 className="mt-6 text-xl font-bold uppercase tracking-tight text-foreground">
+                  {/* Eyebrow + title */}
+                  <span className="mt-7 text-xs font-bold uppercase tracking-[0.1em] text-accent">
+                    Use case
+                  </span>
+                  <h3 className="mt-2 text-xl font-bold uppercase leading-tight tracking-tight text-foreground">
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-md leading-relaxed text-muted-foreground font-semibold">
+                  <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">
                     {item.description}
                   </p>
 
-                  <ul className="mt-6 flex-1 space-y-3">
+                  <div className="mt-6 h-px w-full bg-gradient-to-r from-white/[0.08] via-white/[0.04] to-transparent" />
+
+                  {/* Bullets */}
+                  <ul className="mt-6 space-y-3.5">
                     {item.bullets.map((bullet) => (
                       <li
                         key={bullet}
-                        className="flex items-center gap-3 text-sm font-medium text-muted-foreground"
+                        className="flex items-start gap-3 text-sm font-medium leading-snug text-muted-foreground transition-colors duration-200 group-hover:text-foreground/80"
                       >
-                        <div className="flex h-5 w-5 items-center justify-center rounded-full bg-violet-100">
-                          <div className="h-1.5 w-1.5 rounded-full bg-violet-600" />
+                        <div className="mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-accent/15 ring-1 ring-accent/20">
+                          <div className="h-1.5 w-1.5 rounded-full bg-accent" />
                         </div>
-                        {bullet}
+                        <span>{bullet}</span>
                       </li>
                     ))}
                   </ul>
-
-                  <div className="mt-8 flex gap-3">
-                    <Button className="bg-accent">Start Building</Button>
-                    <Button variant="outline">Book Demo</Button>
-                  </div>
                 </div>
-              </motion.div>
+              </Card>
             );
           })}
 
           {/* Tail spacer so the last card fully clears the viewport */}
           <div
-            className="w-[40vw] md:w-[30vw] lg:w-[20vw] flex-shrink-0"
+            className="w-[40vw] flex-shrink-0 md:w-[30vw] lg:w-[20vw]"
             aria-hidden="true"
           />
         </div>

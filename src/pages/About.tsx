@@ -26,6 +26,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "@/hooks/useTheme";
 import CTASection from "@/components/CTASection";
 import { Card } from "@/components/ui/card";
+import CaseStudies from "@/components/sections/CaseStudies";
 
 // ─── Milestone data — matches reference image exactly ──────────────────────
 const MILESTONES = [
@@ -1139,10 +1140,10 @@ function ValuesSection() {
                 then put our actual card content inside.
               */}
               <Card
-                className="border border-border p-6 rounded-2xl h-full"
+                className="h-full p-6"
               >
                 <div className="">
-                  <div className="bg-violet-500 bg-clip-text text-6xl font-bold text-transparent">
+                  <div className="bg-accent bg-clip-text text-6xl font-bold text-transparent">
                     {item.number}
                   </div>
                   <h3 className="mt-4 text-xl font-semibold text-foreground">
@@ -1167,6 +1168,7 @@ const About = () => {
   return (
     <div className="overflow-hidden bg-background">
       <HeroSection />
+      <CaseStudies />
       <MissionSection />
       <StatsSection />
       <TimelineSection />

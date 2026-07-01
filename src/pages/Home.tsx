@@ -60,8 +60,9 @@ const Home = () => {
         }}
       >
         <HeroSection />
-
+        
         <div id={HOME_CHAPTERS[2].id} className="scroll-mt-28">
+        <WhyChooseUs />
           <Architecture />
         </div>
         <WhatWeDo />
@@ -73,11 +74,6 @@ const Home = () => {
         </div>
 
         <IndustriesTeaser />
-        <WhyChooseUs />
-
-        <div id={HOME_CHAPTERS[4].id} className="scroll-mt-28">
-          <Testimonials />
-        </div>
 
         <div id={HOME_CHAPTERS[5].id} className="scroll-mt-28">
           {/* <CTA /> */}
