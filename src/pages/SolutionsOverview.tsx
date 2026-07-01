@@ -105,7 +105,7 @@ export default function SolutionsOverview() {
               <motion.div key={solution.slug} variants={fadeUpVariants}>
                 <Link
                   to={`/solutions/${solution.slug}`}
-                  className="group relative flex h-full flex-col rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-surface)] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-[var(--border-subtle)] hover:bg-[var(--bg-surface)]/80 backdrop-blur-sm"
+                  className="group relative flex h-full flex-col rounded-2xl border border-border bg-[var(--bg-surface)] p-6 shadow-lg transition-all duration-300 hover:-translate-y-1 hover:border-border hover:bg-[var(--bg-surface)]/80 backdrop-blur-sm"
                 >
                   {/* Icon */}
                   <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-orange-500/10 text-orange-500 border border-orange-500/20 shadow-[0_0_15px_rgba(249,115,22,0.15)] transition-all duration-300 group-hover:scale-110 group-hover:bg-orange-500/20">

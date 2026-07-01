@@ -26,9 +26,9 @@ export default function LiveSystemPanel({ solution }: LiveSystemPanelProps) {
   }, [techItems.length]);
 
   return (
-    <div className="relative rounded-2xl border border-[var(--border-subtle)] bg-card shadow-xl overflow-hidden flex flex-col h-full w-full max-w-md ml-auto">
+    <div className="relative rounded-2xl border border-border bg-card shadow-xl overflow-hidden flex flex-col h-full w-full max-w-md ml-auto">
       {/* Terminal Header */}
-      <div className="flex items-center px-4 py-2.5 border-b border-[var(--border-subtle)] bg-muted/30">
+      <div className="flex items-center px-4 py-2.5 border-b border-border bg-muted/30">
         <div className="flex gap-1.5 mr-4">
           <div className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
           <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/80" />
@@ -66,7 +66,7 @@ export default function LiveSystemPanel({ solution }: LiveSystemPanelProps) {
         {/* Stat Tiles */}
         <div className="grid grid-cols-2 gap-3 mt-2">
           {metrics.map((metric, i) => (
-            <div key={i} className={`border border-[var(--border-subtle)] rounded-xl p-3 bg-background/50 flex flex-col gap-1 ${i === 2 ? 'col-span-2' : ''}`}>
+            <div key={i} className={`border border-border rounded-xl p-3 bg-background/50 flex flex-col gap-1 ${i === 2 ? 'col-span-2' : ''}`}>
               <div className="flex items-center gap-1.5">
                 <div className={`h-1.5 w-1.5 rounded-full ${i === 0 ? 'bg-green-500' : i === 1 ? 'bg-blue-500' : 'bg-fuchsia-500'}`} />
                 <span className="font-mono text-[9px] text-muted-foreground uppercase tracking-wider truncate">
@@ -90,11 +90,11 @@ export default function LiveSystemPanel({ solution }: LiveSystemPanelProps) {
               <motion.div
                 key={item}
                 animate={{
-                  borderColor: activeChip === idx ? "rgba(249, 115, 22, 0.5)" : "var(--border-subtle)",
+                  borderColor: activeChip === idx ? "rgba(249, 115, 22, 0.5)" : "var(--border-border)",
                   backgroundColor: activeChip === idx ? "rgba(249, 115, 22, 0.1)" : "transparent",
                   color: activeChip === idx ? "rgb(249, 115, 22)" : "inherit",
                 }}
-                className="px-2.5 py-1 border border-[var(--border-subtle)] text-[10px] text-muted-foreground font-mono rounded-md transition-colors duration-500"
+                className="px-2.5 py-1 border border-border text-[10px] text-muted-foreground font-mono rounded-md transition-colors duration-500"
               >
                 {item}
               </motion.div>

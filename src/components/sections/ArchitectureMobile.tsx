@@ -172,7 +172,7 @@ const ArchitectureMobile = () => {
                   {step.items.slice(0, 4).map((item: any, i) => (
                     <div
                       key={i}
-                      className="flex flex-col items-center gap-1.5 rounded-xl border border-[var(--border-subtle)] bg-muted p-2"
+                      className="flex flex-col items-center gap-1.5 rounded-xl border border-border bg-muted p-2"
                     >
                       <item.icon size={16} color={step.color} />
                       <span className="text-[10px] font-bold uppercase tracking-tight text-muted-foreground">
@@ -187,7 +187,7 @@ const ArchitectureMobile = () => {
                 {step.items.map((item: any, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] bg-muted p-2"
+                    className="flex items-center gap-2 rounded-lg border border-border bg-muted p-2"
                   >
                     <item.icon size={14} color={step.color} strokeWidth={2} />
                     <span className="text-[10px] font-semibold text-foreground">

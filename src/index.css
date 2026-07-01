@@ -116,8 +116,8 @@
   --bg-void: #f5f7ff;           /* blue-ivory page canvas */
   --bg-surface: #ffffff;
   --bg-raised: #eef1fb;         /* soft navy-tinted card surface */
-  --border-subtle: rgba(28, 51, 117, 0.09);
-  --border-active: rgba(28, 51, 117, 0.22);
+  --border-subtle: rgba(28, 51, 117, 0.04);
+  --border-active: rgba(28, 51, 117, 0.12);
   --text-primary: #0d1b4b;      /* deep navy primary text */
   --text-secondary: #2e4682;    /* mid-navy secondary text */
   --text-muted: #6b7db3;        /* desaturated navy muted text */
@@ -170,8 +170,8 @@
   --bg-void: #060c1e;           /* deep ocean navy — darkest */
   --bg-surface: #0a1228;        /* dark navy surface */
   --bg-raised: #101a38;         /* raised card — navy */
-  --border-subtle: rgba(100, 140, 255, 0.10);
-  --border-active: rgba(130, 165, 255, 0.22);
+  --border-subtle: rgba(238, 241, 255, 0.04);
+  --border-active: rgba(238, 241, 255, 0.10);
   --text-primary: #eef1ff;      /* cool white with navy undertone */
   --text-secondary: rgba(238, 241, 255, 0.78);
   --text-muted: rgba(238, 241, 255, 0.52);

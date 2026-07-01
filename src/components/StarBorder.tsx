@@ -27,7 +27,7 @@ const StarBorder = <T extends React.ElementType = 'button'>({
   const Component = as || 'button';
 
   // Default inner classes kept for backward compat when innerClassName not passed
-  const defaultInner = 'bg-gradient-to-b from-black to-gray-900 border border-[var(--border-subtle)] text-white text-center text-[16px] py-[16px] px-[26px]';
+  const defaultInner = 'bg-gradient-to-b from-black to-gray-900 border border-border text-white text-center text-[16px] py-[16px] px-[26px]';
   const innerClasses = innerClassName || defaultInner;
 
   return (

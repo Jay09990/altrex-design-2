@@ -114,7 +114,7 @@ const LoadingScreen = ({ onComplete }: LoadingScreenProps) => {
 
         {/* Progress Bar */}
         <div className="w-64 space-y-3">
-          <div className="h-1 w-full overflow-hidden rounded-full bg-card border border-[var(--border-subtle)]">
+          <div className="h-1 w-full overflow-hidden rounded-full bg-card border border-border">
             <div
               className="h-full bg-gradient-to-r from-[var(--accent-violet)] to-[var(--accent-fuchsia)] transition-all duration-300 ease-out"
               style={{ width: `${progress}%` }}

@@ -122,7 +122,7 @@ const FAQ = () => {
                 scale: 0.98,
               }}
               href="mailto:support@altrex.dev"
-              className="group mt-8 inline-flex items-center gap-3 rounded-xl border border-[var(--border-subtle)] bg-card px-6 py-4 text-sm font-semibold text-foreground transition-all hover:border-primary"
+              className="group mt-8 inline-flex items-center gap-3 rounded-xl border border-border bg-card px-6 py-4 text-sm font-semibold text-foreground transition-all hover:border-primary"
             >
               <motion.div
                 whileHover={{
@@ -186,14 +186,14 @@ const FAQ = () => {
                 >
                   <AccordionItem
                     value={`item-${index}`}
-                    className="border-b border-[var(--border-subtle)] py-1"
+                    className="border-b border-border py-1"
                   >
                     <AccordionTrigger className="py-6 text-left text-lg font-semibold text-foreground">
                       <div className="flex w-full items-center justify-between gap-4 pr-1">
                         <span>{faq.question}</span>
 
                         <div
-                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-[var(--border-subtle)] bg-primary/10 text-muted-foreground transition-all group-data-[state=open]/accordion-trigger:border-accent group-data-[state=open]/accordion-trigger:bg-secondary group-data-[state=open]/accordion-trigger:text-accent"
+                          className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-border bg-primary/10 text-muted-foreground transition-all group-data-[state=open]/accordion-trigger:border-accent group-data-[state=open]/accordion-trigger:bg-secondary group-data-[state=open]/accordion-trigger:text-accent"
                         >
                           <span className="select-none group-data-[state=open]/accordion-trigger:hidden">
                             <Plus size={16} strokeWidth={3} />

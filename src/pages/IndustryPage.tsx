@@ -188,7 +188,7 @@ const IndustryPage = () => {
             <Link to="/contact">
               <Button
                 variant="ghost"
-                className="h-11 px-6 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
+                className="h-11 px-6 rounded-lg border border-border text-foreground hover:bg-card"
               >
                 {industry.hero.ctas[1]}
               </Button>
@@ -200,7 +200,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           METRICS STRIP — Animated fill bars
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+      <section className="border-y border-border bg-card/60 backdrop-blur-sm">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -276,7 +276,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           INDUSTRY CHALLENGES — Radar chart + collapsible pills
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-card/30">
+      <section className="border-t border-border bg-card/30">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
           <motion.div
             initial="hidden"
@@ -298,7 +298,7 @@ const IndustryPage = () => {
             >
               <ResponsiveContainer width="100%" height={420}>
                 <RadarChart data={radarData} margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
-                  <PolarGrid stroke="var(--border-subtle)" strokeDasharray="3 3" />
+                  <PolarGrid stroke="var(--border-border)" strokeDasharray="3 3" />
                   <PolarAngleAxis
                     dataKey="subject"
                     tick={RadarTick as React.ComponentType<unknown>}
@@ -326,7 +326,7 @@ const IndustryPage = () => {
                     className={`rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
                       activeChallenge === idx
                         ? "border-orange-500/50 bg-orange-500/10 text-orange-400"
-                        : "border-[var(--border-subtle)] text-muted-foreground hover:text-foreground"
+                        : "border-border text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {c.title}
@@ -343,7 +343,7 @@ const IndustryPage = () => {
                     animate={{ height: "auto", opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    className="overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-card/40"
+                    className="overflow-hidden rounded-xl border border-border bg-card/40"
                   >
                     {industry.challenges[activeChallenge].items.map((item) => (
                       <li
@@ -377,7 +377,7 @@ const IndustryPage = () => {
           </motion.div>
 
           {/* Mobile: horizontal tab strip */}
-          <div className="lg:hidden flex overflow-x-auto gap-1 mb-4 pb-2 border-b border-[var(--border-subtle)]">
+          <div className="lg:hidden flex overflow-x-auto gap-1 mb-4 pb-2 border-b border-border">
             {industry.modules.map((mod, idx) => (
               <button
                 key={mod.title}
@@ -385,7 +385,7 @@ const IndustryPage = () => {
                 className={`shrink-0 px-3 py-1.5 text-xs rounded-full border transition-colors duration-200 ${
                   selectedModule === idx
                     ? "border-orange-500/50 bg-orange-500/10 text-orange-400"
-                    : "border-[var(--border-subtle)] text-muted-foreground hover:text-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {mod.title}
@@ -396,10 +396,10 @@ const IndustryPage = () => {
           {/* Desktop: split layout */}
           <motion.div
             variants={cardVariant}
-            className="hidden lg:flex rounded-2xl border border-[var(--border-subtle)] overflow-hidden bg-card/40"
+            className="hidden lg:flex rounded-2xl border border-border overflow-hidden bg-card/40"
           >
             {/* Left rail */}
-            <div className="w-64 shrink-0 border-r border-[var(--border-subtle)] bg-card/60 flex flex-col py-4">
+            <div className="w-64 shrink-0 border-r border-border bg-card/60 flex flex-col py-4">
               {industry.modules.map((mod, idx) => (
                 <button
                   key={mod.title}
@@ -448,7 +448,7 @@ const IndustryPage = () => {
                           {activeModule.monitors.map((m) => (
                             <span
                               key={m}
-                              className="rounded-full border border-[var(--border-subtle)] bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground"
+                              className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground"
                             >
                               {m}
                             </span>
@@ -474,7 +474,7 @@ const IndustryPage = () => {
                     )}
 
                     {activeModule.benefits && activeModule.benefits.length > 0 && (
-                      <div className="pt-2 border-t border-[var(--border-subtle)]">
+                      <div className="pt-2 border-t border-border">
                         <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">
                           Benefits
                         </p>
@@ -497,7 +497,7 @@ const IndustryPage = () => {
           </motion.div>
 
           {/* Mobile pane content */}
-          <div className="lg:hidden mt-4 rounded-2xl border border-[var(--border-subtle)] bg-card/40 p-6">
+          <div className="lg:hidden mt-4 rounded-2xl border border-border bg-card/40 p-6">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedModule}
@@ -518,7 +518,7 @@ const IndustryPage = () => {
                       <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mb-2">Monitor</p>
                       <div className="flex flex-wrap gap-1.5">
                         {activeModule.monitors.map((m) => (
-                          <span key={m} className="rounded-full border border-[var(--border-subtle)] bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">{m}</span>
+                          <span key={m} className="rounded-full border border-border bg-background px-2.5 py-0.5 text-[11px] text-muted-foreground">{m}</span>
                         ))}
                       </div>
                     </div>
@@ -549,7 +549,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           BUSINESS BENEFITS — Masonry with SVG draw-on-scroll
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)] bg-card/30">
+      <section className="border-t border-border bg-card/30">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
           <motion.div
             initial="hidden"
@@ -571,7 +571,7 @@ const IndustryPage = () => {
                   <motion.div
                     key={benefit.title}
                     variants={cardVariant}
-                    className="group break-inside-avoid rounded-xl border border-[var(--border-subtle)] bg-card/40 p-6 hover:border-orange-500/25 hover:bg-card transition-all duration-300"
+                    className="group break-inside-avoid rounded-xl border border-border bg-card/40 p-6 hover:border-orange-500/25 hover:bg-card transition-all duration-300"
                   >
                     {/* Animated SVG icon — strokeDashoffset draw effect */}
                     <motion.svg
@@ -631,15 +631,15 @@ const IndustryPage = () => {
           </motion.div>
 
           {/* Comparison table */}
-          <div className="overflow-hidden rounded-xl border border-[var(--border-subtle)] bg-card/40">
+          <div className="overflow-hidden rounded-xl border border-border bg-card/40">
             {/* Headers */}
-            <div className="grid grid-cols-2 border-b border-[var(--border-subtle)]">
+            <div className="grid grid-cols-2 border-b border-border">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="px-5 py-3 border-r border-[var(--border-subtle)]"
+                className="px-5 py-3 border-r border-border"
               >
                 <span className="text-xs font-mono uppercase tracking-wider text-muted-foreground/60">
                   Without Altrex
@@ -665,7 +665,7 @@ const IndustryPage = () => {
               return (
                 <motion.div
                   key={point}
-                  className="grid grid-cols-2 border-b border-[var(--border-subtle)] last:border-b-0"
+                  className="grid grid-cols-2 border-b border-border last:border-b-0"
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true }}
@@ -673,7 +673,7 @@ const IndustryPage = () => {
                 >
                   {/* Left cell */}
                   <motion.div
-                    className="flex items-start gap-2 px-5 py-3 border-r border-[var(--border-subtle)]"
+                    className="flex items-start gap-2 px-5 py-3 border-r border-border"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -707,7 +707,7 @@ const IndustryPage = () => {
               DEPLOYMENT ARCHITECTURE
             ══════════════════════════════════════════════════════════ */}
       {industry.architecture && (
-        <section className="border-t border-[var(--border-subtle)]">
+        <section className="border-t border-border">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
             <motion.div
               initial="hidden"
@@ -730,7 +730,7 @@ const IndustryPage = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="rounded-2xl border border-[var(--border-subtle)] bg-card/60 p-6 lg:p-10"
+              className="rounded-2xl border border-border bg-card/60 p-6 lg:p-10"
             >
               <DynamicArchitecture nodes={industry.architecture.nodes} />
             </motion.div>
@@ -741,7 +741,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           CTA FOOTER
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[var(--border-subtle)]">
+      <section className="border-t border-border">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -783,7 +783,7 @@ const IndustryPage = () => {
             <Link to="/contact">
               <Button
                 variant="ghost"
-                className="h-11 px-8 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"
+                className="h-11 px-8 rounded-lg border border-border text-foreground hover:bg-card"
               >
                 Talk to an Expert
               </Button>

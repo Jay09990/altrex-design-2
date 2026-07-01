@@ -68,7 +68,7 @@ function Slide1({ mobile }: { mobile: boolean }) {
   ];
   return (
     <div className={`relative flex flex-col items-center justify-center text-center px-8 ${mobile
-        ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]"
+        ? "min-h-[70vh] py-16 border-b border-border"
         : "w-[100vw] h-full flex-shrink-0"
       }`}>
       {/* Background glyph */}
@@ -116,7 +116,7 @@ function Slide1({ mobile }: { mobile: boolean }) {
 function Slide2({ mobile }: { mobile: boolean }) {
   const chips = ["IEC-62443 Aligned", "Multi-Factor Auth", "Role-Based Access"];
   return (
-    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-blue-950/10 ${mobile ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]" : "w-[100vw] h-full flex-shrink-0"
+    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-blue-950/10 ${mobile ? "min-h-[70vh] py-16 border-b border-border" : "w-[100vw] h-full flex-shrink-0"
       }`}>
       <div className="max-w-xl text-center">
         <div className="flex justify-center mb-8">
@@ -178,7 +178,7 @@ function Slide3({ mobile }: { mobile: boolean }) {
   const startX = (300 - totalW) / 2;
 
   return (
-    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-orange-950/10 ${mobile ? "min-h-[70vh] py-16 border-b border-[var(--border-subtle)]" : "w-[100vw] h-full flex-shrink-0"
+    <div className={`relative flex flex-col items-center justify-center px-8 bg-gradient-to-r from-background to-orange-950/10 ${mobile ? "min-h-[70vh] py-16 border-b border-border" : "w-[100vw] h-full flex-shrink-0"
       }`}>
       <div className="max-w-xl text-center">
         <div className="flex justify-center mb-8">
@@ -353,9 +353,9 @@ function Slide4({ mobile }: { mobile: boolean }) {
 
   if (mobile) {
     return (
-      <div className="border-b border-[var(--border-subtle)] flex flex-col">
+      <div className="border-b border-border flex flex-col">
         <HybridPanel />
-        <div className="border-t border-[var(--border-subtle)]" />
+        <div className="border-t border-border" />
         <ReliabilityPanel inView={uptimeInView} refEl={reliabilityRef} />
       </div>
     );
@@ -366,7 +366,7 @@ function Slide4({ mobile }: { mobile: boolean }) {
       <HybridPanel />
 
       {/* Dividing line with traveling spark */}
-      <div className="relative w-px bg-[var(--border-subtle)] flex-shrink-0 self-stretch overflow-hidden">
+      <div className="relative w-px bg-[var(--border-border)] flex-shrink-0 self-stretch overflow-hidden">
         <motion.div
           className="absolute left-0 w-[2px] h-16 bg-gradient-to-b from-transparent via-orange-500 to-transparent"
           animate={{ top: ["-15%", "115%"] }}
@@ -406,9 +406,9 @@ function Slide5({ mobile }: { mobile: boolean }) {
           Your Operations, Unified.
         </motion.h3>
 
-        <div className="rounded-2xl border border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm p-6 space-y-5">
+        <div className="rounded-2xl border border-border bg-card/60 backdrop-blur-sm p-6 space-y-5">
           {metrics.map((m, i) => (
-            <div key={m.label} className="border-b border-[var(--border-subtle)] pb-4 last:border-0 last:pb-0">
+            <div key={m.label} className="border-b border-border pb-4 last:border-0 last:pb-0">
               <div className="flex items-baseline justify-between mb-2">
                 <motion.p
                   initial={{ opacity: 0, x: -12 }} whileInView={{ opacity: 1, x: 0 }}
@@ -478,7 +478,7 @@ function HorizontalStory() {
         {slide > 1 && (
           <button
             onClick={() => scrollSlide(-1)}
-            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 rounded-full border border-[var(--border-subtle)] bg-card/80 backdrop-blur-sm h-10 w-10 flex items-center justify-center hover:border-orange-500/40 hover:bg-card transition-all"
+            className="absolute left-6 top-1/2 -translate-y-1/2 z-20 rounded-full border border-border bg-card/80 backdrop-blur-sm h-10 w-10 flex items-center justify-center hover:border-orange-500/40 hover:bg-card transition-all"
           >
             <ChevronLeft className="h-4 w-4 text-foreground" />
           </button>
@@ -488,7 +488,7 @@ function HorizontalStory() {
         {slide < 5 && (
           <button
             onClick={() => scrollSlide(1)}
-            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 rounded-full border border-[var(--border-subtle)] bg-card/80 backdrop-blur-sm h-10 w-10 flex items-center justify-center hover:border-orange-500/40 hover:bg-card transition-all"
+            className="absolute right-6 top-1/2 -translate-y-1/2 z-20 rounded-full border border-border bg-card/80 backdrop-blur-sm h-10 w-10 flex items-center justify-center hover:border-orange-500/40 hover:bg-card transition-all"
           >
             <ChevronRight className="h-4 w-4 text-foreground" />
           </button>

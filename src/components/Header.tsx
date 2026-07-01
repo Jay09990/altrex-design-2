@@ -38,6 +38,9 @@ const Header = () => {
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [industriesOpen, setIndustriesOpen] = useState(false);
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const location = useLocation(); 
   
   const solutionsTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -239,12 +242,12 @@ const Header = () => {
                   </Link>
 
                   {solutionsOpen && (
-                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-border bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
                         <div className="grid grid-cols-3 gap-8">
                           {solutionCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
-                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-border pb-2">
                               {category.title}
                             </h4>
                             <ul className="flex flex-col gap-1">
@@ -257,7 +260,7 @@ const Header = () => {
                                       onClick={() => setSolutionsOpen(false)}
                                       className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-muted border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
+                                      <div className="rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
                                       <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
@@ -298,12 +301,12 @@ const Header = () => {
                   </Link>
 
                   {servicesOpen && (
-                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-border bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
                         <div className="grid grid-cols-3 gap-8">
                           {serviceCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
-                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-border pb-2">
                               {category.title}
                             </h4>
                             <ul className="flex flex-col gap-1">
@@ -316,7 +319,7 @@ const Header = () => {
                                       onClick={() => setServicesOpen(false)}
                                       className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-muted border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
+                                      <div className="rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
                                       <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
@@ -357,12 +360,12 @@ const Header = () => {
                   </Link>
 
                   {industriesOpen && (
-                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-[var(--border-subtle)] bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
+                    <div className="fixed inset-x-0 top-16 w-screen h-auto border-b border-border bg-card/95 backdrop-blur-md shadow-xl animate-in fade-in slide-in-from-top-2 duration-200">
                       <div className="mx-auto max-w-7xl px-6 lg:px-8 py-8 h-full">
                         <div className="grid grid-cols-3 gap-8">
                           {industryCategories.map((category) => (
                           <div key={category.title} className="flex flex-col gap-3">
-                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-[var(--border-subtle)] pb-2">
+                            <h4 className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground border-b border-border pb-2">
                               {category.title}
                             </h4>
                             <ul className="flex flex-col gap-1">
@@ -375,7 +378,7 @@ const Header = () => {
                                       onClick={() => setIndustriesOpen(false)}
                                       className="group flex items-center gap-2.5 rounded-lg p-2 transition-all duration-150 hover:bg-orange-500/5"
                                     >
-                                      <div className="rounded-md bg-muted border border-[var(--border-subtle)] p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
+                                      <div className="rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors shadow-sm">
                                         <Icon className="h-3.5 w-3.5" />
                                       </div>
                                       <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
@@ -431,32 +434,180 @@ const Header = () => {
 
       {/* Mobile Menu */}
       {mobileMenu && (
-        <div className="border-t border-[var(--border-subtle)] bg-card lg:hidden">
-          <div className="space-y-4 px-6 py-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  Theme
-                </p>
-                <ThemeToggle />
-              </div>
-
-              {navLinks.map((item) => {
-                const isActive = location.pathname.startsWith(item.href);
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={`block text-sm font-medium transition-colors ${
-                      isActive ? "text-orange-500" : "hover:text-orange-500"
-                    }`}
-                    onClick={() => setMobileMenu(false)}
-                  >
-                    {item.name}
-                  </Link>
-                );
-              })}
+        <div className="border-t border-border bg-card lg:hidden max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="space-y-1 px-4 py-4">
+            {/* Theme Toggle */}
+            <div className="flex items-center justify-between px-2 py-3 border-b border-border mb-2">
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+                Theme
+              </p>
+              <ThemeToggle />
             </div>
+
+            {navLinks.map((item) => {
+              const isActive = location.pathname.startsWith(item.href);
+
+              // Mobile Solutions Accordion
+              if (item.name === "Solutions") {
+                return (
+                  <div key={item.name}>
+                    <button
+                      onClick={() => setMobileSolutionsOpen(!mobileSolutionsOpen)}
+                      className={`w-full flex items-center justify-between px-2 py-3 text-sm font-medium transition-colors rounded-lg ${
+                        mobileSolutionsOpen ? "text-orange-500 bg-orange-500/5" : "hover:text-orange-500 hover:bg-orange-500/5"
+                      }`}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileSolutionsOpen ? "rotate-180 text-orange-500" : ""}`} />
+                    </button>
+                    {mobileSolutionsOpen && (
+                      <div className="mt-1 ml-2 border-l-2 border-orange-500/20 pl-3 space-y-3 pb-2">
+                        {solutionCategories.map((category) => (
+                          <div key={category.title}>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground px-2 py-1.5">
+                              {category.title}
+                            </p>
+                            <ul className="space-y-0.5">
+                              {category.items.map((subItem) => {
+                                const Icon = subItem.icon;
+                                return (
+                                  <li key={subItem.name}>
+                                    <Link
+                                      to={subItem.href}
+                                      onClick={() => { setMobileMenu(false); setMobileSolutionsOpen(false); }}
+                                      className="group flex items-center gap-2.5 rounded-lg px-2 py-2 transition-all duration-150 hover:bg-orange-500/5"
+                                    >
+                                      <div className="shrink-0 rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors">
+                                        <Icon className="h-3.5 w-3.5" />
+                                      </div>
+                                      <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
+                                        {subItem.name}
+                                      </span>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              // Mobile Services Accordion
+              if (item.name === "Services") {
+                return (
+                  <div key={item.name}>
+                    <button
+                      onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                      className={`w-full flex items-center justify-between px-2 py-3 text-sm font-medium transition-colors rounded-lg ${
+                        mobileServicesOpen ? "text-orange-500 bg-orange-500/5" : "hover:text-orange-500 hover:bg-orange-500/5"
+                      }`}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileServicesOpen ? "rotate-180 text-orange-500" : ""}`} />
+                    </button>
+                    {mobileServicesOpen && (
+                      <div className="mt-1 ml-2 border-l-2 border-orange-500/20 pl-3 space-y-3 pb-2">
+                        {serviceCategories.map((category) => (
+                          <div key={category.title}>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground px-2 py-1.5">
+                              {category.title}
+                            </p>
+                            <ul className="space-y-0.5">
+                              {category.items.map((subItem) => {
+                                const Icon = subItem.icon;
+                                return (
+                                  <li key={subItem.name}>
+                                    <Link
+                                      to={subItem.href}
+                                      onClick={() => { setMobileMenu(false); setMobileServicesOpen(false); }}
+                                      className="group flex items-center gap-2.5 rounded-lg px-2 py-2 transition-all duration-150 hover:bg-orange-500/5"
+                                    >
+                                      <div className="shrink-0 rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors">
+                                        <Icon className="h-3.5 w-3.5" />
+                                      </div>
+                                      <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
+                                        {subItem.name}
+                                      </span>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              // Mobile Industries Accordion
+              if (item.name === "Industries") {
+                return (
+                  <div key={item.name}>
+                    <button
+                      onClick={() => setMobileIndustriesOpen(!mobileIndustriesOpen)}
+                      className={`w-full flex items-center justify-between px-2 py-3 text-sm font-medium transition-colors rounded-lg ${
+                        mobileIndustriesOpen ? "text-orange-500 bg-orange-500/5" : "hover:text-orange-500 hover:bg-orange-500/5"
+                      }`}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${mobileIndustriesOpen ? "rotate-180 text-orange-500" : ""}`} />
+                    </button>
+                    {mobileIndustriesOpen && (
+                      <div className="mt-1 ml-2 border-l-2 border-orange-500/20 pl-3 space-y-3 pb-2">
+                        {industryCategories.map((category) => (
+                          <div key={category.title}>
+                            <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-muted-foreground px-2 py-1.5">
+                              {category.title}
+                            </p>
+                            <ul className="space-y-0.5">
+                              {category.items.map((subItem) => {
+                                const Icon = subItem.icon;
+                                return (
+                                  <li key={subItem.name}>
+                                    <Link
+                                      to={subItem.href}
+                                      onClick={() => { setMobileMenu(false); setMobileIndustriesOpen(false); }}
+                                      className="group flex items-center gap-2.5 rounded-lg px-2 py-2 transition-all duration-150 hover:bg-orange-500/5"
+                                    >
+                                      <div className="shrink-0 rounded-md bg-muted border border-border p-1.5 text-muted-foreground group-hover:border-orange-500/30 group-hover:text-orange-500 transition-colors">
+                                        <Icon className="h-3.5 w-3.5" />
+                                      </div>
+                                      <span className="text-xs font-medium text-foreground group-hover:text-orange-500 transition-colors leading-snug">
+                                        {subItem.name}
+                                      </span>
+                                    </Link>
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                );
+              }
+
+              // Regular nav links
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={`block px-2 py-3 text-sm font-medium transition-colors rounded-lg ${
+                    isActive ? "text-orange-500" : "hover:text-orange-500 hover:bg-orange-500/5"
+                  }`}
+                  onClick={() => setMobileMenu(false)}
+                >
+                  {item.name}
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}

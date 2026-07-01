@@ -103,7 +103,7 @@ const LivePanel = ({ service }: { service: ServiceData }) => {
   const capabilities = service.whatWeDeliver?.map(d => d.title) ?? service.keyBenefits;
 
   return (
-    <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-surface)]/80 backdrop-blur-md p-6 shadow-xl w-full max-w-xl">
+    <div className="rounded-2xl border border-border bg-[var(--bg-surface)]/80 backdrop-blur-md p-6 shadow-xl w-full max-w-xl">
       {/* Chrome */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
@@ -130,12 +130,12 @@ const LivePanel = ({ service }: { service: ServiceData }) => {
       </div>
       {/* Metrics */}
       <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="rounded-xl border border-[var(--border-subtle)] p-4 bg-background">
+        <div className="rounded-xl border border-border p-4 bg-background">
           <div className="h-1.5 w-1.5 rounded-full bg-[var(--data-green)] mb-2" />
           <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">ACTIVE CAPABILITIES</div>
           <div className="text-xl font-bold">{metric1}</div>
         </div>
-        <div className="rounded-xl border border-[var(--border-subtle)] p-4 bg-background">
+        <div className="rounded-xl border border-border p-4 bg-background">
           <div className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] mb-2" />
           <div className="font-mono text-[9px] text-[var(--text-muted)] uppercase">INDUSTRIES</div>
           <div className="text-xl font-bold">{metric2}</div>
@@ -146,7 +146,7 @@ const LivePanel = ({ service }: { service: ServiceData }) => {
         <div className="font-mono text-[10px] text-[var(--text-muted)] uppercase tracking-widest mb-3">ACTIVE MODULES</div>
         <div className="flex flex-wrap gap-2">
           {capabilities.slice(0, 6).map((cap, i) => (
-            <span key={cap} className={`rounded-md border border-[var(--border-subtle)] px-2.5 py-1 text-[10px] font-mono ${i === (seed % 6) ? 'border-orange-500/40 bg-orange-500/10 text-orange-300' : 'text-muted-foreground'}`}>{cap}</span>
+            <span key={cap} className={`rounded-md border border-border px-2.5 py-1 text-[10px] font-mono ${i === (seed % 6) ? 'border-orange-500/40 bg-orange-500/10 text-orange-300' : 'text-muted-foreground'}`}>{cap}</span>
           ))}
         </div>
       </div>
@@ -207,7 +207,7 @@ export const ServicePage: React.FC = () => {
             <motion.div variants={fadeUp} transition={{ delay: 1 }} className="mt-10 flex flex-wrap gap-4">
               {service.hero.ctas.slice(0, 2).map((cta, idx) => (
                 <Link key={cta} to="/contact">
-                  <Button variant={idx === 0 ? "default" : "ghost"} className={idx === 0 ? "h-11 px-6 rounded-lg bg-orange-500 text-white hover:bg-primary" : "h-11 px-6 rounded-lg border border-[var(--border-subtle)] text-foreground hover:bg-card"}>
+                  <Button variant={idx === 0 ? "default" : "ghost"} className={idx === 0 ? "h-11 px-6 rounded-lg bg-orange-500 text-white hover:bg-primary" : "h-11 px-6 rounded-lg border border-border text-foreground hover:bg-card"}>
                     {cta} {idx === 0 && <ArrowRight className="ml-2 h-4 w-4" />}
                   </Button>
                 </Link>
@@ -221,7 +221,7 @@ export const ServicePage: React.FC = () => {
       </section>
 
       {/* SECTION 1: Capability row - Redesigned */}
-      <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+      <section className="border-y border-border bg-card/60 backdrop-blur-sm">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {service.keyBenefits.map((benefit, idx) => {
             const Icon = getIconForText(benefit);
@@ -231,7 +231,7 @@ export const ServicePage: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: idx * 0.15, duration: 0.5 }}
-                className="rounded-2xl border border-[var(--border-subtle)] bg-background p-5 text-sm text-muted-foreground shadow-sm flex items-center gap-3"
+                className="rounded-2xl border border-border bg-background p-5 text-sm text-muted-foreground shadow-sm flex items-center gap-3"
               >
                 <div className="rounded-lg bg-[rgba(249,115,22,0.08)] border border-[rgba(249,115,22,0.2)] p-2">
                   <motion.div animate={{ scale: [1, 1.1, 1] }} transition={{ duration: 2, repeat: Infinity }}>
@@ -254,7 +254,7 @@ export const ServicePage: React.FC = () => {
           </motion.div>
 
           <motion.div variants={fadeUp} className="grid md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
-            <div className="rounded-xl bg-[var(--bg-raised)] border border-[var(--border-subtle)] p-8 h-full">
+            <div className="rounded-xl bg-[var(--bg-raised)] border border-border p-8 h-full">
               <div className="flex items-center gap-2 mb-4 text-[var(--text-muted)] font-mono text-xs uppercase"><AlertCircle className="h-4 w-4" />THE CHALLENGE</div>
               <p className="text-sm leading-relaxed line-clamp-3">{service.overview.paragraphs[0]}</p>
             </div>
@@ -274,7 +274,7 @@ export const ServicePage: React.FC = () => {
 
       {/* SECTION 3: Technical Capabilities Range - Redesigned */}
       {service.platformCapabilities ? (
-        <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+        <section className="border-y border-border bg-card/60 backdrop-blur-sm">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger}>
               <motion.div variants={fadeUp} className="mb-14 space-y-3">
@@ -284,7 +284,7 @@ export const ServicePage: React.FC = () => {
 
               <motion.div variants={stagger} className="grid gap-8 lg:grid-cols-2">
                 {service.platformCapabilities.map((group) => (
-                  <motion.div key={group.title} variants={cardVariant} className="rounded-2xl border border-[var(--border-subtle)] bg-background p-6 shadow-sm">
+                  <motion.div key={group.title} variants={cardVariant} className="rounded-2xl border border-border bg-background p-6 shadow-sm">
                     <h3 className="mb-4 flex items-center gap-2 text-base font-semibold text-foreground"><span className="h-3 w-1 rounded-full bg-orange-400" />{group.title}</h3>
                     <div className="space-y-2">
                       {group.items.map((item) => {
@@ -307,7 +307,7 @@ export const ServicePage: React.FC = () => {
 
       {/* SECTION 4: Why Choose Altrex - Redesigned */}
       {service.whyChoose ? (
-        <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24 border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+        <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24 border-y border-border bg-card/60 backdrop-blur-sm">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger}>
             <motion.div variants={fadeUp} className="mb-14 space-y-3">
               <SectionLabel>Differentiators</SectionLabel>
@@ -319,10 +319,10 @@ export const ServicePage: React.FC = () => {
                 const title = typeof item === "string" ? item : item.title;
                 const desc = typeof item === "string" ? "" : item.description;
                 return (
-                  <motion.div key={`${title}-${idx}`} variants={cardVariant} className="rounded-2xl border border-[var(--border-subtle)] bg-background p-6 shadow-sm flex flex-col gap-4">
+                  <motion.div key={`${title}-${idx}`} variants={cardVariant} className="rounded-2xl border border-border bg-background p-6 shadow-sm flex flex-col gap-4">
                     <span className="font-mono text-[11px] text-orange-500 block">{String(idx + 1).padStart(2, "0")}</span>
                     <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-                    <div className="flex items-center gap-1 text-[10px] font-mono text-muted-foreground border border-[var(--border-subtle)] p-2 rounded bg-[var(--bg-raised)]">
+                    <div className="flex items-center gap-1 text-[10px] font-mono text-muted-foreground border border-border p-2 rounded bg-[var(--bg-raised)]">
                       {idx === 0 ? <><div className="flex-1 text-center bg-[var(--bg-surface)] p-1 rounded">Input</div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-orange-500 text-white p-1 rounded">ALTREX</div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-[var(--bg-surface)] p-1 rounded">Outcome</div></> : <><div className="flex flex-col gap-1"><div className="bg-[var(--bg-surface)] p-1 rounded">In 1</div><div className="bg-[var(--bg-surface)] p-1 rounded">In 2</div></div><ArrowRight className="h-3 w-3" /><div className="flex-1 text-center bg-orange-500 text-white p-1 rounded flex items-center justify-center">Unified View</div></>}
                     </div>
                     <p className="text-xs leading-6 text-muted-foreground line-clamp-1">{desc}</p>
@@ -336,7 +336,7 @@ export const ServicePage: React.FC = () => {
 
       {/* Other sections - UNCHANGED */}
       {service.whatWeDeliver ? (
-        <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+        <section className="border-y border-border bg-card/60 backdrop-blur-sm">
           <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger}>
               <motion.div variants={fadeUp} className="mb-14 space-y-3">
@@ -345,7 +345,7 @@ export const ServicePage: React.FC = () => {
               </motion.div>
               <motion.div variants={stagger} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {service.whatWeDeliver.map((item, idx) => (
-                  <motion.div key={item.title} variants={cardVariant} className="group rounded-2xl border border-[var(--border-subtle)] bg-background p-6 shadow-sm hover:border-orange-400/25 transition-all duration-300">
+                  <motion.div key={item.title} variants={cardVariant} className="group rounded-2xl border border-border bg-background p-6 shadow-sm hover:border-orange-400/25 transition-all duration-300">
                     <div className="mb-4 flex items-center justify-between">
                       <span className="font-mono text-[11px] font-bold tracking-[0.25em] text-orange-500">{String(idx + 1).padStart(2, "0")}</span>
                       <div className="h-1.5 w-14 rounded-full bg-orange-500/10" />
@@ -369,7 +369,7 @@ export const ServicePage: React.FC = () => {
             </motion.div>
             <motion.div variants={stagger} className="space-y-8">
               {service.approachSteps.map((step) => (
-                <motion.div key={step.title} variants={cardVariant} className="group rounded-2xl border border-[var(--border-subtle)] bg-background p-8 shadow-sm transition-all duration-300 hover:border-orange-400/25">
+                <motion.div key={step.title} variants={cardVariant} className="group rounded-2xl border border-border bg-background p-8 shadow-sm transition-all duration-300 hover:border-orange-400/25">
                   <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
                     <div className="lg:max-w-md">
                       <h3 className="text-xl font-bold text-foreground group-hover:text-orange-500 transition-colors duration-300">{step.title}</h3>
@@ -380,7 +380,7 @@ export const ServicePage: React.FC = () => {
                           <span className="text-[11px] font-mono uppercase tracking-[0.24em] text-muted-foreground block mb-2">Target Milestones</span>
                           <div className="flex flex-wrap gap-2">
                             {step.activities.map((activity, activityIdx) => (
-                              <span key={activityIdx} className="rounded-full border border-[var(--border-subtle)] bg-card px-2.5 py-1 text-xs text-muted-foreground">{activity}</span>
+                              <span key={activityIdx} className="rounded-full border border-border bg-card px-2.5 py-1 text-xs text-muted-foreground">{activity}</span>
                             ))}
                           </div>
                         </div>
@@ -409,7 +409,7 @@ export const ServicePage: React.FC = () => {
                             <div key={componentIdx}>
                               <span className="text-[11px] font-mono text-muted-foreground block mb-1">{groupTitle}</span>
                               <div className="flex flex-wrap gap-1.5">
-                                {items.map((item, itemIdx) => (<span key={itemIdx} className="rounded-full border border-[var(--border-subtle)] bg-card px-2 py-0.5 text-[11px] text-muted-foreground">{item}</span>))}
+                                {items.map((item, itemIdx) => (<span key={itemIdx} className="rounded-full border border-border bg-card px-2 py-0.5 text-[11px] text-muted-foreground">{item}</span>))}
                               </div>
                             </div>
                           ))}
@@ -425,7 +425,7 @@ export const ServicePage: React.FC = () => {
       ) : null}
 
       {service.integrationCapabilities ? (
-        <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24 border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+        <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24 border-y border-border bg-card/60 backdrop-blur-sm">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.15 }} variants={stagger}>
             <motion.div variants={fadeUp} className="mb-14 space-y-3">
               <SectionLabel>Integration</SectionLabel>
@@ -433,11 +433,11 @@ export const ServicePage: React.FC = () => {
             </motion.div>
             <motion.div variants={stagger} className="grid gap-8 lg:grid-cols-2">
               {service.integrationCapabilities.map((group) => (
-                <motion.div key={group.title} variants={cardVariant} className="rounded-2xl border border-[var(--border-subtle)] bg-background p-6 shadow-sm">
+                <motion.div key={group.title} variants={cardVariant} className="rounded-2xl border border-border bg-background p-6 shadow-sm">
                   <h3 className="mb-4 text-base font-semibold text-foreground">{group.title}</h3>
                   <div className="flex flex-wrap gap-2">
                     {group.items.map((item) => (
-                      <span key={item} className="rounded-full border border-[var(--border-subtle)] bg-card px-2.5 py-1 text-xs text-muted-foreground">{item}</span>
+                      <span key={item} className="rounded-full border border-border bg-card px-2.5 py-1 text-xs text-muted-foreground">{item}</span>
                     ))}
                   </div>
                 </motion.div>
@@ -450,7 +450,7 @@ export const ServicePage: React.FC = () => {
       {service.securityAndCompliance || service.scalability ? (
         <section className="mx-auto max-w-7xl px-6 lg:px-8 py-24 grid gap-8 lg:grid-cols-2">
           {service.securityAndCompliance ? (
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-background p-8 shadow-sm">
+            <div className="rounded-2xl border border-border bg-background p-8 shadow-sm">
               <h3 className="text-lg font-bold text-foreground mb-2">{service.securityAndCompliance.title}</h3>
               <p className="text-muted-foreground text-sm mb-6">{service.securityAndCompliance.description}</p>
               <ul className="grid gap-3 sm:grid-cols-2 text-sm text-muted-foreground">
@@ -461,15 +461,15 @@ export const ServicePage: React.FC = () => {
             </div>
           ) : null}
           {service.scalability ? (
-            <div className="rounded-2xl border border-[var(--border-subtle)] bg-background p-8 shadow-sm flex flex-col justify-between">
+            <div className="rounded-2xl border border-border bg-background p-8 shadow-sm flex flex-col justify-between">
               <div>
                 <h3 className="text-lg font-bold text-foreground mb-2">{service.scalability.title}</h3>
                 <p className="text-muted-foreground text-sm mb-4">{service.scalability.description}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
-                  {service.scalability.suitableFor.map((suit) => (<span key={suit} className="rounded-full border border-[var(--border-subtle)] bg-card px-2 py-0.5 text-[11px] text-muted-foreground">{suit}</span>))}
+                  {service.scalability.suitableFor.map((suit) => (<span key={suit} className="rounded-full border border-border bg-card px-2 py-0.5 text-[11px] text-muted-foreground">{suit}</span>))}
                 </div>
               </div>
-              <div className="rounded-2xl border border-[var(--border-subtle)] bg-card p-3 text-[11px] font-mono text-orange-500">
+              <div className="rounded-2xl border border-border bg-card p-3 text-[11px] font-mono text-orange-500">
                 <span className="block font-semibold uppercase tracking-[0.2em] mb-1">Summary</span>
                 {service.scalability.summary}
               </div>
@@ -485,7 +485,7 @@ export const ServicePage: React.FC = () => {
             {service.industries.map((industry) => {
               const Icon = getIconForText(industry);
               return (
-                <span key={industry} className="rounded-full border border-[var(--border-subtle)] bg-card px-4 py-1.5 text-xs text-muted-foreground font-medium flex items-center gap-1.5">
+                <span key={industry} className="rounded-full border border-border bg-card px-4 py-1.5 text-xs text-muted-foreground font-medium flex items-center gap-1.5">
                   <Icon className="h-3.5 w-3.5 text-[#f97316]" />
                   {industry}
                 </span>
@@ -495,7 +495,7 @@ export const ServicePage: React.FC = () => {
         </div>
       </section>
 
-      <section className="border-y border-[var(--border-subtle)] bg-card/60 backdrop-blur-sm">
+      <section className="border-y border-border bg-card/60 backdrop-blur-sm">
         <div className="relative overflow-hidden py-28">
           <div className="pointer-events-none absolute top-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/10 blur-[100px]" />
           <div className="mx-auto max-w-4xl px-6 relative z-10 text-center">
@@ -506,7 +506,7 @@ export const ServicePage: React.FC = () => {
                 <Button className="h-11 rounded-lg bg-orange-500 px-8 text-white hover:bg-primary">{service.callToAction.ctas[0] ?? "Request Demo"}<ArrowRight className="ml-2 h-4 w-4" /></Button>
               </Link>
               <Link to="/contact">
-                <Button variant="ghost" className="h-11 rounded-lg border border-[var(--border-subtle)] px-8 text-foreground hover:bg-card">{service.callToAction.ctas[1] ?? "Talk to an Expert"}</Button>
+                <Button variant="ghost" className="h-11 rounded-lg border border-border px-8 text-foreground hover:bg-card">{service.callToAction.ctas[1] ?? "Talk to an Expert"}</Button>
               </Link>
             </div>
           </div>

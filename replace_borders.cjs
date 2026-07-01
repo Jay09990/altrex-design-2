@@ -29,9 +29,9 @@ files.forEach(file => {
   // border-muted, border-muted/30
   // border-gray-100, border-gray-200, border-slate-200, etc.
   
-  const regex = /\bborder-(?:white\/\d+|black\/\[[0-9.]+\]|border(?:\/\d+)?|muted(?:\/\d+)?|gray-\d00|slate-\d00|zinc-\d00|black\/\d+)\b/g;
+  const regex = /border-\[var\(--border-subtle\)]|border-subtle/g;
   
-  content = content.replace(regex, 'border-[var(--border-subtle)]');
+  content = content.replace(regex, 'border-border');
   
   // Special arbitrary colors like border-[rgba(...)] or border-[#...] might be there, let's leave them unless we're sure.
   // We also replace any duplicate border-[var(--border-subtle)]
