@@ -611,6 +611,7 @@ function HeroSection() {
               as="h1"
               lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELLIGENCE"]}
               className="mx-auto max-w-5xl text-2xl font-bold tracking-[-0.04em] text-foreground sm:text-3xl lg:mx-0 lg:text-4xl xl:text-5xl mt-8 sm:mt-16 leading-tight sm:leading-[0.95]"
+              className="mx-auto max-w-5xl text-2xl font-bold tracking-[-0.04em] text-foreground sm:text-3xl lg:mx-0 lg:text-4xl xl:text-5xl mt-8 sm:mt-16 leading-tight sm:leading-[0.95]"
               immediate
               delay={0}
               stagger={0.028}
@@ -639,7 +640,7 @@ function HeroSection() {
               ].map(({ icon: Icon, label }) => (
                 <div
                   key={label}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] px-3 py-1.5 sm:gap-2 sm:px-5 sm:py-2.5"
                 >
                   <Icon className="h-3.5 w-3.5 text-accent sm:h-4 sm:w-4" />
                   <span className="text-[11px] font-medium text-primary sm:text-sm">
@@ -802,9 +803,9 @@ function MissionSection() {
               <motion.div
                 key={i}
                 variants={cardVariants}
-                className="rounded-3xl border border-border bg-card p-8"
+                className="rounded-3xl border border-[var(--border-subtle)] bg-card p-8"
               >
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl text-accent border border-border">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl text-accent border border-[var(--border-subtle)]">
                   <Icon className="h-6 w-6" />
                 </div>
                 <h3 className="mt-6 text-xl font-semibold text-foreground">
@@ -834,7 +835,7 @@ function StatsSection() {
           initial={{ opacity: 0, y: 18 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 divide-x divide-y divide-border rounded-3xl border border-border bg-card shadow-sm md:grid-cols-4 md:divide-y-0"
+          className="grid grid-cols-2 divide-x divide-y divide-border rounded-3xl border border-[var(--border-subtle)] bg-card shadow-sm md:grid-cols-4 md:divide-y-0"
         >
           {stats.map((stat, i) => (
             <div
@@ -935,8 +936,8 @@ function TimelineSection() {
                     isCurrent
                       ? "border-[var(--data-green)]/40 bg-card/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
                       : isUpcoming
-                        ? "border-white/5 bg-card/40 opacity-60"
-                        : "border-white/10 bg-card/75 hover:border-white/20 hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
+                        ? "border-[var(--border-subtle)] bg-card/40 opacity-60"
+                        : "border-[var(--border-subtle)] bg-card/75 hover:border-[var(--border-subtle)] hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
                   }`}
                 >
                   {/* Level pill */}
@@ -946,7 +947,7 @@ function TimelineSection() {
                         isCurrent
                           ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
                           : isUpcoming
-                            ? "bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10"
+                            ? "bg-black/5 dark:bg-white/5 border border-[var(--border-subtle)] dark:border-[var(--border-subtle)]"
                             : "bg-violet-500"
                       }`}
                     >
@@ -979,7 +980,7 @@ function TimelineSection() {
                       </span>
                     )}
                     {isUpcoming && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-muted-foreground">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--border-subtle)] dark:border-[var(--border-subtle)] bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-muted-foreground">
                         Upcoming
                       </span>
                     )}
@@ -1012,8 +1013,8 @@ function TimelineSection() {
                           isCurrent
                             ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
                             : isUpcoming
-                              ? "border-black/8 dark:border-white/5 bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
-                              : "border-black/8 bg-black/3 text-muted-foreground"
+                              ? "border-[var(--border-subtle)] dark:border-[var(--border-subtle)] bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
+                              : "border-[var(--border-subtle)] bg-black/3 text-muted-foreground"
                         }`}
                       >
                         {tag}
@@ -1070,7 +1071,7 @@ function TeamSection() {
               whileHover={{ y: -4 }}
               transition={{ duration: 0.25 }}
               style={{ transformStyle: "preserve-3d" }}
-              className="rounded-3xl border border-border bg-card p-8"
+              className="rounded-3xl border border-[var(--border-subtle)] bg-card p-8"
             >
               {/* Gradient avatar with initials */}
               <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-white shadow-lg">

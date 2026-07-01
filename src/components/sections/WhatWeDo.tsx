@@ -405,7 +405,7 @@ function ContentPanel({
         {STATS.map((s) => (
           <div
             key={s.label}
-            className="flex flex-col items-center gap-1 rounded-xl border border-border py-4"
+            className="flex flex-col items-center gap-1 rounded-xl border border-[var(--border-subtle)] py-4"
           >
             <span className="text-2xl font-black tracking-tight text-accent">
               {s.value}

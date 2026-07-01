@@ -200,7 +200,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
           onMouseLeave={() => setIsPaused(false)}
         >
           <div className="md:w-[40%]">
-            <div className="hidden md:block rounded-3xl border border-white/10 bg-card p-4">
+            <div className="hidden md:block rounded-3xl border border-[var(--border-subtle)] bg-card p-4">
               {features.map((feature, index) => {
                 const isActive = index === activeIndex;
                 return (
@@ -233,7 +233,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
               })}
             </div>
 
-            <div className="flex md:hidden overflow-x-auto rounded-3xl border border-white/10 bg-card p-4">
+            <div className="flex md:hidden overflow-x-auto rounded-3xl border border-[var(--border-subtle)] bg-card p-4">
               <div className="flex gap-3">
                 {features.map((feature, index) => {
                   const isActive = index === activeIndex;
@@ -271,7 +271,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
             </div>
           </div>
 
-          <div className="md:w-[60%] rounded-3xl border border-white/10 bg-muted p-8">
+          <div className="md:w-[60%] rounded-3xl border border-[var(--border-subtle)] bg-muted p-8">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeFeature.label}
@@ -324,7 +324,7 @@ const CoreFeatures = ({ showIndustryLinks = false }: CoreFeaturesProps) => {
                 </div>
 
                 {showIndustryLinks && "industryExample" in activeFeature && (
-                  <div className="mt-8 pt-6 border-t border-white/5">
+                  <div className="mt-8 pt-6 border-t border-[var(--border-subtle)]">
                     <Link
                       to={`/industries?sector=${activeFeature.industryExample}`}
                       className="inline-flex items-center gap-2 text-sm font-mono uppercase tracking-wider transition-all hover:gap-3"
