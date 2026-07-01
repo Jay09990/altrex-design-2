@@ -11,7 +11,6 @@ import {
   ShieldCheck,
   Sparkles,
   Users,
-  Contact,
 } from "lucide-react";
 import { FaLinkedinIn } from "react-icons/fa6";
 
@@ -21,13 +20,9 @@ import { Button } from "@/components/ui/button";
 import { SectionBadge } from "@/components/ui/section-badge";
 import CharReveal from "@/components/CharReveal";
 import DecryptedText from "@/components/DecryptedText";
-import StarBorder from "@/components/StarBorder";
 import ScrambleCounter from "@/components/ScrambleCounter";
 import { useMagneticTilt } from "@/hooks/useMagneticTilt";
 import { useState, useEffect, useCallback } from "react";
-import { Badge } from "@/components/ui/badge";
-import InViewDecryptedText from "@/components/InViewDecryptedText";
-import SystemDataTicker from "@/components/SystemDataTicker";
 import { useTheme } from "@/hooks/useTheme";
 import CTASection from "@/components/CTASection";
 import { Card } from "@/components/ui/card";
