@@ -30,6 +30,7 @@ import InViewDecryptedText from "@/components/InViewDecryptedText";
 import SystemDataTicker from "@/components/SystemDataTicker";
 import { useTheme } from "@/hooks/useTheme";
 import CTASection from "@/components/CTASection";
+import { Card } from "@/components/ui/card";
 
 // ─── Milestone data — matches reference image exactly ──────────────────────
 const MILESTONES = [
@@ -610,6 +611,7 @@ function HeroSection() {
               as="h1"
               lines={["WE ARE BUILDING THE", "FUTURE OF INDUSTRIAL", "INTELLIGENCE"]}
               className="mx-auto max-w-5xl text-2xl font-bold tracking-[-0.04em] text-foreground sm:text-3xl lg:mx-0 lg:text-4xl xl:text-5xl mt-8 sm:mt-16 leading-tight sm:leading-[0.95]"
+              className="mx-auto max-w-5xl text-2xl font-bold tracking-[-0.04em] text-foreground sm:text-3xl lg:mx-0 lg:text-4xl xl:text-5xl mt-8 sm:mt-16 leading-tight sm:leading-[0.95]"
               immediate
               delay={0}
               stagger={0.028}
@@ -1112,9 +1114,6 @@ function ValuesSection() {
 
   return (
     <section ref={ref} className="relative bg-transparent py-24">
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-35">
-        <div className="absolute inset-0 bg-gradient-to-b from-cyan-500/10 via-transparent to-violet-500/10" />
-      </div>
 
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center">
@@ -1144,13 +1143,8 @@ function ValuesSection() {
                 We override the inner div styling via className on StarBorder,
                 then put our actual card content inside.
               */}
-              <StarBorder
-                as="div"
-                color="#ff6b00"
-                speed="8s"
-                thickness={1}
-                className="w-full cursor-default"
-                innerClassName="border border-border bg-card/75 p-6 rounded-[18px]"
+              <Card
+                className="border border-border p-6 rounded-2xl h-full"
               >
                 <div className="">
                   <div className="bg-violet-500 bg-clip-text text-6xl font-bold text-transparent">
@@ -1163,7 +1157,7 @@ function ValuesSection() {
                     {item.description}
                   </p>
                 </div>
-              </StarBorder>
+              </Card>
             </motion.div>
           ))}
         </motion.div>
