@@ -16,6 +16,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 1. City Gas Distribution ─────────────────────────────────────────────
   {
     slug: "cgd",
+    image: "/industries/cgd.jpg",
     name: "City Gas Distribution",
     hero: {
       tagline: "Digital Solutions for CGD Networks",
@@ -343,6 +344,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 2. Oil & Gas ─────────────────────────────────────────────────────────
   {
     slug: "oil-gas",
+    image: "/industries/oil-gas.jpg",
     name: "Oil & Gas",
     hero: {
       tagline: "Intelligent Monitoring & Asset Management",
@@ -635,6 +637,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 3. Water & Wastewater ─────────────────────────────────────────────────
   {
     slug: "water-wastewater",
+    image: "/industries/water-wastewater.jpg",
     name: "Water & Wastewater",
     hero: {
       tagline: "Smart Water Management & Automation",
@@ -922,6 +925,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 4. Power & Utilities ─────────────────────────────────────────────────
   {
     slug: "power-utilities",
+    image: "/industries/power-utilities.jpg",
     name: "Power & Utilities",
     hero: {
       tagline: "Intelligent Monitoring & Smart Grid Solutions",
@@ -1210,6 +1214,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 5. Renewable Energy ──────────────────────────────────────────────────
   {
     slug: "renewable-energy",
+    image: "/industries/renewable-energy.jpg",
     name: "Renewable Energy",
     hero: {
       tagline: "Intelligent Monitoring & Analytics for Renewables",
@@ -1500,6 +1505,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 6. Manufacturing & Industrial Automation ──────────────────────────────
   {
     slug: "manufacturing-automation",
+    image: "/industries/manufacturing-automation.jpg",
     name: "Manufacturing & Industrial Automation",
     hero: {
       tagline: "Industry 4.0 & Smart Factory Solutions",
@@ -1787,6 +1793,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 7. Logistics & Transportation ────────────────────────────────────────
   {
     slug: "logistics-transportation",
+    image: "/industries/logistics-transportation.jpg",
     name: "Logistics & Transportation",
     hero: {
       tagline: "Smart Fleet Management & Logistics Intelligence",
@@ -2054,6 +2061,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 8. Smart Cities ──────────────────────────────────────────────────────
   {
     slug: "smart-cities",
+    image: "/industries/smart-cities.jpg",
     name: "Smart Cities",
     hero: {
       tagline: "Integrated Smart City Platform",
@@ -2322,6 +2330,7 @@ export const industriesRegistry: IndustryData[] = [
   // ── 9. Infrastructure & Utilities ────────────────────────────────────────
   {
     slug: "infrastructure-utilities",
+    image: "/industries/infrastructure-utilities.jpg",
     name: "Infrastructure & Utilities",
     hero: {
       tagline: "Intelligent Monitoring for Critical Infrastructure",

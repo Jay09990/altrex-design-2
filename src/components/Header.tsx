@@ -31,6 +31,7 @@ import ThemeToggle from "@/components/ThemeToggle";
 import { useTheme } from "@/hooks/useTheme";
 import lightlogo from "@/assets/AltrexLogoTr1.png";
 import darklogo from "@/assets/AltrexLogoTr2.png";
+import { getIndustryBySlug } from "@/data/industriesRegistry";
 
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
@@ -150,6 +151,7 @@ const Header = () => {
   ];
 
   const { theme } = useTheme();
+  const effectiveTheme = theme;
 
   // Solutions Hover Event Handlers
   const handleSolutionsEnter = () => {
@@ -199,8 +201,8 @@ const Header = () => {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${isScrolled
           ? "border-b bg-card/80 shadow-[0_4px_20px_rgba(0,0,0,0.06)] backdrop-blur-md"
-          : "bg-transparent"
-        } text-foreground`}
+          : "bg-background"
+        } text-foreground ${effectiveTheme === "dark" ? "dark" : ""}`}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6 lg:px-8">
         {/* Logo */}
@@ -211,7 +213,7 @@ const Header = () => {
           className="flex items-center"
         >
           <img
-            src={theme === "dark" ? darklogo : lightlogo}
+            src={effectiveTheme === "dark" ? darklogo : lightlogo}
             alt="Altrex Logo"
             className="h-5 w-auto object-contain transition-opacity duration-300"
           />

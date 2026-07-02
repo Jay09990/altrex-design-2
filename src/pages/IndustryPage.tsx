@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion, type Variants, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ArrowRight, CheckCircle2,
 } from "lucide-react";
@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 import { getIndustryBySlug } from "@/data/industriesRegistry";
+import { useTheme } from "@/hooks/useTheme";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
 import { SectionBadge } from "@/components/ui/section-badge";
 
@@ -121,7 +122,7 @@ const IndustryPage = () => {
   const activeModule = industry.modules[selectedModule];
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
+    <div className={`relative min-h-screen bg-background text-foreground`}>
       {/* ── Background ambient glows ── */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[700px] overflow-hidden">
         <div className="absolute left-[-5%] top-[5%] h-[500px] w-[500px] rounded-full bg-orange-500/8 blur-[120px]" />
@@ -131,70 +132,102 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-7xl px-6 pt-32 pb-24 lg:px-8">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={stagger}
-          className="max-w-4xl"
-        >
-          {/* Breadcrumb badge */}
-          <motion.div variants={fadeUp} className="mb-6">
-            <SectionBadge
-              title={`${industry.name} — Digital Platform`}
-              dot={true}
-              dotColor="bg-emerald-500"
-              className="mb-8"
+      <section className="relative isolate overflow-hidden min-h-[92vh] flex items-center pt-28 pb-20">
+        {industry.image && (
+          <div className="absolute inset-0 -z-10">
+            <img
+              src={industry.image}
+              alt={industry.name}
+              className="h-full w-full object-cover object-center"
             />
-          </motion.div>
-
-          {/* Tagline */}
-          <motion.p
-            variants={fadeUp}
-            className="font-mono text-sm tracking-[0.2em] uppercase text-[var(--accent-violet)] mb-4"
-          >
-            {industry.hero.tagline}
-          </motion.p>
-
-          {/* Main heading */}
-          <motion.h1
-            variants={fadeUp}
-            className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl leading-[1.1] uppercase break-normal"
-          >
-            {industry.hero.heading}
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            transition={{ delay: 0.8 }}
-            className="mt-8 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg"
-          >
-            {industry.hero.description}
-          </motion.p>
-
-          {/* CTAs */}
+          </div>
+        )}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40"
+          style={{
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background: "linear-gradient(to right, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.15) 65%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32"
+          style={{
+            background: "linear-gradient(to top, var(--background) 0%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-7xl w-full px-6 lg:px-8">
           <motion.div
-            variants={fadeUp}
-            transition={{ delay: 1 }}
-            className="mt-10 flex flex-wrap gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
+            className="max-w-4xl"
           >
-            <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-6 rounded-lg font-medium">
-                {industry.hero.ctas[0]}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button
-                variant="ghost"
-                className="h-11 px-6 rounded-lg border border-border text-foreground hover:bg-card"
-              >
-                {industry.hero.ctas[1]}
-              </Button>
-            </Link>
+            {/* Breadcrumb badge */}
+            <motion.div variants={fadeUp} className="mb-6">
+              <SectionBadge
+                title={`${industry.name} — Digital Platform`}
+                dot={true}
+                dotColor="bg-emerald-500"
+                className="mb-8"
+              />
+            </motion.div>
+
+            {/* Tagline */}
+            <motion.p
+              variants={fadeUp}
+              className="font-mono text-sm tracking-[0.2em] uppercase text-[var(--accent-violet)] mb-4"
+              style={industry.image ? { color: "rgba(251,146,60,1)" } : undefined}
+            >
+              {industry.hero.tagline}
+            </motion.p>
+
+            {/* Main heading */}
+            <motion.h1
+              variants={fadeUp}
+              className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl leading-[1.1] uppercase break-normal"
+              style={industry.image ? { color: "white" } : undefined}
+            >
+              {industry.hero.heading}
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              variants={fadeUp}
+              transition={{ delay: 0.8 }}
+              className="mt-8 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg"
+              style={industry.image ? { color: "rgba(255,255,255,0.82)" } : undefined}
+            >
+              {industry.hero.description}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ delay: 1 }}
+              className="mt-10 flex flex-wrap gap-4"
+            >
+              <Link to="/contact">
+                <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-6 rounded-lg font-medium">
+                  {industry.hero.ctas[0]}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button
+                  variant="outline"
+                  className="h-11 px-6 rounded-lg border border-border text-foreground hover:bg-card"
+                >
+                  {industry.hero.ctas[1]}
+                </Button>
+              </Link>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════
