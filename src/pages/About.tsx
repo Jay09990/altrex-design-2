@@ -27,6 +27,7 @@ import { useTheme } from "@/hooks/useTheme";
 import CTASection from "@/components/CTASection";
 import { Card } from "@/components/ui/card";
 import CaseStudies from "@/components/sections/CaseStudies";
+import HowWeWork from "@/components/sections/HowWeWork";
 
 // ─── Milestone data — matches reference image exactly ──────────────────────
 const MILESTONES = [
@@ -857,175 +858,6 @@ function StatsSection() {
   );
 }
 
-/* ─── Section: Timeline ──────────────────────────────────────────────────── */
-
-function TimelineSection() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
-  return (
-    <section ref={ref} className="relative bg-transparent py-24">
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-35">
-        <div className="absolute inset-0 bg-gradient-to-b from-fuchsia-500/10 via-transparent to-violet-500/10" />
-      </div>
-
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center">
-          <SectionBadge
-            title="OUR MODEL"
-            dot={true}
-            dotColor="bg-emerald-500"
-            className="mb-8"
-          />
-          <h2 className="mt-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Digital maturity model
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-            Five levels of industrial intelligence — from raw field data to
-            AI-driven predictive operations. Currently operating at{" "}
-            <span className="font-semibold text-[var(--accent-violet)]">
-              Level 4
-            </span>
-            .
-          </p>
-        </div>
-
-        {/* Timeline */}
-        <div className="relative mt-20">
-          {/* Central gradient line */}
-          <div className="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-violet-500 via-green-500/35 to-black/10 md:left-1/2 md:-translate-x-px" />
-
-          {timeline.map((item, i) => {
-            const isLeft = i % 2 === 0;
-            const isCurrent = item.status === "current";
-            const isUpcoming = item.status === "upcoming";
-
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: i * 0.15,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={`relative mb-16 flex w-full md:items-center ${
-                  isLeft ? "md:justify-start" : "md:justify-end"
-                }`}
-              >
-                {/* Timeline dot — pulsing ring on current level */}
-                <div
-                  className={`absolute left-4 top-6 h-3 w-3 -translate-x-1/2 rounded-full md:left-1/2 ${
-                    isCurrent
-                      ? "bg-[var(--data-green)] shadow-[0_0_0_6px_rgba(74,222,128,0.18)] animate-pulse"
-                      : isUpcoming
-                        ? "bg-white/20 shadow-[0_0_0_4px_rgba(255,255,255,0.06)]"
-                        : "bg-gradient-to-br from-violet-500 to-orange-400/35 shadow-[0_0_0_6px_rgba(139,92,246,0.12)]"
-                  }`}
-                />
-
-                {/* Card */}
-                <div
-                  className={`ml-12 max-w-sm rounded-3xl border p-8 shadow-sm transition-all duration-300 md:ml-0 ${
-                    isCurrent
-                      ? "border-[var(--data-green)]/40 bg-card/90 shadow-[0_0_40px_-10px_rgba(74,222,128,0.15)]"
-                      : isUpcoming
-                        ? "border-border bg-card/40 opacity-60"
-                        : "border-border bg-card/75 hover:border-border hover:shadow-[0_20px_40px_-15px_rgba(139,92,246,0.14)]"
-                  }`}
-                >
-                  {/* Level pill */}
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`inline-flex overflow-hidden rounded-full px-4 py-1.5 ${
-                        isCurrent
-                          ? "bg-[var(--data-green)]/20 border border-[var(--data-green)]/40"
-                          : isUpcoming
-                            ? "bg-black/5 dark:bg-white/5 border border-border dark:border-border"
-                            : "bg-violet-500"
-                      }`}
-                    >
-                      <DecryptedText
-                        text={item.level}
-                        animateOn="view"
-                        speed={60}
-                        sequential
-                        revealDirection="start"
-                        className={`text-sm font-bold ${
-                          isCurrent
-                            ? "text-[var(--data-green)]"
-                            : isUpcoming
-                              ? "text-muted-foreground"
-                              : "text-white"
-                        }`}
-                        encryptedClassName={`text-sm font-bold ${
-                          isCurrent
-                            ? "text-[var(--data-green)]/50"
-                            : "text-violet-300"
-                        }`}
-                      />
-                    </div>
-
-                    {/* Status badge */}
-                    {isCurrent && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--data-green)]/30 bg-[var(--data-green)]/10 px-3 py-1 text-xs font-medium text-[var(--data-green)]">
-                        <span className="h-1.5 w-1.5 rounded-full bg-[var(--data-green)] animate-pulse" />
-                        Current
-                      </span>
-                    )}
-                    {isUpcoming && (
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-border dark:border-border bg-black/5 dark:bg-white/5 px-3 py-1 text-xs font-medium text-muted-foreground">
-                        Upcoming
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Time label */}
-                  <p
-                    className={`mt-3 text-xs font-mono tracking-widest uppercase ${
-                      isCurrent
-                        ? "text-[var(--data-green)]/70"
-                        : "text-muted-foreground"
-                    }`}
-                  >
-                    {item.timeLabel}
-                  </p>
-
-                  <h3 className="mt-3 text-xl font-semibold text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 leading-7 text-muted-foreground text-sm">
-                    {item.description}
-                  </p>
-
-                  {/* Tags */}
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {item.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className={`rounded-lg border px-2.5 py-1 text-xs font-medium ${
-                          isCurrent
-                            ? "border-[var(--data-green)]/20 bg-[var(--data-green)]/8 text-[var(--data-green)]/80"
-                            : isUpcoming
-                              ? "border-border dark:border-border bg-black/5 dark:bg-white/5 text-muted-foreground opacity-60"
-                              : "border-border bg-black/3 text-muted-foreground"
-                        }`}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
 /* ─── Section: Team ──────────────────────────────────────────────────────── */
 
 function TeamSection() {
@@ -1169,9 +1001,10 @@ const About = () => {
     <div className="overflow-hidden bg-background">
       <HeroSection />
       <CaseStudies />
+      <HowWeWork />
       <MissionSection />
       <StatsSection />
-      <TimelineSection />
+      {/* <TimelineSection /> */}
       <TeamSection />
       <ValuesSection />
       <CTASection

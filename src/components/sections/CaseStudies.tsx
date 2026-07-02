@@ -245,7 +245,6 @@ const CaseStudies = () => {
           className="mt-14 flex justify-center"
         >
           <Button
-            size="lg"
             className="gap-2 bg-accent px-8 py-6 text-base text-primary-foreground"
           >
             View All Projects
