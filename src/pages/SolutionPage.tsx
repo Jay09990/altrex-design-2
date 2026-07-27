@@ -17,6 +17,7 @@ import ScrambleCounter from "@/components/ScrambleCounter";
 import { getSolutionBySlug } from "@/data/solutionsData";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
 import LiveSystemPanel from "@/components/sections/LiveSystemPanel";
+import CTASection from "@/components/CTASection";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -608,55 +609,13 @@ const SolutionPage = () => {
       {/* ══════════════════════════════════════════════════════════
           CTA FOOTER
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-border bg-card/20 relative overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-orange-500/5 blur-[120px] pointer-events-none" />
-        
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={stagger}
-          className="mx-auto max-w-4xl px-6 lg:px-8 py-24 text-center relative z-10"
-        >
-          <motion.p
-            variants={fadeUp}
-            className="font-mono text-[10px] text-muted-foreground tracking-[0.25em] uppercase mb-4"
-          >
-            [ Take Action ]
-          </motion.p>
-          <motion.h2
-            variants={fadeUp}
-            className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl"
-          >
-            {solution.ctaHeading}
-          </motion.h2>
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 text-base text-muted-foreground leading-relaxed"
-          >
-            {solution.ctaDescription}
-          </motion.p>
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 flex flex-wrap gap-4 justify-center"
-          >
-            <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-primary text-white h-12 px-8 rounded-lg font-medium shadow-lg shadow-orange-500/20">
-                Request Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button
-                variant="outline"
-                className="h-12 px-8 rounded-lg text-foreground hover:bg-muted border-border"
-              >
-                Talk to an Expert
-              </Button>
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
+      <CTASection
+        title={solution.ctaHeading}
+        description={solution.ctaDescription}
+        badge="[ Take Action ]"
+        primaryButton={{ label: "Request Demo", href: "/contact" }}
+        secondaryButton={{ label: "Talk to an Expert", href: "/contact" }}
+      />
     </div>
   );
 };

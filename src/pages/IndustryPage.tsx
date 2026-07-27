@@ -1,21 +1,18 @@
 import { useParams, Link } from "react-router-dom";
 import { motion, type Variants, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   ArrowRight, CheckCircle2,
 } from "lucide-react";
-import {
-  ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar,
-} from "recharts";
+
 
 import { Button } from "@/components/ui/button";
 
 import { getIndustryBySlug } from "@/data/industriesRegistry";
-import { useTheme } from "@/hooks/useTheme";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
 import { SectionBadge } from "@/components/ui/section-badge";
 import ChallengesOrbit from "@/components/sections/ChallengesOrbit";
-
+import CTASection from "@/components/CTASection";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -692,56 +689,13 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           CTA FOOTER
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-border">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={stagger}
-          className="mx-auto max-w-7xl px-6 lg:px-8 py-24 text-center"
-        >
-          <motion.p
-            variants={fadeUp}
-            className="font-mono text-xs text-muted-foreground tracking-[0.25em] uppercase mb-6"
-          >
-            [ READY TO START ]
-          </motion.p>
-
-          <motion.h2
-            variants={fadeUp}
-            className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-3xl mx-auto"
-          >
-            {industry.cta.heading}
-          </motion.h2>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-7"
-          >
-            {industry.cta.description}
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 flex flex-wrap gap-4 justify-center"
-          >
-            <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-8 rounded-lg font-medium">
-                Request Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button
-                variant="ghost"
-                className="h-11 px-8 rounded-lg border border-border text-foreground hover:bg-card"
-              >
-                Talk to an Expert
-              </Button>
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
+      <CTASection
+        title={industry.cta.heading}
+        description={industry.cta.description}
+        badge="[ READY TO START ]"
+        primaryButton={{ label: "Request Demo", href: "/contact" }}
+        secondaryButton={{ label: "Talk to an Expert", href: "/contact" }}
+      />
     </div>
   );
 };

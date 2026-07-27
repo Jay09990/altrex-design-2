@@ -1,6 +1,3 @@
-// src/components/sections/ChallengesOrbit.tsx
-"use client";
-
 import { useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import type { IndustryChallenge } from "@/types/industry";
@@ -37,7 +34,6 @@ export default function ChallengesOrbit({ challenges }: ChallengesOrbitProps) {
 
         canvas.width = W * DPR;
         canvas.height = H * DPR;
-        // ✅ lock both CSS dimensions so aspect ratio never distorts
         canvas.style.width = `${W}px`
         canvas.style.height = `${H}px`;
         ctx.scale(DPR, DPR);
@@ -53,7 +49,7 @@ export default function ChallengesOrbit({ challenges }: ChallengesOrbitProps) {
         }));
 
         const getIsDark = () =>
-            window.matchMedia?.("(prefers-color-scheme: dark)").matches ?? false;
+            document.documentElement.classList.contains("dark");
 
         const getColors = () => {
             const dark = getIsDark();
@@ -110,10 +106,10 @@ export default function ChallengesOrbit({ challenges }: ChallengesOrbitProps) {
                 ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
             });
 
-            // waves
-            drawWave(tRef.current * 38 * 0.05 + 0.0, 16, 0.022, false, 0.8);
-            drawWave(tRef.current * 38 * 0.04 + 1.2, 22, 0.018, true, 0.8);
-            drawWave(tRef.current * 38 * 0.06 + 2.4, 12, 0.028, false, 0.5);
+            // waves — phase multipliers are large so movement is visible every frame
+            drawWave(tRef.current * 38 * 2.2 + 0.0, 16, 0.022, false, 0.8);
+            drawWave(tRef.current * 38 * 1.7 + 1.2, 22, 0.018, true,  0.8);
+            drawWave(tRef.current * 38 * 2.8 + 2.4, 12, 0.028, false, 0.5);
 
             const positions = nodes.map((n) => getNodePos(n));
 
