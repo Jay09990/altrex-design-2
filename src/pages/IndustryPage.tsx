@@ -14,6 +14,8 @@ import { getIndustryBySlug } from "@/data/industriesRegistry";
 import { useTheme } from "@/hooks/useTheme";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
 import { SectionBadge } from "@/components/ui/section-badge";
+import ChallengesOrbit from "@/components/sections/ChallengesOrbit";
+
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -309,91 +311,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           INDUSTRY CHALLENGES — Radar chart + collapsible pills
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-border bg-card/30">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={stagger}
-          >
-            <motion.div variants={fadeUp} className="mb-14 space-y-3">
-              <SectionLabel>Challenges</SectionLabel>
-              <SectionHeading>Industry Challenges</SectionHeading>
-            </motion.div>
-
-            {/* Radar chart */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <ResponsiveContainer width="100%" height={420}>
-                <RadarChart data={radarData} margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
-                  <PolarGrid stroke="var(--border-border)" strokeDasharray="3 3" />
-                  <PolarAngleAxis
-                    dataKey="subject"
-                    tick={RadarTick as React.ComponentType<unknown>}
-                  />
-                  <Radar
-                    name="Challenge Intensity"
-                    dataKey="score"
-                    stroke="#f97316"
-                    fill="#f97316"
-                    fillOpacity={0.12}
-                    strokeWidth={1.5}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
-            </motion.div>
-
-            {/* Challenge pills + collapsible items */}
-            <motion.div variants={fadeUp} className="mt-10">
-              {/* Pill row */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {industry.challenges.map((c, idx) => (
-                  <button
-                    key={c.title}
-                    onClick={() => setActiveChallenge(activeChallenge === idx ? null : idx)}
-                    className={`rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
-                      activeChallenge === idx
-                        ? "border-orange-500/50 bg-orange-500/10 text-orange-400"
-                        : "border-border text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {c.title}
-                  </button>
-                ))}
-              </div>
-
-              {/* Expandable items list */}
-              <AnimatePresence mode="wait">
-                {activeChallenge !== null && (
-                  <motion.ul
-                    key={activeChallenge}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden rounded-xl border border-border bg-card/40"
-                  >
-                    {industry.challenges[activeChallenge].items.map((item) => (
-                      <li
-                        key={item}
-                        className="border-l-2 border-orange-500 pl-4 py-2.5 mx-4 my-1 text-xs text-muted-foreground"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </motion.ul>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
+      <ChallengesOrbit challenges={industry.challenges} />
       {/* ══════════════════════════════════════════════════════════
           PLATFORM MODULES — Left-rail navigator
       ══════════════════════════════════════════════════════════ */}
