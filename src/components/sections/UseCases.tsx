@@ -182,7 +182,7 @@ const UseCases = () => {
       </motion.div>
 
       {/* Horizontal track */}
-      <div className="use-cases-scroll relative mt-14 overflow-x-auto pb-12 pt-2">
+      <div className="use-cases-scroll relative mt-14 overflow-x-auto pb-12 pt-2 scrollbar-hide">
         <div
           ref={trackRef}
           className="flex w-max gap-7 px-6 lg:px-16 will-change-transform"

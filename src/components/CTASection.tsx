@@ -29,7 +29,7 @@ const CTASection = ({
   badge = "[ READY TO START ]",
 }: CTAData) => {
   return (
-    <section className="border-t border-border mt-20">
+    <section className="border-t border-b border-border mt-20">
       <motion.div
         initial="hidden"
         whileInView="visible"
