@@ -6,6 +6,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Live mini-preview components — one per feature, each a tiny functioning demo
@@ -314,13 +315,16 @@ export default function PlatformOverview() {
           transition={{ delay: 0.9 }}
           className="mt-16 flex justify-center"
         >
-          <Button
-            size="lg"
-            className="gap-2 bg-accent px-8 py-6 text-base text-primary-foreground"
+          <Link
+            to={"/services"}
           >
-            Explore Platform
+            <Button
+              size="lg"
+              className="gap-2 bg-accent px-8 py-6 text-base text-primary-foreground">
+              Explore Platform
             <ArrowRight className="h-4 w-4" />
-          </Button>
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>

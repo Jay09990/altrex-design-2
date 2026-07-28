@@ -61,7 +61,7 @@ const Home = () => {
         
         <div id={HOME_CHAPTERS[2].id} className="scroll-mt-28">
         <WhyChooseUs />
-          <Architecture />
+        <Architecture />
         </div>
         <WhatWeDo />
         <PlatformOverview />

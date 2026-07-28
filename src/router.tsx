@@ -6,6 +6,8 @@ import MainLayout from "./layout/MainLayout";
 import Contact from "./pages/Contact";
 import SolutionPage from "./pages/SolutionPage";
 import SolutionsOverview from "./pages/SolutionsOverview";
+import ServicesOverview from "./pages/ServicesOverview";
+import IndustriesOverview from "./pages/IndustriesOverview";
 import { ServicePage } from "./pages/ServicePage";
 import IndustryPage from "./pages/IndustryPage";
 
@@ -34,10 +36,12 @@ export const router = createBrowserRouter([
       { path: "/contact", element: <Contact /> },
       { path: "/solutions", element: <SolutionsOverview /> },
       { path: "/solutions/:slug", element: <SolutionPageWithKey /> },
+      { path: "/services", element: <ServicesOverview /> },
       {
         path: 'services/:slug',
         element: <ServicePageWithKey />
       },
+      { path: "/industries", element: <IndustriesOverview /> },
       {
         path: 'industries/:slug',
         element: <IndustryPageWithKey />
