@@ -8,7 +8,6 @@ import {
   Clock, ShieldCheck, Workflow
 } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
 import { SectionBadge } from "@/components/ui/section-badge";
 import { Button } from "@/components/ui/button";
 import InViewDecryptedText from "@/components/InViewDecryptedText";

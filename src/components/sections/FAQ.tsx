@@ -77,7 +77,7 @@ const fadeUpVariants: Variants = {
 
 const FAQ = () => {
   return (
-    <section className="relative overflow-hidden bg-transparent py-28">
+    <section className="relative overflow-hidden bg-transparent py-20">
       <motion.div
         variants={containerVariants}
         initial="hidden"

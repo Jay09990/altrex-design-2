@@ -29,13 +29,13 @@ const CTASection = ({
   badge = "[ READY TO START ]",
 }: CTAData) => {
   return (
-    <section className="border-t border-b border-border mt-20">
+    <section className="my-20">
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={stagger}
-        className="mx-auto max-w-7xl px-6 lg:px-8 py-24 text-center"
+        className="mx-auto max-w-7xl px-6 lg:px-8 py-16 text-center border border-border rounded-4xl"
       >
         <motion.p
           variants={fadeUp}

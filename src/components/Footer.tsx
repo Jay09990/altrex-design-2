@@ -70,15 +70,15 @@ const Footer = () => {
 
   return (
     <footer
-      className="bg-white dark:bg-black z-10"
-      style={{ backgroundColor: isDark ? "#000" : "#fff" }}
+      className="bg-white dark:bg-black z-10 mt-20"
+      style={{
+        backgroundColor: isDark ? "#000" : "#fff",
+        borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
+      }}
     >
       {/* ── Brand row ── */}
       <div
         className="mx-auto max-w-7xl px-6 lg:px-8"
-        style={{
-          borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
-        }}
       >
         <div
           className="py-10"
@@ -117,8 +117,7 @@ const Footer = () => {
           <div
             className="py-10 lg:px-10"
             style={{
-              borderRight: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
-              borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
+              borderRight: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`
             }}
           >
             <h3 className="mb-5 text-[10px] font-bold tracking-[0.2em] uppercase text-orange-500">
@@ -130,9 +129,6 @@ const Footer = () => {
           {/* Industries */}
           <div
             className="py-10 lg:pl-10"
-            style={{
-              borderTop: `1px solid ${isDark ? "rgba(255,255,255,0.08)" : "rgba(0,0,0,0.08)"}`,
-            }}
           >
             <h3 className="mb-5 text-[10px] font-bold tracking-[0.2em] uppercase text-orange-500">
               Industries
