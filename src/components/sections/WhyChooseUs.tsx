@@ -18,6 +18,7 @@ import {
 } from "framer-motion";
 
 import { Button } from "../ui/button";
+import { Link } from "react-router-dom";
 
 // ─── Scramble Uptime ──────────────────────────────────────────────────────────
 
@@ -563,17 +564,16 @@ function Slide6({ mobile }: { mobile: boolean }) {
           ))}
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false }} transition={{ duration: 0.6, delay: 1.2 }}
-          className="mt-8 flex flex-col gap-4 sm:flex-row justify-center">
-          <Button className="gap-2 bg-accent text-white border-none transition-transform duration-200 hover:scale-[1.03] hover:shadow-[0_8px_24px_-8px] hover:shadow-accent/50">
-            Request Demo
-          </Button>
-          <Button variant="outline" className="gap-2 transition-all duration-200 hover:scale-[1.03] hover:border-foreground/30">
-            Contact Sales
-          </Button>
-        </motion.div>
+        <Link to="/contact">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false }} transition={{ duration: 0.6, delay: 1.2 }}
+            className="mt-8 flex flex-col gap-4 sm:flex-row justify-center">
+            <Button className="gap-2 bg-accent text-white border-none transition-transform duration-200 hover:scale-[1.03] hover:shadow-[0_8px_24px_-8px] hover:shadow-accent/50">
+              Request Demo
+            </Button>
+          </motion.div>
+        </Link>
       </div>
     </div>
   );
