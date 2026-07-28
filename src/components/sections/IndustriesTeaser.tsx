@@ -132,12 +132,12 @@ function IndustryFlipCard({ industry }: { industry: any }) {
 
               {/* Title + tagline reveal on hover */}
               <div className="mt-0 grid grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover:mt-4 group-hover:grid-rows-[1fr] group-hover:opacity-100">
-                <div className="overflow-hidden">
-                  <h3 className="text-base font-bold text-white leading-tight">
+                <div className="overflow-hidden text-center">
+                  <h3 className="text-base font-bold text-white leading-tight text-center max-w-[200px] mx-auto">
                     {industry.name}
                   </h3>
                   {tagline && (
-                    <p className="mt-1.5 text-[11px] leading-snug text-white/80 line-clamp-2 max-w-[180px]">
+                    <p className="mt-1.5 text-[11px] leading-snug text-white/80 line-clamp-2 max-w-[180px] text-center mx-auto">
                       {tagline}
                     </p>
                   )}
