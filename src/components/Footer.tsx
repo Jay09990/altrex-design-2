@@ -91,7 +91,7 @@ const Footer = () => {
             alt="Altrex Logo"
             className="h-5 w-auto object-contain mb-4"
           />
-          <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
+          <p className="text-sm text-muted-foreground max-w-sm font-medium leading-relaxed">
             Build scalable realtime applications with modern messaging, IoT
             connectivity, and distributed cloud infrastructure.
           </p>
