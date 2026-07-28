@@ -90,7 +90,7 @@ export default function LiveSystemPanel({ solution }: LiveSystemPanelProps) {
               <motion.div
                 key={item}
                 animate={{
-                  borderColor: activeChip === idx ? "rgba(249, 115, 22, 0.5)" : "var(--border-border)",
+                  borderColor: activeChip === idx ? "rgba(249, 115, 22, 0.5)" : "var(--border)",
                   backgroundColor: activeChip === idx ? "rgba(249, 115, 22, 0.1)" : "transparent",
                   color: activeChip === idx ? "rgb(249, 115, 22)" : "inherit",
                 }}

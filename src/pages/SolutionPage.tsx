@@ -88,7 +88,11 @@ const getBenefitVisual = (title: string, description: string) => {
   return { icon: CheckCircle2, color: "text-orange-500", bg: "bg-orange-500/10", animate: "fade" };
 };
 
-// ─── Platform Capabilities ────────────────────────────────────────────────────
+// ─── Platform Capabilities — Bento Grid ───────────────────────────────────────
+// Drop-in replacement for the existing PlatformCapabilities() function in
+// SolutionPage.tsx. Same props (`capabilities: Capability[]`), same data
+// shape — no changes needed to solutionsData.ts. Uses the fadeUp, stagger,
+// and cardVariant variants already defined at the top of SolutionPage.tsx.
 
 interface Capability {
   title: string;
@@ -96,36 +100,19 @@ interface Capability {
   items: string[];
 }
 
+// One "hero" tile (2x2) + a mix of tall / wide / square tiles.
+// `dense` auto-flow packs any extra items after 6 into the grid gaps.
+const spanPattern = [
+  "lg:col-span-2 lg:row-span-2", // 0 — hero
+  "lg:col-span-1 lg:row-span-1", // 1 — square
+  "lg:col-span-1 lg:row-span-2", // 2 — tall
+  "lg:col-span-1 lg:row-span-1", // 3 — square
+  "lg:col-span-2 lg:row-span-1", // 4 — wide
+  "lg:col-span-1 lg:row-span-1", // 5 — square
+];
+
 function PlatformCapabilities({ capabilities }: { capabilities: Capability[] }) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
-  const [activeIdx, setActiveIdx] = useState<number>(0);
-  // Track which icon just pulsed so we can key-trigger the animation
-  const [iconPulseKey, setIconPulseKey] = useState<Record<number, number>>({});
-  const prevActiveRef = useRef<number>(-1);
-
-  // Sequential pulse — derived from Date.now(), same timing as connector animations:
-  // Each connector has delay = idx * 0.5s, duration = 3s
-  // So the beam leaves card idx at time (idx * 0.5) and arrives at card (idx+1)
-  // at time (idx * 0.5 + 3). We simplify: card N lights up at phase = N * 0.5
-  useEffect(() => {
-    const total = capabilities.length;
-    // Full cycle: last card delay + duration = (total-1)*0.5 + 3
-    const cycleDuration = (total - 1) * 0.5 + 3;
-    // We stagger card activations evenly across the cycle
-    const perCard = cycleDuration / total;
-
-    const id = setInterval(() => {
-      const phase = (Date.now() / 1000) % cycleDuration;
-      const next = Math.min(Math.floor(phase / perCard), total - 1);
-      setActiveIdx(next);
-      if (next !== prevActiveRef.current) {
-        setIconPulseKey((prev) => ({ ...prev, [next]: (prev[next] ?? 0) + 1 }));
-        prevActiveRef.current = next;
-      }
-    }, 100);
-
-    return () => clearInterval(id);
-  }, [capabilities.length]);
 
   return (
     <section className="bg-card/20 py-24 overflow-hidden">
@@ -144,148 +131,119 @@ function PlatformCapabilities({ capabilities }: { capabilities: Capability[] }) 
             </p>
           </motion.div>
 
-          <div className="relative flex flex-col lg:flex-row gap-8 lg:gap-0">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 lg:auto-rows-[190px]"
+            style={{ gridAutoFlow: "dense" }}
+          >
             {capabilities.map((cap, idx) => {
               const Icon = getCapabilityIcon(idx);
-              const isLast = idx === capabilities.length - 1;
-              // A connector sits between card idx and card idx+1.
-              // It is "energized" when the user hovers card idx OR card idx+1.
-              const connectorEnergized =
-                hoveredIdx === idx || hoveredIdx === idx + 1;
-              const isActive = activeIdx === idx;
+              const isHovered = hoveredIdx === idx;
+              const isHero = idx === 0;
+              const span = spanPattern[idx % spanPattern.length];
               const ordinal = String(idx + 1).padStart(2, "0");
+              const bulletLimit = isHero ? cap.items.length : span.includes("row-span-2") ? 5 : 3;
 
               return (
-                <div
+                <motion.div
                   key={cap.title}
-                  className="relative flex-1 flex flex-col items-center text-center lg:px-4"
+                  variants={cardVariant}
                   onMouseEnter={() => setHoveredIdx(idx)}
                   onMouseLeave={() => setHoveredIdx(null)}
+                  className={`relative flex flex-col justify-between rounded-2xl border bg-card/80 backdrop-blur-sm p-6 overflow-hidden transition-all duration-300 ${span} ${
+                    isHero ? "lg:p-8" : ""
+                  }`}
+                  style={{
+                    borderColor: isHovered
+                      ? "rgba(249,115,22,0.55)"
+                      : "var(--border)",
+                    boxShadow: isHovered
+                      ? "0 0 0 1px rgba(249,115,22,0.15), 0 12px 32px -12px rgba(249,115,22,0.25)"
+                      : "none",
+                  }}
                 >
-                  {/* ── Connector Line (Desktop) ─────────────────────── */}
-                  {!isLast && (
-                    <div
-                      className="hidden lg:block absolute top-12 left-[calc(50%+40px)] w-[calc(100%-80px)] h-px -z-10 transition-all duration-300"
-                      style={{
-                        backgroundColor: connectorEnergized
-                          ? "rgba(251,191,36,0.4)" // amber-300/40 track
-                          : "var(--border-border)",
-                      }}
-                    >
-                      <motion.div
-                        className="h-full"
-                        style={{
-                          background: connectorEnergized ? "#fcd34d" : "#f97316",
-                          boxShadow: connectorEnergized
-                            ? "0 0 16px 4px rgba(252,211,77,0.7)"
-                            : "0 0 8px 2px rgba(249,115,22,0.6)",
-                        }}
-                        initial={{ x: "-100%" }}
-                        whileInView={{ x: "100%" }}
-                        viewport={{ once: false, amount: 0.1 }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "linear",
-                          delay: idx * 0.5,
-                        }}
-                      />
-                    </div>
-                  )}
-
-                  {/* ── Connector Line (Mobile) ───────────────────────── */}
-                  {!isLast && (
-                    <div className="lg:hidden absolute top-[100%] left-1/2 w-px h-8 bg-[var(--border-border)] -translate-x-1/2 z-0">
-                      <motion.div
-                        className="w-full bg-orange-500 shadow-[0_0_8px_2px_rgba(249,115,22,0.6)]"
-                        initial={{ height: "0%", opacity: 0 }}
-                        whileInView={{ height: "100%", opacity: [0, 1, 0] }}
-                        viewport={{ once: false, amount: 0.1 }}
-                        transition={{ duration: 2, repeat: Infinity, delay: idx * 0.5 }}
-                      />
-                    </div>
-                  )}
-
-                  {/* ── Card ─────────────────────────────────────────── */}
-                  <motion.div
-                    variants={cardVariant}
-                    className="flex flex-col items-center bg-card/80 backdrop-blur-sm p-6 rounded-2xl w-full h-full relative z-10 shadow-sm transition-all duration-300 border"
-                    style={{
-                      borderColor: isActive
-                        ? "rgba(249,115,22,0.60)"   // orange-500/60
-                        : "var(--border-border)",
-                    }}
+                  {/* Faint giant ordinal, bigger on the hero tile */}
+                  <span
+                    className={`absolute top-3 right-4 select-none pointer-events-none font-black leading-none text-foreground ${
+                      isHero ? "text-[140px]" : "text-[64px]"
+                    }`}
+                    style={{ opacity: 0.04 }}
+                    aria-hidden="true"
                   >
-                    {/* Faint ordinal label */}
-                    <span
-                      className="text-[80px] font-black text-foreground absolute top-2 right-3 select-none pointer-events-none leading-none"
-                      style={{ opacity: 0.04 }}
-                      aria-hidden="true"
-                    >
-                      {ordinal}
-                    </span>
+                    {ordinal}
+                  </span>
 
-                    {/* Icon container — pulses when beam arrives */}
-                    <motion.div
-                      key={iconPulseKey[idx] ?? 0}
-                      className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-orange-500/10 text-orange-500 ring-1 ring-inset ring-orange-500/20"
-                      animate={
-                        isActive
-                          ? { scale: [1, 1.15, 1] }
-                          : { scale: 1 }
-                      }
-                      transition={
-                        isActive
-                          ? { duration: 0.4, ease: "easeInOut" }
-                          : { duration: 0.2 }
-                      }
-                    >
-                      <Icon className="h-6 w-6" />
-                    </motion.div>
+                  {/* Ambient orange glow only on the hero tile, to anchor it as "the" module */}
+                  {isHero && (
+                    <div className="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-orange-500/10 blur-3xl" />
+                  )}
 
-                    <h3 className="text-lg font-bold text-foreground mb-3">
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="flex items-start justify-between">
+                      <motion.div
+                        className={`flex items-center justify-center rounded-2xl bg-orange-500/10 text-orange-500 ring-1 ring-inset ring-orange-500/20 ${
+                          isHero ? "h-16 w-16 mb-6" : "h-12 w-12 mb-4"
+                        }`}
+                        animate={{ scale: isHovered ? 1.08 : 1 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                      >
+                        <Icon className={isHero ? "h-7 w-7" : "h-5 w-5"} />
+                      </motion.div>
+
+                      {isHero && (
+                        <span className="mt-1 rounded-full border border-orange-500/30 bg-orange-500/10 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-orange-500">
+                          Core Module
+                        </span>
+                      )}
+                    </div>
+
+                    <h3
+                      className={`font-bold text-foreground ${
+                        isHero ? "text-2xl mb-3" : "text-base mb-2"
+                      }`}
+                    >
                       {cap.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground mb-6 flex-1">
+
+                    <p
+                      className={`text-muted-foreground ${
+                        isHero ? "text-sm max-w-md mb-6" : "text-xs mb-4 line-clamp-2"
+                      }`}
+                    >
                       {cap.description}
                     </p>
 
-                    {/* Staggered Chips */}
+                    {/* Bullets — full list on hero, trimmed elsewhere */}
                     <motion.div
                       initial="hidden"
                       whileInView="visible"
                       viewport={{ once: true }}
                       variants={{
-                        visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
+                        visible: { transition: { staggerChildren: 0.08, delayChildren: 0.15 } },
                       }}
-                      className="flex flex-wrap justify-center gap-1.5 mt-auto"
+                      className="flex flex-wrap gap-1.5 mt-auto"
                     >
-                      {cap.items.slice(0, 4).map((item) => (
+                      {cap.items.slice(0, bulletLimit).map((item) => (
                         <motion.span
                           key={item}
                           variants={{
-                            hidden: { opacity: 0, scale: 0.8 },
+                            hidden: { opacity: 0, scale: 0.85 },
                             visible: { opacity: 1, scale: 1, transition: { type: "spring" } },
                           }}
-                          className="inline-flex items-center rounded-md bg-muted/50 px-2 py-0.5 text-[9px] font-medium text-muted-foreground border border-border"
+                          className={`inline-flex items-center rounded-md bg-muted/50 border border-border text-muted-foreground ${
+                            isHero ? "px-2.5 py-1 text-[10px]" : "px-2 py-0.5 text-[9px]"
+                          }`}
                         >
                           {item}
                         </motion.span>
                       ))}
-                      {cap.items.length > 4 && (
-                        <motion.span
-                          variants={{
-                            hidden: { opacity: 0, scale: 0.8 },
-                            visible: { opacity: 1, scale: 1 },
-                          }}
-                          className="inline-flex items-center rounded-md bg-orange-500/10 text-orange-500 px-2 py-0.5 text-[9px] font-medium border border-orange-500/20"
-                        >
-                          +{cap.items.length - 4}
-                        </motion.span>
+                      {cap.items.length > bulletLimit && (
+                        <span className="inline-flex items-center rounded-md bg-orange-500/10 text-orange-500 border border-orange-500/20 px-2 py-0.5 text-[9px] font-medium">
+                          +{cap.items.length - bulletLimit}
+                        </span>
                       )}
                     </motion.div>
-                  </motion.div>
-                </div>
+                  </div>
+                </motion.div>
               );
             })}
           </div>

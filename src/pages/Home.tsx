@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Architecture from "@/components/sections/Architecture";
-import CTA from "@/components/sections/CTA";
 import FAQ from "@/components/sections/FAQ";
 import HeroSection from "@/components/sections/HeroSection";
 import StatisticsSection from "@/components/sections/StatisticsSection";
-import Testimonials from "@/components/sections/Testimonials";
 import UseCases from "@/components/sections/UseCases";
 import ProgressLine from "@/components/ProgressLine";
 import LoadingScreen from "@/components/LoadingScreen";
