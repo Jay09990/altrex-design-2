@@ -40,6 +40,7 @@ import { servicesRegistry } from "@/data/servicesRegistry";
 import type { ServiceData } from "@/types/service";
 import { Badge } from "@/components/ui/badge";
 import { SectionBadge } from "@/components/ui/section-badge";
+import CTASection from "@/components/CTASection";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -495,23 +496,19 @@ export const ServicePage: React.FC = () => {
         </div>
       </section>
 
-      <section className="border-y border-border bg-card/60 backdrop-blur-sm">
-        <div className="relative overflow-hidden py-28">
-          <div className="pointer-events-none absolute top-1/2 left-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-orange-500/10 blur-[100px]" />
-          <div className="mx-auto max-w-4xl px-6 relative z-10 text-center">
-            <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">{service.callToAction.title}</h3>
-            <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground mb-10">{service.callToAction.description}</p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link to="/contact">
-                <Button className="h-11 rounded-lg bg-orange-500 px-8 text-white hover:bg-primary">{service.callToAction.ctas[0] ?? "Request Demo"}<ArrowRight className="ml-2 h-4 w-4" /></Button>
-              </Link>
-              <Link to="/contact">
-                <Button variant="ghost" className="h-11 rounded-lg border border-border px-8 text-foreground hover:bg-card">{service.callToAction.ctas[1] ?? "Talk to an Expert"}</Button>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <CTASection
+        title={service.callToAction.title}
+        description={service.callToAction.description}
+        badge="[ Take Action ]"
+        primaryButton={{ 
+          label: service.callToAction.ctas[0] ?? "Request Demo", 
+          href: "/contact" 
+        }}
+        secondaryButton={{ 
+          label: service.callToAction.ctas[1] ?? "Talk to an Expert", 
+          href: "/contact" 
+        }}
+      />
     </div>
   );
 };

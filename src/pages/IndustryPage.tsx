@@ -4,15 +4,15 @@ import { useState } from "react";
 import {
   ArrowRight, CheckCircle2,
 } from "lucide-react";
-import {
-  ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar,
-} from "recharts";
+
 
 import { Button } from "@/components/ui/button";
 
 import { getIndustryBySlug } from "@/data/industriesRegistry";
 import DynamicArchitecture from "@/components/sections/DynamicArchitecture";
 import { SectionBadge } from "@/components/ui/section-badge";
+import ChallengesOrbit from "@/components/sections/ChallengesOrbit";
+import CTASection from "@/components/CTASection";
 
 // ─── Animation Variants ───────────────────────────────────────────────────────
 
@@ -116,7 +116,7 @@ const IndustryPage = () => {
   const activeModule = industry.modules[selectedModule];
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
+    <div className={`relative min-h-screen bg-background text-foreground`}>
       {/* ── Background ambient glows ── */}
       <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[700px] overflow-hidden">
         <div className="absolute left-[-5%] top-[5%] h-[500px] w-[500px] rounded-full bg-orange-500/8 blur-[120px]" />
@@ -126,70 +126,102 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════════ */}
-      <section className="mx-auto max-w-7xl px-6 pt-32 pb-24 lg:px-8">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={stagger}
-          className="max-w-4xl"
-        >
-          {/* Breadcrumb badge */}
-          <motion.div variants={fadeUp} className="mb-6">
-            <SectionBadge
-              title={`${industry.name} — Digital Platform`}
-              dot={true}
-              dotColor="bg-emerald-500"
-              className="mb-8"
+      <section className="relative isolate overflow-hidden min-h-[92vh] flex items-center pt-28 pb-20">
+        {industry.image && (
+          <div className="absolute inset-0 -z-10">
+            <img
+              src={industry.image}
+              alt={industry.name}
+              className="h-full w-full object-cover object-center"
             />
-          </motion.div>
-
-          {/* Tagline */}
-          <motion.p
-            variants={fadeUp}
-            className="font-mono text-sm tracking-[0.1em] font-bold uppercase text-accent mb-4"
-          >
-            {industry.hero.tagline}
-          </motion.p>
-
-          {/* Main heading */}
-          <motion.h1
-            variants={fadeUp}
-            className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl leading-[1.1] uppercase break-normal"
-          >
-            {industry.hero.heading}
-          </motion.h1>
-
-          {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            transition={{ delay: 0.8 }}
-            className="mt-8 max-w-2xl text-base leading-7 font-semibold text-muted-foreground sm:text-lg"
-          >
-            {industry.hero.description}
-          </motion.p>
-
-          {/* CTAs */}
+          </div>
+        )}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40"
+          style={{
+            background: "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background: "linear-gradient(to right, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.55) 38%, rgba(0,0,0,0.15) 65%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32"
+          style={{
+            background: "linear-gradient(to top, var(--background) 0%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-7xl w-full px-6 lg:px-8">
           <motion.div
-            variants={fadeUp}
-            transition={{ delay: 1 }}
-            className="mt-10 flex flex-wrap gap-4"
+            initial="hidden"
+            animate="visible"
+            variants={stagger}
+            className="max-w-4xl"
           >
-            <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-6 rounded-lg font-medium">
-                {industry.hero.ctas[0]}
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button
-                variant="ghost"
-                className="h-11 px-6 rounded-lg border border-border text-foreground hover:bg-card"
-              >
-                {industry.hero.ctas[1]}
-              </Button>
-            </Link>
+            {/* Breadcrumb badge */}
+            <motion.div variants={fadeUp} className="mb-6">
+              <SectionBadge
+                title={`${industry.name} — Digital Platform`}
+                dot={true}
+                dotColor="bg-emerald-500"
+                className="mb-8"
+              />
+            </motion.div>
+
+            {/* Tagline */}
+            <motion.p
+              variants={fadeUp}
+              className="font-mono text-sm tracking-[0.2em] uppercase text-[var(--accent-violet)] mb-4"
+              style={industry.image ? { color: "rgba(251,146,60,1)" } : undefined}
+            >
+              {industry.hero.tagline}
+            </motion.p>
+
+            {/* Main heading */}
+            <motion.h1
+              variants={fadeUp}
+              className="text-4xl font-bold tracking-[-0.03em] text-foreground sm:text-5xl lg:text-6xl leading-[1.1] uppercase break-normal"
+              style={industry.image ? { color: "white" } : undefined}
+            >
+              {industry.hero.heading}
+            </motion.h1>
+
+            {/* Description */}
+            <motion.p
+              variants={fadeUp}
+              transition={{ delay: 0.8 }}
+              className="mt-8 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg"
+              style={industry.image ? { color: "rgba(255,255,255,0.82)" } : undefined}
+            >
+              {industry.hero.description}
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              variants={fadeUp}
+              transition={{ delay: 1 }}
+              className="mt-10 flex flex-wrap gap-4"
+            >
+              <Link to="/contact">
+                <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-6 rounded-lg font-medium">
+                  {industry.hero.ctas[0]}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+              <Link to="/contact">
+                <Button
+                  variant="outline"
+                  className="h-11 px-6 rounded-lg border border-border text-foreground hover:bg-card"
+                >
+                  {industry.hero.ctas[1]}
+                </Button>
+              </Link>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════
@@ -271,91 +303,7 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           INDUSTRY CHALLENGES — Radar chart + collapsible pills
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-border bg-card/30">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={stagger}
-          >
-            <motion.div variants={fadeUp} className="mb-14 space-y-3">
-              <SectionLabel>Challenges</SectionLabel>
-              <SectionHeading>Industry Challenges</SectionHeading>
-            </motion.div>
-
-            {/* Radar chart */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-            >
-              <ResponsiveContainer width="100%" height={420}>
-                <RadarChart data={radarData} margin={{ top: 20, right: 40, bottom: 20, left: 40 }}>
-                  <PolarGrid stroke="var(--border-border)" strokeDasharray="3 3" />
-                  <PolarAngleAxis
-                    dataKey="subject"
-                    tick={RadarTick as React.ComponentType<unknown>}
-                  />
-                  <Radar
-                    name="Challenge Intensity"
-                    dataKey="score"
-                    stroke="#f97316"
-                    fill="#f97316"
-                    fillOpacity={0.12}
-                    strokeWidth={1.5}
-                  />
-                </RadarChart>
-              </ResponsiveContainer>
-            </motion.div>
-
-            {/* Challenge pills + collapsible items */}
-            <motion.div variants={fadeUp} className="mt-10">
-              {/* Pill row */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {industry.challenges.map((c, idx) => (
-                  <button
-                    key={c.title}
-                    onClick={() => setActiveChallenge(activeChallenge === idx ? null : idx)}
-                    className={`rounded-full border px-3 py-1 text-xs transition-colors duration-200 ${
-                      activeChallenge === idx
-                        ? "border-orange-500/50 bg-orange-500/10 text-orange-400"
-                        : "border-border text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {c.title}
-                  </button>
-                ))}
-              </div>
-
-              {/* Expandable items list */}
-              <AnimatePresence mode="wait">
-                {activeChallenge !== null && (
-                  <motion.ul
-                    key={activeChallenge}
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden rounded-xl border border-border bg-card/40"
-                  >
-                    {industry.challenges[activeChallenge].items.map((item) => (
-                      <li
-                        key={item}
-                        className="border-l-2 border-orange-500 pl-4 py-2.5 mx-4 my-1 text-xs text-muted-foreground"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </motion.ul>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
+      <ChallengesOrbit challenges={industry.challenges} />
       {/* ══════════════════════════════════════════════════════════
           PLATFORM MODULES — Left-rail navigator
       ══════════════════════════════════════════════════════════ */}
@@ -736,56 +684,13 @@ const IndustryPage = () => {
       {/* ══════════════════════════════════════════════════════════
           CTA FOOTER
       ══════════════════════════════════════════════════════════ */}
-      <section className="border-t border-border">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={stagger}
-          className="mx-auto max-w-7xl px-6 lg:px-8 py-24 text-center"
-        >
-          <motion.p
-            variants={fadeUp}
-            className="font-mono text-xs text-muted-foreground tracking-[0.25em] uppercase mb-6"
-          >
-            [ READY TO START ]
-          </motion.p>
-
-          <motion.h2
-            variants={fadeUp}
-            className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-3xl mx-auto"
-          >
-            {industry.cta.heading}
-          </motion.h2>
-
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-7"
-          >
-            {industry.cta.description}
-          </motion.p>
-
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 flex flex-wrap gap-4 justify-center"
-          >
-            <Link to="/contact">
-              <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-8 rounded-lg font-medium">
-                Request Demo
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button
-                variant="ghost"
-                className="h-11 px-8 rounded-lg border border-border text-foreground hover:bg-card"
-              >
-                Talk to an Expert
-              </Button>
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
+      <CTASection
+        title={industry.cta.heading}
+        description={industry.cta.description}
+        badge="[ READY TO START ]"
+        primaryButton={{ label: "Request Demo", href: "/contact" }}
+        secondaryButton={{ label: "Talk to an Expert", href: "/contact" }}
+      />
     </div>
   );
 };

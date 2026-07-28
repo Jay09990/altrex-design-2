@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { motion, type Variants } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface CTAData {
@@ -6,34 +8,76 @@ interface CTAData {
   description: string;
   primaryButton: { label: string; href: string };
   secondaryButton: { label: string; href: string };
+  badge?: string;
 }
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 32 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1 } },
+};
 
 const CTASection = ({
   title,
   description,
   primaryButton,
   secondaryButton,
+  badge = "[ READY TO START ]",
 }: CTAData) => {
   return (
-    <section className="relative mb-14 overflow-hidden rounded-3xl border border-border px-10 py-9 text-foreground max-w-7xl mx-auto">
-      <div className="flex flex-wrap items-center justify-between gap-6">
-        <div>
-          <h2 className="font-bold text-4xl text-foreground leading-snug">
-            {title}
-          </h2>
-          <p className="mt-1.5 text-lg text-muted-foreground font-semibold max-w-xl leading-relaxed">
-            {description}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2.5">
+    <section className="border-t border-b border-border mt-20">
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={stagger}
+        className="mx-auto max-w-7xl px-6 lg:px-8 py-24 text-center"
+      >
+        <motion.p
+          variants={fadeUp}
+          className="font-mono text-xs text-muted-foreground tracking-[0.25em] uppercase mb-6"
+        >
+          {badge}
+        </motion.p>
+
+        <motion.h2
+          variants={fadeUp}
+          className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl lg:text-5xl max-w-3xl mx-auto"
+        >
+          {title}
+        </motion.h2>
+
+        <motion.p
+          variants={fadeUp}
+          className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-7"
+        >
+          {description}
+        </motion.p>
+
+        <motion.div
+          variants={fadeUp}
+          className="mt-10 flex flex-wrap gap-4 justify-center"
+        >
           <Link to={primaryButton.href}>
-            <Button className="bg-accent cursor-pointer">{primaryButton.label}</Button>
+            <Button className="bg-orange-500 hover:bg-primary text-white h-11 px-8 rounded-lg font-medium">
+              {primaryButton.label}
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
           </Link>
           <Link to={secondaryButton.href}>
-            <Button variant="outline" className="cursor-pointer">{secondaryButton.label}</Button>
+            <Button
+              variant="ghost"
+              className="h-11 px-8 rounded-lg border border-border text-foreground hover:bg-card"
+            >
+              {secondaryButton.label}
+            </Button>
           </Link>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

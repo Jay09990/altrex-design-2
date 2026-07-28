@@ -46,6 +46,7 @@ export interface IndustryBenefit {
 export interface IndustryData {
   slug: string;
   name: string;
+  image?: string; // path relative to /public, e.g. "/industries/renewable-energy.jpg"
 
   hero: {
     /** Short mono-uppercase tagline above the heading */
