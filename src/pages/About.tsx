@@ -912,7 +912,7 @@ function TeamSection() {
               <p className="mt-1 text-sm font-medium text-accent">
                 {member.role}
               </p>
-              <p className="mt-4 text-xs font-medium leading-5 text-muted-foreground">
+              <p className="mt-4 font-medium leading-7 text-sm text-muted-foreground">
                 {member.bio}
               </p>
 
@@ -981,7 +981,7 @@ function ValuesSection() {
                   <h3 className="mt-4 text-xl font-semibold text-foreground">
                     {item.title}
                   </h3>
-                  <p className="mt-3 leading-7 text-muted-foreground">
+                  <p className="mt-3 leading-7 text-muted-foreground font-medium">
                     {item.description}
                   </p>
                 </div>

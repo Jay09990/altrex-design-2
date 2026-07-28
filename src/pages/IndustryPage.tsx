@@ -26,11 +26,6 @@ const stagger: Variants = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const staggerFast: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.07 } },
-};
-
 const cardVariant: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -151,7 +146,7 @@ const IndustryPage = () => {
           {/* Tagline */}
           <motion.p
             variants={fadeUp}
-            className="font-mono text-sm tracking-[0.2em] uppercase text-[var(--accent-violet)] mb-4"
+            className="font-mono text-sm tracking-[0.1em] font-bold uppercase text-accent mb-4"
           >
             {industry.hero.tagline}
           </motion.p>
@@ -168,7 +163,7 @@ const IndustryPage = () => {
           <motion.p
             variants={fadeUp}
             transition={{ delay: 0.8 }}
-            className="mt-8 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg"
+            className="mt-8 max-w-2xl text-base leading-7 font-semibold text-muted-foreground sm:text-lg"
           >
             {industry.hero.description}
           </motion.p>
