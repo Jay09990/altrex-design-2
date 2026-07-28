@@ -39,7 +39,7 @@ const CTASection = ({
       >
         <motion.p
           variants={fadeUp}
-          className="font-mono text-xs text-muted-foreground tracking-[0.25em] uppercase mb-6"
+          className="font-mono font-semibold text-xs text-muted-foreground tracking-[0.25em] uppercase mb-6"
         >
           {badge}
         </motion.p>
@@ -53,7 +53,7 @@ const CTASection = ({
 
         <motion.p
           variants={fadeUp}
-          className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground leading-7"
+          className="mt-6 max-w-2xl mx-auto text-base text-muted-foreground font-medium leading-7"
         >
           {description}
         </motion.p>
